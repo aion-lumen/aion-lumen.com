@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-accent="gold" data-lang="en" data-hand="on">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Folio — Local-first life planning · Aion Lumen</title>
+<meta name="description" content="Folio: a markdown vault as memory, a local AI agent as your strategy partner. Plan your life in five acts, on your own machine." />
+<link rel="stylesheet" href="../styles/base.css?v=2" />
+<style>
+  /* ──────────────────────────────────────────────────────────────
+   * Folio subpage
+   * Mood: evening at the hearth. Darker, slower, deeper.
+   * ────────────────────────────────────────────────────────────── */
+
+  /* Force darker base regardless of preference — this is the night room */
+  :root[data-folio-locked="dark"] {
+    --bg:        #08070B;
+    --bg-warm:   #110D17;
+    --bg-deep:   #18121F;
+    --ink:       #F4ECDD;
+    --ink-soft:  #C7B89F;
+    --ink-mute:  #8C7E6A;
+    --rule:      #2A2330;
+    --rule-soft: #1A1622;
+    --accent:    var(--c-gold);
+    --accent-warm: var(--c-gold);
+    --accent-glow: rgba(212, 163, 115, 0.24);
+  }
+  :root[data-folio-locked="dark"][data-accent="olive"] {
+    --accent:      #A8C264;
+    --accent-warm: #C5DA85;
+    --accent-glow: rgba(168, 194, 100, 0.22);
+  }
+
+  body {
+    background:
+      radial-gradient(ellipse at 70% 0%, color-mix(in srgb, var(--accent) 8%, transparent) 0%, transparent 50%),
+      radial-gradient(ellipse at 0% 100%, color-mix(in srgb, var(--c-brown) 14%, transparent) 0%, transparent 60%),
+      var(--bg);
+    color: var(--ink);
+  }
+
+  /* ── Hero ────────────────────────────────────────────────── */
+  .f-hero {
+    padding: clamp(120px, 18vh, 200px) var(--gutter) clamp(60px, 8vh, 100px);
+    position: relative;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  .f-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ink-mute);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 48px;
+    transition: color 200ms ease;
+  }
+  .f-back:hover { color: var(--accent); }
+  .f-back .arr { transition: transform 240ms ease; }
+  .f-back:hover .arr { transform: translateX(-4px); }
+
+  .f-eyebrow {
+    color: var(--accent);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .f-eyebrow .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent-glow);
+  }
+
+  .f-name {
+    font-family: var(--f-display);
+    font-size: clamp(96px, 16vw, 240px);
+    font-weight: 600;
+    letter-spacing: -0.06em;
+    line-height: 0.9;
+    color: var(--ink);
+    margin-bottom: 24px;
+    text-shadow: 0 0 80px var(--accent-glow);
+  }
+  .f-name .dot {
+    color: var(--accent);
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .f-tag {
+    font-family: var(--f-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(22px, 1.5vw + 0.6rem, 32px);
+    line-height: 1.35;
+    color: var(--ink-soft);
+    max-width: 36ch;
+    text-wrap: pretty;
+  }
+  .f-tag em { color: var(--accent); }
+
+  .f-meta-row {
+    margin-top: clamp(48px, 6vw, 80px);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
+  }
+  .f-badge {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    padding: 6px 12px;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    color: var(--ink-mute);
+    background: var(--bg-warm);
+  }
+  .f-badge.live {
+    color: var(--accent);
+    border-color: var(--accent);
+    position: relative;
+    padding-left: 22px;
+  }
+  .f-badge.live::before {
+    content: '';
+    position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+    width: 5px; height: 5px; border-radius: 50%; background: var(--accent);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 var(--accent-glow); }
+    50%      { box-shadow: 0 0 0 6px transparent; }
+  }
+  .f-badge.code {
+    font-family: var(--f-mono);
+    color: var(--ink-soft);
+  }
+
+  /* ── Hero plate (large screenshot) ─────────────────────── */
+  .f-plate {
+    margin: clamp(60px, 8vh, 120px) var(--gutter) 0;
+    max-width: 1500px;
+    margin-left: auto; margin-right: auto;
+    position: relative;
+  }
+  .f-plate-frame {
+    position: relative;
+    border: 1px solid var(--rule);
+    overflow: hidden;
+    background: var(--bg-deep);
+    aspect-ratio: 16 / 9.5;
+    box-shadow:
+      0 80px 120px -40px rgba(0,0,0,0.6),
+      0 0 0 1px var(--rule);
+  }
+  .f-plate-frame::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 0%, transparent 0%, transparent 60%, rgba(0,0,0,0.5) 100%);
+    pointer-events: none;
+    z-index: 2;
+  }
+  .f-plate-frame img {
+    width: 100%; height: 100%; object-fit: cover; object-position: top center;
+    filter: saturate(0.95) contrast(1.04) brightness(0.97);
+  }
+  .f-plate-tag {
+    position: absolute;
+    top: 16px; left: 16px;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    background: color-mix(in srgb, var(--bg) 70%, transparent);
+    backdrop-filter: blur(8px);
+    padding: 6px 10px;
+    border-radius: 2px;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .f-plate-tag .dot {
+    width: 5px; height: 5px; border-radius: 50%; background: var(--accent);
+  }
+  .f-plate-caption {
+    margin-top: 16px;
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .f-plate-caption .right {
+    font-family: var(--f-hand);
+    font-size: 22px;
+    color: var(--accent);
+    letter-spacing: 0;
+    text-transform: none;
+    transform: rotate(-2deg);
+    opacity: var(--hand-opacity);
+  }
+
+  /* ── Manifesto block ─────────────────────────────────────── */
+  .f-manifesto {
+    padding: clamp(80px, 12vh, 160px) 0 clamp(80px, 12vh, 140px);
+    position: relative;
+  }
+  .f-manifesto .grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: clamp(32px, 5vw, 80px);
+    align-items: start;
+  }
+  .f-manifesto-label {
+    color: var(--ink-mute);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border-top: 1px solid var(--accent);
+    padding-top: 14px;
+    position: sticky;
+    top: 90px;
+  }
+  .f-manifesto-label .num {
+    display: block;
+    color: var(--ink);
+    font-family: var(--f-display);
+    font-size: 38px;
+    letter-spacing: -0.02em;
+    margin-top: 6px;
+    font-weight: 500;
+    text-transform: none;
+  }
+  .f-manifesto-body p {
+    font-size: clamp(20px, 1.2vw + 0.7rem, 28px);
+    line-height: 1.55;
+    color: var(--ink);
+    max-width: 60ch;
+    margin-bottom: 1.4em;
+    text-wrap: pretty;
+  }
+  .f-manifesto-body em { color: var(--accent); font-style: italic; }
+  .f-manifesto-body p + p { color: var(--ink-soft); }
+  .f-manifesto-pull {
+    font-family: var(--f-display);
+    font-style: italic;
+    font-size: clamp(28px, 2.4vw + 0.5rem, 44px);
+    line-height: 1.18;
+    color: var(--ink);
+    border-left: 1px solid var(--accent);
+    padding-left: 28px;
+    margin: 56px 0 32px;
+    max-width: 24ch;
+    text-wrap: balance;
+    font-weight: 400;
+  }
+  .f-manifesto-pull em { color: var(--accent); }
+
+  /* ── Five acts (Folio's mental model) ──────────────────── */
+  .f-acts {
+    padding: clamp(60px, 8vh, 120px) 0;
+    position: relative;
+  }
+  .f-acts-head {
+    margin-bottom: clamp(40px, 5vw, 56px);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .f-acts-head .label {
+    color: var(--ink-mute);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .f-acts-head .by {
+    font-family: var(--f-display);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--ink-soft);
+  }
+
+  .f-acts-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    border: 1px solid var(--rule);
+    background: var(--rule);
+  }
+  .f-act {
+    background: var(--bg-warm);
+    padding: 28px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: background 400ms ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .f-act:hover { background: var(--bg-deep); }
+  .f-act.is-active {
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 14%, var(--bg-warm)) 0%, var(--bg-warm) 100%);
+  }
+  .f-act.is-active::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: var(--accent);
+  }
+  .f-act-num {
+    font-family: var(--f-display);
+    font-size: 28px;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .f-act-name {
+    font-family: var(--f-display);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .f-act-period {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-top: auto;
+  }
+  .f-act .pip {
+    height: 3px;
+    background: var(--rule);
+    margin-top: 8px;
+    overflow: hidden;
+    border-radius: 2px;
+    position: relative;
+  }
+  .f-act .pip::after {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: var(--p, 0%);
+    background: var(--accent);
+  }
+  .f-act.muted { opacity: 0.55; }
+
+  /* ── Gallery ──────────────────────────────────────────── */
+  .f-gallery {
+    padding: clamp(60px, 8vh, 120px) 0;
+  }
+  .f-gallery-head {
+    margin-bottom: clamp(32px, 4vw, 48px);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .f-gallery-head .label {
+    color: var(--ink-mute);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .f-gallery-head h3 {
+    font-family: var(--f-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(24px, 2vw + 0.4rem, 36px);
+    color: var(--ink);
+    max-width: 26ch;
+    line-height: 1.25;
+  }
+
+  .f-gal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(16px, 2vw, 28px);
+  }
+  .f-gal {
+    border: 1px solid var(--rule);
+    overflow: hidden;
+    background: var(--bg-deep);
+    position: relative;
+    transition: transform 600ms cubic-bezier(0.22, 0.6, 0.3, 1), border-color 300ms ease;
+  }
+  .f-gal:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .f-gal-frame {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    position: relative;
+  }
+  .f-gal-frame img {
+    width: 100%; height: 100%; object-fit: cover; object-position: top left;
+    filter: saturate(0.92) contrast(1.04) brightness(0.96);
+  }
+  .f-gal-frame::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.4) 100%);
+  }
+  .f-gal-meta {
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-top: 1px solid var(--rule);
+    background: var(--bg-warm);
+  }
+  .f-gal-meta .num {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+  }
+  .f-gal-meta h4 {
+    font-family: var(--f-display);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .f-gal-meta p {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    max-width: 28ch;
+  }
+
+  /* ── Status ───────────────────────────────────────────── */
+  .f-status {
+    padding: clamp(60px, 8vh, 120px) 0;
+  }
+  .f-status .grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(32px, 4vw, 64px);
+  }
+  .f-status-col h3 {
+    font-family: var(--f-display);
+    font-size: clamp(22px, 1.6vw + 0.4rem, 30px);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+    color: var(--ink);
+  }
+  .f-status-col h3 .num {
+    color: var(--accent);
+    font-family: var(--f-mono);
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    margin-right: 12px;
+    font-weight: 400;
+  }
+  .f-status-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .f-status-list li {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--rule-soft);
+    color: var(--ink-soft);
+    font-size: 14.5px;
+    line-height: 1.45;
+    align-items: baseline;
+  }
+  .f-status-list li .ix {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+  .f-status-list.next li .ix { color: var(--ink-mute); }
+  .f-status-list.now li .ix::after { content: ' ✓'; }
+
+  /* ── CTA ───────────────────────────────────────────── */
+  .f-cta {
+    padding: clamp(60px, 10vh, 140px) 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    text-align: center;
+    position: relative;
+    background:
+      radial-gradient(ellipse at 50% 50%, color-mix(in srgb, var(--accent) 8%, transparent) 0%, transparent 60%);
+  }
+  .f-cta-eyebrow {
+    color: var(--accent);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .f-cta-line {
+    font-family: var(--f-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(28px, 3.2vw + 0.4rem, 56px);
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 36px;
+    max-width: 22ch;
+    margin-left: auto; margin-right: auto;
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+  .f-cta-line em { color: var(--accent); font-style: italic; }
+  .f-cta-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .f-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px;
+    font-family: var(--f-mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border: 1px solid var(--accent);
+    border-radius: 2px;
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    transition: background 240ms ease, color 240ms ease, transform 240ms ease;
+  }
+  .f-btn:hover { background: var(--accent); color: var(--c-app-dark); }
+  .f-btn .arr { transition: transform 240ms ease; }
+  .f-btn:hover .arr { transform: translateX(4px); }
+  .f-btn.ghost { border-color: var(--rule); }
+  .f-btn.ghost:hover { background: var(--bg-warm); color: var(--ink); border-color: var(--accent); }
+  .f-cta-meta {
+    margin-top: 24px;
+    color: var(--ink-mute);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── Footer (folio variant) ──────────────────────────── */
+  .f-foot {
+    padding: clamp(28px, 4vw, 48px) var(--gutter);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 24px;
+    color: var(--ink-mute);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .f-foot a { color: var(--ink-soft); border-bottom: 1px solid transparent; transition: color 180ms, border-color 180ms; }
+  .f-foot a:hover { color: var(--accent); border-color: var(--accent); }
+  .f-foot .left { font-family: var(--f-display); font-size: 13px; color: var(--ink); letter-spacing: 0; text-transform: none; }
+  .f-foot .ham { font-family: var(--f-hand); font-size: 22px; color: var(--accent); letter-spacing: 0; text-transform: none; opacity: var(--hand-opacity); transform: rotate(-3deg); }
+
+  /* ── Responsive ────────────────────────────────────── */
+  @media (max-width: 880px) {
+    .f-manifesto .grid { grid-template-columns: 1fr; gap: 20px; }
+    .f-manifesto-label { position: relative; top: 0; }
+    .f-acts-grid { grid-template-columns: repeat(5, 1fr); }
+    .f-status .grid { grid-template-columns: 1fr; }
+    .f-gal-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .f-acts-grid { grid-template-columns: 1fr; }
+    .f-name { font-size: 22vw; }
+  }
+
+  /* hand block visibility tied to user preference */
+</style>
+</head>
+<body data-folio-locked="dark">
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <a href="../index.html" class="topbar-mark" aria-label="Aion Lumen home">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <path d="M12 2 L12 22 M5 8 L19 8 M7 14 L17 14" stroke-linecap="round"/>
+        <circle cx="12" cy="2.5" r="1.4" fill="currentColor" stroke="none"/>
+      </svg>
+      Aion Lumen
+    </a>
+    <div class="topbar-spacer"></div>
+    <div class="tb-group" role="group" aria-label="Language">
+      <button class="tb-btn" data-tb="lang:en">EN</button>
+      <button class="tb-btn" data-tb="lang:de">DE</button>
+    </div>
+    <div class="tb-group" role="group" aria-label="Accent">
+      <button class="tb-btn" data-tb="accent:gold">Gold</button>
+      <button class="tb-btn" data-tb="accent:olive">Olive</button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="f-hero" data-screen-label="01 Folio Hero">
+      <a href="../index.html" class="f-back">
+        <span class="arr">←</span>
+        <span class="en">Aion Lumen</span><span class="de">Aion Lumen</span>
+      </a>
+
+      <div class="f-eyebrow">
+        <span class="dot"></span>
+        <span class="en">Plate I · Public preview · v0.1.0</span>
+        <span class="de">Tafel I · Öffentliche Vorschau · v0.1.0</span>
+      </div>
+
+      <h1 class="f-name">Folio<span class="dot">.</span></h1>
+
+      <p class="f-tag">
+        <span class="en">A markdown vault as <em>memory</em>.<br/>A local AI agent as your <em>strategy partner</em>.</span>
+        <span class="de">Ein Markdown-Vault als <em>Gedächtnis</em>.<br/>Eine lokale KI als <em>Strategie-Partnerin</em>.</span>
+      </p>
+
+      <div class="f-meta-row">
+        <span class="f-badge live">v0.1.0</span>
+        <span class="f-badge"><span class="en">Public preview</span><span class="de">Öffentliche Vorschau</span></span>
+        <span class="f-badge code">AGPL-3.0</span>
+        <span class="f-badge"><span class="en">Local-first · Linux / macOS / WSL2</span><span class="de">Lokal-first · Linux / macOS / WSL2</span></span>
+      </div>
+    </section>
+
+    <!-- Plate -->
+    <section class="f-plate" data-screen-label="02 Plate">
+      <div class="f-plate-frame">
+        <div class="f-plate-tag"><span class="dot"></span>demo-vault.local · Akt I · Kapitel 1 · synced 22:37</div>
+        <img src="../assets/folio-01-overview.png" alt="Folio dashboard — full overview with timeline, kanban and Hermes chat panel" />
+      </div>
+      <div class="f-plate-caption">
+        <span><span class="en">Pl. I · Folio dashboard · v0.1.0</span><span class="de">Tafel I · Folio-Dashboard · v0.1.0</span></span>
+        <span class="right hand-block hand">
+          <span class="en">a desk lit late.</span>
+          <span class="de">ein Schreibtisch, spät beleuchtet.</span>
+        </span>
+      </div>
+    </section>
+
+    <div class="wrap">
+
+      <!-- Manifesto -->
+      <section class="f-manifesto" data-screen-label="03 Folio manifesto">
+        <div class="grid">
+          <aside class="f-manifesto-label">
+            <span class="en">§ Mental model</span><span class="de">§ Denkmodell</span>
+            <span class="num">I.</span>
+          </aside>
+          <div class="f-manifesto-body">
+            <p class="reveal">
+              <span class="en">Your life is a <em>multi-act campaign</em>. You're not planning the next quarter — you're planning the next ten years. Folio gives you the tools: a vault as <em>memory</em>, an AI as a <em>strategy partner</em>, a visual overview of the acts of your life.</span>
+              <span class="de">Dein Leben ist eine <em>Mehr-Akt-Kampagne</em>. Du planst nicht das nächste Quartal — du planst die nächsten zehn Jahre. Folio gibt dir die Werkzeuge: ein Vault als <em>Gedächtnis</em>, eine KI als <em>Strategie-Partnerin</em>, eine visuelle Übersicht über deine Lebens-Akte.</span>
+            </p>
+            <p class="reveal" style="--d: 100ms;">
+              <span class="en">The structure borrows from Frostpunk II — acts, chapters, minimum thresholds, paths. The atmosphere is closer to Walden than to Trello: warmth in the centre, knowable territory, a fire to come back to.</span>
+              <span class="de">Die Struktur leiht sich von Frostpunk II — Akte, Kapitel, Mindest-Schwellen, Pfade. Die Atmosphäre ist näher an Walden als an Trello: Wärme im Zentrum, bekanntes Gelände, ein Feuer, zu dem man zurückkehrt.</span>
+            </p>
+            <blockquote class="f-manifesto-pull reveal" style="--d: 200ms;">
+              <span class="en">A vault as memory.<br/>A campaign as <em>structure</em>.<br/>A hearth at the centre.</span>
+              <span class="de">Ein Vault als Gedächtnis.<br/>Eine Kampagne als <em>Struktur</em>.<br/>Eine Feuerstelle im Zentrum.</span>
+            </blockquote>
+            <p class="reveal" style="--d: 280ms; color: var(--ink-mute); font-size: 15px; font-style: italic;">
+              <span class="en">— from the README, paraphrased</span>
+              <span class="de">— aus der README, paraphrasiert</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Five acts -->
+      <section class="f-acts" data-screen-label="04 Five acts">
+        <header class="f-acts-head">
+          <div class="label"><span class="en">§ The five acts of a campaign</span><span class="de">§ Die fünf Akte einer Kampagne</span></div>
+          <div class="by"><span class="en">a 126-month arc, by default</span><span class="de">ein 126-monatiger Bogen, standardmäßig</span></div>
+        </header>
+        <div class="f-acts-grid">
+          <div class="f-act is-active">
+            <span class="f-act-num">I</span>
+            <span class="f-act-name"><span class="en">Foundation</span><span class="de">Fundament</span></span>
+            <div class="pip" style="--p: 40%"></div>
+            <span class="f-act-period">2026</span>
+          </div>
+          <div class="f-act muted">
+            <span class="f-act-num">II</span>
+            <span class="f-act-name"><span class="en">Build</span><span class="de">Aufbau</span></span>
+            <div class="pip" style="--p: 0%"></div>
+            <span class="f-act-period">2027</span>
+          </div>
+          <div class="f-act muted">
+            <span class="f-act-num">III</span>
+            <span class="f-act-name"><span class="en">Density</span><span class="de">Verdichtung</span></span>
+            <div class="pip" style="--p: 0%"></div>
+            <span class="f-act-period">2028 — 2029</span>
+          </div>
+          <div class="f-act muted">
+            <span class="f-act-num">IV</span>
+            <span class="f-act-name"><span class="en">Scale</span><span class="de">Skalierung</span></span>
+            <div class="pip" style="--p: 0%"></div>
+            <span class="f-act-period">2030 — 2032</span>
+          </div>
+          <div class="f-act muted">
+            <span class="f-act-num">V</span>
+            <span class="f-act-name"><span class="en">Full picture</span><span class="de">Vollbild</span></span>
+            <div class="pip" style="--p: 0%"></div>
+            <span class="f-act-period">2033 — 2036</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gallery -->
+      <section class="f-gallery" data-screen-label="05 Gallery">
+        <header class="f-gallery-head">
+          <div class="label"><span class="en">§ What it looks like</span><span class="de">§ Wie es aussieht</span></div>
+          <h3>
+            <span class="en">Three plates from the night-side of the dashboard.</span>
+            <span class="de">Drei Tafeln von der Nachtseite des Dashboards.</span>
+          </h3>
+        </header>
+        <div class="f-gal-grid">
+          <article class="f-gal reveal">
+            <div class="f-gal-frame"><img src="../assets/folio-02-timeline.png" alt="Five-act timeline view in Folio" /></div>
+            <div class="f-gal-meta">
+              <span class="num">Pl. II</span>
+              <h4><span class="en">Timeline</span><span class="de">Zeitlinie</span></h4>
+              <p><span class="en">Five acts, the active one lit. Long horizons made visible.</span><span class="de">Fünf Akte, der aktive leuchtet. Lange Horizonte sichtbar gemacht.</span></p>
+            </div>
+          </article>
+          <article class="f-gal reveal" style="--d: 100ms;">
+            <div class="f-gal-frame"><img src="../assets/folio-03-kanban.png" alt="Kanban view with four status columns" /></div>
+            <div class="f-gal-meta">
+              <span class="num">Pl. III</span>
+              <h4><span class="en">Kanban</span><span class="de">Kanban</span></h4>
+              <p><span class="en">Open · In progress · Blocked · Done. Drag-and-drop, written to plain markdown.</span><span class="de">Offen · In Arbeit · Blockiert · Erledigt. Drag-and-Drop, schreibt reines Markdown.</span></p>
+            </div>
+          </article>
+          <article class="f-gal reveal" style="--d: 200ms;">
+            <div class="f-gal-frame"><img src="../assets/folio-04-chat.png" alt="Hermes chat panel reading vault files via tool calls" /></div>
+            <div class="f-gal-meta">
+              <span class="num">Pl. IV</span>
+              <h4><span class="en">Hermes chat</span><span class="de">Hermes-Chat</span></h4>
+              <p><span class="en">A local agent that reads &amp; edits your vault. Tool calls, not magic.</span><span class="de">Eine lokale Agentin, die deinen Vault liest und ändert. Tool-Calls, kein Zauber.</span></p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Status -->
+      <section class="f-status" data-screen-label="06 Status">
+        <div class="grid">
+          <div class="f-status-col">
+            <h3><span class="num">v0.1.0</span><span class="en">What works today</span><span class="de">Was heute funktioniert</span></h3>
+            <ul class="f-status-list now">
+              <li><span class="ix">01</span><span><span class="en">Strategic view — campaign banner, all five acts, active chapter</span><span class="de">Strategische Sicht — Kampagnen-Banner, alle fünf Akte, aktives Kapitel</span></span></li>
+              <li><span class="ix">02</span><span><span class="en">Tactical view — kanban with drag-and-drop, gantt, objective selection</span><span class="de">Taktische Sicht — Kanban mit Drag-and-Drop, Gantt, Objective-Auswahl</span></span></li>
+              <li><span class="ix">03</span><span><span class="en">Objective detail panel — status, deadline, progress note, history</span><span class="de">Objective-Detail-Panel — Status, Deadline, Progress-Note, Historie</span></span></li>
+              <li><span class="ix">04</span><span><span class="en">Hermes chat — agent reads &amp; edits vault files via tool calls</span><span class="de">Hermes-Chat — Agentin liest und ändert Vault-Dateien via Tool-Calls</span></span></li>
+              <li><span class="ix">05</span><span><span class="en">Vault format — plain markdown + YAML frontmatter, git-friendly</span><span class="de">Vault-Format — reines Markdown + YAML-Frontmatter, git-fähig</span></span></li>
+              <li><span class="ix">06</span><span><span class="en">Setup wizard, demo vault, model switcher</span><span class="de">Setup-Wizard, Demo-Vault, Modell-Switcher</span></span></li>
+            </ul>
+          </div>
+          <div class="f-status-col">
+            <h3><span class="num">→ next</span><span class="en">What's coming</span><span class="de">Was als nächstes kommt</span></h3>
+            <ul class="f-status-list next">
+              <li><span class="ix">v0.2</span><span><span class="en">Voice input (STT), interview-style setup wizard, mobile PWA, approval UI for risky tool calls</span><span class="de">Spracheingabe (STT), Interview-Setup-Wizard, Mobile PWA, Approval-UI für riskante Tool-Calls</span></span></li>
+              <li><span class="ix">v0.3</span><span><span class="en">Frostpunk view — generator metaphor, resource decay, harder visual atmosphere</span><span class="de">Frostpunk-Sicht — Generator-Metapher, Ressourcen-Decay, härtere visuelle Atmosphäre</span></span></li>
+              <li><span class="ix">v1.0</span><span><span class="en">Multi-user, NAS deployment, public vault templates</span><span class="de">Multi-User, NAS-Deploy, öffentliche Vault-Templates</span></span></li>
+            </ul>
+            <p style="margin-top: 24px; color: var(--ink-mute); font-size: 13px; font-family: var(--f-mono); letter-spacing: 0.06em; line-height: 1.6;">
+              <span class="en">Built by one person. Slow on purpose.<br/>Issues and pull requests welcome.</span>
+              <span class="de">Von einer Person gebaut. Bewusst langsam.<br/>Issues und Pull-Requests willkommen.</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- CTA -->
+    <section class="f-cta" data-screen-label="07 CTA">
+      <div class="wrap">
+        <div class="f-cta-eyebrow">
+          <span class="en">The fire is already lit</span>
+          <span class="de">Das Feuer brennt bereits</span>
+        </div>
+        <h3 class="f-cta-line">
+          <span class="en">Use it.<br/>Break it.<br/><em>Tell me what you learn.</em></span>
+          <span class="de">Nutze es.<br/>Zerbreche es.<br/><em>Erzähl mir, was du lernst.</em></span>
+        </h3>
+        <div class="f-cta-row">
+          <a class="f-btn" href="https://github.com/aion-lumen/life-dashboard" target="_blank" rel="noopener">
+            <span class="en">View on GitHub</span><span class="de">Auf GitHub ansehen</span>
+            <span class="arr">↗</span>
+          </a>
+          <a class="f-btn ghost" href="https://github.com/aion-lumen/life-dashboard#quick-start" target="_blank" rel="noopener">
+            <span class="en">Read the quick start</span><span class="de">Quick-Start lesen</span>
+            <span class="arr">→</span>
+          </a>
+        </div>
+        <div class="f-cta-meta">AGPL-3.0 · v0.1.0 · MMXXVI</div>
+      </div>
+    </section>
+
+    <!-- Coda -->
+    <section style="padding: clamp(60px, 10vh, 120px) var(--gutter); text-align: center;">
+      <p style="font-family: var(--f-display); font-style: italic; font-size: clamp(20px, 1.4vw + 0.4rem, 26px); color: var(--ink-soft); max-width: 30ch; margin: 0 auto; line-height: 1.45; text-wrap: balance;">
+        <span class="en">"Tools for the next decade of your life — kept on your machine, in your formats, on your terms."</span>
+        <span class="de">„Werkzeuge für das nächste Jahrzehnt deines Lebens — auf deinem Rechner, in deinen Formaten, zu deinen Bedingungen."</span>
+      </p>
+      <div class="hand-block hand" style="margin-top: 24px; font-family: var(--f-hand); font-size: 28px; color: var(--accent); transform: rotate(-3deg); display: inline-block; opacity: var(--hand-opacity);">— afm.</div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="f-foot">
+    <div class="left">
+      <span class="en">Folio · part of Aion Lumen</span>
+      <span class="de">Folio · Teil von Aion Lumen</span>
+    </div>
+    <div>
+      <a href="../index.html"><span class="en">← Back to Aion Lumen</span><span class="de">← Zurück zu Aion Lumen</span></a>
+      &nbsp;&nbsp;·&nbsp;&nbsp;
+      <a href="https://github.com/aion-lumen/life-dashboard" target="_blank" rel="noopener">GitHub ↗</a>
+      &nbsp;&nbsp;·&nbsp;&nbsp;
+      <a href="#" data-email="reveal" class="link-soft" style="border: none; padding: 0; text-transform: none; font-family: var(--f-body); letter-spacing: 0;"></a>
+    </div>
+    <div class="ham hand-block hand">— hearth lit, MMXXVI</div>
+  </footer>
+
+<script src="../styles/controls.js"></script>
+<script src="../styles/tweaks.js"></script>
+</body>
+</html>

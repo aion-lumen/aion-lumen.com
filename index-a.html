@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-accent="gold" data-lang="en" data-hand="on">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Aion Lumen — Local-first tools at human timescales</title>
+<meta name="description" content="Local-first software tools, built for the next decade of your life. Markdown over databases. Local AI over cloud APIs. Substance over polish." />
+<link rel="stylesheet" href="styles/base.css?v=2" />
+<style>
+  /* ──────────────────────────────────────────────────────────────
+   * Konzept A — Centered, classical
+   * Long verticals · generous whitespace · single column dominant
+   * Asymmetric hand-marks at the edges break the symmetry
+   * ────────────────────────────────────────────────────────────── */
+
+  /* Hero — variant 1 (classical centered, default) */
+  .hero {
+    padding: clamp(140px, 20vh, 240px) var(--gutter) clamp(80px, 12vh, 140px);
+    text-align: center;
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--ink-mute);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 36px;
+  }
+  .hero-eyebrow::before, .hero-eyebrow::after {
+    content: '';
+    width: 36px; height: 1px; background: var(--rule);
+  }
+  .hero-title {
+    font-family: var(--f-display);
+    font-size: var(--t-display);
+    font-weight: 600;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+  }
+  .hero-title .glow { color: var(--accent); font-style: italic; font-weight: 500; position: relative; }
+  .hero-title .glow::after {
+    content: '';
+    position: absolute; left: -4%; right: -4%; bottom: 0.05em; height: 0.35em;
+    background: radial-gradient(ellipse at center, var(--accent-glow), transparent 70%);
+    z-index: -1;
+    pointer-events: none;
+  }
+  .hero-tagline {
+    margin-top: clamp(28px, 3.5vh, 44px);
+    font-size: var(--t-lead);
+    color: var(--ink-soft);
+    max-width: 580px;
+    margin-left: auto; margin-right: auto;
+    text-wrap: pretty;
+    font-style: italic;
+    font-family: var(--f-display);
+    font-weight: 400;
+  }
+  .hero-meta {
+    margin-top: clamp(48px, 6vh, 72px);
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    flex-wrap: wrap;
+    color: var(--ink-mute);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .hero-meta span { display: inline-flex; align-items: center; gap: 8px; }
+  .hero-meta .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block; }
+
+  /* Floating beacon mark — slightly off-axis */
+  .beacon {
+    position: absolute;
+    left: 50%;
+    top: clamp(70px, 11vh, 130px);
+    transform: translateX(calc(-50% - 2px));
+    width: 56px;
+    height: 56px;
+    color: var(--accent);
+    opacity: 0.92;
+  }
+  .beacon svg { width: 100%; height: 100%; }
+  .beacon::after {
+    content: '';
+    position: absolute; inset: -16px;
+    background: radial-gradient(circle, var(--accent-glow), transparent 65%);
+    z-index: -1;
+  }
+
+  /* Hand-margin notes — decorative, asymmetric */
+  .margin-note {
+    position: absolute;
+    font-family: var(--f-hand);
+    color: var(--accent);
+    opacity: var(--hand-opacity);
+    font-size: 22px;
+    transform: rotate(-3deg);
+    pointer-events: none;
+    line-height: 1.1;
+  }
+  .margin-note .arrow { display: inline-block; transform: translateY(2px); margin: 0 4px; }
+
+  /* ── Manifesto ────────────────────────────────────────────────── */
+  .manifesto {
+    padding: var(--section) 0;
+    position: relative;
+  }
+  .manifesto-grid {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: clamp(28px, 5vw, 72px);
+    align-items: start;
+  }
+  .manifesto-label {
+    position: sticky;
+    top: 80px;
+    color: var(--ink-mute);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border-top: 1px solid var(--accent);
+    padding-top: 14px;
+  }
+  .manifesto-label .num {
+    display: block;
+    color: var(--ink);
+    font-family: var(--f-display);
+    font-size: 38px;
+    letter-spacing: -0.02em;
+    margin-top: 6px;
+    font-weight: 500;
+  }
+  .manifesto-body p {
+    font-size: clamp(18px, 1.05vw + 0.6rem, 24px);
+    line-height: 1.55;
+    color: var(--ink);
+    max-width: 64ch;
+    margin-bottom: 1.4em;
+    text-wrap: pretty;
+  }
+  .manifesto-body p + p { color: var(--ink-soft); }
+  .manifesto-body em { color: var(--accent); font-style: italic; }
+  .manifesto-pull {
+    font-family: var(--f-display);
+    font-size: clamp(28px, 2.2vw + 0.6rem, 42px);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--ink);
+    border-left: 1px solid var(--accent);
+    padding-left: 24px;
+    margin: 48px 0 28px;
+    max-width: 22ch;
+    text-wrap: balance;
+  }
+
+  /* ── Folio card ─────────────────────────────────────────────── */
+  .projects {
+    padding: var(--section) 0;
+    position: relative;
+  }
+  .projects-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: clamp(40px, 6vw, 64px);
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .projects-head .meta { display: inline-flex; align-items: center; gap: 12px; }
+  .projects-head .meta::before {
+    content: '01';
+    font-family: var(--f-display);
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .folio-card {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(28px, 4vw, 64px);
+    padding: clamp(32px, 4vw, 56px);
+    border: 1px solid var(--rule);
+    background: linear-gradient(135deg, var(--bg-warm) 0%, transparent 70%);
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 300ms ease, transform 400ms ease;
+    cursor: pointer;
+  }
+  .folio-card:hover { border-color: var(--accent); }
+  .folio-card:hover .folio-cta { color: var(--accent); }
+  .folio-card:hover .folio-cta-arrow { transform: translateX(4px); }
+  .folio-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 1px;
+    background: linear-gradient(90deg, var(--accent) 0%, transparent 30%);
+    opacity: 0.6;
+  }
+  .folio-card-text { display: flex; flex-direction: column; gap: 18px; }
+  .folio-mark {
+    font-family: var(--f-display);
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .folio-name {
+    font-family: var(--f-display);
+    font-size: clamp(40px, 4vw + 0.5rem, 64px);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .folio-tag {
+    font-style: italic;
+    font-family: var(--f-display);
+    font-size: var(--t-lead);
+    color: var(--ink-soft);
+    max-width: 36ch;
+    margin-top: 4px;
+  }
+  .folio-desc {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 44ch;
+  }
+  .folio-badges {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  .badge {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    padding: 4px 10px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    color: var(--ink-mute);
+    background: var(--bg);
+  }
+  .badge.live { color: var(--accent); border-color: var(--accent); position: relative; padding-left: 18px; }
+  .badge.live::before {
+    content: '';
+    position: absolute; left: 8px; top: 50%; transform: translateY(-50%);
+    width: 5px; height: 5px; border-radius: 50%; background: var(--accent);
+    box-shadow: 0 0 0 0 var(--accent);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 var(--accent-glow); }
+    50%      { box-shadow: 0 0 0 6px transparent; }
+  }
+  .folio-cta {
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--ink);
+    font-family: var(--f-mono);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule-soft);
+    transition: color 200ms ease;
+  }
+  .folio-cta-arrow { font-family: var(--f-mono); transition: transform 250ms ease; }
+
+  /* Folio preview thumb */
+  .folio-thumb {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    border: 1px solid var(--rule);
+    overflow: hidden;
+    background: var(--bg-deep);
+  }
+  .folio-thumb img {
+    width: 100%; height: 100%; object-fit: cover; object-position: top left;
+    filter: saturate(0.92) contrast(1.02);
+  }
+  .folio-thumb::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, transparent 60%, var(--bg) 110%);
+    pointer-events: none;
+  }
+  .folio-thumb-meta {
+    position: absolute;
+    top: 12px; left: 12px;
+    display: flex; align-items: center; gap: 8px;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: color-mix(in srgb, var(--bg) 80%, transparent);
+    padding: 4px 8px;
+    border-radius: 2px;
+    backdrop-filter: blur(6px);
+  }
+  .folio-thumb-meta .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+
+  /* Future-tools whisper */
+  .future-row {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(28px, 4vw, 64px);
+    margin-top: 24px;
+    padding: 24px clamp(32px, 4vw, 56px);
+    align-items: center;
+    border: 1px dashed var(--rule);
+    border-radius: 2px;
+    color: var(--ink-mute);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .future-row .num {
+    color: var(--accent);
+    font-family: var(--f-display);
+    font-weight: 600;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 13px;
+  }
+  .future-row .body { font-style: italic; text-transform: none; letter-spacing: 0.02em; font-family: var(--f-display); color: var(--ink-soft); font-size: 17px; }
+
+  /* ── Principles ─────────────────────────────────────────────── */
+  .principles {
+    padding: var(--section) 0;
+  }
+  .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+  .pr {
+    background: var(--bg);
+    padding: clamp(28px, 3vw, 44px);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: background 300ms ease;
+    position: relative;
+  }
+  .pr:hover { background: var(--bg-warm); }
+  .pr .pr-num {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+  }
+  .pr h3 {
+    font-size: clamp(20px, 1.6vw + 0.4rem, 28px);
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .pr p {
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.55;
+    max-width: 38ch;
+  }
+  .pr-mark {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    font-family: var(--f-hand);
+    color: var(--accent);
+    opacity: var(--hand-opacity);
+    font-size: 18px;
+    transform: rotate(-4deg);
+  }
+
+  /* ── Coda ────────────────────────────────────────────────────── */
+  .coda {
+    padding: clamp(80px, 12vh, 160px) 0 clamp(60px, 8vh, 120px);
+    text-align: center;
+    position: relative;
+  }
+  .coda-line {
+    font-family: var(--f-display);
+    font-size: clamp(30px, 3.5vw, 56px);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.18;
+    color: var(--ink);
+    max-width: 22ch;
+    margin: 0 auto;
+    text-wrap: balance;
+    letter-spacing: -0.015em;
+  }
+  .coda-line em { color: var(--accent); }
+  .coda-meta {
+    margin-top: 36px;
+    color: var(--ink-mute);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .coda-mark {
+    width: 24px; height: 24px;
+    margin: 0 auto 32px;
+    color: var(--accent);
+    opacity: 0.6;
+  }
+
+  /* ── Footer extras ──────────────────────────────────────────── */
+  .foot-cols {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 32px;
+    width: 100%;
+  }
+  .foot-cols h4 {
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 14px;
+    font-weight: 400;
+  }
+  .foot-cols ul { list-style: none; display: flex; flex-direction: column; gap: 8px; font-family: var(--f-body); letter-spacing: 0; font-size: 14px; text-transform: none; }
+  .foot-cols .geo { font-family: var(--f-display); font-size: 14px; letter-spacing: 0; text-transform: none; color: var(--ink-soft); margin-top: 6px; line-height: 1.5; max-width: 26ch; }
+  .foot-cols .name-line { display: flex; align-items: center; gap: 8px; }
+
+  /* ── Responsive ──────────────────────────────────────────────── */
+  @media (max-width: 860px) {
+    .manifesto-grid { grid-template-columns: 1fr; gap: 24px; }
+    .manifesto-label { position: relative; top: 0; padding-bottom: 12px; border-top: none; border-bottom: 1px solid var(--accent); }
+    .folio-card { grid-template-columns: 1fr; }
+    .future-row { grid-template-columns: 1fr; padding: 20px 24px; }
+    .principles-grid { grid-template-columns: 1fr; }
+    .foot-cols { grid-template-columns: 1fr; gap: 24px; }
+    .margin-note { display: none; }
+  }
+  @media (max-width: 720px) {
+    .hero { padding-top: clamp(110px, 18vh, 160px); }
+    .beacon { width: 44px; height: 44px; top: 90px; }
+    .folio-name { font-size: 40px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ───────── Topbar (controls) ───────── -->
+  <header class="topbar" data-screen-label="00 Topbar">
+    <a href="index.html" class="topbar-mark" aria-label="Aion Lumen home">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <path d="M12 2 L12 22 M5 8 L19 8 M7 14 L17 14" stroke-linecap="round"/>
+        <circle cx="12" cy="2.5" r="1.4" fill="currentColor" stroke="none"/>
+      </svg>
+      Aion Lumen
+    </a>
+    <div class="topbar-spacer"></div>
+
+    <div class="tb-group" role="group" aria-label="Language">
+      <button class="tb-btn" data-tb="lang:en">EN</button>
+      <button class="tb-btn" data-tb="lang:de">DE</button>
+    </div>
+    <div class="tb-group" role="group" aria-label="Theme">
+      <button class="tb-btn" data-tb="theme:light" title="Light">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></svg>
+      </button>
+      <button class="tb-btn" data-tb="theme:dark" title="Dark">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+    </div>
+    <div class="tb-group" role="group" aria-label="Accent">
+      <button class="tb-btn" data-tb="accent:gold">Gold</button>
+      <button class="tb-btn" data-tb="accent:olive">Olive</button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ───────── Hero ───────── -->
+    <section class="hero" data-screen-label="01 Hero">
+      <div class="beacon" aria-hidden="true">
+        <svg viewBox="0 0 56 56" fill="none">
+          <path d="M28 4 L28 52" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+          <path d="M16 16 L40 16 M14 22 L42 22 M18 28 L38 28" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" opacity="0.7"/>
+          <circle cx="28" cy="10" r="3" fill="currentColor"/>
+          <circle cx="28" cy="10" r="6" stroke="currentColor" stroke-width="0.5" opacity="0.5"/>
+          <circle cx="28" cy="10" r="10" stroke="currentColor" stroke-width="0.4" opacity="0.3"/>
+        </svg>
+      </div>
+
+      <div class="hero-eyebrow"><span class="en">SINCE 2026 · BASEL</span><span class="de">SEIT 2026 · BASEL</span></div>
+
+      <h1 class="hero-title">
+        <span class="en">local-first tools<br/><span class="glow">at human</span><br/><span class="glow">timescales.</span></span>
+        <span class="de">Werkzeuge für<br/><span class="glow">menschliche</span><br/><span class="glow">Zeitskalen.</span></span>
+      </h1>
+
+      <p class="hero-tagline">
+        <span class="en">Software that respects the next decade of your life — and keeps your data on your machine.</span>
+        <span class="de">Software, die das nächste Jahrzehnt deines Lebens respektiert — und deine Daten auf deinem Rechner lässt.</span>
+      </p>
+
+      <div class="hero-meta">
+        <span><span class="dot"></span><span class="en">Local context</span><span class="de">Lokaler Kontext</span></span>
+        <span><span class="dot"></span><span class="en">Long horizons</span><span class="de">Lange Horizonte</span></span>
+        <span><span class="dot"></span><span class="en">Open source</span><span class="de">Quelloffen</span></span>
+      </div>
+
+      <div class="margin-note hand-block hand" style="top: 220px; right: max(40px, 6vw); transform: rotate(-4deg); max-width: 12ch; text-align: left;">
+        <span class="en">Beacons over<br/>billboards <span class="arrow">↘</span></span>
+        <span class="de">Leuchtfeuer statt<br/>Plakate <span class="arrow">↘</span></span>
+      </div>
+    </section>
+
+    <div class="wrap">
+
+      <!-- ───────── Manifesto ───────── -->
+      <section class="manifesto" data-screen-label="02 Manifesto">
+        <div class="manifesto-grid">
+          <aside class="manifesto-label">
+            <span class="en">§ 01 — Manifesto</span>
+            <span class="de">§ 01 — Manifest</span>
+            <span class="num">I.</span>
+          </aside>
+          <div class="manifesto-body">
+            <p class="reveal">
+              <span class="en">Aion Lumen builds software that respects your time horizon and keeps your data on your machine. Cloud convenience is real — and so is the price. Your context, your patterns, your decisions live somewhere outside your control. <em>This is the alternative being built.</em></span>
+              <span class="de">Aion Lumen baut Software, die deinen Zeit-Horizont respektiert und deine Daten auf deiner Maschine lässt. Cloud-Bequemlichkeit ist real — und der Preis ist es auch. Dein Kontext, deine Muster, deine Entscheidungen leben irgendwo außerhalb deiner Kontrolle. <em>Das ist die Alternative, die hier gebaut wird.</em></span>
+            </p>
+            <p class="reveal" style="--d: 80ms;">
+              <span class="en">Modern productivity tools optimise the next quarter. Cloud AI companions increasingly behave like cautious middle managers. Aion Lumen is built for a different cadence: contemplative, strategic, local.</span>
+              <span class="de">Moderne Produktivitäts-Tools optimieren das nächste Quartal. Cloud-AI-Begleiter verhalten sich zunehmend wie vorsichtige Middle-Manager. Aion Lumen ist für ein anderes Tempo gebaut: kontemplativ, strategisch, lokal.</span>
+            </p>
+            <blockquote class="manifesto-pull reveal" style="--d: 160ms;">
+              <span class="en">The next decade of your life deserves better tooling than what's available today.</span>
+              <span class="de">Das nächste Jahrzehnt deines Lebens verdient besseres Werkzeug, als es heute zur Verfügung steht.</span>
+            </blockquote>
+            <p class="reveal" style="--d: 240ms; color: var(--ink-mute); font-size: 15px; font-style: italic;">
+              <span class="en">— Afshin Mirhamed, sole maker</span>
+              <span class="de">— Afshin Mirhamed, einziger Macher</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div class="rule"></div>
+
+      <!-- ───────── Folio Card ───────── -->
+      <section class="projects" data-screen-label="03 Folio card">
+        <div class="projects-head">
+          <div class="meta">
+            <span class="en">Current Project</span><span class="de">Aktuelles Projekt</span>
+          </div>
+          <div class="meta" style="display: flex; gap: 16px;">
+            <span class="en">Public preview</span><span class="de">Öffentliche Vorschau</span>
+          </div>
+        </div>
+
+        <a class="folio-card reveal" href="folio/index.html">
+          <div class="folio-card-text">
+            <div class="folio-mark">Folio</div>
+            <h2 class="folio-name">Folio</h2>
+            <p class="folio-tag">
+              <span class="en">A markdown vault as memory. A local AI as your strategy partner.</span>
+              <span class="de">Ein Markdown-Vault als Gedächtnis. Eine lokale KI als Strategie-Partnerin.</span>
+            </p>
+            <p class="folio-desc">
+              <span class="en">Plan your life in five acts. Each chapter a campaign. Each week a quiet move forward — written in plain markdown that opens in any editor, twenty years from now.</span>
+              <span class="de">Plane dein Leben in fünf Akten. Jedes Kapitel eine Kampagne. Jede Woche ein leiser Schritt nach vorn — in reinem Markdown, das sich in jedem Editor öffnet, auch in zwanzig Jahren.</span>
+            </p>
+            <div class="folio-badges">
+              <span class="badge live">v0.1.0</span>
+              <span class="badge"><span class="en">Public preview</span><span class="de">Vorschau</span></span>
+              <span class="badge">AGPL-3.0</span>
+              <span class="badge"><span class="en">Local-first</span><span class="de">Lokal-first</span></span>
+            </div>
+            <div class="folio-cta">
+              <span class="en">Open Folio</span><span class="de">Folio öffnen</span>
+              <span class="folio-cta-arrow">→</span>
+            </div>
+          </div>
+
+          <div class="folio-thumb">
+            <div class="folio-thumb-meta"><span class="dot"></span> demo-vault.local · synced 22:37</div>
+            <img src="assets/folio-01-overview.png" alt="Folio dashboard showing the campaign timeline, kanban and Hermes chat panel" />
+          </div>
+        </a>
+
+        <div class="future-row reveal" style="--d: 200ms;">
+          <div><span class="num">02 ·</span>&nbsp;&nbsp;<span class="en">Tool II</span><span class="de">Werkzeug II</span></div>
+          <div class="body">
+            <span class="en">In quiet construction. The hearth keeps more than one fire.</span>
+            <span class="de">In stiller Konstruktion. Eine Feuerstelle hält mehr als eine Flamme.</span>
+          </div>
+        </div>
+      </section>
+
+      <div class="rule"></div>
+
+      <!-- ───────── Principles ───────── -->
+      <section class="principles" data-screen-label="04 Principles">
+        <div class="projects-head" style="margin-bottom: clamp(28px, 4vw, 48px);">
+          <div class="meta">
+            <span class="en">Principles</span><span class="de">Prinzipien</span>
+          </div>
+          <div class="meta" style="font-style: italic; text-transform: none; letter-spacing: 0.04em; font-family: var(--f-display); color: var(--ink-soft);">
+            <span class="en">Four lines, kept honest.</span>
+            <span class="de">Vier Zeilen, ehrlich gemeint.</span>
+          </div>
+        </div>
+
+        <div class="principles-grid">
+          <div class="pr reveal">
+            <span class="pr-num">01</span>
+            <h3><span class="en">Markdown over databases.</span><span class="de">Markdown statt Datenbanken.</span></h3>
+            <p><span class="en">Your vault opens in any editor — Vim, Obsidian, Notepad in 2046. No proprietary lock-in, no migration drama.</span><span class="de">Dein Vault öffnet sich in jedem Editor — Vim, Obsidian, Notepad im Jahr 2046. Kein proprietärer Lock-in, kein Migrations-Drama.</span></p>
+            <span class="pr-mark hand">∗</span>
+          </div>
+          <div class="pr reveal" style="--d: 100ms;">
+            <span class="pr-num">02</span>
+            <h3><span class="en">Local AI over cloud APIs.</span><span class="de">Lokale KI statt Cloud-APIs.</span></h3>
+            <p><span class="en">Your conversations stay private. Your patterns aren't training data for someone else's model.</span><span class="de">Deine Gespräche bleiben privat. Deine Muster sind keine Trainingsdaten für ein fremdes Modell.</span></p>
+            <span class="pr-mark hand">⁂</span>
+          </div>
+          <div class="pr reveal" style="--d: 200ms;">
+            <span class="pr-num">03</span>
+            <h3><span class="en">Long horizons over quarterly cycles.</span><span class="de">Lange Horizonte statt Quartalszyklen.</span></h3>
+            <p><span class="en">Tools for decade-scale thinking. Five-year arcs, not five-day sprints. Frostpunk over OKRs.</span><span class="de">Werkzeuge für Dekaden-Denken. Fünf-Jahre-Bögen, keine Fünf-Tage-Sprints. Frostpunk vor OKRs.</span></p>
+            <span class="pr-mark hand">⌘</span>
+          </div>
+          <div class="pr reveal" style="--d: 300ms;">
+            <span class="pr-num">04</span>
+            <h3><span class="en">Substance over polish.</span><span class="de">Substanz statt Hochglanz.</span></h3>
+            <p><span class="en">Engineering matters more than marketing. Built well, kept quiet, made to outlast its release notes.</span><span class="de">Ingenieurskunst zählt mehr als Marketing. Gut gebaut, leise gehalten, gemacht um seine Release-Notes zu überdauern.</span></p>
+            <span class="pr-mark hand">†</span>
+          </div>
+        </div>
+      </section>
+
+      <div class="rule"></div>
+
+      <!-- ───────── Coda ───────── -->
+      <section class="coda" data-screen-label="05 Coda">
+        <div class="coda-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+            <path d="M12 3 L12 21 M3 12 L21 12" stroke-linecap="round"/>
+            <circle cx="12" cy="12" r="3" stroke="currentColor"/>
+          </svg>
+        </div>
+        <p class="coda-line">
+          <span class="en"><em>One person.</em> One desk. <em>One decade.</em><br/>Built for what comes after the next quarter.</span>
+          <span class="de"><em>Eine Person.</em> Ein Schreibtisch. <em>Eine Dekade.</em><br/>Gebaut für das, was nach dem nächsten Quartal kommt.</span>
+        </p>
+        <p class="coda-meta">
+          <span class="en">Basel · MMXXVI · →</span>
+          <span class="de">Basel · MMXXVI · →</span>
+        </p>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- ───────── Footer ───────── -->
+  <footer class="foot">
+    <div class="foot-cols">
+      <div>
+        <h4>Aion Lumen</h4>
+        <div class="name-line">
+          <span class="foot-name">Afshin Mirhamed</span>
+        </div>
+        <p class="geo">
+          <span class="en">Independent maker · 20 years SAP-BI · now applied AI &amp; local-first SaaS. Working from Basel.</span>
+          <span class="de">Unabhängiger Macher · 20 Jahre SAP-BI · jetzt Applied AI &amp; Local-first SaaS. Arbeitet aus Basel.</span>
+        </p>
+      </div>
+      <div>
+        <h4><span class="en">Elsewhere</span><span class="de">Anderswo</span></h4>
+        <ul>
+          <li><a href="https://mirhamed.ch" target="_blank" rel="noopener">mirhamed.ch&nbsp;↗</a></li>
+          <li><a href="https://github.com/aion-lumen" target="_blank" rel="noopener">GitHub&nbsp;↗</a></li>
+          <li><a href="folio/index.html"><span class="en">Folio</span><span class="de">Folio</span>&nbsp;→</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4><span class="en">Write</span><span class="de">Schreiben</span></h4>
+        <ul>
+          <li><a href="#" data-email="reveal" class="link-soft" style="border: none; padding: 0;"></a></li>
+          <li><a href="https://github.com/aion-lumen/life-dashboard/issues" target="_blank" rel="noopener"><span class="en">Issues on GitHub</span><span class="de">Issues auf GitHub</span>&nbsp;↗</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <div class="variant-pill">
+    <span class="dot"></span>
+    <span class="en">Konzept A · centered</span>
+    <span class="de">Konzept A · zentriert</span>
+    <span style="opacity: 0.6">·</span>
+    <a href="index-b.html"><span class="en">see Konzept B</span><span class="de">zu Konzept B</span></a>
+  </div>
+
+<style>
+  .variant-pill {
+    position: fixed;
+    bottom: 16px; left: 16px;
+    z-index: 80;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    background: color-mix(in srgb, var(--bg) 80%, transparent);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--rule-soft);
+    border-radius: 999px;
+    padding: 6px 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .variant-pill a { color: var(--ink); border-bottom: 1px solid transparent; transition: color 180ms, border-color 180ms; }
+  .variant-pill a:hover { color: var(--accent); border-color: var(--accent); }
+  .variant-pill .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+</style>
+
+<script src="styles/controls.js"></script>
+<script src="styles/tweaks.js"></script>
+</body>
+</html>

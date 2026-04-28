@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-accent="gold" data-lang="en" data-hand="on">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Aion Lumen — Local-first tools at human timescales (Konzept B)</title>
+<meta name="description" content="Local-first software tools, built for the next decade of your life." />
+<link rel="stylesheet" href="styles/base.css?v=2" />
+<style>
+  /* ──────────────────────────────────────────────────────────────
+   * Konzept B — Asymmetric / hand-built feel
+   * Wide left-bias hero · vertical mono rail · mixed columns
+   * Folio as full-bleed plate with margin notes
+   * ────────────────────────────────────────────────────────────── */
+
+  body { background: var(--bg); }
+
+  /* Vertical address rail down the left edge */
+  .rail {
+    position: fixed;
+    left: 22px;
+    top: 50%;
+    transform: translateY(-50%) rotate(180deg);
+    writing-mode: vertical-rl;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    z-index: 50;
+    pointer-events: none;
+    user-select: none;
+  }
+  .rail::before {
+    content: '';
+    position: absolute;
+    top: -90px; left: 50%;
+    width: 1px; height: 70px;
+    background: linear-gradient(0deg, var(--rule), transparent);
+  }
+  .rail::after {
+    content: '';
+    position: absolute;
+    bottom: -90px; left: 50%;
+    width: 1px; height: 70px;
+    background: linear-gradient(180deg, var(--rule), transparent);
+  }
+  @media (max-width: 880px) { .rail { display: none; } }
+
+  /* ── Hero ─────────────────────────────────────────────────── */
+  .hero-b {
+    padding: clamp(140px, 22vh, 220px) 0 clamp(100px, 14vh, 160px);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-b .wrap {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .hero-b .crumb {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 18px;
+    color: var(--ink-mute);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .hero-b .crumb strong { color: var(--accent); font-weight: 500; letter-spacing: 0.2em; }
+
+  .hero-b h1 {
+    font-family: var(--f-display);
+    font-size: clamp(54px, 8vw + 0.4rem, 142px);
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    font-weight: 600;
+    max-width: 14ch;
+    margin-top: 12px;
+  }
+  .hero-b h1 .b-line-2 { display: block; padding-left: clamp(40px, 8vw, 120px); }
+  .hero-b h1 .b-line-3 { display: block; color: var(--accent); font-style: italic; font-weight: 500; }
+
+  .hero-b-meta {
+    display: grid;
+    grid-template-columns: minmax(0, 480px) auto;
+    gap: clamp(28px, 4vw, 80px);
+    align-items: end;
+    margin-top: clamp(40px, 6vw, 80px);
+  }
+  .hero-b-tag {
+    font-family: var(--f-display);
+    font-size: var(--t-lead);
+    color: var(--ink-soft);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.5;
+    text-wrap: pretty;
+  }
+  .hero-b-tag em { color: var(--accent); font-style: italic; }
+  .hero-b-side {
+    text-align: right;
+    color: var(--ink-mute);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    line-height: 1.8;
+    text-transform: uppercase;
+  }
+  .hero-b-side .accent-dot {
+    display: inline-block; width: 6px; height: 6px;
+    background: var(--accent); border-radius: 50%;
+    margin-right: 6px; transform: translateY(-2px);
+  }
+
+  /* Hand pencil mark over the hero */
+  .hero-pencil {
+    position: absolute;
+    right: clamp(16px, 5vw, 80px);
+    top: clamp(110px, 14vh, 180px);
+    font-family: var(--f-hand);
+    color: var(--accent);
+    opacity: var(--hand-opacity);
+    font-size: 30px;
+    line-height: 1.05;
+    transform: rotate(-3deg);
+    text-align: left;
+    max-width: 14ch;
+    pointer-events: none;
+  }
+  .hero-pencil .arrow { display: block; font-size: 28px; transform: rotate(28deg) translateY(-4px); margin-left: 30px; }
+
+  /* ── Manifesto: 12-column lopsided ─────────────────────────── */
+  .manifesto-b {
+    padding: var(--section) 0;
+    position: relative;
+  }
+  .manifesto-b .grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+    row-gap: 56px;
+    align-items: start;
+  }
+  .ms-num {
+    grid-column: 1 / span 2;
+    font-family: var(--f-display);
+    font-size: clamp(56px, 6vw, 96px);
+    line-height: 1;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    transform: translateY(-12px);
+  }
+  .ms-num small {
+    display: block;
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-top: 8px;
+    font-weight: 400;
+  }
+  .ms-text {
+    grid-column: 4 / span 7;
+    font-size: clamp(19px, 1.1vw + 0.6rem, 26px);
+    line-height: 1.55;
+    color: var(--ink);
+    text-wrap: pretty;
+    max-width: 56ch;
+  }
+  .ms-text em { color: var(--accent); font-style: italic; }
+  .ms-text + .ms-text { color: var(--ink-soft); }
+
+  .ms-margin {
+    grid-column: 11 / span 2;
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    border-top: 1px solid var(--accent);
+    padding-top: 12px;
+  }
+  .ms-margin .num { color: var(--ink); display: block; font-family: var(--f-display); font-size: 32px; letter-spacing: -0.02em; margin-top: 4px; font-weight: 500; text-transform: none; }
+
+  .ms-pull {
+    grid-column: 3 / span 8;
+    font-family: var(--f-display);
+    font-style: italic;
+    font-size: clamp(28px, 2.6vw + 0.4rem, 48px);
+    line-height: 1.18;
+    color: var(--ink);
+    border-left: 1px solid var(--accent);
+    padding-left: clamp(20px, 2vw, 32px);
+    text-wrap: balance;
+    max-width: 24ch;
+    font-weight: 400;
+  }
+  .ms-pull em { color: var(--accent); }
+
+  .ms-sig {
+    grid-column: 4 / span 6;
+    color: var(--ink-mute);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+  }
+  .ms-sig .hand-sig { font-family: var(--f-hand); font-size: 28px; color: var(--accent); letter-spacing: 0; text-transform: none; opacity: var(--hand-opacity); transform: rotate(-3deg); }
+
+  /* ── Folio plate ───────────────────────────────────────────── */
+  .folio-b {
+    padding: clamp(60px, 10vw, 140px) 0;
+    position: relative;
+  }
+  .folio-b-head {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+    margin-bottom: clamp(36px, 5vw, 56px);
+    align-items: end;
+  }
+  .folio-b-head .label {
+    grid-column: 1 / span 3;
+    color: var(--ink-mute);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border-top: 1px solid var(--rule);
+    padding-top: 12px;
+  }
+  .folio-b-head .name {
+    grid-column: 4 / span 6;
+    font-family: var(--f-display);
+    font-size: clamp(56px, 6vw, 96px);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+    color: var(--ink);
+  }
+  .folio-b-head .roman {
+    grid-column: 11 / span 2;
+    text-align: right;
+    color: var(--accent);
+    font-family: var(--f-display);
+    font-size: clamp(32px, 3vw, 48px);
+    font-weight: 500;
+    line-height: 1;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 8px;
+  }
+  .folio-b-head .roman small { display: block; font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-mute); margin-top: 4px; }
+
+  .folio-b-card {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+    align-items: stretch;
+    cursor: pointer;
+    transition: transform 600ms cubic-bezier(0.22, 0.6, 0.3, 1);
+  }
+  .folio-b-card:hover .folio-b-thumb img { transform: scale(1.02); }
+  .folio-b-card:hover .b-cta { color: var(--accent); }
+  .folio-b-card:hover .b-cta .arr { transform: translateX(6px); }
+
+  .folio-b-thumb {
+    grid-column: 1 / span 8;
+    position: relative;
+    aspect-ratio: 16 / 10;
+    border: 1px solid var(--rule);
+    overflow: hidden;
+    background: var(--bg-deep);
+  }
+  .folio-b-thumb img {
+    width: 100%; height: 100%; object-fit: cover; object-position: top left;
+    filter: saturate(0.95) contrast(1.02);
+    transition: transform 1200ms cubic-bezier(0.22, 0.6, 0.3, 1);
+  }
+  .folio-b-thumb-hud {
+    position: absolute; inset: 0;
+    pointer-events: none;
+  }
+  .folio-b-thumb-hud .corner {
+    position: absolute;
+    width: 12px; height: 12px;
+    border-color: var(--accent);
+    border-style: solid;
+    border-width: 0;
+    opacity: 0.7;
+  }
+  .folio-b-thumb-hud .tl { top: 8px; left: 8px; border-top-width: 1px; border-left-width: 1px; }
+  .folio-b-thumb-hud .tr { top: 8px; right: 8px; border-top-width: 1px; border-right-width: 1px; }
+  .folio-b-thumb-hud .bl { bottom: 8px; left: 8px; border-bottom-width: 1px; border-left-width: 1px; }
+  .folio-b-thumb-hud .br { bottom: 8px; right: 8px; border-bottom-width: 1px; border-right-width: 1px; }
+  .folio-b-thumb-tag {
+    position: absolute;
+    bottom: 14px; left: 14px;
+    color: var(--ink);
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    background: color-mix(in srgb, var(--bg) 80%, transparent);
+    padding: 4px 8px;
+    border-radius: 2px;
+    backdrop-filter: blur(6px);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .folio-b-thumb-tag .dot {
+    width: 5px; height: 5px; border-radius: 50%; background: var(--accent);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+
+  .folio-b-side {
+    grid-column: 9 / span 4;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding-top: 4px;
+  }
+  .folio-b-side .tag {
+    font-family: var(--f-display);
+    font-style: italic;
+    font-size: clamp(22px, 1.5vw + 0.5rem, 30px);
+    line-height: 1.25;
+    color: var(--ink);
+    text-wrap: pretty;
+  }
+  .folio-b-side .desc {
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.65;
+    max-width: 32ch;
+  }
+  .folio-b-side .badges {
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .badge {
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    padding: 4px 10px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    color: var(--ink-mute);
+  }
+  .badge.live { color: var(--accent); border-color: var(--accent); position: relative; padding-left: 18px; }
+  .badge.live::before {
+    content: '';
+    position: absolute; left: 8px; top: 50%; transform: translateY(-50%);
+    width: 5px; height: 5px; border-radius: 50%; background: var(--accent);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 var(--accent-glow); }
+    50%      { box-shadow: 0 0 0 6px transparent; }
+  }
+  .b-cta {
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ink);
+    font-family: var(--f-mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding-top: 18px;
+    border-top: 1px solid var(--rule-soft);
+    transition: color 200ms ease;
+  }
+  .b-cta .arr { transition: transform 250ms ease; font-size: 13px; }
+
+  .folio-b-foot {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+    align-items: center;
+    color: var(--ink-mute);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .folio-b-foot .ws {
+    grid-column: 1 / span 4;
+    font-family: var(--f-display);
+    font-style: italic;
+    font-size: 16px;
+    text-transform: none;
+    letter-spacing: 0.01em;
+    color: var(--ink-soft);
+  }
+  .folio-b-foot .next-tool {
+    grid-column: 9 / span 4;
+    text-align: right;
+    border-top: 1px dashed var(--rule);
+    padding-top: 12px;
+  }
+  .folio-b-foot .next-tool .num { color: var(--accent); font-family: var(--f-display); font-weight: 600; text-transform: none; letter-spacing: 0; font-size: 13px; }
+
+  /* ── Principles — vertical ledger ─────────────────────────── */
+  .pr-b {
+    padding: var(--section) 0;
+  }
+  .pr-b-head {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+    margin-bottom: clamp(40px, 5vw, 56px);
+    align-items: baseline;
+  }
+  .pr-b-head .label {
+    grid-column: 1 / span 3;
+    color: var(--ink-mute);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .pr-b-head h2 {
+    grid-column: 4 / span 9;
+    font-family: var(--f-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(28px, 2vw + 0.6rem, 42px);
+    line-height: 1.2;
+    max-width: 28ch;
+    text-wrap: balance;
+    color: var(--ink-soft);
+  }
+  .pr-b-head h2 em { color: var(--ink); font-style: normal; }
+
+  .pr-b-list { border-top: 1px solid var(--rule); }
+  .pr-row {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+    padding: clamp(24px, 3vw, 40px) 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+    transition: background 300ms ease, padding-left 300ms ease;
+    position: relative;
+  }
+  .pr-row:hover { background: var(--bg-warm); padding-left: 12px; padding-right: 12px; }
+  .pr-row .pr-n {
+    grid-column: 1 / span 1;
+    font-family: var(--f-mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+  }
+  .pr-row h3 {
+    grid-column: 2 / span 5;
+    font-size: clamp(20px, 1.4vw + 0.5rem, 30px);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+    color: var(--ink);
+  }
+  .pr-row .pr-body {
+    grid-column: 7 / span 5;
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 44ch;
+  }
+  .pr-row .pr-mark {
+    grid-column: 12 / span 1;
+    text-align: right;
+    font-family: var(--f-hand);
+    font-size: 30px;
+    color: var(--accent);
+    opacity: var(--hand-opacity);
+    transform: rotate(-6deg);
+    line-height: 1;
+  }
+
+  /* ── Coda ─────────────────────────────────────────────────── */
+  .coda-b {
+    padding: clamp(80px, 12vh, 160px) 0 clamp(60px, 8vh, 120px);
+    position: relative;
+  }
+  .coda-b-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+    align-items: end;
+  }
+  .coda-b-line {
+    grid-column: 2 / span 8;
+    font-family: var(--f-display);
+    font-size: clamp(32px, 4vw, 64px);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.18;
+    color: var(--ink);
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+  .coda-b-line em { color: var(--accent); font-style: italic; }
+  .coda-b-meta {
+    grid-column: 11 / span 2;
+    text-align: right;
+    color: var(--ink-mute);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1.6;
+  }
+
+  /* ── Footer ───────────────────────────────────────────────── */
+  .foot-b {
+    padding: clamp(28px, 4vw, 48px) var(--gutter);
+    border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+    font-family: var(--f-body);
+  }
+  .foot-b h4 {
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 14px;
+    font-weight: 400;
+  }
+  .foot-b ul { list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
+  .foot-b a { color: var(--ink-soft); border-bottom: 1px solid transparent; transition: color 180ms, border-color 180ms; }
+  .foot-b a:hover { color: var(--accent); border-color: var(--accent); }
+  .foot-b .name { font-family: var(--f-display); font-size: 17px; color: var(--ink); display: block; margin-bottom: 8px; font-weight: 600; }
+  .foot-b .geo {
+    color: var(--ink-soft);
+    font-size: 14px;
+    line-height: 1.55;
+    max-width: 32ch;
+  }
+  .foot-b .geo .sig { font-family: var(--f-hand); font-size: 22px; color: var(--accent); display: inline-block; margin-top: 8px; opacity: var(--hand-opacity); transform: rotate(-3deg); }
+
+  /* ── Origin (§0) — datierte Beobachtung, ich-Stimme ───────── */
+  .origin-b {
+    padding: clamp(40px, 6vw, 80px) 0 clamp(20px, 3vw, 40px);
+    position: relative;
+  }
+  .origin-b .grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+  .origin-head {
+    grid-column: 1 / span 3;
+    color: var(--ink-mute);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border-top: 1px solid var(--accent);
+    padding-top: 12px;
+    line-height: 1.6;
+  }
+  .origin-head .num {
+    font-family: var(--f-display);
+    color: var(--accent);
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    text-transform: none;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .origin-head .when {
+    display: block;
+    margin-top: 10px;
+    color: var(--ink-soft);
+    font-size: 10.5px;
+  }
+  .origin-body {
+    grid-column: 4 / span 7;
+    font-size: clamp(18px, 1.05vw + 0.6rem, 24px);
+    line-height: 1.6;
+    color: var(--ink);
+    text-wrap: pretty;
+    max-width: 58ch;
+  }
+  .origin-body p { margin-bottom: 1em; }
+  .origin-body p + p { margin-top: 1em; color: var(--ink-soft); }
+  .origin-body em { color: var(--accent); font-style: italic; }
+  .origin-body strong { color: var(--ink); font-weight: 500; }
+  .origin-lead {
+    grid-column: 4 / span 7;
+    font-family: var(--f-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(28px, 2.4vw + 0.4rem, 44px);
+    line-height: 1.18;
+    color: var(--ink);
+    border-left: 1px solid var(--accent);
+    padding-left: clamp(20px, 2vw, 32px);
+    margin-bottom: clamp(28px, 3.5vw, 48px);
+    max-width: 24ch;
+    text-wrap: balance;
+    letter-spacing: -0.015em;
+  }
+  .origin-lead em { color: var(--accent); font-style: italic; }
+  .origin-body .drop {
+    float: left;
+    font-family: var(--f-display);
+    font-size: 4.6em;
+    line-height: 0.85;
+    color: var(--accent);
+    padding: 0.08em 0.12em 0 0;
+    font-weight: 600;
+  }
+  .origin-sig {
+    grid-column: 4 / span 7;
+    margin-top: clamp(20px, 2.5vw, 36px);
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    color: var(--ink-mute);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .origin-sig .hand-sig {
+    font-family: var(--f-hand);
+    font-size: 28px;
+    color: var(--accent);
+    letter-spacing: 0;
+    text-transform: none;
+    opacity: var(--hand-opacity);
+    transform: rotate(-3deg);
+  }
+  .origin-margin {
+    grid-column: 11 / span 2;
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    border-top: 1px dashed var(--rule);
+    padding-top: 12px;
+    line-height: 1.7;
+  }
+
+  /* ── Triptychon — three brand-axis terms ─────────────────── */
+  .trip-b {
+    padding: clamp(60px, 8vw, 110px) 0;
+    position: relative;
+  }
+  .trip-b::before {
+    content: '';
+    position: absolute;
+    top: 0; left: var(--gutter); right: var(--gutter);
+    height: 1px;
+    background: var(--rule);
+  }
+  .trip-b .head {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+    margin-bottom: clamp(40px, 5vw, 64px);
+    align-items: baseline;
+  }
+  .trip-b .head .label {
+    grid-column: 1 / span 3;
+    color: var(--ink-mute);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .trip-b .head h2 {
+    grid-column: 4 / span 8;
+    font-family: var(--f-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(24px, 1.6vw + 0.6rem, 36px);
+    line-height: 1.3;
+    color: var(--ink-soft);
+    max-width: 36ch;
+  }
+  .trip-b .head h2 em { color: var(--ink); font-style: normal; font-weight: 500; }
+
+  .trip-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(32px, 4vw, 64px);
+    align-items: stretch;
+  }
+  .trip-cell {
+    position: relative;
+    padding: clamp(24px, 2.5vw, 36px) 0;
+    border-top: 1px solid var(--rule);
+  }
+  .trip-cell .roman {
+    font-family: var(--f-display);
+    font-size: 14px;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    font-weight: 600;
+    margin-bottom: clamp(28px, 4vw, 56px);
+    display: inline-block;
+  }
+  .trip-cell .word {
+    font-family: var(--f-display);
+    font-size: clamp(48px, 4.4vw, 84px);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 6px;
+    text-wrap: balance;
+  }
+  .trip-cell .word .mute { color: var(--ink-mute); display: block; font-style: italic; font-weight: 400; font-size: 0.42em; line-height: 1.3; letter-spacing: 0; margin-top: 8px; }
+  .trip-cell .body {
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.6;
+    margin-top: clamp(20px, 2vw, 28px);
+    max-width: 36ch;
+    text-wrap: pretty;
+  }
+  .trip-cell .body em { color: var(--ink); font-style: italic; }
+
+  /* Coda subtitle — second line under the main confession */
+  .coda-b-sub {
+    grid-column: 1 / -1;
+    margin-top: clamp(32px, 4vw, 56px);
+    color: var(--ink-mute);
+    font-family: var(--f-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(15px, 0.9vw + 0.5rem, 18px);
+    line-height: 1.6;
+    max-width: 56ch;
+    text-wrap: pretty;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .coda-b-sub em { color: var(--accent); font-style: italic; }
+  .coda-b-sub .hand-sig {
+    font-family: var(--f-hand);
+    font-size: 22px;
+    color: var(--accent);
+    letter-spacing: 0;
+    transform: rotate(-3deg);
+    display: inline-block;
+    opacity: var(--hand-opacity);
+  }
+
+  /* ── Premise (§ II) — vier Trigger als Komposition ──────────── */
+  .prem-b {
+    padding: clamp(60px, 8vw, 110px) 0;
+    position: relative;
+  }
+  .prem-b::before {
+    content: '';
+    position: absolute;
+    top: 0; left: var(--gutter); right: var(--gutter);
+    height: 1px;
+    background: var(--rule);
+  }
+  .prem-b .head {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+    margin-bottom: clamp(48px, 6vw, 80px);
+    align-items: baseline;
+  }
+  .prem-b .head .label {
+    grid-column: 1 / span 3;
+    color: var(--ink-mute);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border-top: 1px solid var(--accent);
+    padding-top: 12px;
+  }
+  .prem-b .head .label .num {
+    display: block;
+    font-family: var(--f-display);
+    font-size: 26px;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    text-transform: none;
+    margin-bottom: 6px;
+  }
+
+  /* The opening sentence — sits at scale, like a chapter epigraph */
+  .prem-lead {
+    grid-column: 4 / span 8;
+    font-family: var(--f-display);
+    font-size: clamp(28px, 2.6vw + 0.4rem, 48px);
+    line-height: 1.18;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-wrap: balance;
+    max-width: 28ch;
+  }
+  .prem-lead em { color: var(--accent); font-style: italic; font-weight: 400; }
+
+  /* Four-up grid of triggers — each anchored by a fat keyword */
+  .prem-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(28px, 3vw, 48px);
+    margin-bottom: clamp(56px, 7vw, 96px);
+  }
+  .prem-cell {
+    border-top: 1px solid var(--rule);
+    padding-top: clamp(20px, 2vw, 28px);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .prem-cell .roman {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .prem-cell .trigger {
+    font-family: var(--f-display);
+    font-size: clamp(28px, 2vw + 0.4rem, 38px);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .prem-cell .trigger em { color: var(--accent); font-style: italic; font-weight: 500; }
+  .prem-cell .body {
+    color: var(--ink-soft);
+    font-size: clamp(15px, 0.5vw + 0.6rem, 17px);
+    line-height: 1.6;
+    text-wrap: pretty;
+    max-width: 32ch;
+  }
+
+  /* The deeper-issue passage between grid and final clamp */
+  .prem-deeper {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+    align-items: start;
+    margin-bottom: clamp(56px, 7vw, 96px);
+  }
+  .prem-deeper .lede {
+    grid-column: 4 / span 7;
+    font-size: clamp(18px, 1.05vw + 0.6rem, 24px);
+    line-height: 1.6;
+    color: var(--ink);
+    text-wrap: pretty;
+    max-width: 56ch;
+  }
+  .prem-deeper .lede p + p { margin-top: 1em; color: var(--ink-soft); }
+  .prem-deeper .lede em { color: var(--accent); font-style: italic; }
+  .prem-deeper .lede strong { color: var(--ink); font-weight: 500; font-style: italic; font-family: var(--f-display); }
+  .prem-deeper .margin {
+    grid-column: 11 / span 2;
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    border-top: 1px dashed var(--rule);
+    padding-top: 12px;
+    line-height: 1.7;
+  }
+
+  /* Closing clamp — typographic bracket-end matching the lead */
+  .prem-clamp {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+    align-items: baseline;
+  }
+  .prem-clamp .body {
+    grid-column: 4 / span 8;
+    font-family: var(--f-display);
+    font-size: clamp(28px, 2.6vw + 0.4rem, 48px);
+    line-height: 1.18;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-wrap: balance;
+    max-width: 28ch;
+    border-left: 1px solid var(--accent);
+    padding-left: clamp(20px, 2vw, 32px);
+  }
+  .prem-clamp .body em { color: var(--accent); font-style: italic; font-weight: 400; }
+
+  /* Variant-link badge top-left of body (link to Konzept A) */
+  .variant-pill {
+    position: fixed;
+    bottom: 16px; left: 16px;
+    z-index: 80;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    background: color-mix(in srgb, var(--bg) 80%, transparent);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--rule-soft);
+    border-radius: 999px;
+    padding: 6px 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .variant-pill a { color: var(--ink); border-bottom: 1px solid transparent; transition: color 180ms, border-color 180ms; }
+  .variant-pill a:hover { color: var(--accent); border-color: var(--accent); }
+  .variant-pill .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+
+  /* ── Responsive ──────────────────────────────────────────── */
+  @media (max-width: 880px) {
+    .hero-b h1 .b-line-2 { padding-left: 0; }
+    .hero-b-meta { grid-template-columns: 1fr; }
+    .hero-b-side { text-align: left; }
+    .manifesto-b .grid { grid-template-columns: 1fr; row-gap: 28px; }
+    .ms-num, .ms-text, .ms-margin, .ms-pull, .ms-sig { grid-column: 1 / -1; }
+    .ms-margin { border-top: none; padding-top: 0; }
+    .folio-b-head { grid-template-columns: 1fr; }
+    .folio-b-head .label, .folio-b-head .name, .folio-b-head .roman { grid-column: 1 / -1; text-align: left; }
+    .folio-b-card { grid-template-columns: 1fr; }
+    .folio-b-thumb, .folio-b-side { grid-column: 1 / -1; }
+    .folio-b-foot { grid-template-columns: 1fr; }
+    .folio-b-foot .ws, .folio-b-foot .next-tool { grid-column: 1 / -1; text-align: left; }
+    .pr-b-head { grid-template-columns: 1fr; }
+    .pr-b-head .label, .pr-b-head h2 { grid-column: 1 / -1; }
+    .pr-row { grid-template-columns: auto 1fr; row-gap: 8px; }
+    .pr-row .pr-n { grid-column: 1; }
+    .pr-row h3 { grid-column: 2; }
+    .pr-row .pr-body { grid-column: 1 / -1; }
+    .pr-row .pr-mark { display: none; }
+    .coda-b-grid { grid-template-columns: 1fr; }
+    .coda-b-line, .coda-b-meta { grid-column: 1 / -1; text-align: left; }
+    .origin-b .grid { grid-template-columns: 1fr; }
+    .origin-head, .origin-body, .origin-lead, .origin-sig, .origin-margin { grid-column: 1 / -1; }
+    .origin-lead { padding-left: 16px; max-width: none; }
+    .origin-margin { border-top: none; padding-top: 0; }
+    .trip-b .head { grid-template-columns: 1fr; }
+    .trip-b .head .label, .trip-b .head h2 { grid-column: 1 / -1; }
+    .trip-grid { grid-template-columns: 1fr; gap: 0; }
+    .trip-cell + .trip-cell { padding-top: 32px; }
+    .prem-b .head { grid-template-columns: 1fr; }
+    .prem-b .head .label, .prem-lead { grid-column: 1 / -1; max-width: none; }
+    .prem-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+    .prem-deeper { grid-template-columns: 1fr; }
+    .prem-deeper .lede, .prem-deeper .margin { grid-column: 1 / -1; }
+    .prem-deeper .margin { border-top: none; padding-top: 0; }
+    .prem-clamp { grid-template-columns: 1fr; }
+    .prem-clamp .body { grid-column: 1 / -1; max-width: none; padding-left: 16px; }
+    .foot-b { grid-template-columns: 1fr 1fr; }
+    .hero-pencil { display: none; }
+  }
+  @media (max-width: 540px) {
+    .prem-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── Concept A Hero (Beacon / classical centered) — merged ── */
+  .hero {
+    padding: clamp(140px, 20vh, 240px) var(--gutter) clamp(80px, 12vh, 140px);
+    text-align: center;
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--ink-mute);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 36px;
+  }
+  .hero-eyebrow::before, .hero-eyebrow::after {
+    content: '';
+    width: 36px; height: 1px; background: var(--rule);
+  }
+  .hero-title {
+    font-family: var(--f-display);
+    font-size: var(--t-display);
+    font-weight: 600;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+  }
+  .hero-title .glow { color: var(--accent); font-style: italic; font-weight: 500; position: relative; }
+  .hero-title .glow::after {
+    content: '';
+    position: absolute; left: -4%; right: -4%; bottom: 0.05em; height: 0.35em;
+    background: radial-gradient(ellipse at center, var(--accent-glow), transparent 70%);
+    z-index: -1;
+    pointer-events: none;
+  }
+  .hero-tagline {
+    margin-top: clamp(28px, 3.5vh, 44px);
+    font-size: var(--t-lead);
+    color: var(--ink-soft);
+    max-width: 580px;
+    margin-left: auto; margin-right: auto;
+    text-wrap: pretty;
+    font-style: italic;
+    font-family: var(--f-display);
+    font-weight: 400;
+  }
+  .hero-meta {
+    margin-top: clamp(48px, 6vh, 72px);
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    flex-wrap: wrap;
+    color: var(--ink-mute);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .hero-meta span { display: inline-flex; align-items: center; gap: 8px; }
+  .hero-meta .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block; }
+  .beacon {
+    position: absolute;
+    left: 50%;
+    top: clamp(70px, 11vh, 130px);
+    transform: translateX(calc(-50% - 2px));
+    width: 56px;
+    height: 56px;
+    color: var(--accent);
+    opacity: 0.92;
+  }
+  .beacon svg { width: 100%; height: 100%; }
+  .beacon::after {
+    content: '';
+    position: absolute; inset: -16px;
+    background: radial-gradient(circle, var(--accent-glow), transparent 65%);
+    z-index: -1;
+  }
+  .margin-note {
+    position: absolute;
+    font-family: var(--f-hand);
+    color: var(--accent);
+    opacity: var(--hand-opacity);
+    font-size: 22px;
+    transform: rotate(-3deg);
+    pointer-events: none;
+    line-height: 1.1;
+  }
+  .margin-note .arrow { display: inline-block; transform: translateY(2px); margin: 0 4px; }
+  @media (max-width: 860px) { .margin-note { display: none; } }
+  @media (max-width: 720px) {
+    .hero { padding-top: clamp(110px, 18vh, 160px); }
+    .beacon { width: 44px; height: 44px; top: 90px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <a href="index.html" class="topbar-mark" aria-label="Aion Lumen home">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <path d="M12 2 L12 22 M5 8 L19 8 M7 14 L17 14" stroke-linecap="round"/>
+        <circle cx="12" cy="2.5" r="1.4" fill="currentColor" stroke="none"/>
+      </svg>
+      Aion Lumen
+    </a>
+    <div class="topbar-spacer"></div>
+    <div class="tb-group" role="group" aria-label="Language">
+      <button class="tb-btn" data-tb="lang:en">EN</button>
+      <button class="tb-btn" data-tb="lang:de">DE</button>
+    </div>
+    <div class="tb-group" role="group" aria-label="Theme">
+      <button class="tb-btn" data-tb="theme:light"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></svg></button>
+      <button class="tb-btn" data-tb="theme:dark"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+    </div>
+    <div class="tb-group" role="group" aria-label="Accent">
+      <button class="tb-btn" data-tb="accent:gold">Gold</button>
+      <button class="tb-btn" data-tb="accent:olive">Olive</button>
+    </div>
+  </header>
+
+  <!-- Vertical rail -->
+  <aside class="rail" aria-hidden="true">Aion Lumen · Basel · MMXXVI</aside>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero-b" data-screen-label="01 Hero">
+      <div class="wrap">
+        <div class="crumb">
+          <span>MMXXVI</span><strong>·</strong>
+          <span class="en">Volume I</span><span class="de">Band I</span><strong>·</strong>
+          <span class="en">Index 00</span><span class="de">Eintrag 00</span>
+        </div>
+        <h1 class="reveal">
+          <span class="en">
+            Local-first<span class="b-line-2">tools, at</span>
+            <span class="b-line-3">human timescales.</span>
+          </span>
+          <span class="de">
+            Werkzeuge<span class="b-line-2">für menschliche</span>
+            <span class="b-line-3">Zeitskalen.</span>
+          </span>
+        </h1>
+        <div class="hero-b-meta">
+          <p class="hero-b-tag reveal" style="--d: 200ms;">
+            <span class="en">Software for the next decade of your life — kept on <em>your machine</em>, in <em>your formats</em>, on <em>your terms</em>.</span>
+            <span class="de">Software für das nächste Jahrzehnt deines Lebens — auf <em>deinem Rechner</em>, in <em>deinen Formaten</em>, zu <em>deinen Bedingungen</em>.</span>
+          </p>
+          <div class="hero-b-side reveal" style="--d: 300ms;">
+            <span class="accent-dot"></span><span class="en">Independent maker</span><span class="de">Unabhängiger Macher</span><br/>
+            <span class="accent-dot"></span><span class="en">Switzerland / Germany</span><span class="de">Schweiz / Deutschland</span><br/>
+            <span class="accent-dot"></span><span class="en">Open source · AGPL-3.0</span><span class="de">Quelloffen · AGPL-3.0</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-pencil hand-block hand" aria-hidden="true">
+        <span class="en">no clouds were<br/>harmed in the<br/>making of this<span class="arrow">→</span></span>
+        <span class="de">keine Clouds<br/>wurden hierbei<br/>verletzt<span class="arrow">→</span></span>
+      </div>
+    </section>
+
+    <div class="wrap">
+
+      <!-- ───────── Hero (Beacon / Concept A) ───────── -->
+      <section class="hero" data-screen-label="01a Hero">
+        <div class="beacon" aria-hidden="true">
+          <svg viewBox="0 0 56 56" fill="none">
+            <path d="M28 4 L28 52" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+            <path d="M16 16 L40 16 M14 22 L42 22 M18 28 L38 28" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" opacity="0.7"/>
+            <circle cx="28" cy="10" r="3" fill="currentColor"/>
+            <circle cx="28" cy="10" r="6" stroke="currentColor" stroke-width="0.5" opacity="0.5"/>
+            <circle cx="28" cy="10" r="10" stroke="currentColor" stroke-width="0.4" opacity="0.3"/>
+          </svg>
+        </div>
+
+        <div class="hero-eyebrow"><span class="en">SINCE 2026 · BASEL</span><span class="de">SEIT 2026 · BASEL</span></div>
+
+        <h1 class="hero-title">
+          <span class="en">local-first tools<br/><span class="glow">at human</span><br/><span class="glow">timescales.</span></span>
+          <span class="de">Werkzeuge für<br/><span class="glow">menschliche</span><br/><span class="glow">Zeitskalen.</span></span>
+        </h1>
+
+        <p class="hero-tagline">
+          <span class="en">Software that respects the next decade of your life — and keeps your data on your machine.</span>
+          <span class="de">Software, die das nächste Jahrzehnt deines Lebens respektiert — und deine Daten auf deinem Rechner lässt.</span>
+        </p>
+
+        <div class="hero-meta">
+          <span><span class="dot"></span><span class="en">Local context</span><span class="de">Lokaler Kontext</span></span>
+          <span><span class="dot"></span><span class="en">Long horizons</span><span class="de">Lange Horizonte</span></span>
+          <span><span class="dot"></span><span class="en">Open source</span><span class="de">Quelloffen</span></span>
+        </div>
+
+        <div class="margin-note hand-block hand" style="top: 220px; right: max(40px, 6vw); transform: rotate(-4deg); max-width: 12ch; text-align: left;">
+          <span class="en">Beacons over<br/>billboards <span class="arrow">↘</span></span>
+          <span class="de">Leuchtfeuer statt<br/>Plakate <span class="arrow">↘</span></span>
+        </div>
+      </section>
+
+      <!-- §0 Origin — datierte Beobachtung, ich-Stimme -->
+      <section class="origin-b" data-screen-label="02 Origin">
+        <div class="grid">
+          <aside class="origin-head">
+            <span class="num">§ I.</span>
+            <span class="en">Origin</span><span class="de">Ursprung</span>
+            <span class="when"><span class="en">Recorded</span><span class="de">Notiert</span> · MMXXV</span>
+          </aside>
+
+          <p class="origin-lead reveal">
+            <span class="en">You build the generator <em>because it’s freezing outside</em>.</span>
+            <span class="de">Man baut den Generator, <em>weil es draußen eiskalt ist</em>.</span>
+          </p>
+
+          <div class="origin-body reveal" style="--d: 120ms;">
+            <p>
+              <span class="drop">A</span><span class="en">ion Lumen is a vision born under pressure. Different threads of my life had tightened into a single, complicated knot. To navigate it, I asked a cloud LLM for advice.</span>
+              <span class="de">ion Lumen ist eine Vision, geboren aus Druck. Verschiedene Stränge meines Lebens hatten sich zu einem hochkomplexen Knoten verdichtet. Um das zu navigieren, suchte ich Rat bei einem Cloud-LLM.</span>
+            </p>
+            <p>
+              <span class="en">For the advice to hold, the model needed context. I gave it. <em>More than I’d planned to.</em></span>
+              <span class="de">Damit der Rat trug, brauchte das Modell Kontext. Ich gab ihn. <em>Mehr, als ich vorhatte.</em></span>
+            </p>
+            <p>
+              <span class="en">The receipt arrived immediately: the bare unease that my most private reality now lived on someone else’s servers. Trapped inside a black box of terms and conditions. A mistake that wouldn’t unsend itself.</span>
+              <span class="de">Die Quittung folgte sofort: das blanke Unbehagen, dass meine privateste Realität nun auf fremden Servern lag. Gefangen in einer Blackbox aus AGBs. Ein Fehler, der sich nicht mehr löschen ließ.</span>
+            </p>
+            <p>
+              <span class="en">I needed this companion — that wasn’t negotiable. But I made myself a promise: <em>never online again. Local. For good.</em></span>
+              <span class="de">Ich brauchte diesen Begleiter zwingend. Aber ich schwor mir: <em>Nie wieder online. Lokal. Für immer.</em></span>
+            </p>
+            <p>
+              <span class="en">Then Gemma 3 arrived. The first model that pressed real reasoning into my old RTX 3080. Karpathy’s idea of local knowledge bases was in the air. <em>The spark in the cold.</em></span>
+              <span class="de">Dann erschien Gemma 3. Das erste Modell, das tiefes Argumentieren in meine alte RTX 3080 presste. Karpathys Idee von lokalen Knowledge-Bases lag in der Luft. <em>Der Funke in der Kälte.</em></span>
+            </p>
+            <p>
+              <span class="en">Folio is built from the ruins of half-finished projects, driven by sheer necessity. At first I just wanted a generator, so I wouldn’t freeze inside the complexity. But the survival tool turned into an engine. I’m tightening bolts on this rocket and feeling it lift, before I’m a meter off the ground.</span>
+              <span class="de">Folio ist aus den Ruinen halbfertiger Projekte gebaut, angetrieben von reiner Notwendigkeit. Zuerst wollte ich nur einen Generator bauen, um in der Komplexität nicht zu erfrieren. Aber aus dem Überlebenswerkzeug ist ein Triebwerk geworden. Ich schraube an dieser Rakete und spüre, wie sie abhebt, noch bevor ich einen Meter über dem Boden bin.</span>
+            </p>
+          </div>
+
+          <aside class="origin-margin">
+            <span class="en">Filed under</span><span class="de">Abgelegt unter</span><br/>
+            · <span class="en">A knot</span><span class="de">Ein Knoten</span><br/>
+            · <span class="en">A vow</span><span class="de">Ein Schwur</span><br/>
+            · <span class="en">A spark</span><span class="de">Ein Funke</span>
+          </aside>
+
+          <div class="origin-sig">
+            <span class="en">First entry · by hand</span>
+            <span class="de">Erster Eintrag · von Hand</span>
+            <span class="hand-sig hand-block hand">— afm.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Triptychon — brand-axis terms -->
+      <section class="trip-b" data-screen-label="03 Triptychon">
+        <header class="head">
+          <div class="label"><span class="en">§ III · Three axes</span><span class="de">§ III · Drei Achsen</span></div>
+          <h2>
+            <span class="en">Three words that carry <em>everything else</em>. Not features. Not promises. <em>Coordinates.</em></span>
+            <span class="de">Drei Worte, die <em>alles andere</em> tragen. Keine Features. Keine Versprechen. <em>Koordinaten.</em></span>
+          </h2>
+        </header>
+
+        <div class="trip-grid">
+          <article class="trip-cell reveal">
+            <span class="roman">Ⅰ</span>
+            <h3 class="word">
+              <span class="en">Tool.<span class="mute">Werkzeug.</span></span>
+              <span class="de">Werkzeug.<span class="mute">Tool.</span></span>
+            </h3>
+            <p class="body">
+              <span class="en">Software that <em>does what you ask</em> — nothing more. No drift, no surprise updates that move the buttons, no cloud round-trip for a thought. A hammer’s honesty, in a category that forgot it.</span>
+              <span class="de">Software, die <em>tut, worum du sie bittest</em> — nicht mehr. Kein Drift, keine Überraschungs-Updates, die die Knöpfe verschieben, kein Cloud-Roundtrip für einen Gedanken. Die Ehrlichkeit eines Hammers, in einer Kategorie, die sie vergessen hat.</span>
+            </p>
+          </article>
+
+          <article class="trip-cell reveal" style="--d: 100ms;">
+            <span class="roman">Ⅱ</span>
+            <h3 class="word">
+              <span class="en">Time.<span class="mute">Zeit.</span></span>
+              <span class="de">Zeit.<span class="mute">Time.</span></span>
+            </h3>
+            <p class="body">
+              <span class="en">Built to outlive the <em>quarterly cycle</em>. The vault you start today should still open in 2046, in any text editor, with no service to call home to. <em>Decades</em> are the unit; not days.</span>
+              <span class="de">Gebaut, um den <em>Quartalszyklus</em> zu überleben. Der Vault, den du heute beginnst, soll sich 2046 noch öffnen — in jedem Editor, ohne Server, den er anrufen muss. <em>Dekaden</em> sind die Einheit, nicht Tage.</span>
+            </p>
+          </article>
+
+          <article class="trip-cell reveal" style="--d: 200ms;">
+            <span class="roman">Ⅲ</span>
+            <h3 class="word">
+              <span class="en">Ownership.<span class="mute">Eigentum.</span></span>
+              <span class="de">Eigentum.<span class="mute">Ownership.</span></span>
+            </h3>
+            <p class="body">
+              <span class="en">Your patterns belong to you. Your context, your half-formed thoughts, the weight of a decade of decisions — <em>not training data</em>. Plain markdown, your machine, your terms. Sovereignty by default.</span>
+              <span class="de">Deine Muster gehören dir. Dein Kontext, deine halbgeformten Gedanken, das Gewicht einer Dekade an Entscheidungen — <em>keine Trainingsdaten</em>. Reines Markdown, dein Rechner, deine Bedingungen. Souveränität als Standard.</span>
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Premise — § II · vier Trigger -->
+      <section class="prem-b" data-screen-label="04 Premise">
+        <header class="head">
+          <div class="label">
+            <span class="num">§ II.</span>
+            <span class="en">Premise</span><span class="de">Prämisse</span>
+          </div>
+          <p class="prem-lead reveal">
+            <span class="en">Today’s AI is like a brilliant strategist who <em>forgets you between meetings</em>.</span>
+            <span class="de">Heutige KI ist wie ein brillanter Stratege, der <em>dich bei jedem Treffen vergisst</em>.</span>
+          </p>
+        </header>
+
+        <div class="prem-grid">
+          <article class="prem-cell reveal">
+            <span class="roman">I</span>
+            <h3 class="trigger">
+              <span class="en">Blank slate.</span>
+              <span class="de">Weißes Blatt.</span>
+            </h3>
+            <p class="body">
+              <span class="en">Every session starts at zero. You explain yourself, again, from the beginning.</span>
+              <span class="de">Jede Session startet bei null. Du erklärst dich immer wieder neu.</span>
+            </p>
+          </article>
+          <article class="prem-cell reveal" style="--d: 80ms;">
+            <span class="roman">II</span>
+            <h3 class="trigger">
+              <span class="en">Drift.</span>
+              <span class="de">Zerfall.</span>
+            </h3>
+            <p class="body">
+              <span class="en">The longer the conversation, the worse the advice. The thread frays.</span>
+              <span class="de">Je länger das Gespräch, desto schlechter der Rat. Der Faden reißt.</span>
+            </p>
+          </article>
+          <article class="prem-cell reveal" style="--d: 160ms;">
+            <span class="roman">III</span>
+            <h3 class="trigger">
+              <span class="en">Graveyard.</span>
+              <span class="de">Friedhof.</span>
+            </h3>
+            <p class="body">
+              <span class="en">Brilliant analyses sink into unfindable cloud histories. Lost where you can’t reach them.</span>
+              <span class="de">Geniale Analysen versinken in unauffindbaren Cloud-Histories.</span>
+            </p>
+          </article>
+          <article class="prem-cell reveal" style="--d: 240ms;">
+            <span class="roman">IV</span>
+            <h3 class="trigger">
+              <span class="en">Tunnel.</span>
+              <span class="de">Tunnelblick.</span>
+            </h3>
+            <p class="body">
+              <span class="en">Ask only one model and you inherit its bias — silently, completely.</span>
+              <span class="de">Wer nur ein Modell fragt, übernimmt blind dessen Bias.</span>
+            </p>
+          </article>
+        </div>
+
+        <div class="prem-deeper">
+          <div class="lede reveal">
+            <p>
+              <span class="en">But the real problem sits deeper than that.</span>
+              <span class="de">Doch das eigentliche Problem liegt tiefer.</span>
+            </p>
+            <p>
+              <span class="en">The true value of an AI isn’t in answering single questions. It’s in the <em>invisible connections</em> — noticing the threads between resources and goals that you miss yourself, because you’re standing inside the storm.</span>
+              <span class="de">Der wahre Wert einer KI liegt nicht im Beantworten von Einzelfragen. Er liegt in den <em>unsichtbaren Verbindungen</em> — dem Erkennen der Fäden zwischen Ressourcen und Zielen, die man selbst übersieht, weil man mitten im Sturm steht.</span>
+            </p>
+            <p>
+              <span class="en"><strong>That’s the bet:</strong> a companion that knows your <em>whole picture</em>.</span>
+              <span class="de"><strong>Das ist die Wette:</strong> Ein Begleiter, der dein <em>ganzes Bild</em> kennt.</span>
+            </p>
+            <p>
+              <span class="en">But anyone who sees the whole picture can also be fatally wrong. So Folio must never become a guardian. It is an instrument. <em>Local, transparent</em>, illuminating perspectives — not making your life decisions for you.</span>
+              <span class="de">Doch wer das ganze Bild sieht, kann sich auch fatal irren. Deshalb darf Folio niemals zum Vormund werden. Es ist ein Instrument. <em>Lokal, transparent</em>, das Perspektiven ausleuchtet, statt dir Lebensentscheidungen blind abzunehmen.</span>
+            </p>
+          </div>
+          <aside class="margin">
+            <span class="en">Filed under</span><span class="de">Abgelegt unter</span><br/>
+            · <span class="en">A bet</span><span class="de">Eine Wette</span><br/>
+            · <span class="en">An instrument</span><span class="de">Ein Instrument</span><br/>
+            · <span class="en">Not a guardian</span><span class="de">Kein Vormund</span>
+          </aside>
+        </div>
+
+        <div class="prem-clamp">
+          <p class="body reveal">
+            <span class="en"><em>Folio gives you the engine.</em><br/>The course is yours.</span>
+            <span class="de"><em>Folio liefert das Triebwerk.</em><br/>Den Kurs bestimmst du.</span>
+          </p>
+        </div>
+      </section>
+
+      <!-- Folio plate -->
+      <section class="folio-b" data-screen-label="05 Folio plate">
+        <header class="folio-b-head">
+          <div class="label"><span class="en">Plate I · Current</span><span class="de">Tafel I · Aktuell</span></div>
+          <h2 class="name">Folio.</h2>
+          <div class="roman">v0.1.0<small><span class="en">public preview</span><span class="de">öffentliche Vorschau</span></small></div>
+        </header>
+
+        <a class="folio-b-card reveal" href="folio/index.html">
+          <div class="folio-b-thumb">
+            <img src="assets/folio-01-overview.png" alt="Folio dashboard — campaign timeline, kanban, and Hermes chat panel" />
+            <div class="folio-b-thumb-hud" aria-hidden="true">
+              <span class="corner tl"></span><span class="corner tr"></span>
+              <span class="corner bl"></span><span class="corner br"></span>
+            </div>
+            <div class="folio-b-thumb-tag"><span class="dot"></span>demo-vault.local · synced 22:37</div>
+          </div>
+          <div class="folio-b-side">
+            <p class="tag">
+              <span class="en">A markdown vault as memory. A local AI as your strategy partner.</span>
+              <span class="de">Ein Markdown-Vault als Gedächtnis. Eine lokale KI als Strategie-Partnerin.</span>
+            </p>
+            <p class="desc">
+              <span class="en">Plan your life in five acts. Each chapter a campaign, each week a quiet move forward — written in plain markdown that opens in any editor, twenty years from now.</span>
+              <span class="de">Plane dein Leben in fünf Akten. Jedes Kapitel eine Kampagne, jede Woche ein leiser Schritt nach vorn — in reinem Markdown, das sich auch in zwanzig Jahren in jedem Editor öffnet.</span>
+            </p>
+            <div class="badges">
+              <span class="badge live">v0.1.0</span>
+              <span class="badge">AGPL-3.0</span>
+              <span class="badge"><span class="en">Local-first</span><span class="de">Lokal-first</span></span>
+            </div>
+            <div class="b-cta"><span class="en">Open Folio</span><span class="de">Folio öffnen</span><span class="arr">→</span></div>
+          </div>
+        </a>
+
+        <div class="folio-b-foot">
+          <div class="ws">
+            <span class="en">"Open Folio. The fire is already lit."</span>
+            <span class="de">„Folio öffnen. Das Feuer brennt bereits."</span>
+          </div>
+          <div></div>
+          <div class="next-tool">
+            <span class="en">Plate II · </span><span class="de">Tafel II · </span>
+            <span class="num"><span class="en">in quiet construction</span><span class="de">in stiller Konstruktion</span></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Principles ledger -->
+      <section class="pr-b" data-screen-label="06 Principles">
+        <header class="pr-b-head">
+          <div class="label"><span class="en">§ V · Principles</span><span class="de">§ V · Prinzipien</span></div>
+          <h2>
+            <span class="en">Four lines kept honest, written down so the work has somewhere to <em>return to</em>.</span>
+            <span class="de">Vier ehrlich gemeinte Zeilen, niedergeschrieben, damit die Arbeit etwas hat, wohin sie <em>zurückkehren</em> kann.</span>
+          </h2>
+        </header>
+
+        <div class="pr-b-list">
+          <article class="pr-row reveal">
+            <span class="pr-n">01</span>
+            <h3><span class="en">Markdown over databases.</span><span class="de">Markdown statt Datenbanken.</span></h3>
+            <p class="pr-body"><span class="en">Your vault opens in any editor — Vim, Obsidian, Notepad in 2046. No proprietary lock-in. No migration drama.</span><span class="de">Dein Vault öffnet sich in jedem Editor — Vim, Obsidian, Notepad im Jahr 2046. Kein proprietärer Lock-in. Kein Migrations-Drama.</span></p>
+            <span class="pr-mark hand">∗</span>
+          </article>
+          <article class="pr-row reveal" style="--d: 100ms;">
+            <span class="pr-n">02</span>
+            <h3><span class="en">Local AI over cloud APIs.</span><span class="de">Lokale KI statt Cloud-APIs.</span></h3>
+            <p class="pr-body"><span class="en">Your conversations stay private. Your patterns aren't training data for someone else's model.</span><span class="de">Deine Gespräche bleiben privat. Deine Muster sind keine Trainingsdaten für ein fremdes Modell.</span></p>
+            <span class="pr-mark hand">⁂</span>
+          </article>
+          <article class="pr-row reveal" style="--d: 200ms;">
+            <span class="pr-n">03</span>
+            <h3><span class="en">Long horizons over quarterly cycles.</span><span class="de">Lange Horizonte statt Quartalszyklen.</span></h3>
+            <p class="pr-body"><span class="en">Tools for decade-scale thinking. Five-year arcs, not five-day sprints. Frostpunk over OKRs.</span><span class="de">Werkzeuge für Dekaden-Denken. Fünf-Jahre-Bögen, keine Fünf-Tage-Sprints. Frostpunk vor OKRs.</span></p>
+            <span class="pr-mark hand">⌘</span>
+          </article>
+          <article class="pr-row reveal" style="--d: 300ms;">
+            <span class="pr-n">04</span>
+            <h3><span class="en">Substance over polish.</span><span class="de">Substanz statt Hochglanz.</span></h3>
+            <p class="pr-body"><span class="en">Engineering matters more than marketing. Built well, kept quiet, made to outlast its release notes.</span><span class="de">Ingenieurskunst zählt mehr als Marketing. Gut gebaut, leise gehalten, gemacht um seine Release-Notes zu überdauern.</span></p>
+            <span class="pr-mark hand">†</span>
+          </article>
+        </div>
+      </section>
+
+      <!-- Coda — confession on brand level -->
+      <section class="coda-b" data-screen-label="07 Coda">
+        <div class="coda-b-grid">
+          <p class="coda-b-line">
+            <span class="en"><em>One person.</em> One desk. <em>One decade.</em></span>
+            <span class="de"><em>Eine Person.</em> Ein Schreibtisch. <em>Eine Dekade.</em></span>
+          </p>
+          <div class="coda-b-meta">
+            Basel<br/>MMXXVI<br/>→
+          </div>
+        </div>
+        <p class="coda-b-sub">
+          <span class="en">Built for the decade that comes <em>after</em> the next quarter. Made to outlast its release notes.</span>
+          <span class="de">Für das Jahrzehnt <em>nach</em> dem nächsten Quartal gebaut. Gemacht, um seine Release-Notes zu überdauern.</span>
+          <span class="hand-sig hand-block hand" aria-hidden="true">— afm.</span>
+        </p>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="foot-b">
+    <div>
+      <h4>Aion Lumen</h4>
+      <span class="name">Afshin Mirhamed</span>
+      <p class="geo">
+        <span class="en">Independent maker · 20 years SAP-BI · now applied AI &amp; local-first SaaS. Working from Basel.</span>
+        <span class="de">Unabhängiger Macher · 20 Jahre SAP-BI · jetzt Applied AI &amp; Local-first SaaS. Arbeitet aus Basel.</span>
+        <br/><span class="sig hand-block hand">— afm.</span>
+      </p>
+    </div>
+    <div>
+      <h4><span class="en">Elsewhere</span><span class="de">Anderswo</span></h4>
+      <ul>
+        <li><a href="https://mirhamed.ch" target="_blank" rel="noopener">mirhamed.ch&nbsp;↗</a></li>
+        <li><a href="https://github.com/aion-lumen" target="_blank" rel="noopener">GitHub&nbsp;↗</a></li>
+        <li><a href="folio/index.html"><span class="en">Folio</span><span class="de">Folio</span>&nbsp;→</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4><span class="en">Write</span><span class="de">Schreiben</span></h4>
+      <ul>
+        <li><a href="#" data-email="reveal" class="link-soft" style="border: none; padding: 0;"></a></li>
+        <li><a href="https://github.com/aion-lumen/life-dashboard/issues" target="_blank" rel="noopener"><span class="en">Issues on GitHub</span><span class="de">Issues auf GitHub</span>&nbsp;↗</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4><span class="en">Notice</span><span class="de">Hinweis</span></h4>
+      <ul>
+        <li style="color: var(--ink-mute); font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.06em;">
+          <span class="en">© MMXXVI · One person · Quiet maker</span>
+          <span class="de">© MMXXVI · Eine Person · Stiller Macher</span>
+        </li>
+        <li style="color: var(--ink-mute); font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.06em;">
+          <span class="en">Hosted on its own VPS — not a SaaS portfolio.</span>
+          <span class="de">Auf eigenem VPS — kein SaaS-Portfolio.</span>
+        </li>
+      </ul>
+    </div>
+  </footer>
+
+  <div class="variant-pill">
+    <span class="dot"></span>
+    <span class="en">Konzept B · asymmetric</span>
+    <span class="de">Konzept B · asymmetrisch</span>
+    <span style="opacity: 0.6">·</span>
+    <a href="index.html"><span class="en">see Konzept A</span><span class="de">zu Konzept A</span></a>
+  </div>
+
+<script src="styles/controls.js"></script>
+<script src="styles/tweaks.js"></script>
+
+<template id="__bundler_thumbnail" data-bg-color="#0C0A0F">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0C0A0F"/>
+    <!-- Vertical column glyph (mirrors the topbar mark) -->
+    <g stroke="#D4A373" stroke-width="3" stroke-linecap="round" fill="none" transform="translate(600 400)">
+      <line x1="0" y1="-180" x2="0" y2="180"/>
+      <line x1="-120" y1="-110" x2="120" y2="-110"/>
+      <line x1="-90"  y1="-30"  x2="90"  y2="-30"/>
+      <line x1="-110" y1="60"   x2="110" y2="60"/>
+      <circle cx="0" cy="-180" r="9" fill="#D4A373" stroke="none"/>
+    </g>
+    <!-- Wordmark -->
+    <text x="600" y="660" text-anchor="middle"
+          font-family="Georgia, 'Iowan Old Style', serif"
+          font-size="44" font-weight="500" letter-spacing="2"
+          fill="#F4ECDD">Aion Lumen</text>
+    <text x="600" y="700" text-anchor="middle"
+          font-family="ui-monospace, Menlo, monospace"
+          font-size="14" letter-spacing="6"
+          fill="#8C7E6A">LOCAL · LONG · QUIET</text>
+  </svg>
+</template>
+
+</body>
+</html>

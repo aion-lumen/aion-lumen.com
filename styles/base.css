@@ -1,0 +1,304 @@
+/* ─────────────────────────────────────────────────────────────────
+ * Aion Lumen — shared design tokens & base
+ * Earthy Harmony palette · Epilogue/DM Sans/JetBrains Mono/Caveat
+ * ───────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@400;500&display=swap');
+
+:root {
+  /* ── Palette ── */
+  --c-app-dark:   #0C0A0F;
+  --c-cream:      #FFF8F1;
+  --c-brown:      #7D562D;
+  --c-gold:       #D4A373;
+  --c-olive:      #6B7F3A;
+
+  /* Derived (light mode default) */
+  --bg:           var(--c-cream);
+  --bg-warm:      #F4EBDC;
+  --bg-deep:      #EBDFCB;
+  --ink:          #1F1810;
+  --ink-soft:     #4A3F33;
+  --ink-mute:     #7D6F5F;
+  --rule:         #D4C5AB;
+  --rule-soft:    #E5D8C0;
+  --accent:       var(--c-brown);
+  --accent-warm:  var(--c-gold);
+  --accent-glow:  rgba(212, 163, 115, 0.18);
+
+  /* Type families */
+  --f-display: 'Epilogue', 'Iowan Old Style', Georgia, serif;
+  --f-body:    'DM Sans', system-ui, -apple-system, sans-serif;
+  --f-mono:    'JetBrains Mono', ui-monospace, Menlo, monospace;
+  --f-hand:    'Caveat', 'Bradley Hand', cursive;
+
+  /* Type scale (fluid) */
+  --t-meta:    clamp(11px, 0.7vw + 0.5rem, 13px);
+  --t-body:    clamp(15px, 0.4vw + 0.85rem, 17px);
+  --t-lead:    clamp(18px, 0.6vw + 1rem, 22px);
+  --t-h3:      clamp(22px, 1vw + 1rem, 28px);
+  --t-h2:      clamp(32px, 2vw + 1rem, 48px);
+  --t-h1:      clamp(48px, 4vw + 1.2rem, 92px);
+  --t-display: clamp(64px, 6vw + 1rem, 128px);
+
+  /* Layout */
+  --maxw:      1180px;
+  --gutter:    clamp(20px, 4vw, 56px);
+  --section:   clamp(64px, 8vw, 128px);
+
+  /* Texture */
+  --tex-opacity: 0.04;
+  --hand-opacity: 0.85;
+}
+
+[data-theme="dark"] {
+  --bg:        var(--c-app-dark);
+  --bg-warm:   #14111A;
+  --bg-deep:   #1B1722;
+  --ink:       #F4ECDD;
+  --ink-soft:  #C7B89F;
+  --ink-mute:  #8C7E6A;
+  --rule:      #2B2532;
+  --rule-soft: #1F1A26;
+  --accent:    var(--c-gold);
+  --accent-warm: var(--c-gold);
+  --accent-glow: rgba(212, 163, 115, 0.22);
+}
+
+[data-accent="olive"] {
+  --accent:      var(--c-olive);
+  --accent-warm: #8FA94F;
+  --accent-glow: rgba(143, 169, 79, 0.16);
+}
+[data-theme="dark"][data-accent="olive"] {
+  --accent:      #8FA94F;
+  --accent-warm: #A8C264;
+  --accent-glow: rgba(143, 169, 79, 0.20);
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--f-body);
+  font-size: var(--t-body);
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'kern', 'liga', 'calt';
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  transition: background-color 400ms ease, color 400ms ease;
+}
+
+/* ── Paper texture overlay (controlled by --tex-opacity) ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image:
+    /* fine grain noise via fractal SVG (base64 to hide inner url(#n) from CSS-url scanners) */
+    url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PScwIDAgMjQwIDI0MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48ZmlsdGVyIGlkPSduJz48ZmVUdXJidWxlbmNlIHR5cGU9J2ZyYWN0YWxOb2lzZScgYmFzZUZyZXF1ZW5jeT0nMC44NScgbnVtT2N0YXZlcz0nMicgc3RpdGNoVGlsZXM9J3N0aXRjaCcvPjxmZUNvbG9yTWF0cml4IHZhbHVlcz0nMCAwIDAgMCAwLjE2IDAgMCAwIDAgMC4xMyAwIDAgMCAwIDAuMDkgMCAwIDAgMC43IDAnLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0nMTAwJScgaGVpZ2h0PScxMDAlJyBmaWx0ZXI9J3VybCgjbiknLz48L3N2Zz4=");
+  opacity: var(--tex-opacity);
+  mix-blend-mode: multiply;
+}
+[data-theme="dark"] body::before { mix-blend-mode: screen; opacity: calc(var(--tex-opacity) * 0.7); }
+
+/* ── Typography utilities ── */
+h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 600; letter-spacing: -0.02em; line-height: 1.05; color: var(--ink); }
+h1 { font-size: var(--t-h1); }
+h2 { font-size: var(--t-h2); }
+h3 { font-size: var(--t-h3); letter-spacing: -0.01em; line-height: 1.2; }
+
+p { color: var(--ink-soft); }
+em, i { font-style: italic; }
+strong { color: var(--ink); font-weight: 600; }
+a { color: inherit; text-decoration: none; transition: color 200ms ease; }
+
+.meta {
+  font-family: var(--f-mono);
+  font-size: var(--t-meta);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.hand {
+  font-family: var(--f-hand);
+  font-weight: 400;
+  color: var(--accent);
+  opacity: var(--hand-opacity);
+  font-size: 1.4em;
+  letter-spacing: 0.005em;
+}
+[data-hand="off"] .hand,
+[data-hand="off"] .hand-block { display: none; }
+[data-hand="muted"] .hand { opacity: 0.4; }
+
+/* ── Selection ── */
+::selection { background: var(--accent-glow); color: var(--ink); }
+
+/* ── Container ── */
+.wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Buttons / links ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 18px;
+  font-family: var(--f-body);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 200ms ease, background 200ms ease, color 200ms ease, transform 220ms ease;
+}
+.btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.btn-arrow { font-family: var(--f-mono); font-size: 12px; transition: transform 250ms ease; }
+.btn:hover .btn-arrow { transform: translateX(3px); }
+
+.link-soft {
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 1px;
+  transition: color 200ms ease, border-color 200ms ease;
+}
+.link-soft:hover { color: var(--accent); border-color: var(--accent); }
+
+/* ── Top control bar (theme/accent/lang/hand toggles) ── */
+.topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  padding: 14px var(--gutter);
+  gap: 16px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+}
+.topbar > * { pointer-events: auto; }
+.topbar-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--ink);
+  font-weight: 500;
+  letter-spacing: 0;
+  font-family: var(--f-display);
+  font-size: 14px;
+}
+.topbar-mark svg { color: var(--accent); }
+.topbar-spacer { flex: 1; }
+
+.tb-group {
+  display: inline-flex;
+  align-items: center;
+  background: color-mix(in srgb, var(--bg) 70%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--rule-soft);
+  border-radius: 999px;
+  padding: 3px;
+  gap: 1px;
+}
+.tb-btn {
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  color: var(--ink-mute);
+  padding: 5px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 180ms ease, background 180ms ease;
+}
+.tb-btn:hover { color: var(--ink); }
+.tb-btn.on {
+  color: var(--ink);
+  background: var(--bg-warm);
+}
+[data-theme="dark"] .tb-btn.on { background: var(--bg-deep); }
+
+/* ── Section dividers ── */
+.rule { border-top: 1px solid var(--rule); margin: var(--section) 0; height: 0; }
+.rule.thin { border-color: var(--rule-soft); }
+
+/* ── Mark / logo ── */
+.mark {
+  width: 22px; height: 22px;
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* ── Card / panel ── */
+.panel {
+  border: 1px solid var(--rule);
+  background: linear-gradient(180deg, var(--bg-warm), transparent);
+  padding: clamp(20px, 2.5vw, 32px);
+  border-radius: 2px;
+  position: relative;
+}
+
+/* ── Footer ── */
+.foot {
+  padding: clamp(28px, 4vw, 48px) var(--gutter);
+  border-top: 1px solid var(--rule);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: baseline;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--ink-mute);
+  font-family: var(--f-mono);
+  letter-spacing: 0.04em;
+}
+.foot a { color: var(--ink-soft); border-bottom: 1px solid transparent; transition: color 180ms, border-color 180ms; }
+.foot a:hover { color: var(--accent); border-color: var(--accent); }
+.foot .foot-name { font-family: var(--f-display); font-size: 15px; letter-spacing: 0; color: var(--ink); }
+
+/* ── Animations ── */
+/* Reveal-on-scroll DISABLED — was causing intermittent invisibility on initial paint.
+   The .reveal class is kept harmless (no-op) so existing markup still works.
+   Re-enable later by restoring the @media block from git history. */
+.reveal { opacity: 1; transform: none; }
+.reveal.in { opacity: 1; transform: none; }
+
+/* ── Responsive ── */
+@media (max-width: 720px) {
+  .topbar { padding: 10px 16px; gap: 8px; flex-wrap: wrap; }
+  .tb-group { font-size: 10px; }
+  .topbar-mark { font-size: 13px; }
+}
+
+/* ── i18n: hide opposite-language strings ── */
+[data-lang="de"] .en { display: none; }
+[data-lang="en"] .de { display: none; }
+[data-lang="de"] .en-inline { display: none; }
+[data-lang="en"] .de-inline { display: none; }
