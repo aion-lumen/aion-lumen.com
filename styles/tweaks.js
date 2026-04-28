@@ -254,3 +254,18 @@
   // Announce availability AFTER listener is registered
   try { window.parent.postMessage({ type: '__edit_mode_available' }, '*'); } catch (_) {}
 })();
+
+// ── Lumen spark: ignite once when closing line scrolls into view ──
+(() => {
+  const el = document.querySelector('.lumen-spark');
+  if (!el) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        el.classList.add('is-lit');
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.6 });
+  observer.observe(el);
+})();

@@ -6,6 +6,7 @@
 <title>Aion Lumen — Local-first tools at human timescales (Konzept B)</title>
 <meta name="description" content="Local-first software tools, built for the next decade of your life." />
 <link rel="stylesheet" href="styles/base.css?v=2" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <style>
   /* ──────────────────────────────────────────────────────────────
    * Konzept B — Asymmetric / hand-built feel
@@ -48,89 +49,6 @@
   @media (max-width: 880px) { .rail { display: none; } }
 
   /* ── Hero ─────────────────────────────────────────────────── */
-  .hero-b {
-    padding: clamp(140px, 22vh, 220px) 0 clamp(100px, 14vh, 160px);
-    position: relative;
-    overflow: hidden;
-  }
-  .hero-b .wrap {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-  .hero-b .crumb {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 18px;
-    color: var(--ink-mute);
-    font-family: var(--f-mono);
-    font-size: 11px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-  }
-  .hero-b .crumb strong { color: var(--accent); font-weight: 500; letter-spacing: 0.2em; }
-
-  .hero-b h1 {
-    font-family: var(--f-display);
-    font-size: clamp(54px, 8vw + 0.4rem, 142px);
-    line-height: 0.92;
-    letter-spacing: -0.04em;
-    font-weight: 600;
-    max-width: 14ch;
-    margin-top: 12px;
-  }
-  .hero-b h1 .b-line-2 { display: block; padding-left: clamp(40px, 8vw, 120px); }
-  .hero-b h1 .b-line-3 { display: block; color: var(--accent); font-style: italic; font-weight: 500; }
-
-  .hero-b-meta {
-    display: grid;
-    grid-template-columns: minmax(0, 480px) auto;
-    gap: clamp(28px, 4vw, 80px);
-    align-items: end;
-    margin-top: clamp(40px, 6vw, 80px);
-  }
-  .hero-b-tag {
-    font-family: var(--f-display);
-    font-size: var(--t-lead);
-    color: var(--ink-soft);
-    font-style: italic;
-    font-weight: 400;
-    line-height: 1.5;
-    text-wrap: pretty;
-  }
-  .hero-b-tag em { color: var(--accent); font-style: italic; }
-  .hero-b-side {
-    text-align: right;
-    color: var(--ink-mute);
-    font-family: var(--f-mono);
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    line-height: 1.8;
-    text-transform: uppercase;
-  }
-  .hero-b-side .accent-dot {
-    display: inline-block; width: 6px; height: 6px;
-    background: var(--accent); border-radius: 50%;
-    margin-right: 6px; transform: translateY(-2px);
-  }
-
-  /* Hand pencil mark over the hero */
-  .hero-pencil {
-    position: absolute;
-    right: clamp(16px, 5vw, 80px);
-    top: clamp(110px, 14vh, 180px);
-    font-family: var(--f-hand);
-    color: var(--accent);
-    opacity: var(--hand-opacity);
-    font-size: 30px;
-    line-height: 1.05;
-    transform: rotate(-3deg);
-    text-align: left;
-    max-width: 14ch;
-    pointer-events: none;
-  }
-  .hero-pencil .arrow { display: block; font-size: 28px; transform: rotate(28deg) translateY(-4px); margin-left: 30px; }
-
   /* ── Manifesto: 12-column lopsided ─────────────────────────── */
   .manifesto-b {
     padding: var(--section) 0;
@@ -912,34 +830,8 @@
   }
   .prem-clamp .body em { color: var(--accent); font-style: italic; font-weight: 400; }
 
-  /* Variant-link badge top-left of body (link to Konzept A) */
-  .variant-pill {
-    position: fixed;
-    bottom: 16px; left: 16px;
-    z-index: 80;
-    font-family: var(--f-mono);
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-mute);
-    background: color-mix(in srgb, var(--bg) 80%, transparent);
-    backdrop-filter: blur(8px);
-    border: 1px solid var(--rule-soft);
-    border-radius: 999px;
-    padding: 6px 12px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .variant-pill a { color: var(--ink); border-bottom: 1px solid transparent; transition: color 180ms, border-color 180ms; }
-  .variant-pill a:hover { color: var(--accent); border-color: var(--accent); }
-  .variant-pill .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
-
   /* ── Responsive ──────────────────────────────────────────── */
   @media (max-width: 880px) {
-    .hero-b h1 .b-line-2 { padding-left: 0; }
-    .hero-b-meta { grid-template-columns: 1fr; }
-    .hero-b-side { text-align: left; }
     .manifesto-b .grid { grid-template-columns: 1fr; row-gap: 28px; }
     .ms-num, .ms-text, .ms-margin, .ms-pull, .ms-sig { grid-column: 1 / -1; }
     .ms-margin { border-top: none; padding-top: 0; }
@@ -975,13 +867,12 @@
     .prem-clamp { grid-template-columns: 1fr; }
     .prem-clamp .body { grid-column: 1 / -1; max-width: none; padding-left: 16px; }
     .foot-b { grid-template-columns: 1fr 1fr; }
-    .hero-pencil { display: none; }
   }
   @media (max-width: 540px) {
     .prem-grid { grid-template-columns: 1fr; }
   }
 
-  /* ── Concept A Hero (Beacon / classical centered) — merged ── */
+  /* ── Hero (Beacon / centered) ── */
   .hero {
     padding: clamp(140px, 20vh, 240px) var(--gutter) clamp(80px, 12vh, 140px);
     text-align: center;
@@ -1100,10 +991,6 @@
       <button class="tb-btn" data-tb="theme:light"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></svg></button>
       <button class="tb-btn" data-tb="theme:dark"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
     </div>
-    <div class="tb-group" role="group" aria-label="Accent">
-      <button class="tb-btn" data-tb="accent:gold">Gold</button>
-      <button class="tb-btn" data-tb="accent:olive">Olive</button>
-    </div>
   </header>
 
   <!-- Vertical rail -->
@@ -1112,41 +999,6 @@
   <main>
 
     <!-- Hero -->
-    <section class="hero-b" data-screen-label="01 Hero">
-      <div class="wrap">
-        <div class="crumb">
-          <span>MMXXVI</span><strong>·</strong>
-          <span class="en">Volume I</span><span class="de">Band I</span><strong>·</strong>
-          <span class="en">Index 00</span><span class="de">Eintrag 00</span>
-        </div>
-        <h1 class="reveal">
-          <span class="en">
-            Local-first<span class="b-line-2">tools, at</span>
-            <span class="b-line-3">human timescales.</span>
-          </span>
-          <span class="de">
-            Werkzeuge<span class="b-line-2">für menschliche</span>
-            <span class="b-line-3">Zeitskalen.</span>
-          </span>
-        </h1>
-        <div class="hero-b-meta">
-          <p class="hero-b-tag reveal" style="--d: 200ms;">
-            <span class="en">Software for the next decade of your life — kept on <em>your machine</em>, in <em>your formats</em>, on <em>your terms</em>.</span>
-            <span class="de">Software für das nächste Jahrzehnt deines Lebens — auf <em>deinem Rechner</em>, in <em>deinen Formaten</em>, zu <em>deinen Bedingungen</em>.</span>
-          </p>
-          <div class="hero-b-side reveal" style="--d: 300ms;">
-            <span class="accent-dot"></span><span class="en">Independent maker</span><span class="de">Unabhängiger Macher</span><br/>
-            <span class="accent-dot"></span><span class="en">Switzerland / Germany</span><span class="de">Schweiz / Deutschland</span><br/>
-            <span class="accent-dot"></span><span class="en">Open source · AGPL-3.0</span><span class="de">Quelloffen · AGPL-3.0</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-pencil hand-block hand" aria-hidden="true">
-        <span class="en">no clouds were<br/>harmed in the<br/>making of this<span class="arrow">→</span></span>
-        <span class="de">keine Clouds<br/>wurden hierbei<br/>verletzt<span class="arrow">→</span></span>
-      </div>
-    </section>
 
     <div class="wrap">
 
@@ -1196,33 +1048,33 @@
           </aside>
 
           <p class="origin-lead reveal">
-            <span class="en">You build the generator <em>because it’s freezing outside</em>.</span>
-            <span class="de">Man baut den Generator, <em>weil es draußen eiskalt ist</em>.</span>
+            <span class="en">You build the generator because it’s freezing outside.</span>
+            <span class="de">Man baut den Generator, weil es draußen eiskalt ist.</span>
           </p>
 
           <div class="origin-body reveal" style="--d: 120ms;">
             <p>
-              <span class="drop">A</span><span class="en">ion Lumen is a vision born under pressure. Different threads of my life had tightened into a single, complicated knot. To navigate it, I asked a cloud LLM for advice.</span>
+              <span class="drop">A</span><span class="en">ion Lumen is a vision born under pressure. Different threads of my life had tightened into a highly complex knot. To navigate it, I asked a cloud LLM for advice.</span>
               <span class="de">ion Lumen ist eine Vision, geboren aus Druck. Verschiedene Stränge meines Lebens hatten sich zu einem hochkomplexen Knoten verdichtet. Um das zu navigieren, suchte ich Rat bei einem Cloud-LLM.</span>
             </p>
             <p>
-              <span class="en">For the advice to hold, the model needed context. I gave it. <em>More than I’d planned to.</em></span>
+              <span class="en">For the advice to hold, the model needed context. I gave it. More than I intended.</span>
               <span class="de">Damit der Rat trug, brauchte das Modell Kontext. Ich gab ihn. <em>Mehr, als ich vorhatte.</em></span>
             </p>
             <p>
-              <span class="en">The receipt arrived immediately: the bare unease that my most private reality now lived on someone else’s servers. Trapped inside a black box of terms and conditions. A mistake that wouldn’t unsend itself.</span>
+              <span class="en">The reckoning came immediately: the sheer unease that my most private reality now lived on someone else’s servers. Trapped in a black box of terms and conditions. A mistake beyond deletion.</span>
               <span class="de">Die Quittung folgte sofort: das blanke Unbehagen, dass meine privateste Realität nun auf fremden Servern lag. Gefangen in einer Blackbox aus AGBs. Ein Fehler, der sich nicht mehr löschen ließ.</span>
             </p>
             <p>
-              <span class="en">I needed this companion — that wasn’t negotiable. But I made myself a promise: <em>never online again. Local. For good.</em></span>
-              <span class="de">Ich brauchte diesen Begleiter zwingend. Aber ich schwor mir: <em>Nie wieder online. Lokal. Für immer.</em></span>
+              <span class="en">I needed this companion — that wasn’t negotiable. But I swore to myself: never online again. Local. Forever.</span>
+              <span class="de">Ich brauchte diesen Begleiter zwingend. Aber ich schwor mir: Nie wieder online. Lokal. Für immer.</span>
             </p>
             <p>
-              <span class="en">Then Gemma 3 arrived. The first model that pressed real reasoning into my old RTX 3080. Karpathy’s idea of local knowledge bases was in the air. <em>The spark in the cold.</em></span>
+              <span class="en">Then Gemma 3 arrived. The first model that pressed deep reasoning into my old RTX 3080. Karpathy’s idea of local knowledge bases was in the air. The spark in the cold.</span>
               <span class="de">Dann erschien Gemma 3. Das erste Modell, das tiefes Argumentieren in meine alte RTX 3080 presste. Karpathys Idee von lokalen Knowledge-Bases lag in der Luft. <em>Der Funke in der Kälte.</em></span>
             </p>
             <p>
-              <span class="en">Folio is built from the ruins of half-finished projects, driven by sheer necessity. At first I just wanted a generator, so I wouldn’t freeze inside the complexity. But the survival tool turned into an engine. I’m tightening bolts on this rocket and feeling it lift, before I’m a meter off the ground.</span>
+              <span class="en">Folio is built from the ruins of half-finished projects, fueled by pure necessity. At first, I only wanted to build a generator so I wouldn’t freeze in the complexity. But the survival tool became an engine. I am working on this rocket, and I feel it lift off before I’m even a meter off the ground.</span>
               <span class="de">Folio ist aus den Ruinen halbfertiger Projekte gebaut, angetrieben von reiner Notwendigkeit. Zuerst wollte ich nur einen Generator bauen, um in der Komplexität nicht zu erfrieren. Aber aus dem Überlebenswerkzeug ist ein Triebwerk geworden. Ich schraube an dieser Rakete und spüre, wie sie abhebt, noch bevor ich einen Meter über dem Boden bin.</span>
             </p>
           </div>
@@ -1299,8 +1151,8 @@
             <span class="en">Premise</span><span class="de">Prämisse</span>
           </div>
           <p class="prem-lead reveal">
-            <span class="en">Today’s AI is like a brilliant strategist who <em>forgets you between meetings</em>.</span>
-            <span class="de">Heutige KI ist wie ein brillanter Stratege, der <em>dich bei jedem Treffen vergisst</em>.</span>
+            <span class="en">Today’s AI is like a brilliant strategist who forgets you at every meeting.</span>
+            <span class="de">Heutige KI ist wie ein brillanter Stratege, der dich bei jedem Treffen vergisst.</span>
           </p>
         </header>
 
@@ -1312,18 +1164,18 @@
               <span class="de">Weißes Blatt.</span>
             </h3>
             <p class="body">
-              <span class="en">Every session starts at zero. You explain yourself, again, from the beginning.</span>
+              <span class="en">Every session starts at zero. You explain yourself over and over.</span>
               <span class="de">Jede Session startet bei null. Du erklärst dich immer wieder neu.</span>
             </p>
           </article>
           <article class="prem-cell reveal" style="--d: 80ms;">
             <span class="roman">II</span>
             <h3 class="trigger">
-              <span class="en">Drift.</span>
+              <span class="en">Decay.</span>
               <span class="de">Zerfall.</span>
             </h3>
             <p class="body">
-              <span class="en">The longer the conversation, the worse the advice. The thread frays.</span>
+              <span class="en">The longer the conversation, the worse the advice. The thread breaks.</span>
               <span class="de">Je länger das Gespräch, desto schlechter der Rat. Der Faden reißt.</span>
             </p>
           </article>
@@ -1334,18 +1186,18 @@
               <span class="de">Friedhof.</span>
             </h3>
             <p class="body">
-              <span class="en">Brilliant analyses sink into unfindable cloud histories. Lost where you can’t reach them.</span>
+              <span class="en">Brilliant analyses sink into unsearchable cloud histories.</span>
               <span class="de">Geniale Analysen versinken in unauffindbaren Cloud-Histories.</span>
             </p>
           </article>
           <article class="prem-cell reveal" style="--d: 240ms;">
             <span class="roman">IV</span>
             <h3 class="trigger">
-              <span class="en">Tunnel.</span>
+              <span class="en">Tunnel vision.</span>
               <span class="de">Tunnelblick.</span>
             </h3>
             <p class="body">
-              <span class="en">Ask only one model and you inherit its bias — silently, completely.</span>
+              <span class="en">Ask only one model and you blindly adopt its bias.</span>
               <span class="de">Wer nur ein Modell fragt, übernimmt blind dessen Bias.</span>
             </p>
           </article>
@@ -1354,20 +1206,20 @@
         <div class="prem-deeper">
           <div class="lede reveal">
             <p>
-              <span class="en">But the real problem sits deeper than that.</span>
+              <span class="en">But the real problem lies deeper.</span>
               <span class="de">Doch das eigentliche Problem liegt tiefer.</span>
             </p>
             <p>
-              <span class="en">The true value of an AI isn’t in answering single questions. It’s in the <em>invisible connections</em> — noticing the threads between resources and goals that you miss yourself, because you’re standing inside the storm.</span>
-              <span class="de">Der wahre Wert einer KI liegt nicht im Beantworten von Einzelfragen. Er liegt in den <em>unsichtbaren Verbindungen</em> — dem Erkennen der Fäden zwischen Ressourcen und Zielen, die man selbst übersieht, weil man mitten im Sturm steht.</span>
+              <span class="en">The true value of an AI isn’t in answering isolated questions. It lies in the invisible connections. Recognizing the threads between resources and goals that you overlook yourself, because you are standing in the middle of the storm.</span>
+              <span class="de">Der wahre Wert einer KI liegt nicht im Beantworten von Einzelfragen. Er liegt in den unsichtbaren Verbindungen. Das Erkennen der Fäden zwischen Ressourcen und Zielen, die man selbst übersieht, weil man mitten im Sturm steht.</span>
             </p>
             <p>
-              <span class="en"><strong>That’s the bet:</strong> a companion that knows your <em>whole picture</em>.</span>
-              <span class="de"><strong>Das ist die Wette:</strong> Ein Begleiter, der dein <em>ganzes Bild</em> kennt.</span>
+              <span class="en">That is the bet: a companion that knows your whole picture.</span>
+              <span class="de">Das ist die Wette: Ein Begleiter, der dein ganzes Bild kennt.</span>
             </p>
             <p>
-              <span class="en">But anyone who sees the whole picture can also be fatally wrong. So Folio must never become a guardian. It is an instrument. <em>Local, transparent</em>, illuminating perspectives — not making your life decisions for you.</span>
-              <span class="de">Doch wer das ganze Bild sieht, kann sich auch fatal irren. Deshalb darf Folio niemals zum Vormund werden. Es ist ein Instrument. <em>Lokal, transparent</em>, das Perspektiven ausleuchtet, statt dir Lebensentscheidungen blind abzunehmen.</span>
+              <span class="en">But a companion that sees the whole picture can also be fatally wrong. That is why Folio must never become a warden. It is an instrument. A local system that illuminates perspectives, rather than blindly making life decisions for you.</span>
+              <span class="de">Doch wer das ganze Bild sieht, kann sich auch fatal irren. Deshalb darf Folio niemals zum Vormund werden. Es ist ein Instrument. Ein lokales System, das Perspektiven ausleuchtet, statt dir blind Lebensentscheidungen abzunehmen.</span>
             </p>
           </div>
           <aside class="margin">
@@ -1380,8 +1232,8 @@
 
         <div class="prem-clamp">
           <p class="body reveal">
-            <span class="en"><em>Folio gives you the engine.</em><br/>The course is yours.</span>
-            <span class="de"><em>Folio liefert das Triebwerk.</em><br/>Den Kurs bestimmst du.</span>
+            <span class="en">Folio provides the engine. The course is yours.<svg class="lumen-spark" aria-hidden="true" viewBox="0 0 56 56" width="20" height="20" fill="none"><path d="M28 4 L28 52" stroke="currentColor" stroke-width="1" stroke-linecap="round"/><path d="M16 16 L40 16 M14 22 L42 22 M18 28 L38 28" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" opacity="0.7"/><circle cx="28" cy="10" r="3" fill="currentColor"/><circle cx="28" cy="10" r="6" stroke="currentColor" stroke-width="0.5" opacity="0.5"/></svg></span>
+            <span class="de">Folio liefert das Triebwerk. Den Kurs bestimmst du.</span>
           </p>
         </div>
       </section>
@@ -1534,14 +1386,6 @@
       </ul>
     </div>
   </footer>
-
-  <div class="variant-pill">
-    <span class="dot"></span>
-    <span class="en">Konzept B · asymmetric</span>
-    <span class="de">Konzept B · asymmetrisch</span>
-    <span style="opacity: 0.6">·</span>
-    <a href="index.html"><span class="en">see Konzept A</span><span class="de">zu Konzept A</span></a>
-  </div>
 
 <script src="styles/controls.js"></script>
 <script src="styles/tweaks.js"></script>

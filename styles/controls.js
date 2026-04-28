@@ -16,13 +16,11 @@
   const sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
   let theme  = stored('theme',  sysDark ? 'dark' : 'light');   // light | dark
-  let accent = stored('accent', 'gold');                       // gold | olive
   let lang   = stored('lang',   (navigator.language || 'en').slice(0, 2) === 'de' ? 'de' : 'en');
   let hand   = stored('hand',   'on');                         // on | muted | off
 
   function applyAll() {
     root.setAttribute('data-theme',  theme);
-    root.setAttribute('data-accent', accent);
     root.setAttribute('data-lang',   lang);
     root.setAttribute('data-hand',   hand);
     syncButtons();
@@ -31,7 +29,7 @@
   function syncButtons() {
     document.querySelectorAll('[data-tb]').forEach(btn => {
       const [group, val] = btn.getAttribute('data-tb').split(':');
-      const current = { theme, accent, lang, hand }[group];
+      const current = { theme, lang, hand }[group];
       btn.classList.toggle('on', current === val);
     });
   }
@@ -42,7 +40,6 @@
     if (!btn) return;
     const [group, val] = btn.getAttribute('data-tb').split(':');
     if (group === 'theme')  { theme  = val; save('theme',  val); }
-    if (group === 'accent') { accent = val; save('accent', val); }
     if (group === 'lang')   { lang   = val; save('lang',   val); }
     if (group === 'hand')   { hand   = val; save('hand',   val); }
     applyAll();
@@ -121,5 +118,5 @@
   }
 
   // Expose minimal API for page-specific tweaks
-  window.AL = { applyAll, get state() { return { theme, accent, lang, hand }; } };
+  window.AL = { applyAll, get state() { return { theme, lang, hand }; } };
 })();
