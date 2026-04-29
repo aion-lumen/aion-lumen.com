@@ -953,18 +953,6 @@
     background: radial-gradient(circle, var(--accent-glow), transparent 65%);
     z-index: -1;
   }
-  .margin-note {
-    position: absolute;
-    font-family: var(--f-hand);
-    color: var(--accent);
-    opacity: var(--hand-opacity);
-    font-size: 22px;
-    transform: rotate(-3deg);
-    pointer-events: none;
-    line-height: 1.1;
-  }
-  .margin-note .arrow { display: inline-block; transform: translateY(2px); margin: 0 4px; }
-  @media (max-width: 860px) { .margin-note { display: none; } }
   @media (max-width: 720px) {
     .hero { padding-top: clamp(110px, 18vh, 160px); }
     .beacon { width: 44px; height: 44px; top: 90px; }
@@ -1014,7 +1002,7 @@
           </svg>
         </div>
 
-        <div class="hero-eyebrow"><span class="en">SINCE 2026 · BASEL</span><span class="de">SEIT 2026 · BASEL</span></div>
+        <div class="hero-eyebrow"><span class="en">Architecture of the self ↘</span><span class="de">Architektur für das Selbst ↘</span></div>
 
         <h1 class="hero-title">
           <span class="en">local-first tools<br/><span class="glow">at human</span><br/><span class="glow">timescales.</span></span>
@@ -1022,8 +1010,8 @@
         </h1>
 
         <p class="hero-tagline">
-          <span class="en">Software that respects the next decade of your life — and keeps your data on your machine.</span>
-          <span class="de">Software, die das nächste Jahrzehnt deines Lebens respektiert — und deine Daten auf deinem Rechner lässt.</span>
+          <span class="en">No cloud lock-in. No warden. Software built from pure markdown and local models, made to last a lifetime.</span>
+          <span class="de">Kein Cloud-Lock-in. Kein Vormund. Software, die aus purem Markdown und lokalen Modellen gebaut ist, um ein Leben lang zu halten.</span>
         </p>
 
         <div class="hero-meta">
@@ -1032,10 +1020,6 @@
           <span><span class="dot"></span><span class="en">Open source</span><span class="de">Quelloffen</span></span>
         </div>
 
-        <div class="margin-note hand-block hand" style="top: 220px; right: max(40px, 6vw); transform: rotate(-4deg); max-width: 12ch; text-align: left;">
-          <span class="en">Beacons over<br/>billboards <span class="arrow">↘</span></span>
-          <span class="de">Leuchtfeuer statt<br/>Plakate <span class="arrow">↘</span></span>
-        </div>
       </section>
 
       <!-- §0 Origin — datierte Beobachtung, ich-Stimme -->
@@ -1055,7 +1039,7 @@
           <div class="origin-body reveal" style="--d: 120ms;">
             <p>
               <span class="drop">A</span><span class="en">ion Lumen is a vision born under pressure. Different threads of my life had tightened into a highly complex knot. To navigate it, I asked a cloud LLM for advice.</span>
-              <span class="de">ion Lumen ist eine Vision, geboren aus Druck. Verschiedene Stränge meines Lebens hatten sich zu einem hochkomplexen Knoten verdichtet. Um das zu navigieren, suchte ich Rat bei einem Cloud-LLM.</span>
+              <span class="de">ion Lumen entstand nicht am Reissbrett. Es entstand aus Druck. Verschiedene Stränge meines Lebens hatten sich zu einem hochkomplexen Knoten verdichtet. Um das zu navigieren, suchte ich Rat bei einem Cloud-LLM.</span>
             </p>
             <p>
               <span class="en">For the advice to hold, the model needed context. I gave it. More than I intended.</span>
@@ -1063,7 +1047,7 @@
             </p>
             <p>
               <span class="en">The reckoning came immediately: the sheer unease that my most private reality now lived on someone else’s servers. Trapped in a black box of terms and conditions. A mistake beyond deletion.</span>
-              <span class="de">Die Quittung folgte sofort: das blanke Unbehagen, dass meine privateste Realität nun auf fremden Servern lag. Gefangen in einer Blackbox aus AGBs. Ein Fehler, der sich nicht mehr löschen ließ.</span>
+              <span class="de">Die Quittung folgte sofort: das blanke Unbehagen, dass meine privateste Realität nun auf fremden Servern lag. Gefangen in einer Blackbox aus AGBs. Ein Fehler, der sich nicht mehr löschen liess.</span>
             </p>
             <p>
               <span class="en">I needed this companion — that wasn’t negotiable. But I swore to myself: never online again. Local. Forever.</span>
@@ -1097,10 +1081,10 @@
       <!-- Triptychon — brand-axis terms -->
       <section class="trip-b" data-screen-label="03 Triptychon">
         <header class="head">
-          <div class="label"><span class="en">§ III · Three axes</span><span class="de">§ III · Drei Achsen</span></div>
+          <div class="label"><span class="en">§ II · Three axes</span><span class="de">§ II · Drei Achsen</span></div>
           <h2>
-            <span class="en">Three words that carry <em>everything else</em>. Not features. Not promises. <em>Coordinates.</em></span>
-            <span class="de">Drei Worte, die <em>alles andere</em> tragen. Keine Features. Keine Versprechen. <em>Koordinaten.</em></span>
+            <span class="en">The statics. No roadmaps. No empty promises. Just three load-bearing pillars.</span>
+            <span class="de">Die Statik. Keine Roadmaps. Keine leeren Versprechen. Nur drei tragende Pfeiler.</span>
           </h2>
         </header>
 
@@ -1112,8 +1096,8 @@
               <span class="de">Werkzeug.<span class="mute">Tool.</span></span>
             </h3>
             <p class="body">
-              <span class="en">Software that <em>does what you ask</em> — nothing more. No drift, no surprise updates that move the buttons, no cloud round-trip for a thought. A hammer’s honesty, in a category that forgot it.</span>
-              <span class="de">Software, die <em>tut, worum du sie bittest</em> — nicht mehr. Kein Drift, keine Überraschungs-Updates, die die Knöpfe verschieben, kein Cloud-Roundtrip für einen Gedanken. Die Ehrlichkeit eines Hammers, in einer Kategorie, die sie vergessen hat.</span>
+              <span class="en">The honesty of a hammer. No cloud drift, no surprise updates. Software that simply does what you ask of it.</span>
+              <span class="de">Die Ehrlichkeit eines Hammers. Kein Cloud-Drift, keine Überraschungs-Updates. Software, die einfach nur tut, worum du sie bittest.</span>
             </p>
           </article>
 
@@ -1124,8 +1108,8 @@
               <span class="de">Zeit.<span class="mute">Time.</span></span>
             </h3>
             <p class="body">
-              <span class="en">Built to outlive the <em>quarterly cycle</em>. The vault you start today should still open in 2046, in any text editor, with no service to call home to. <em>Decades</em> are the unit; not days.</span>
-              <span class="de">Gebaut, um den <em>Quartalszyklus</em> zu überleben. Der Vault, den du heute beginnst, soll sich 2046 noch öffnen — in jedem Editor, ohne Server, den er anrufen muss. <em>Dekaden</em> sind die Einheit, nicht Tage.</span>
+              <span class="en">Built to outlive the quarterly cycle. The vault you start today must still open in 2046. Without a server's permission.</span>
+              <span class="de">Gebaut, um den Quartalszyklus zu überleben. Der Vault von heute muss sich im Jahr 2046 noch öffnen lassen. Ohne Server-Erlaubnis.</span>
             </p>
           </article>
 
@@ -1136,18 +1120,18 @@
               <span class="de">Eigentum.<span class="mute">Ownership.</span></span>
             </h3>
             <p class="body">
-              <span class="en">Your patterns belong to you. Your context, your half-formed thoughts, the weight of a decade of decisions — <em>not training data</em>. Plain markdown, your machine, your terms. Sovereignty by default.</span>
-              <span class="de">Deine Muster gehören dir. Dein Kontext, deine halbgeformten Gedanken, das Gewicht einer Dekade an Entscheidungen — <em>keine Trainingsdaten</em>. Reines Markdown, dein Rechner, deine Bedingungen. Souveränität als Standard.</span>
+              <span class="en">Your life is not training material. Plain markdown. Your machine. Your sovereignty as default.</span>
+              <span class="de">Dein Leben ist kein Trainingsmaterial. Reines Markdown. Dein Rechner. Deine Souveränität als Standard.</span>
             </p>
           </article>
         </div>
       </section>
 
-      <!-- Premise — § II · vier Trigger -->
+      <!-- Premise — § III · vier Trigger -->
       <section class="prem-b" data-screen-label="04 Premise">
         <header class="head">
           <div class="label">
-            <span class="num">§ II.</span>
+            <span class="num">§ III.</span>
             <span class="en">Premise</span><span class="de">Prämisse</span>
           </div>
           <p class="prem-lead reveal">
@@ -1161,7 +1145,7 @@
             <span class="roman">I</span>
             <h3 class="trigger">
               <span class="en">Blank slate.</span>
-              <span class="de">Weißes Blatt.</span>
+              <span class="de">Weisses Blatt.</span>
             </h3>
             <p class="body">
               <span class="en">Every session starts at zero. You explain yourself over and over.</span>
@@ -1176,7 +1160,7 @@
             </h3>
             <p class="body">
               <span class="en">The longer the conversation, the worse the advice. The thread breaks.</span>
-              <span class="de">Je länger das Gespräch, desto schlechter der Rat. Der Faden reißt.</span>
+              <span class="de">Je länger das Gespräch, desto schlechter der Rat. Der Faden reisst.</span>
             </p>
           </article>
           <article class="prem-cell reveal" style="--d: 160ms;">
@@ -1253,7 +1237,7 @@
               <span class="corner tl"></span><span class="corner tr"></span>
               <span class="corner bl"></span><span class="corner br"></span>
             </div>
-            <div class="folio-b-thumb-tag"><span class="dot"></span>demo-vault.local · synced 22:37</div>
+            <div class="folio-b-thumb-tag"><span class="dot"></span><span class="en">System status: Local. Vault synced. AI model ready.</span><span class="de">Systemstatus: Lokal. Vault synchronisiert. KI-Modell bereit.</span></div>
           </div>
           <div class="folio-b-side">
             <p class="tag">
@@ -1291,8 +1275,8 @@
         <header class="pr-b-head">
           <div class="label"><span class="en">§ V · Principles</span><span class="de">§ V · Prinzipien</span></div>
           <h2>
-            <span class="en">Four lines kept honest, written down so the work has somewhere to <em>return to</em>.</span>
-            <span class="de">Vier ehrlich gemeinte Zeilen, niedergeschrieben, damit die Arbeit etwas hat, wohin sie <em>zurückkehren</em> kann.</span>
+            <span class="en">The blueprint. Four immovable principles by which code is written here.</span>
+            <span class="de">Der Bauplan. Vier unverrückbare Prinzipien, nach denen hier Code geschrieben wird.</span>
           </h2>
         </header>
 
@@ -1300,25 +1284,25 @@
           <article class="pr-row reveal">
             <span class="pr-n">01</span>
             <h3><span class="en">Markdown over databases.</span><span class="de">Markdown statt Datenbanken.</span></h3>
-            <p class="pr-body"><span class="en">Your vault opens in any editor — Vim, Obsidian, Notepad in 2046. No proprietary lock-in. No migration drama.</span><span class="de">Dein Vault öffnet sich in jedem Editor — Vim, Obsidian, Notepad im Jahr 2046. Kein proprietärer Lock-in. Kein Migrations-Drama.</span></p>
+            <p class="pr-body"><span class="en">Your vault opens in any editor, today and in 2046. No proprietary lock-in.</span><span class="de">Dein Vault öffnet sich in jedem Editor, heute und 2046. Kein proprietärer Lock-in.</span></p>
             <span class="pr-mark hand">∗</span>
           </article>
           <article class="pr-row reveal" style="--d: 100ms;">
             <span class="pr-n">02</span>
             <h3><span class="en">Local AI over cloud APIs.</span><span class="de">Lokale KI statt Cloud-APIs.</span></h3>
-            <p class="pr-body"><span class="en">Your conversations stay private. Your patterns aren't training data for someone else's model.</span><span class="de">Deine Gespräche bleiben privat. Deine Muster sind keine Trainingsdaten für ein fremdes Modell.</span></p>
+            <p class="pr-body"><span class="en">Your conversations stay on your device. No training data for someone else's model.</span><span class="de">Deine Gespräche bleiben auf deinem Gerät. Keine Trainingsdaten für fremde Modelle.</span></p>
             <span class="pr-mark hand">⁂</span>
           </article>
           <article class="pr-row reveal" style="--d: 200ms;">
             <span class="pr-n">03</span>
-            <h3><span class="en">Long horizons over quarterly cycles.</span><span class="de">Lange Horizonte statt Quartalszyklen.</span></h3>
-            <p class="pr-body"><span class="en">Tools for decade-scale thinking. Five-year arcs, not five-day sprints. Frostpunk over OKRs.</span><span class="de">Werkzeuge für Dekaden-Denken. Fünf-Jahre-Bögen, keine Fünf-Tage-Sprints. Frostpunk vor OKRs.</span></p>
+            <h3><span class="en">Decades over quarterly cycles.</span><span class="de">Dekaden statt Quartalszyklen.</span></h3>
+            <p class="pr-body"><span class="en">Tools for long horizons. Five-year arcs instead of five-day sprints.</span><span class="de">Werkzeuge für lange Horizonte. Fünf-Jahres-Bögen statt Fünf-Tage-Sprints.</span></p>
             <span class="pr-mark hand">⌘</span>
           </article>
           <article class="pr-row reveal" style="--d: 300ms;">
             <span class="pr-n">04</span>
             <h3><span class="en">Substance over polish.</span><span class="de">Substanz statt Hochglanz.</span></h3>
-            <p class="pr-body"><span class="en">Engineering matters more than marketing. Built well, kept quiet, made to outlast its release notes.</span><span class="de">Ingenieurskunst zählt mehr als Marketing. Gut gebaut, leise gehalten, gemacht um seine Release-Notes zu überdauern.</span></p>
+            <p class="pr-body"><span class="en">Engineering matters more than marketing. Built to run quietly.</span><span class="de">Ingenieurskunst zählt mehr als Marketing. Gebaut, um leise zu funktionieren.</span></p>
             <span class="pr-mark hand">†</span>
           </article>
         </div>

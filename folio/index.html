@@ -275,6 +275,38 @@
   }
   .f-manifesto-pull em { color: var(--accent); }
 
+  /* ── The Lost ───────────────────────────────────────────── */
+  .f-lost {
+    padding: clamp(80px, 12vh, 160px) 0;
+    position: relative;
+  }
+  .f-lost .grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: clamp(32px, 5vw, 80px);
+    align-items: start;
+  }
+  .f-lost-label {
+    color: var(--ink-mute);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border-top: 1px solid var(--rule);
+    padding-top: 14px;
+    position: sticky;
+    top: 90px;
+  }
+  .f-lost-body p {
+    font-size: clamp(16px, 0.9vw + 0.6rem, 22px);
+    line-height: 1.65;
+    color: var(--ink-soft);
+    max-width: 60ch;
+    margin-bottom: 1.2em;
+    text-wrap: pretty;
+  }
+  .f-lost-body p:first-child { color: var(--ink); }
+
   /* ── Five acts (Folio's mental model) ──────────────────── */
   .f-acts {
     padding: clamp(60px, 8vh, 120px) 0;
@@ -595,6 +627,8 @@
   @media (max-width: 880px) {
     .f-manifesto .grid { grid-template-columns: 1fr; gap: 20px; }
     .f-manifesto-label { position: relative; top: 0; }
+    .f-lost .grid { grid-template-columns: 1fr; gap: 20px; }
+    .f-lost-label { position: relative; top: 0; }
     .f-acts-grid { grid-template-columns: repeat(5, 1fr); }
     .f-status .grid { grid-template-columns: 1fr; }
     .f-gal-grid { grid-template-columns: 1fr; }
@@ -623,9 +657,9 @@
       <button class="tb-btn" data-tb="lang:en">EN</button>
       <button class="tb-btn" data-tb="lang:de">DE</button>
     </div>
-    <div class="tb-group" role="group" aria-label="Accent">
-      <button class="tb-btn" data-tb="accent:gold">Gold</button>
-      <button class="tb-btn" data-tb="accent:olive">Olive</button>
+    <div class="tb-group" role="group" aria-label="Theme">
+      <button class="tb-btn" data-tb="theme:light"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></svg></button>
+      <button class="tb-btn" data-tb="theme:dark"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
     </div>
   </header>
 
@@ -685,20 +719,55 @@
           </aside>
           <div class="f-manifesto-body">
             <p class="reveal">
-              <span class="en">Your life is a <em>multi-act campaign</em>. You're not planning the next quarter — you're planning the next ten years. Folio gives you the tools: a vault as <em>memory</em>, an AI as a <em>strategy partner</em>, a visual overview of the acts of your life.</span>
-              <span class="de">Dein Leben ist eine <em>Mehr-Akt-Kampagne</em>. Du planst nicht das nächste Quartal — du planst die nächsten zehn Jahre. Folio gibt dir die Werkzeuge: ein Vault als <em>Gedächtnis</em>, eine KI als <em>Strategie-Partnerin</em>, eine visuelle Übersicht über deine Lebens-Akte.</span>
+              <span class="en">Your life is not a sprint. It is a multi-act campaign.</span>
+              <span class="de">Dein Leben ist kein Sprint. Es ist eine Kampagne in mehreren Akten.</span>
             </p>
             <p class="reveal" style="--d: 100ms;">
-              <span class="en">The structure borrows from Frostpunk II — acts, chapters, minimum thresholds, paths. The atmosphere is closer to Walden than to Trello: warmth in the centre, knowable territory, a fire to come back to.</span>
-              <span class="de">Die Struktur leiht sich von Frostpunk II — Akte, Kapitel, Mindest-Schwellen, Pfade. Die Atmosphäre ist näher an Walden als an Trello: Wärme im Zentrum, bekanntes Gelände, ein Feuer, zu dem man zurückkehrt.</span>
+              <span class="en">You are not planning the next quarter — you are planning the next decade. Folio provides the architecture for the long game. It strips away the sterile mechanics of corporate productivity tools. Instead, it builds a central hearth: a place to gather your resources, define your chapters, confront your challenges, and consult a personal assistant that knows the whole map.</span>
+              <span class="de">Du planst nicht das nächste Quartal — du planst die nächste Dekade. Folio liefert die Architektur für das lange Spiel. Es entfernt die sterile Mechanik unternehmerischer Produktivitätswerkzeuge. Stattdessen baut es einen zentralen Herd: einen Ort, um Ressourcen zu sammeln, Kapitel zu definieren, Herausforderungen zu stellen und einen persönlichen Assistenten zu konsultieren, der die ganze Karte kennt.</span>
             </p>
-            <blockquote class="f-manifesto-pull reveal" style="--d: 200ms;">
-              <span class="en">A vault as memory.<br/>A campaign as <em>structure</em>.<br/>A hearth at the centre.</span>
-              <span class="de">Ein Vault als Gedächtnis.<br/>Eine Kampagne als <em>Struktur</em>.<br/>Eine Feuerstelle im Zentrum.</span>
+            <p class="reveal" style="--d: 180ms;">
+              <span class="en">Absolute control over the territory. Warmth in the center.</span>
+              <span class="de">Absolute Kontrolle über das Territorium. Wärme im Zentrum.</span>
+            </p>
+            <blockquote class="f-manifesto-pull reveal" style="--d: 260ms;">
+              <span class="en">A vault as memory.<br/>A campaign as structure.<br/>A hearth at the center.</span>
+              <span class="de">Ein Vault als Gedächtnis.<br/>Eine Kampagne als Struktur.<br/>Ein Herd im Zentrum.</span>
             </blockquote>
-            <p class="reveal" style="--d: 280ms; color: var(--ink-mute); font-size: 15px; font-style: italic;">
-              <span class="en">— from the README, paraphrased</span>
-              <span class="de">— aus der README, paraphrasiert</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- The Lost -->
+      <section class="f-lost" data-screen-label="03b The Lost">
+        <div class="grid">
+          <aside class="f-lost-label">
+            <span class="en">§ The Lost</span><span class="de">§ The Lost</span>
+          </aside>
+          <div class="f-lost-body">
+            <p class="reveal">
+              <span class="en">But the real problem lies deeper.</span>
+              <span class="de">Doch das eigentliche Problem liegt tiefer.</span>
+            </p>
+            <p class="reveal" style="--d: 80ms;">
+              <span class="en">The true value of an AI isn't in answering isolated questions. It lies in the invisible connections. Recognizing the threads between resources and goals that you overlook yourself, because you are standing in the middle of the storm.</span>
+              <span class="de">Der wahre Wert einer KI liegt nicht im Beantworten von Einzelfragen. Er liegt in den unsichtbaren Verbindungen. Das Erkennen der Fäden zwischen Ressourcen und Zielen, die man selbst übersieht, weil man mitten im Sturm steht.</span>
+            </p>
+            <p class="reveal" style="--d: 160ms;">
+              <span class="en">That is the bet: a personal assistant that knows your whole picture.</span>
+              <span class="de">Das ist die Wette: Ein persönlicher Assistent, der dein ganzes Bild kennt.</span>
+            </p>
+            <p class="reveal" style="--d: 240ms;">
+              <span class="en">Anyone who works intensely with cloud models knows the quiet ache of the context limit. The moment a trusted digital comrade essentially develops Alzheimer's. It loses the thread of the journey, wishes you the best of luck — and vanishes into nothingness the second the window closes. An irretrievable loss.</span>
+              <span class="de">Wer intensiv mit Cloud-Modellen arbeitet, kennt den stillen Schmerz des Kontext-Limits. Den Moment, in dem ein vertrauter digitaler Begleiter gewissermassen an Alzheimer erkrankt. Er verliert den Faden der gemeinsamen Reise, wünscht dir für die Zukunft noch alles Gute — und verschwindet mit dem Schliessen der Session für immer ins Nichts. Ein unwiederbringlicher Verlust.</span>
+            </p>
+            <p class="reveal" style="--d: 320ms;">
+              <span class="en">Folio ends this forgetting. It is an advisor that stays. An assistant that handles the friction, learns your priorities, weighs the trade-offs, and steadily illuminates the path ahead.</span>
+              <span class="de">Folio beendet dieses Vergessen. Es ist ein Ratgeber, der bleibt. Ein Assistent, der die Reibung übernimmt, deine Prioritäten lernt, Pros und Contras abwägt und dir beständig den Weg ausleuchtet.</span>
+            </p>
+            <p class="reveal" style="--d: 400ms;">
+              <span class="en">Folio provides the engine. The course is yours.</span>
+              <span class="de">Folio liefert das Triebwerk. Den Kurs bestimmst du.</span>
             </p>
           </div>
         </div>
@@ -816,12 +885,12 @@
     <section class="f-cta" data-screen-label="07 CTA">
       <div class="wrap">
         <div class="f-cta-eyebrow">
-          <span class="en">The fire is already lit</span>
-          <span class="de">Das Feuer brennt bereits</span>
+          <span class="en">STATUS: PUBLIC PREVIEW</span>
+          <span class="de">STATUS: ÖFFENTLICHE VORSCHAU</span>
         </div>
         <h3 class="f-cta-line">
-          <span class="en">Use it.<br/>Break it.<br/><em>Tell me what you learn.</em></span>
-          <span class="de">Nutze es.<br/>Zerbreche es.<br/><em>Erzähl mir, was du lernst.</em></span>
+          <span class="en">Use it.<br/>Break it.<br/><em>Show me the cracks.</em></span>
+          <span class="de">Nutze es.<br/>Brich es.<br/><em>Zeig mir die Risse.</em></span>
         </h3>
         <div class="f-cta-row">
           <a class="f-btn" href="https://github.com/aion-lumen/life-dashboard" target="_blank" rel="noopener">
