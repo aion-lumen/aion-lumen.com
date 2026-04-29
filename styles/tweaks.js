@@ -254,23 +254,3 @@
   // Announce availability AFTER listener is registered
   try { window.parent.postMessage({ type: '__edit_mode_available' }, '*'); } catch (_) {}
 })();
-
-// ── Lumen spark: ignite once when closing line scrolls into view ──
-(() => {
-  const el = document.querySelector('.lumen-spark');
-  if (!el) return;
-  let ignited = false;
-  function ignite() {
-    if (ignited) return;
-    ignited = true;
-    setTimeout(() => { el.classList.add('is-lit'); }, 800);
-  }
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) { ignite(); observer.disconnect(); }
-    });
-  }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
-  observer.observe(el);
-  // Fallback: ignite after 2200ms if observer never fired
-  setTimeout(ignite, 2200);
-})();
