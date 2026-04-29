@@ -259,13 +259,18 @@
 (() => {
   const el = document.querySelector('.lumen-spark');
   if (!el) return;
+  let ignited = false;
+  function ignite() {
+    if (ignited) return;
+    ignited = true;
+    setTimeout(() => { el.classList.add('is-lit'); }, 800);
+  }
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        setTimeout(() => { el.classList.add('is-lit'); }, 800);
-        observer.disconnect();
-      }
+      if (entry.isIntersecting) { ignite(); observer.disconnect(); }
     });
-  }, { threshold: 1.0 });
+  }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
   observer.observe(el);
+  // Fallback: ignite after 2200ms if observer never fired
+  setTimeout(ignite, 2200);
 })();
