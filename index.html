@@ -809,27 +809,6 @@
   }
 
   /* Closing clamp — typographic bracket-end matching the lead */
-  .prem-clamp {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 24px;
-    align-items: baseline;
-  }
-  .prem-clamp .body {
-    grid-column: 4 / span 8;
-    font-family: var(--f-display);
-    font-size: clamp(28px, 2.6vw + 0.4rem, 48px);
-    line-height: 1.18;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-    text-wrap: balance;
-    max-width: 28ch;
-    border-left: 1px solid var(--accent);
-    padding-left: clamp(20px, 2vw, 32px);
-  }
-  .prem-clamp .body em { color: var(--accent); font-style: italic; font-weight: 400; }
-
   /* ── Responsive ──────────────────────────────────────────── */
   @media (max-width: 880px) {
     .manifesto-b .grid { grid-template-columns: 1fr; row-gap: 28px; }
@@ -864,8 +843,6 @@
     .prem-deeper { grid-template-columns: 1fr; }
     .prem-deeper .lede, .prem-deeper .margin { grid-column: 1 / -1; }
     .prem-deeper .margin { border-top: none; padding-top: 0; }
-    .prem-clamp { grid-template-columns: 1fr; }
-    .prem-clamp .body { grid-column: 1 / -1; max-width: none; padding-left: 16px; }
     .foot-b { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 540px) {
@@ -1205,6 +1182,10 @@
               <span class="en">But a companion that sees the whole picture can also be fatally wrong. That is why Folio must never become a warden. It is an instrument. A local system that illuminates perspectives, rather than blindly making life decisions for you.</span>
               <span class="de">Doch wer das ganze Bild sieht, kann sich auch fatal irren. Deshalb darf Folio niemals zum Vormund werden. Es ist ein Instrument. Ein lokales System, das Perspektiven ausleuchtet, statt dir blind Lebensentscheidungen abzunehmen.</span>
             </p>
+            <p>
+              <span class="en">Folio provides the engine. The course is yours.</span>
+              <span class="de">Folio liefert das Triebwerk. Den Kurs bestimmst du.</span>
+            </p>
           </div>
           <aside class="margin">
             <span class="en">Filed under</span><span class="de">Abgelegt unter</span><br/>
@@ -1212,13 +1193,6 @@
             · <span class="en">An instrument</span><span class="de">Ein Instrument</span><br/>
             · <span class="en">Not a guardian</span><span class="de">Kein Vormund</span>
           </aside>
-        </div>
-
-        <div class="prem-clamp">
-          <p class="body reveal">
-            <span class="en">Folio provides the engine. The course is yours.<svg class="lumen-spark" aria-hidden="true" viewBox="0 0 56 56" width="20" height="20" fill="none"><path d="M28 4 L28 52" stroke="currentColor" stroke-width="1" stroke-linecap="round"/><path d="M16 16 L40 16 M14 22 L42 22 M18 28 L38 28" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" opacity="0.7"/><circle cx="28" cy="10" r="3" fill="currentColor"/><circle cx="28" cy="10" r="6" stroke="currentColor" stroke-width="0.5" opacity="0.5"/></svg></span>
-            <span class="de">Folio liefert das Triebwerk. Den Kurs bestimmst du.</span>
-          </p>
         </div>
       </section>
 

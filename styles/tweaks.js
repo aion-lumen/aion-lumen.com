@@ -262,10 +262,10 @@
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        el.classList.add('is-lit');
+        setTimeout(() => { el.classList.add('is-lit'); }, 800);
         observer.disconnect();
       }
     });
-  }, { threshold: 0.6 });
+  }, { threshold: 1.0 });
   observer.observe(el);
 })();
