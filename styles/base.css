@@ -336,3 +336,37 @@ a { color: inherit; text-decoration: none; transition: color 200ms ease; }
   }
 }
 [data-lang="de"] .lumen-spark { display: none; }
+
+/* Spark as the entrance to The Long Table: static at rest, warms on hover,
+ * click opens the reading room. No autonomous animation. */
+a.lumen-spark {
+  position: relative;
+  cursor: pointer;
+  text-decoration: none;
+  transition: filter 450ms ease;
+}
+a.lumen-spark:hover {
+  filter: drop-shadow(0 0 7px hsl(40 100% 64%)) drop-shadow(0 0 18px hsl(30 100% 56% / 0.55)) brightness(1.2);
+}
+a.lumen-spark::after {
+  content: "↳ a long table is set behind this";
+  position: absolute;
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.07em;
+  color: hsl(34 26% 50%);
+  opacity: 0;
+  transition: opacity 450ms ease;
+  pointer-events: none;
+}
+a.lumen-spark:hover::after { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  a.lumen-spark, a.lumen-spark::after { transition: none; }
+}
+@media (max-width: 720px) {
+  a.lumen-spark::after { display: none; }  /* hover-only caption, no touch hover */
+}
