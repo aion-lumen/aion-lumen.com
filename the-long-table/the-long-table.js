@@ -1,29 +1,28 @@
-/* The Long Table — render + per-entry language toggle (vanilla, no framework).
+/* The Long Table — render (vanilla, no framework).
  * Reads window.LONG_TABLE_ENTRIES, sorts oldest-first, fills #lt-entries.
  * Roman numeral + display date are derived here so a new entry is just one
- * object in entries.js — no markup change.
+ * object in entries.js.
+ *
+ * No per-entry language toggle: each entry renders BOTH its .de and .en text,
+ * and the site's global language switch ([data-lang] on <html>) shows the right
+ * one — exactly like the rest of the site. All entries are German originals, so
+ * the original-language note is the static pair "Original · Deutsch / German".
  */
 (function () {
   'use strict';
 
   var ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X',
     'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX'];
-
   function toRoman(n) { return ROMAN[n - 1] || String(n); }
-  function displayDate(iso) { return iso.replace(/-/g, ' · '); } // 2025-10-31 -> 2025 · 10 · 31
-  function full(lang) { return lang === 'DE' ? 'DEUTSCH' : 'ENGLISCH'; }
+  function displayDate(iso) { return iso.replace(/-/g, ' · '); } // 2026-04-29 -> 2026 · 04 · 29
 
-  // Seat-mark / header spark — the Lumen mark (design spec, viewBox 0 0 24 40).
-  // Corona gradient is defined once in the page (#spkCorona).
-  function spark(w, h, opacity) {
-    return '<svg viewBox="0 0 24 40" width="' + w + '" height="' + h + '"' +
-      ' style="overflow:visible;display:block' + (opacity != null ? ';opacity:' + opacity : '') + '"' +
-      ' aria-hidden="true">' +
-      '<circle cx="12" cy="8" r="4.2" fill="url(#spkCorona)" opacity="0.85"/>' +
-      '<line x1="12" y1="10" x2="12" y2="37" stroke="hsl(30 64% 56%)" stroke-width="1.6" stroke-linecap="round"/>' +
-      '<line x1="6.5" y1="15" x2="17.5" y2="15" stroke="hsl(30 60% 52%)" stroke-width="1.15" stroke-linecap="round"/>' +
-      '<circle cx="12" cy="8" r="1.9" fill="hsl(45 100% 84%)"/>' +
-      '</svg>';
+  // Site Lumen mark (viewBox 0 0 56 56), inherits color from CSS (var(--accent)).
+  function sparkSVG(size) {
+    return '<svg viewBox="0 0 56 56" width="' + size + '" height="' + size + '" fill="none" aria-hidden="true">' +
+      '<path d="M28 4 L28 52" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>' +
+      '<path d="M16 16 L40 16 M14 22 L42 22 M18 28 L38 28" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" opacity="0.7"/>' +
+      '<circle cx="28" cy="10" r="3" fill="currentColor"/>' +
+      '<circle cx="28" cy="10" r="6" stroke="currentColor" stroke-width="0.5" opacity="0.5"/></svg>';
   }
 
   function el(tag, cls, text) {
@@ -33,61 +32,40 @@
     return n;
   }
 
-  // One entry -> a grid row. `state` holds whether the translation is shown.
-  function buildEntry(entry, romanIndex) {
-    var state = { alt: false };
+  // A bilingual text node: <span class="de">…</span><span class="en">…</span>
+  // wrapped in `tag`. The global [data-lang] shows exactly one.
+  function bilingual(tag, cls, de, en) {
+    var n = el(tag, cls);
+    n.appendChild(el('span', 'de', de));
+    n.appendChild(el('span', 'en', en));
+    return n;
+  }
 
+  function proseBlock(cls, paras) {
+    var box = el('div', cls);
+    for (var i = 0; i < paras.length; i++) box.appendChild(el('p', null, paras[i]));
+    return box;
+  }
+
+  function buildEntry(entry, romanIndex) {
     var row = el('article', 'lt-entry');
 
-    // ── Rail ──────────────────────────────────────────────
+    // ── Rail ──
     var rail = el('div', 'lt-rail');
-
     var seat = el('div', 'lt-seat');
-    seat.innerHTML = spark(13, 22, 0.85);
+    seat.innerHTML = sparkSVG(16);
     rail.appendChild(seat);
-
     rail.appendChild(el('div', 'lt-roman', toRoman(romanIndex)));
     rail.appendChild(el('div', 'lt-date', displayDate(entry.date)));
-    rail.appendChild(el('div', 'lt-context', entry.context));
+    rail.appendChild(bilingual('div', 'lt-context', entry.context_de, entry.context_en));
+    // original-language note (static, informational — no toggle)
+    rail.appendChild(bilingual('div', 'lt-orig', 'Original · Deutsch', 'Original · German'));
 
-    var langRow = el('div', 'lt-langrow');
-    var badge = el('span', 'lt-badge');
-    var toggle = null;
-    var hasAlt = Array.isArray(entry.alt) && entry.alt.length > 0;
-    langRow.appendChild(badge);
-    if (hasAlt) {
-      toggle = el('button', 'lt-toggle');
-      toggle.type = 'button';
-      langRow.appendChild(toggle);
-    }
-    rail.appendChild(langRow);
-
-    // ── Prose ─────────────────────────────────────────────
+    // ── Prose: both language versions; [data-lang] reveals one ──
     var prose = el('div', 'lt-prose');
-    var paras = el('div', 'lt-paras');
-    prose.appendChild(paras);
-    prose.appendChild(el('div', 'lt-sig', entry.signature));
-
-    function render() {
-      var showAlt = state.alt && hasAlt;
-      // badge + toggle reflect the per-entry language state
-      badge.textContent = showAlt
-        ? 'TRANSLATION · ORIGINAL ' + full(entry.lang)
-        : 'ORIGINAL · ' + full(entry.lang);
-      badge.classList.toggle('is-translated', showAlt);
-      if (toggle) {
-        toggle.textContent = showAlt
-          ? '← Original'
-          : (entry.lang === 'DE' ? 'English →' : 'Deutsch →');
-      }
-      // prose body swaps between original and translation
-      var lines = showAlt ? entry.alt : entry.body;
-      paras.textContent = '';
-      for (var i = 0; i < lines.length; i++) paras.appendChild(el('p', null, lines[i]));
-    }
-
-    if (toggle) toggle.addEventListener('click', function () { state.alt = !state.alt; render(); });
-    render();
+    prose.appendChild(proseBlock('lt-paras de', entry.de));
+    prose.appendChild(proseBlock('lt-paras en', entry.en));
+    prose.appendChild(bilingual('div', 'lt-sig', entry.signature_de, entry.signature_en));
 
     row.appendChild(rail);
     row.appendChild(prose);
@@ -96,11 +74,10 @@
 
   function buildOpenSeat() {
     var seat = el('article', 'lt-entry lt-openseat-row');
-    seat.appendChild(el('div', 'lt-rail')); // empty rail column
-    var card = el('div', 'lt-openseat',
-      'A place is kept set. The next chair goes here — a quiet way to add an ' +
-      'entry could live here later, no form today, no invitation louder than the spark.');
-    seat.appendChild(card);
+    seat.appendChild(el('div', 'lt-rail'));
+    seat.appendChild(bilingual('div', 'lt-openseat',
+      'Ein Platz bleibt gedeckt. Der nächste Stuhl steht hier — ein stiller Weg, später einen Eintrag hinzuzufügen, könnte hier wohnen. Kein Formular heute, keine Einladung lauter als der Funke.',
+      'A place is kept set. The next chair goes here — a quiet way to add an entry could live here later. No form today, no invitation louder than the spark.'));
     return seat;
   }
 
@@ -109,9 +86,7 @@
     var data = window.LONG_TABLE_ENTRIES;
     if (!mount || !Array.isArray(data)) return;
 
-    // oldest-first: the table grows toward the reader
     var list = data.slice().sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
-
     var frag = document.createDocumentFragment();
     list.forEach(function (entry, i) { frag.appendChild(buildEntry(entry, i + 1)); });
     frag.appendChild(buildOpenSeat());

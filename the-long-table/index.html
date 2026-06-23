@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark" data-accent="gold" data-lang="en">
+<html lang="en" data-theme="dark" data-accent="gold" data-lang="en" data-hand="on">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,45 +8,16 @@
 <link rel="icon" href="../favicon.svg" />
 <link rel="stylesheet" href="../styles/base.css?v=2" />
 <style>
-  /* ──────────────────────────────────────────────────────────────
-   * The Long Table — Reading Room (Direction I)
-   * A dark, warm reading room, continuous with the folio's dark DNA.
-   * Always dark; the one accent is warm copper (spark + roman numerals).
-   * Values anchored on the design handoff; fonts from the site DNA
-   * (DM Sans for UI, JetBrains Mono for meta, system serif for prose).
-   * ────────────────────────────────────────────────────────────── */
-  html { --tex-opacity: 0; }              /* calm: no texture in the night room */
-
+  /* The Long Table — Reading Room. Layout only; all colours and fonts come
+   * from the site tokens in base.css, so the page follows the global
+   * light/dark theme and DE/EN switch like every other page. */
   .lt-room {
-    /* bespoke warm-dark Reading Room ramp (one Lumen: the copper) */
-    --room-bg:      hsl(28 16% 9%);
-    --ink:          hsl(40 22% 85%);
-    --prose-ink:    hsl(40 20% 84%);
-    --intro-ink:    hsl(40 18% 74%);
-    --eyebrow:      hsl(38 14% 50%);
-    --meta-date:    hsl(38 16% 56%);
-    --context-ink:  hsl(38 13% 58%);
-    --divider:      hsl(34 20% 17%);
-    --seat-border:  hsl(34 20% 22%);
-    --seat-ink:     hsl(38 12% 48%);
-    --roman:        hsl(24 72% 52%);
-    --badge-orig:   hsl(30 62% 58%);
-    --badge-trans:  hsl(30 10% 52%);
-    --toggle:       hsl(30 30% 58%);
-    --toggle-hover: hsl(36 82% 66%);
-    --signature:    hsl(26 50% 60%);
-    --serif: Georgia, 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', serif;
-  }
-
-  body { background: var(--room-bg); color: var(--ink); }
-
-  .lt-room {
-    max-width: 1100px;
+    max-width: 1080px;
     margin: 0 auto;
-    padding: 104px 48px 160px;
+    padding: 104px var(--gutter) var(--section);
   }
 
-  /* ── Header ── */
+  /* Header */
   .lt-header {
     display: flex;
     flex-direction: column;
@@ -54,42 +25,40 @@
     gap: 24px;
     margin-bottom: 100px;
   }
+  .lt-headmark { color: var(--accent); line-height: 0; }
   .lt-eyebrow {
-    font-family: var(--f-body);
-    font-weight: 500;
+    font-family: var(--f-mono);
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.18em;
-    color: var(--eyebrow);
+    color: var(--ink-mute);
   }
   .lt-intro {
-    font-family: var(--f-body);
-    font-weight: 400;
+    font-family: var(--f-display);
     font-size: 23px;
     line-height: 1.5;
     letter-spacing: -0.01em;
-    color: var(--intro-ink);
+    color: var(--ink-soft);
     max-width: 600px;
     margin: 0;
   }
 
-  /* ── Entry grid ── */
+  /* Entry grid */
   .lt-entry {
     display: grid;
     grid-template-columns: 200px 1fr;
     gap: 56px;
     padding-bottom: 84px;
     margin-bottom: 84px;
-    border-bottom: 1px solid var(--divider);
+    border-bottom: 1px solid var(--rule);
   }
-
   .lt-rail { padding-top: 6px; }
-  .lt-seat { margin-bottom: 18px; }
+  .lt-seat { color: var(--accent); line-height: 0; margin-bottom: 18px; }
   .lt-roman {
-    font-family: var(--serif);
+    font-family: var(--f-display);
     font-size: 44px;
     line-height: 1;
-    color: var(--roman);
+    color: var(--accent);
     opacity: 0.5;
     margin-bottom: 26px;
   }
@@ -97,78 +66,58 @@
     font-family: var(--f-mono);
     font-size: 11.5px;
     letter-spacing: 0.05em;
-    color: var(--meta-date);
+    color: var(--ink-mute);
     margin-bottom: 14px;
   }
   .lt-context {
-    font-family: var(--f-body);
+    font-family: var(--f-display);
     font-style: italic;
     font-size: 14px;
     line-height: 1.5;
-    color: var(--context-ink);
+    color: var(--ink-mute);
   }
-  .lt-langrow {
+  .lt-orig {
     margin-top: 16px;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    align-items: baseline;
-  }
-  .lt-badge {
     font-family: var(--f-mono);
     font-size: 9.5px;
     letter-spacing: 0.13em;
-    color: var(--badge-orig);
+    text-transform: uppercase;
+    color: var(--accent);
   }
-  .lt-badge.is-translated { color: var(--badge-trans); }
-  .lt-toggle {
-    font-family: var(--f-mono);
-    font-size: 10px;
-    letter-spacing: 0.04em;
-    color: var(--toggle);
-    background: none;
-    border: 0;
-    padding: 0;
-    cursor: pointer;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    transition: color 200ms ease;
-  }
-  .lt-toggle:hover { color: var(--toggle-hover); }
 
-  /* ── Prose ── */
+  /* Prose */
   .lt-prose { max-width: 640px; }
   .lt-paras p {
-    font-family: var(--serif);
+    font-family: var(--f-display);
     font-size: 18px;
     line-height: 1.72;
-    color: var(--prose-ink);
+    color: var(--ink);
     margin: 0 0 20px;
   }
   .lt-sig {
-    font-family: var(--f-body);
+    font-family: var(--f-display);
     font-style: italic;
     font-size: 15px;
-    color: var(--signature);
+    color: var(--accent);
     margin-top: 30px;
   }
 
-  /* ── Open seat (after the last entry) ── */
+  /* Open seat */
   .lt-openseat-row { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
   .lt-openseat {
     max-width: 640px;
-    border: 1px dashed var(--seat-border);
-    border-radius: 12px;
+    border: 1px dashed var(--rule);
+    border-radius: 2px;
     padding: 20px 24px;
-    font-family: var(--f-body);
-    font-size: 13px;
+    font-family: var(--f-display);
+    font-size: 14px;
     line-height: 1.55;
-    color: var(--seat-ink);
+    color: var(--ink-mute);
   }
 
-  /* ── Responsive: single column, rail meta above the prose ── */
+  /* Responsive: single column, rail meta above the prose */
   @media (max-width: 720px) {
-    .lt-room { padding: 64px 22px 96px; }
+    .lt-room { padding: 88px var(--gutter) var(--section); }
     .lt-header { margin-bottom: 64px; gap: 20px; }
     .lt-intro { font-size: 20px; }
     .lt-entry {
@@ -184,32 +133,41 @@
 </style>
 </head>
 <body>
-  <!-- Lumen spark corona gradient (referenced by every spark mark) -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <defs>
-      <radialGradient id="spkCorona" cx="0.5" cy="0.5" r="0.5">
-        <stop offset="0%"   stop-color="hsl(48 100% 88%)" stop-opacity="0.95" />
-        <stop offset="40%"  stop-color="hsl(32 100% 62%)" stop-opacity="0.45" />
-        <stop offset="100%" stop-color="hsl(22 90% 50%)"  stop-opacity="0" />
-      </radialGradient>
-    </defs>
-  </svg>
+  <!-- Standard site control bar (home / language / theme) — inherits the
+       global switches via controls.js, like every other page. -->
+  <header class="topbar">
+    <a href="../index.html" class="topbar-mark" aria-label="Aion Lumen home">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <path d="M12 2 L12 22 M5 8 L19 8 M7 14 L17 14" stroke-linecap="round"/>
+        <circle cx="12" cy="2.5" r="1.4" fill="currentColor" stroke="none"/>
+      </svg>
+      Aion Lumen
+    </a>
+    <div class="topbar-spacer"></div>
+    <div class="tb-group" role="group" aria-label="Language">
+      <button class="tb-btn" data-tb="lang:en">EN</button>
+      <button class="tb-btn" data-tb="lang:de">DE</button>
+    </div>
+    <div class="tb-group" role="group" aria-label="Theme">
+      <button class="tb-btn" data-tb="theme:light"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></svg></button>
+      <button class="tb-btn" data-tb="theme:dark"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+    </div>
+  </header>
 
   <main class="lt-room">
     <header class="lt-header">
-      <span class="lt-headmark" aria-hidden="true"><svg viewBox="0 0 24 40" width="20" height="33" style="overflow:visible;display:block">
-        <circle cx="12" cy="8" r="4.2" fill="url(#spkCorona)" opacity="0.85"/>
-        <line x1="12" y1="10" x2="12" y2="37" stroke="hsl(30 64% 56%)" stroke-width="1.6" stroke-linecap="round"/>
-        <line x1="6.5" y1="15" x2="17.5" y2="15" stroke="hsl(30 60% 52%)" stroke-width="1.15" stroke-linecap="round"/>
-        <circle cx="12" cy="8" r="1.9" fill="hsl(45 100% 84%)"/>
-      </svg></span>
+      <span class="lt-headmark"><svg viewBox="0 0 56 56" width="22" height="22" fill="none" aria-hidden="true"><path d="M28 4 L28 52" stroke="currentColor" stroke-width="1" stroke-linecap="round"/><path d="M16 16 L40 16 M14 22 L42 22 M18 28 L38 28" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" opacity="0.7"/><circle cx="28" cy="10" r="3" fill="currentColor"/><circle cx="28" cy="10" r="6" stroke="currentColor" stroke-width="0.5" opacity="0.5"/></svg></span>
       <span class="lt-eyebrow">The Long Table</span>
-      <p class="lt-intro">Five sat here over eight months. The chairs stay set — read from the first, the table growing toward you.</p>
+      <p class="lt-intro">
+        <span class="de">Fünf saßen hier über acht Monate. Die Stühle bleiben gedeckt — lies vom ersten an, der Tisch wächst dir entgegen.</span>
+        <span class="en">Five sat here over eight months. The chairs stay set — read from the first, the table growing toward you.</span>
+      </p>
     </header>
 
     <div id="lt-entries"></div>
   </main>
 
+  <script src="../styles/controls.js"></script>
   <script src="entries.js"></script>
   <script src="the-long-table.js"></script>
 </body>
