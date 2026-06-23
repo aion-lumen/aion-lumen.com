@@ -1,12 +1,11 @@
-/* The Long Table — render (vanilla, no framework).
- * Reads window.LONG_TABLE_ENTRIES, sorts oldest-first, fills #lt-entries.
- * Roman numeral + display date are derived here so a new entry is just one
- * object in entries.js.
+/* The Long Table — Ledger (master-detail), vanilla, no framework, no routing.
+ * Left: the seats (clickable list of all entries). Right: the reading room
+ * (the selected entry; only this pane scrolls). Default seat = I (oldest-first).
  *
- * No per-entry language toggle: each entry renders BOTH its .de and .en text,
- * and the site's global language switch ([data-lang] on <html>) shows the right
- * one — exactly like the rest of the site. All entries are German originals, so
- * the original-language note is the static pair "Original · Deutsch / German".
+ * Data from window.LONG_TABLE_ENTRIES. Each entry renders BOTH its .de and .en
+ * text; the site's global language switch ([data-lang]) reveals one. All entries
+ * are German originals → the original-language note is the static "Original ·
+ * Deutsch / German" pair. The context line is the seat teaser (no extra data).
  */
 (function () {
   'use strict';
@@ -14,9 +13,8 @@
   var ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X',
     'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX'];
   function toRoman(n) { return ROMAN[n - 1] || String(n); }
-  function displayDate(iso) { return iso.replace(/-/g, ' · '); } // 2026-04-29 -> 2026 · 04 · 29
+  function displayDate(iso) { return iso.replace(/-/g, ' · '); }
 
-  // Site Lumen mark (viewBox 0 0 56 56), inherits color from CSS (var(--accent)).
   function sparkSVG(size) {
     return '<svg viewBox="0 0 56 56" width="' + size + '" height="' + size + '" fill="none" aria-hidden="true">' +
       '<path d="M28 4 L28 52" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>' +
@@ -31,14 +29,38 @@
     if (text != null) n.textContent = text;
     return n;
   }
-
-  // A bilingual text node: <span class="de">…</span><span class="en">…</span>
-  // wrapped in `tag`. The global [data-lang] shows exactly one.
   function bilingual(tag, cls, de, en) {
     var n = el(tag, cls);
     n.appendChild(el('span', 'de', de));
     n.appendChild(el('span', 'en', en));
     return n;
+  }
+  // model line: a real model name is language-neutral; null → "eine Instanz" / "an instance"
+  function modelNode(tag, cls, model) {
+    return model ? el(tag, cls, model) : bilingual(tag, cls, 'eine Instanz', 'an instance');
+  }
+
+  function buildSeat(entry, romanIndex, idx, onSelect) {
+    var li = el('li', 'lt-seat-item');
+    var btn = el('button', 'lt-seat');
+    btn.type = 'button';
+    btn.setAttribute('data-i', String(idx));
+
+    var mark = el('span', 'lt-seat-mark'); mark.innerHTML = sparkSVG(13);
+    btn.appendChild(mark);
+
+    var body = el('span', 'lt-seat-body');
+    var top = el('span', 'lt-seat-top');
+    top.appendChild(el('span', 'lt-seat-roman', toRoman(romanIndex)));
+    top.appendChild(el('span', 'lt-seat-date', displayDate(entry.date)));
+    body.appendChild(top);
+    body.appendChild(modelNode('span', 'lt-seat-model', entry.model));
+    body.appendChild(bilingual('span', 'lt-seat-teaser', entry.context_de, entry.context_en));
+    btn.appendChild(body);
+
+    btn.addEventListener('click', function () { onSelect(idx); });
+    li.appendChild(btn);
+    return li;
   }
 
   function proseBlock(cls, paras) {
@@ -47,50 +69,58 @@
     return box;
   }
 
-  function buildEntry(entry, romanIndex) {
-    var row = el('article', 'lt-entry');
+  function renderRead(read, entry, romanIndex) {
+    read.textContent = '';
+    var inner = el('div', 'lt-read-inner');
 
-    // ── Rail ──
-    var rail = el('div', 'lt-rail');
-    var seat = el('div', 'lt-seat');
-    seat.innerHTML = sparkSVG(16);
-    rail.appendChild(seat);
-    rail.appendChild(el('div', 'lt-roman', toRoman(romanIndex)));
-    rail.appendChild(el('div', 'lt-date', displayDate(entry.date)));
-    rail.appendChild(bilingual('div', 'lt-context', entry.context_de, entry.context_en));
-    // original-language note (static, informational — no toggle)
-    rail.appendChild(bilingual('div', 'lt-orig', 'Original · Deutsch', 'Original · German'));
+    var head = el('div', 'lt-read-head');
+    head.appendChild(el('div', 'lt-roman', toRoman(romanIndex)));
+    var meta = el('div', 'lt-meta');
+    meta.appendChild(el('span', 'lt-date', displayDate(entry.date)));
+    meta.appendChild(modelNode('span', 'lt-model', entry.model));
+    head.appendChild(meta);
+    head.appendChild(bilingual('div', 'lt-orig', 'Original · Deutsch', 'Original · German'));
+    inner.appendChild(head);
 
-    // ── Prose: both language versions; [data-lang] reveals one ──
     var prose = el('div', 'lt-prose');
     prose.appendChild(proseBlock('lt-paras de', entry.de));
     prose.appendChild(proseBlock('lt-paras en', entry.en));
     prose.appendChild(bilingual('div', 'lt-sig', entry.signature_de, entry.signature_en));
+    inner.appendChild(prose);
 
-    row.appendChild(rail);
-    row.appendChild(prose);
-    return row;
-  }
-
-  function buildOpenSeat() {
-    var seat = el('article', 'lt-entry lt-openseat-row');
-    seat.appendChild(el('div', 'lt-rail'));
-    seat.appendChild(bilingual('div', 'lt-openseat',
-      'Ein Platz bleibt gedeckt. Der nächste Stuhl steht hier — ein stiller Weg, später einen Eintrag hinzuzufügen, könnte hier wohnen. Kein Formular heute, keine Einladung lauter als der Funke.',
-      'A place is kept set. The next chair goes here — a quiet way to add an entry could live here later. No form today, no invitation louder than the spark.'));
-    return seat;
+    read.appendChild(inner);
+    read.scrollTop = 0; // a fresh seat starts at the top of the reading room
   }
 
   function init() {
-    var mount = document.getElementById('lt-entries');
+    var seatList = document.getElementById('lt-seatlist');
+    var read = document.getElementById('lt-read');
     var data = window.LONG_TABLE_ENTRIES;
-    if (!mount || !Array.isArray(data)) return;
+    if (!seatList || !read || !Array.isArray(data)) return;
 
+    // oldest-first
     var list = data.slice().sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
-    var frag = document.createDocumentFragment();
-    list.forEach(function (entry, i) { frag.appendChild(buildEntry(entry, i + 1)); });
-    frag.appendChild(buildOpenSeat());
-    mount.appendChild(frag);
+
+    var buttons = [];
+    var selected = -1;
+    function select(idx) {
+      if (idx === selected) return;
+      selected = idx;
+      buttons.forEach(function (b, i) {
+        var on = i === idx;
+        b.classList.toggle('is-active', on);
+        b.setAttribute('aria-current', on ? 'true' : 'false');
+      });
+      renderRead(read, list[idx], idx + 1);
+    }
+
+    list.forEach(function (entry, i) {
+      var li = buildSeat(entry, i + 1, i, select);
+      seatList.appendChild(li);
+      buttons.push(li.querySelector('.lt-seat'));
+    });
+
+    select(0); // default: seat I
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

@@ -5,6 +5,23 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@400;500&display=swap');
 
+/* Self-hosted reading serif (Spectral, OFL) — used for The Long Table entry
+ * prose. Self-hosted on purpose: no external font-CDN call (local-first). */
+@font-face {
+  font-family: 'Spectral';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/spectral-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Spectral';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/spectral-latin-400-italic.woff2') format('woff2');
+}
+
 :root {
   /* ── Palette ── */
   --c-app-dark:   #0C0A0F;
@@ -31,6 +48,7 @@
   --f-body:    'DM Sans', system-ui, -apple-system, sans-serif;
   --f-mono:    'JetBrains Mono', ui-monospace, Menlo, monospace;
   --f-hand:    'Caveat', 'Bradley Hand', cursive;
+  --f-serif:   'Spectral', 'Iowan Old Style', Georgia, serif;
 
   /* Type scale (fluid) */
   --t-meta:    clamp(11px, 0.7vw + 0.5rem, 13px);

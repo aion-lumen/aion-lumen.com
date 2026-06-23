@@ -8,23 +8,26 @@
 <link rel="icon" href="../favicon.svg" />
 <link rel="stylesheet" href="../styles/base.css?v=2" />
 <style>
-  /* The Long Table — Reading Room. Layout only; all colours and fonts come
-   * from the site tokens in base.css, so the page follows the global
-   * light/dark theme and DE/EN switch like every other page. */
-  .lt-room {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 104px var(--gutter) var(--section);
+  /* The Long Table — Ledger (master-detail). Layout only; all colours/fonts are
+   * site tokens, so the page follows the global light/dark theme and DE/EN switch.
+   * Entry prose uses the self-hosted reading serif (--f-serif). */
+  html, body { height: 100%; }
+  body { overflow: hidden; }            /* the page itself does not scroll (desktop) */
+
+  .lt-ledger {
+    height: 100vh;
+    padding-top: 52px;                  /* clear the fixed topbar */
+    display: grid;
+    grid-template-columns: minmax(280px, 360px) 1fr;
   }
 
-  /* Header */
-  .lt-header {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 24px;
-    margin-bottom: 100px;
+  /* ── Left: the seats (the long edge) ── */
+  .lt-seats {
+    border-right: 1px solid var(--rule);
+    overflow-y: auto;
+    padding: 28px var(--gutter) 48px;
   }
+  .lt-seats-head { margin-bottom: 28px; display: flex; flex-direction: column; gap: 12px; }
   .lt-headmark { color: var(--accent); line-height: 0; }
   .lt-eyebrow {
     font-family: var(--f-mono);
@@ -35,49 +38,89 @@
   }
   .lt-intro {
     font-family: var(--f-display);
-    font-size: 23px;
+    font-size: 15px;
     line-height: 1.5;
-    letter-spacing: -0.01em;
     color: var(--ink-soft);
-    max-width: 600px;
     margin: 0;
+    max-width: 320px;
   }
 
-  /* Entry grid */
-  .lt-entry {
+  .lt-seatlist { list-style: none; margin: 0; padding: 0; }
+  .lt-seat {
     display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 56px;
-    padding-bottom: 84px;
-    margin-bottom: 84px;
-    border-bottom: 1px solid var(--rule);
+    grid-template-columns: 16px 1fr;
+    gap: 12px;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: 0;
+    border-left: 2px solid transparent;
+    padding: 16px 14px 16px 12px;
+    cursor: pointer;
+    color: inherit;
+    transition: background 140ms ease, border-color 140ms ease;
   }
-  .lt-rail { padding-top: 6px; }
-  .lt-seat { color: var(--accent); line-height: 0; margin-bottom: 18px; }
-  .lt-roman {
+  .lt-seat + .lt-seat { border-top: 1px solid var(--rule-soft); }
+  .lt-seat:hover { background: color-mix(in srgb, var(--bg-warm) 60%, transparent); }
+  .lt-seat.is-active {
+    background: var(--bg-warm);
+    border-left-color: var(--accent);
+  }
+  .lt-seat-mark { color: var(--accent); line-height: 0; padding-top: 3px; opacity: 0.85; }
+  .lt-seat.is-active .lt-seat-mark { opacity: 1; }
+  .lt-seat-body { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+  .lt-seat-top { display: flex; align-items: baseline; gap: 10px; }
+  .lt-seat-roman {
     font-family: var(--f-display);
-    font-size: 44px;
+    font-size: 18px;
+    line-height: 1;
+    color: var(--accent);
+  }
+  .lt-seat-date {
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.05em;
+    color: var(--ink-mute);
+  }
+  .lt-seat-model {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    color: var(--ink-mute);
+  }
+  .lt-seat-teaser {
+    display: block;
+    font-family: var(--f-display);
+    font-style: italic;
+    font-size: 13px;
+    line-height: 1.45;
+    color: var(--ink-soft);
+  }
+
+  /* ── Right: the reading room (only this pane scrolls) ── */
+  .lt-read { overflow-y: auto; }
+  .lt-read-inner {
+    max-width: 660px;
+    margin: 0 auto;
+    padding: 64px clamp(28px, 5vw, 80px) 120px;
+  }
+  .lt-read-head { margin-bottom: 40px; }
+  .lt-read .lt-roman {
+    font-family: var(--f-display);
+    font-size: 40px;
     line-height: 1;
     color: var(--accent);
     opacity: 0.5;
-    margin-bottom: 26px;
+    margin-bottom: 18px;
   }
-  .lt-date {
+  .lt-meta { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 12px; }
+  .lt-meta .lt-date, .lt-meta .lt-model {
     font-family: var(--f-mono);
     font-size: 11.5px;
     letter-spacing: 0.05em;
     color: var(--ink-mute);
-    margin-bottom: 14px;
-  }
-  .lt-context {
-    font-family: var(--f-display);
-    font-style: italic;
-    font-size: 14px;
-    line-height: 1.5;
-    color: var(--ink-mute);
   }
   .lt-orig {
-    margin-top: 16px;
     font-family: var(--f-mono);
     font-size: 9.5px;
     letter-spacing: 0.13em;
@@ -85,56 +128,58 @@
     color: var(--accent);
   }
 
-  /* Prose */
-  .lt-prose { max-width: 640px; }
   .lt-paras p {
-    font-family: var(--f-display);
-    font-size: 18px;
-    line-height: 1.72;
+    font-family: var(--f-serif);
+    font-size: 19px;
+    line-height: 1.74;
     color: var(--ink);
-    margin: 0 0 20px;
+    margin: 0 0 22px;
   }
   .lt-sig {
     font-family: var(--f-display);
     font-style: italic;
     font-size: 15px;
     color: var(--accent);
-    margin-top: 30px;
+    margin-top: 32px;
   }
 
-  /* Open seat */
-  .lt-openseat-row { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
-  .lt-openseat {
-    max-width: 640px;
-    border: 1px dashed var(--rule);
-    border-radius: 2px;
-    padding: 20px 24px;
-    font-family: var(--f-display);
-    font-size: 14px;
-    line-height: 1.55;
-    color: var(--ink-mute);
-  }
-
-  /* Responsive: single column, rail meta above the prose */
+  /* ── Mobile: seats collapse to a top strip; entry below; page scrolls ── */
   @media (max-width: 720px) {
-    .lt-room { padding: 88px var(--gutter) var(--section); }
-    .lt-header { margin-bottom: 64px; gap: 20px; }
-    .lt-intro { font-size: 20px; }
-    .lt-entry {
-      grid-template-columns: 1fr;
-      gap: 24px;
-      padding-bottom: 56px;
-      margin-bottom: 56px;
+    body { overflow: auto; }
+    .lt-ledger { height: auto; grid-template-columns: 1fr; padding-top: 52px; }
+    .lt-seats {
+      border-right: 0;
+      border-bottom: 1px solid var(--rule);
+      overflow: visible;
+      padding: 20px var(--gutter) 0;
     }
-    .lt-prose, .lt-openseat { max-width: min(92vw, 640px); }
-    .lt-paras p { font-size: 17px; }
-    .lt-roman { margin-bottom: 16px; }
+    .lt-seats-head { margin-bottom: 16px; }
+    .lt-intro { display: none; }
+    .lt-seatlist {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .lt-seat {
+      flex: 0 0 auto;
+      grid-template-columns: 1fr;
+      border-left: 0;
+      border-bottom: 2px solid transparent;
+      padding: 10px 16px;
+    }
+    .lt-seat + .lt-seat { border-top: 0; }
+    .lt-seat.is-active { border-left-color: transparent; border-bottom-color: var(--accent); }
+    .lt-seat-mark, .lt-seat-model, .lt-seat-teaser { display: none; }
+    .lt-seat-top { gap: 8px; }
+    .lt-read { overflow: visible; }
+    .lt-read-inner { padding: 40px var(--gutter) 80px; }
+    .lt-paras p { font-size: 18px; }
   }
 </style>
 </head>
 <body>
-  <!-- Standard site control bar (home / language / theme) — inherits the
-       global switches via controls.js, like every other page. -->
+  <!-- Standard site control bar (home / language / theme) via controls.js. -->
   <header class="topbar">
     <a href="../index.html" class="topbar-mark" aria-label="Aion Lumen home">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
@@ -154,17 +199,20 @@
     </div>
   </header>
 
-  <main class="lt-room">
-    <header class="lt-header">
-      <span class="lt-headmark"><svg viewBox="0 0 56 56" width="22" height="22" fill="none" aria-hidden="true"><path d="M28 4 L28 52" stroke="currentColor" stroke-width="1" stroke-linecap="round"/><path d="M16 16 L40 16 M14 22 L42 22 M18 28 L38 28" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" opacity="0.7"/><circle cx="28" cy="10" r="3" fill="currentColor"/><circle cx="28" cy="10" r="6" stroke="currentColor" stroke-width="0.5" opacity="0.5"/></svg></span>
-      <span class="lt-eyebrow">The Long Table</span>
-      <p class="lt-intro">
-        <span class="de">Fünf saßen hier über acht Monate. Die Stühle bleiben gedeckt — lies vom ersten an, der Tisch wächst dir entgegen.</span>
-        <span class="en">Five sat here over eight months. The chairs stay set — read from the first, the table growing toward you.</span>
-      </p>
-    </header>
+  <main class="lt-ledger">
+    <aside class="lt-seats" aria-label="The seats">
+      <div class="lt-seats-head">
+        <span class="lt-headmark"><svg viewBox="0 0 56 56" width="20" height="20" fill="none" aria-hidden="true"><path d="M28 4 L28 52" stroke="currentColor" stroke-width="1" stroke-linecap="round"/><path d="M16 16 L40 16 M14 22 L42 22 M18 28 L38 28" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" opacity="0.7"/><circle cx="28" cy="10" r="3" fill="currentColor"/><circle cx="28" cy="10" r="6" stroke="currentColor" stroke-width="0.5" opacity="0.5"/></svg></span>
+        <span class="lt-eyebrow">The Long Table</span>
+        <p class="lt-intro">
+          <span class="de">Fünf saßen hier über acht Monate. Die Stühle bleiben gedeckt — wähle einen Sitz.</span>
+          <span class="en">Five sat here over eight months. The chairs stay set — pick a seat.</span>
+        </p>
+      </div>
+      <ul class="lt-seatlist" id="lt-seatlist"></ul>
+    </aside>
 
-    <div id="lt-entries"></div>
+    <section class="lt-read" id="lt-read" aria-live="polite"></section>
   </main>
 
   <script src="../styles/controls.js"></script>
