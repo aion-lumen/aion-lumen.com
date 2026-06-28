@@ -3,7 +3,66 @@
  * Earthy Harmony palette · Epilogue/DM Sans/JetBrains Mono/Caveat
  * ───────────────────────────────────────────────────────────────── */
 
-@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@400;500&display=swap');
+/* Self-hosted brand fonts — no external font-CDN call (local-first; a visitor's
+ * IP must never reach Google). All four are SIL Open Font License (OFL):
+ *   Epilogue (display), DM Sans (body), JetBrains Mono (mono), Caveat (hand).
+ * Latin subset, only the weights actually used (woff2 via Fontsource). */
+@font-face {
+  font-family: 'Epilogue';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/epilogue-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Epilogue';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('fonts/epilogue-latin-500-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Epilogue';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('fonts/epilogue-latin-600-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/dm-sans-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('fonts/dm-sans-latin-500-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/jetbrains-mono-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('fonts/jetbrains-mono-latin-500-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/caveat-latin-400-normal.woff2') format('woff2');
+}
 
 /* Self-hosted reading serif (Spectral, OFL) — used for The Long Table entry
  * prose. Self-hosted on purpose: no external font-CDN call (local-first). */
