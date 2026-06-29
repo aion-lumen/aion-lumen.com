@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-accent="gold" data-lang="en" data-hand="on">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Die Geschichte hinter Folio · Aion Lumen</title>
+<meta name="description" content="The story behind Folio — a ten-scene picture story: we like to direct; Folio lays the posture of the game over the everyday." />
+<link rel="icon" href="../favicon.svg" />
+<link rel="stylesheet" href="../styles/base.css?v=2" />
+<style>
+  /* Story page — picture narrative. Colours/fonts are site tokens, so the page
+   * follows the global light/dark theme and DE/EN switch. Warmer, slower rhythm
+   * than the landing, but the same typography (not the Long Table serif). */
+  .story-wrap { max-width: 920px; padding-top: 72px; }
+
+  .story-intro { padding: clamp(24px, 6vw, 64px) 0 clamp(8px, 3vw, 24px); }
+  .story-eyebrow {
+    font-family: var(--f-mono);
+    font-size: var(--t-meta);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 14px;
+  }
+  .story-intro h1 {
+    font-size: var(--t-h1);
+    line-height: 1.05;
+    margin-bottom: clamp(16px, 2vw, 28px);
+  }
+  .story-lede { font-size: var(--t-lead); color: var(--ink-soft); max-width: 60ch; line-height: 1.5; }
+
+  /* Video slot — empty until the real video exists. No fake player. */
+  .story-video {
+    margin: clamp(28px, 5vw, 56px) 0;
+    border: 1px dashed var(--rule);
+    border-radius: 4px;
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, var(--bg-warm), transparent);
+  }
+  .story-video .ph {
+    font-family: var(--f-mono);
+    font-size: var(--t-meta);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+
+  /* Scenes — large, calm, read as a story (no thumbnail grid). */
+  .scenes { display: flex; flex-direction: column; gap: clamp(40px, 7vw, 96px); padding: clamp(24px, 5vw, 56px) 0 clamp(56px, 9vw, 120px); }
+  .scene { margin: 0; }
+  .scene-num {
+    font-family: var(--f-mono);
+    font-size: var(--t-meta);
+    letter-spacing: 0.1em;
+    color: var(--ink-mute);
+    margin-bottom: 10px;
+  }
+  .scene img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid var(--rule-soft);
+    border-radius: 4px;
+  }
+
+  /* Scene 5 — optional "ingredients" deep-dive (the three concept cards). */
+  .ingredients { margin-top: 16px; }
+  .ingredients > summary {
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--f-mono);
+    font-size: var(--t-meta);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    transition: color 180ms ease;
+    display: inline-block;
+    padding: 4px 0;
+  }
+  .ingredients > summary::-webkit-details-marker { display: none; }
+  .ingredients > summary:hover { color: var(--accent); }
+  .ingredients[open] > summary { color: var(--ink-soft); }
+  .ingredient-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 16px; }
+  .ingredient-grid img { width: 100%; height: auto; display: block; border: 1px solid var(--rule-soft); border-radius: 4px; }
+
+  .story-foot {
+    border-top: 1px solid var(--rule);
+    padding: clamp(28px, 4vw, 48px) 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    font-family: var(--f-mono);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--ink-mute);
+  }
+  .story-foot a { color: var(--ink-soft); border-bottom: 1px solid transparent; transition: color 180ms, border-color 180ms; }
+  .story-foot a:hover { color: var(--accent); border-color: var(--accent); }
+</style>
+</head>
+<body>
+
+  <header class="topbar">
+    <a href="../index.html" class="topbar-mark" aria-label="Aion Lumen home">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <path d="M12 2 L12 22 M5 8 L19 8 M7 14 L17 14" stroke-linecap="round"/>
+        <circle cx="12" cy="2.5" r="1.4" fill="currentColor" stroke="none"/>
+      </svg>
+      Aion Lumen
+    </a>
+    <div class="topbar-spacer"></div>
+    <div class="tb-group" role="group" aria-label="Language">
+      <button class="tb-btn" data-tb="lang:en">EN</button>
+      <button class="tb-btn" data-tb="lang:de">DE</button>
+    </div>
+    <div class="tb-group" role="group" aria-label="Theme">
+      <button class="tb-btn" data-tb="theme:light"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></svg></button>
+      <button class="tb-btn" data-tb="theme:dark"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+    </div>
+  </header>
+
+  <main class="wrap story-wrap">
+
+    <section class="story-intro">
+      <div class="story-eyebrow">
+        <span class="en">A picture story</span><span class="de">Eine Bildgeschichte</span>
+      </div>
+      <h1>
+        <span class="en">The story behind Folio</span><span class="de">Die Geschichte hinter Folio</span>
+      </h1>
+      <p class="story-lede">
+        <span class="en">We like to direct. In a game you build a realm, set priorities, hit pause. In real life the mail, the dates, the tasks all arrive at once — and there is no pause. Folio takes the posture of the game and lays it over the everyday: you set the direction, the rest arranges itself beneath it.</span>
+        <span class="de">Wir dirigieren gern. Im Spiel baut man ein Reich, setzt Prioritäten, drückt auf Pause. Im echten Leben prasseln Post, Termine und Aufgaben gleichzeitig herein — und Pause gibt es nicht. Folio nimmt die Haltung des Spiels und legt sie über den Alltag: Du gibst die Richtung vor, der Rest ordnet sich darunter.</span>
+      </p>
+    </section>
+
+    <!-- VIDEO SLOT — drop the real embed here when ready (a single edit):
+         replace the .story-video block below with, e.g.
+           <div class="story-video"><video src="img/folio-explainer.mp4" controls playsinline preload="metadata"></video></div>
+         Keep it local (no external player / no embed that calls out). -->
+    <div class="story-video" aria-hidden="true">
+      <span class="ph"><span class="en">Video coming</span><span class="de">Video folgt</span></span>
+    </div>
+
+    <div class="scenes">
+      <figure class="scene"><div class="scene-num">01</div><img src="img/scene-01.jpg" loading="lazy" decoding="async" alt="The joy of directing — building a realm in a game" /></figure>
+      <figure class="scene"><div class="scene-num">02</div><img src="img/scene-02.jpg" loading="lazy" decoding="async" alt="The work inferno — everything arriving at once" /></figure>
+      <figure class="scene"><div class="scene-num">03</div><img src="img/scene-03.jpg" loading="lazy" decoding="async" alt="The split between play and the everyday" /></figure>
+      <figure class="scene"><div class="scene-num">04</div><img src="img/scene-04.jpg" loading="lazy" decoding="async" alt="Giving the command" /></figure>
+      <figure class="scene">
+        <div class="scene-num">05</div>
+        <img src="img/scene-05.jpg" loading="lazy" decoding="async" alt="The mouse cooks up Folio" />
+        <details class="ingredients">
+          <summary><span class="en">See the ingredients →</span><span class="de">Die Zutaten ansehen →</span></summary>
+          <div class="ingredient-grid">
+            <img src="img/scene-05-a.jpg" loading="lazy" decoding="async" alt="Ingredient card 1" />
+            <img src="img/scene-05-b.jpg" loading="lazy" decoding="async" alt="Ingredient card 2" />
+            <img src="img/scene-05-c.jpg" loading="lazy" decoding="async" alt="Ingredient card 3" />
+          </div>
+        </details>
+      </figure>
+      <figure class="scene"><div class="scene-num">06</div><img src="img/scene-06.jpg" loading="lazy" decoding="async" alt="The campaign — life as five acts" /></figure>
+      <figure class="scene"><div class="scene-num">07</div><img src="img/scene-07.jpg" loading="lazy" decoding="async" alt="The mail inferno" /></figure>
+      <figure class="scene"><div class="scene-num">08</div><img src="img/scene-08.jpg" loading="lazy" decoding="async" alt="The mail command" /></figure>
+      <figure class="scene"><div class="scene-num">09</div><img src="img/scene-09.jpg" loading="lazy" decoding="async" alt="The helper robots at work" /></figure>
+      <figure class="scene"><div class="scene-num">10</div><img src="img/scene-10.jpg" loading="lazy" decoding="async" alt="Return to the eye — the overview restored" /></figure>
+    </div>
+
+    <footer class="story-foot">
+      <a href="/folio/"><span class="en">← Back to Folio</span><span class="de">← Zurück zu Folio</span></a>
+      <a href="../index.html"><span class="en">Aion Lumen</span><span class="de">Aion Lumen</span></a>
+    </footer>
+
+  </main>
+
+<script src="../styles/controls.js"></script>
+<script src="../styles/tweaks.js"></script>
+</body>
+</html>
