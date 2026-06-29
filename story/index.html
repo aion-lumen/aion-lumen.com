@@ -4,101 +4,72 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Die Geschichte hinter Folio · Aion Lumen</title>
-<meta name="description" content="The story behind Folio — a ten-scene picture story: we like to direct; Folio lays the posture of the game over the everyday." />
+<meta name="description" content="The story behind Folio — ten scenes, from a city-builder to a real tool. Why it exists at all." />
 <link rel="icon" href="../favicon.svg" />
 <link rel="stylesheet" href="../styles/base.css?v=2" />
 <style>
-  /* Story page — picture narrative. Colours/fonts are site tokens, so the page
-   * follows the global light/dark theme and DE/EN switch. Warmer, slower rhythm
-   * than the landing, but the same typography (not the Long Table serif). */
-  .story-wrap { max-width: 920px; padding-top: 72px; }
+  /* Story — Claude Design form: alternating image|text rows, copper
+   * scene numbers, mono labels, italic-serif voice. Site tokens → global theme +
+   * DE/EN. Voice serif is a system font (Georgia) → no font CDN, 0-external. */
+  .story-page { --f-voice: Georgia, 'Iowan Old Style', Palatino, serif; max-width: 1040px; padding-top: 84px; padding-bottom: 96px; }
 
-  .story-intro { padding: clamp(24px, 6vw, 64px) 0 clamp(8px, 3vw, 24px); }
-  .story-eyebrow {
-    font-family: var(--f-mono);
-    font-size: var(--t-meta);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-mute);
-    margin-bottom: 14px;
-  }
-  .story-intro h1 {
-    font-size: var(--t-h1);
-    line-height: 1.05;
-    margin-bottom: clamp(16px, 2vw, 28px);
-  }
-  .story-lede { font-size: var(--t-lead); color: var(--ink-soft); max-width: 60ch; line-height: 1.5; }
+  .st-plate { font-family: var(--f-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.22em; color: var(--ink-mute); }
+  .st-plate .rule { display: inline-block; width: 46px; height: 1px; background: var(--accent); opacity: 0.55; vertical-align: middle; margin-right: 10px; }
 
-  /* Video slot — empty until the real video exists. No fake player. */
-  .story-video {
-    margin: clamp(28px, 5vw, 56px) 0;
-    border: 1px dashed var(--rule);
-    border-radius: 4px;
-    aspect-ratio: 16 / 9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(180deg, var(--bg-warm), transparent);
-  }
-  .story-video .ph {
-    font-family: var(--f-mono);
-    font-size: var(--t-meta);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-mute);
+  .st-intro { margin-top: 48px; max-width: 660px; }
+  .st-intro .eyebrow { font-family: var(--f-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 18px; }
+  .st-intro .title { font-family: var(--f-voice); font-style: italic; font-size: clamp(26px, 2.6vw + 0.6rem, 34px); line-height: 1.28; letter-spacing: -0.01em; color: var(--ink); }
+  .st-intro .sub { font-family: var(--f-body); font-size: 15px; line-height: 1.6; color: var(--ink-soft); margin-top: 18px; }
+  .st-intro .hint { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; color: var(--ink-mute); margin-top: 26px; }
+
+  /* Alternating scene rows */
+  .scene-row { display: flex; align-items: center; gap: clamp(24px, 4vw, 46px); padding: clamp(40px, 6vw, 62px) 0; border-top: 1px solid var(--rule); margin-top: 8px; }
+  .scene-row.rev { flex-direction: row-reverse; }
+  .scene-media { flex: 1; min-width: 0; border: 1px solid var(--rule); border-radius: 14px; overflow: hidden; background: var(--bg-warm); }
+  .scene-media img { display: block; width: 100%; height: clamp(220px, 28vw, 320px); object-fit: cover; object-position: center; }
+  .scene-text { flex: 1; min-width: 0; }
+  .scene-num { font-family: var(--f-voice); font-size: clamp(38px, 4vw, 46px); line-height: 1; color: var(--accent); opacity: 0.5; margin-bottom: 14px; }
+  .scene-label { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 14px; }
+  .scene-voice { font-family: var(--f-voice); font-style: italic; font-size: clamp(20px, 1.2vw + 0.6rem, 24px); line-height: 1.42; color: var(--ink); }
+  @media (max-width: 720px) {
+    .scene-row, .scene-row.rev { flex-direction: column; align-items: stretch; }
   }
 
-  /* Scenes — large, calm, read as a story (no thumbnail grid). */
-  .scenes { display: flex; flex-direction: column; gap: clamp(40px, 7vw, 96px); padding: clamp(24px, 5vw, 56px) 0 clamp(56px, 9vw, 120px); }
-  .scene { margin: 0; }
-  .scene-num {
-    font-family: var(--f-mono);
-    font-size: var(--t-meta);
-    letter-spacing: 0.1em;
-    color: var(--ink-mute);
-    margin-bottom: 10px;
-  }
-  .scene img {
-    width: 100%;
-    height: auto;
-    display: block;
-    border: 1px solid var(--rule-soft);
-    border-radius: 4px;
-  }
+  /* Ingredients triptych — all three veiled; reveal on hover or click (sticky) */
+  .trip-head { padding: 6px 0 8px; }
+  .trip-head .eyebrow { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 6px; }
+  .trip-head .sub { font-family: var(--f-body); font-size: 15px; color: var(--ink-soft); margin-bottom: 22px; }
+  .trip-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
+  @media (max-width: 640px) { .trip-grid { grid-template-columns: 1fr; } }
+  .trip { margin: 0; }
+  .trip-toggle { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+  .trip-card { display: block; cursor: pointer; }
+  .trip-media { position: relative; border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; background: var(--bg-warm); }
+  .trip-media img { display: block; width: 100%; height: clamp(150px, 18vw, 178px); object-fit: cover; filter: grayscale(0.9) blur(7px); opacity: 0.5; transition: filter 0.3s ease, opacity 0.3s ease; }
+  .trip-veil { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; transition: opacity 0.3s ease; }
+  .trip-veil .q { font-family: var(--f-voice); font-size: 34px; color: var(--ink-mute); }
+  .trip-veil .hint { font-family: var(--f-mono); font-size: 8.5px; letter-spacing: 0.14em; color: var(--ink-mute); }
+  .trip-label { font-family: var(--f-mono); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mute); margin: 14px 0 8px; transition: color 0.2s ease; }
+  .trip-cap { font-family: var(--f-voice); font-style: italic; font-size: 16px; line-height: 1.45; color: var(--ink); opacity: 0; transition: opacity 0.3s ease; }
+  .trip-card:hover .trip-media img, .trip-toggle:checked ~ .trip-card .trip-media img { filter: none; opacity: 1; }
+  .trip-card:hover .trip-veil, .trip-toggle:checked ~ .trip-card .trip-veil { opacity: 0; pointer-events: none; }
+  .trip-card:hover ~ .trip-meta .trip-cap, .trip-toggle:checked ~ .trip-meta .trip-cap { opacity: 1; }
+  .trip-card:hover ~ .trip-meta .trip-label, .trip-toggle:checked ~ .trip-meta .trip-label { color: var(--accent); }
 
-  /* Scene 5 — optional "ingredients" deep-dive (the three concept cards). */
-  .ingredients { margin-top: 16px; }
-  .ingredients > summary {
-    cursor: pointer;
-    list-style: none;
-    font-family: var(--f-mono);
-    font-size: var(--t-meta);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--ink-mute);
-    transition: color 180ms ease;
-    display: inline-block;
-    padding: 4px 0;
-  }
-  .ingredients > summary::-webkit-details-marker { display: none; }
-  .ingredients > summary:hover { color: var(--accent); }
-  .ingredients[open] > summary { color: var(--ink-soft); }
-  .ingredient-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 16px; }
-  .ingredient-grid img { width: 100%; height: auto; display: block; border: 1px solid var(--rule-soft); border-radius: 4px; }
+  /* Closing */
+  .st-closing { padding: 64px 0 0; border-top: 1px solid var(--rule); margin-top: 8px; text-align: center; }
+  .st-closing .line { font-family: var(--f-voice); font-style: italic; font-size: clamp(22px, 1.6vw + 0.6rem, 26px); line-height: 1.4; color: var(--ink); max-width: 560px; margin: 0 auto 30px; }
+  .st-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .st-cta { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.04em; border-radius: 999px; padding: 11px 20px; transition: opacity 180ms ease, border-color 180ms ease, color 180ms ease; }
+  .st-cta.primary { color: var(--bg); background: var(--ink); }
+  .st-cta.primary:hover { opacity: 0.9; }
+  .st-cta.ghost { color: var(--ink); border: 1px solid var(--rule); }
+  .st-cta.ghost:hover { color: var(--accent); border-color: var(--accent); }
 
-  .story-foot {
-    border-top: 1px solid var(--rule);
-    padding: clamp(28px, 4vw, 48px) 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 18px;
-    font-family: var(--f-mono);
-    font-size: 13px;
-    letter-spacing: 0.04em;
-    color: var(--ink-mute);
-  }
-  .story-foot a { color: var(--ink-soft); border-bottom: 1px solid transparent; transition: color 180ms, border-color 180ms; }
-  .story-foot a:hover { color: var(--accent); border-color: var(--accent); }
+  .st-foot { display: flex; align-items: center; justify-content: space-between; gap: 30px; flex-wrap: wrap; margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--rule); }
+  .st-foot a { font-family: var(--f-voice); font-style: italic; font-size: 17px; color: var(--ink-soft); transition: color 180ms ease; }
+  .st-foot a:hover { color: var(--accent); }
+  .st-foot .note { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.14em; color: var(--ink-mute); }
 </style>
 </head>
 <body>
@@ -122,57 +93,166 @@
     </div>
   </header>
 
-  <main class="wrap story-wrap">
+  <main class="wrap story-page">
 
-    <section class="story-intro">
-      <div class="story-eyebrow">
-        <span class="en">A picture story</span><span class="de">Eine Bildgeschichte</span>
-      </div>
-      <h1>
-        <span class="en">The story behind Folio</span><span class="de">Die Geschichte hinter Folio</span>
-      </h1>
-      <p class="story-lede">
-        <span class="en">We like to direct. In a game you build a realm, set priorities, hit pause. In real life the mail, the dates, the tasks all arrive at once — and there is no pause. Folio takes the posture of the game and lays it over the everyday: you set the direction, the rest arranges itself beneath it.</span>
-        <span class="de">Wir dirigieren gern. Im Spiel baut man ein Reich, setzt Prioritäten, drückt auf Pause. Im echten Leben prasseln Post, Termine und Aufgaben gleichzeitig herein — und Pause gibt es nicht. Folio nimmt die Haltung des Spiels und legt sie über den Alltag: Du gibst die Richtung vor, der Rest ordnet sich darunter.</span>
-      </p>
+    <section class="st-intro">
+      <div class="eyebrow"><span class="en">FOLIO — THE WHY</span><span class="de">FOLIO — DAS WARUM</span></div>
+      <div class="title"><span class="en">Why this exists at all.</span><span class="de">Warum es das überhaupt gibt.</span></div>
+      <div class="sub"><span class="en">Ten scenes. From a city-builder to a real tool — and to the open threads that life simply has.</span><span class="de">Zehn Szenen. Von einem Aufbauspiel zu einem echten Werkzeug — und zu den offenen Fäden, die das Leben nun einmal hat.</span></div>
+      <div class="hint">scroll ↓</div>
     </section>
 
-    <!-- VIDEO SLOT — drop the real embed here when ready (a single edit):
-         replace the .story-video block below with, e.g.
-           <div class="story-video"><video src="img/folio-explainer.mp4" controls playsinline preload="metadata"></video></div>
-         Keep it local (no external player / no embed that calls out). -->
-    <div class="story-video" aria-hidden="true">
-      <span class="ph"><span class="en">Video coming</span><span class="de">Video folgt</span></span>
+    <!-- Scene 1 -->
+    <div class="scene-row">
+      <div class="scene-media"><img src="img/scene-01.jpg" loading="lazy" decoding="async" alt="A realm directed in a game" /></div>
+      <div class="scene-text">
+        <div class="scene-num">01</div>
+        <div class="scene-label"><span class="en">Frostpunk night</span><span class="de">Frostpunk-Nacht</span></div>
+        <div class="scene-voice"><span class="en">„I love Frostpunk. Pressure, scarcity, endless problems — and it's fun."</span><span class="de">„Ich liebe Frostpunk. Druck, knappe Mittel, ständig Probleme — und es macht Spass."</span></div>
+      </div>
     </div>
 
-    <div class="scenes">
-      <figure class="scene"><div class="scene-num">01</div><img src="img/scene-01.jpg" loading="lazy" decoding="async" alt="The joy of directing — building a realm in a game" /></figure>
-      <figure class="scene"><div class="scene-num">02</div><img src="img/scene-02.jpg" loading="lazy" decoding="async" alt="The work inferno — everything arriving at once" /></figure>
-      <figure class="scene"><div class="scene-num">03</div><img src="img/scene-03.jpg" loading="lazy" decoding="async" alt="The split between play and the everyday" /></figure>
-      <figure class="scene"><div class="scene-num">04</div><img src="img/scene-04.jpg" loading="lazy" decoding="async" alt="Giving the command" /></figure>
-      <figure class="scene">
+    <!-- Scene 2 -->
+    <div class="scene-row rev">
+      <div class="scene-media"><img src="img/scene-02.jpg" loading="lazy" decoding="async" alt="Everything arriving at once" /></div>
+      <div class="scene-text">
+        <div class="scene-num">02</div>
+        <div class="scene-label"><span class="en">Everyday</span><span class="de">Alltag</span></div>
+        <div class="scene-voice"><span class="en">„My real day is the same. Just without the fun."</span><span class="de">„Mein Alltag ist auch so. Nur ohne den Spass."</span></div>
+      </div>
+    </div>
+
+    <!-- Scene 3 -->
+    <div class="scene-row">
+      <div class="scene-media"><img src="img/scene-03.jpg" loading="lazy" decoding="async" alt="Game overview versus the scattered everyday" /></div>
+      <div class="scene-text">
+        <div class="scene-num">03</div>
+        <div class="scene-label"><span class="en">Game vs. inbox</span><span class="de">Spiel vs. Inbox</span></div>
+        <div class="scene-voice"><span class="en">„In the game I see everything at once. In life, never."</span><span class="de">„Im Spiel sehe ich alles auf einen Blick. Im Leben nie."</span></div>
+      </div>
+    </div>
+
+    <!-- Scene 4 -->
+    <div class="scene-row rev">
+      <div class="scene-media"><img src="img/scene-04.jpg" loading="lazy" decoding="async" alt="Giving the command" /></div>
+      <div class="scene-text">
+        <div class="scene-num">04</div>
+        <div class="scene-label"><span class="en">The prompt</span><span class="de">Der Prompt</span></div>
+        <div class="scene-voice"><span class="en">„So I had it built.."</span><span class="de">„Also habe ich bauen lassen.."</span></div>
+      </div>
+    </div>
+
+    <!-- Scene 5 — the recipe -->
+    <div class="scene-row">
+      <div class="scene-media"><img src="img/scene-05.jpg" loading="lazy" decoding="async" alt="The mouse cooks up Folio" /></div>
+      <div class="scene-text">
         <div class="scene-num">05</div>
-        <img src="img/scene-05.jpg" loading="lazy" decoding="async" alt="The mouse cooks up Folio" />
-        <details class="ingredients">
-          <summary><span class="en">See the ingredients →</span><span class="de">Die Zutaten ansehen →</span></summary>
-          <div class="ingredient-grid">
-            <img src="img/scene-05-a.jpg" loading="lazy" decoding="async" alt="Ingredient card 1" />
-            <img src="img/scene-05-b.jpg" loading="lazy" decoding="async" alt="Ingredient card 2" />
-            <img src="img/scene-05-c.jpg" loading="lazy" decoding="async" alt="Ingredient card 3" />
-          </div>
-        </details>
-      </figure>
-      <figure class="scene"><div class="scene-num">06</div><img src="img/scene-06.jpg" loading="lazy" decoding="async" alt="The campaign — life as five acts" /></figure>
-      <figure class="scene"><div class="scene-num">07</div><img src="img/scene-07.jpg" loading="lazy" decoding="async" alt="The mail inferno" /></figure>
-      <figure class="scene"><div class="scene-num">08</div><img src="img/scene-08.jpg" loading="lazy" decoding="async" alt="The mail command" /></figure>
-      <figure class="scene"><div class="scene-num">09</div><img src="img/scene-09.jpg" loading="lazy" decoding="async" alt="The helper robots at work" /></figure>
-      <figure class="scene"><div class="scene-num">10</div><img src="img/scene-10.jpg" loading="lazy" decoding="async" alt="Return to the eye — the overview restored" /></figure>
+        <div class="scene-label"><span class="en">The recipe</span><span class="de">Das Rezept</span></div>
+        <div class="scene-voice"><span class="en">„The ingredients: a second brain, local agents, all on my machine."</span><span class="de">„Die Zutaten: zweites Gedächtnis, lokale Agenten, alles auf meinem Rechner."</span></div>
+      </div>
     </div>
 
-    <footer class="story-foot">
-      <a href="/folio/"><span class="en">← Back to Folio</span><span class="de">← Zurück zu Folio</span></a>
-      <a href="../index.html"><span class="en">Aion Lumen</span><span class="de">Aion Lumen</span></a>
-    </footer>
+    <!-- Ingredients triptych -->
+    <div class="trip-head">
+      <div class="eyebrow"><span class="en">THE INGREDIENTS</span><span class="de">DIE ZUTATEN</span></div>
+      <div class="sub"><span class="en">Three building blocks — hover each to reveal it. (Only then do you see what is being cooked.)</span><span class="de">Drei Bausteine — fahr über jede, dann zeigt sie sich. (Erst danach versteht man, was da gekocht wird.)</span></div>
+    </div>
+    <div class="trip-grid">
+      <figure class="trip">
+        <input type="checkbox" id="t-5a" class="trip-toggle" />
+        <label for="t-5a" class="trip-card">
+          <div class="trip-media"><img src="img/scene-05-a.jpg" loading="lazy" decoding="async" alt="A second memory" /><span class="trip-veil"><span class="q">?</span><span class="hint"><span class="en">REVEAL</span><span class="de">ZEIGEN</span></span></span></div>
+        </label>
+        <div class="trip-meta">
+          <div class="trip-label"><span class="en">Second brain</span><span class="de">Zweites Gedächtnis</span></div>
+          <div class="trip-cap"><span class="en">„A memory that doesn't start from zero."</span><span class="de">„Ein Gedächtnis, das nicht bei null startet."</span></div>
+        </div>
+      </figure>
+      <figure class="trip">
+        <input type="checkbox" id="t-5b" class="trip-toggle" />
+        <label for="t-5b" class="trip-card">
+          <div class="trip-media"><img src="img/scene-05-b.jpg" loading="lazy" decoding="async" alt="A local AI as a tool" /><span class="trip-veil"><span class="q">?</span><span class="hint"><span class="en">REVEAL</span><span class="de">ZEIGEN</span></span></span></div>
+        </label>
+        <div class="trip-meta">
+          <div class="trip-label"><span class="en">Hermes</span><span class="de">Hermes</span></div>
+          <div class="trip-cap"><span class="en">„A local AI as a tool — not a guardian."</span><span class="de">„Eine lokale KI als Werkzeug — nicht als Vormund."</span></div>
+        </div>
+      </figure>
+      <figure class="trip">
+        <input type="checkbox" id="t-5c" class="trip-toggle" />
+        <label for="t-5c" class="trip-card">
+          <div class="trip-media"><img src="img/scene-05-c.jpg" loading="lazy" decoding="async" alt="Data stays on the machine" /><span class="trip-veil"><span class="q">?</span><span class="hint"><span class="en">REVEAL</span><span class="de">ZEIGEN</span></span></span></div>
+        </label>
+        <div class="trip-meta">
+          <div class="trip-label"><span class="en">Local data</span><span class="de">Lokale Daten</span></div>
+          <div class="trip-cap"><span class="en">„Your data never leaves the machine."</span><span class="de">„Deine Daten verlassen den Rechner nie."</span></div>
+        </div>
+      </figure>
+    </div>
+
+    <!-- Scene 6 -->
+    <div class="scene-row rev">
+      <div class="scene-media"><img src="img/scene-06.jpg" loading="lazy" decoding="async" alt="Life as acts and chapters" /></div>
+      <div class="scene-text">
+        <div class="scene-num">06</div>
+        <div class="scene-label"><span class="en">Folio dashboard</span><span class="de">Folio-Dashboard</span></div>
+        <div class="scene-voice"><span class="en">„My life in acts and chapters. Open threads, one glance."</span><span class="de">„Mein Leben in Akten und Kapiteln. Offene Fäden, ein Blick."</span></div>
+      </div>
+    </div>
+
+    <!-- Scene 7 -->
+    <div class="scene-row">
+      <div class="scene-media"><img src="img/scene-07.jpg" loading="lazy" decoding="async" alt="An overflowing inbox" /></div>
+      <div class="scene-text">
+        <div class="scene-num">07</div>
+        <div class="scene-label"><span class="en">Inbox overload</span><span class="de">Inbox-Flut</span></div>
+        <div class="scene-voice"><span class="en">„24,391 unread. Nobody reads that."</span><span class="de">„24'391 ungelesen. Niemand liest das."</span></div>
+      </div>
+    </div>
+
+    <!-- Scene 8 -->
+    <div class="scene-row rev">
+      <div class="scene-media"><img src="img/scene-08.jpg" loading="lazy" decoding="async" alt="Small helpers pre-checking the inbox" /></div>
+      <div class="scene-text">
+        <div class="scene-num">08</div>
+        <div class="scene-label"><span class="en">Small helpers</span><span class="de">Kleine Helfer</span></div>
+        <div class="scene-voice"><span class="en">„So: small helpers that pre-check and sort."</span><span class="de">„Also: kleine Helfer, die vorprüfen und sortieren."</span></div>
+      </div>
+    </div>
+
+    <!-- Scene 9 -->
+    <div class="scene-row">
+      <div class="scene-media"><img src="img/scene-09.jpg" loading="lazy" decoding="async" alt="The helpers at work" /></div>
+      <div class="scene-text">
+        <div class="scene-num">09</div>
+        <div class="scene-label"><span class="en">They check, I decide</span><span class="de">Sie prüfen, ich entscheide</span></div>
+        <div class="scene-voice"><span class="en">„They check, suggest, ask. The deciding stays mine."</span><span class="de">„Sie prüfen, schlagen vor, fragen nach. Entscheiden tue ich."</span></div>
+      </div>
+    </div>
+
+    <!-- Scene 10 -->
+    <div class="scene-row rev">
+      <div class="scene-media"><img src="img/scene-10.jpg" loading="lazy" decoding="async" alt="Return to the eye — the overview restored" /></div>
+      <div class="scene-text">
+        <div class="scene-num">10</div>
+        <div class="scene-label"><span class="en">Glasses · next</span><span class="de">Brille · weiter</span></div>
+        <div class="scene-voice"><span class="en">„You can't pause real life. But you can direct it — and play."</span><span class="de">„Pausieren geht im echten Leben nicht. Dirigieren und spielen schon."</span></div>
+      </div>
+    </div>
+
+    <!-- Closing -->
+    <div class="st-closing">
+      <div class="line"><span class="en">That was the why. The rest is the system.</span><span class="de">Das war das Warum. Der Rest ist das System.</span></div>
+      <div class="st-ctas">
+        <a class="st-cta primary" href="/folio/"><span class="en">SEE THE SYSTEM →</span><span class="de">DAS SYSTEM ANSEHEN →</span></a>
+        <a class="st-cta ghost" href="/multi-agent/"><span class="en">THE MECHANISM →</span><span class="de">DIE MECHANIK →</span></a>
+      </div>
+    </div>
+
+    <div class="st-foot">
+      <a href="../index.html"><span class="en">„← Back to the entrance"</span><span class="de">„← Zurück zum Eingang"</span></a>
+      <div class="note"><span class="en">quietly under construction</span><span class="de">in stiller Konstruktion</span></div>
+    </div>
 
   </main>
 

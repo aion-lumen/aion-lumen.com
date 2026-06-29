@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-accent="gold" data-lang="en" data-hand="on">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Multi-Agent · Aion Lumen</title>
+<meta name="description" content="The multi-agent mail pipeline behind Folio: a local LLM plus a deterministic rules engine plus a human in the loop. 550+ real emails classified and triaged, June 2026." />
+<link rel="icon" href="../favicon.svg" />
+<link rel="stylesheet" href="../styles/base.css?v=2" />
+<style>
+  /* Multi-agent room — sober workshop report. Site tokens → global theme + DE/EN. */
+  .ma-wrap { max-width: 880px; padding-top: 84px; }
+
+  .ma-eyebrow { font-family: var(--f-mono); font-size: var(--t-meta); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 16px; }
+  .ma-number { font-size: clamp(40px, 6vw + 0.5rem, 88px); line-height: 1.0; letter-spacing: -0.03em; color: var(--ink); }
+  .ma-number .unit { color: var(--accent); }
+  .ma-sub { margin-top: 16px; font-size: var(--t-lead); color: var(--ink-soft); line-height: 1.45; max-width: 54ch; }
+
+  .ma-section { padding: clamp(40px, 6vw, 80px) 0; border-top: 1px solid var(--rule-soft); }
+  .ma-section:first-of-type { border-top: none; }
+  .ma-h { font-size: var(--t-h3); letter-spacing: -0.01em; margin-bottom: 18px; }
+  .ma-p { color: var(--ink-soft); font-size: var(--t-body); line-height: 1.6; max-width: 64ch; }
+  .ma-p + .ma-p { margin-top: 14px; }
+  .ma-p strong { color: var(--ink); font-weight: 600; }
+
+  /* Pipeline: three parts side by side */
+  .ma-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 24px 0 8px; }
+  @media (max-width: 680px) { .ma-steps { grid-template-columns: 1fr; } }
+  .ma-step { border: 1px solid var(--rule); border-radius: 3px; padding: 18px; background: linear-gradient(180deg, var(--bg-warm), transparent); }
+  .ma-step .k { font-family: var(--f-mono); font-size: var(--t-meta); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 8px; }
+  .ma-step .v { color: var(--ink); font-size: var(--t-body); line-height: 1.4; }
+  .ma-flow { font-family: var(--f-mono); font-size: var(--t-meta); color: var(--ink-mute); letter-spacing: 0.04em; margin-top: 12px; }
+
+  /* Honesty ledger */
+  .ma-ledger { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 8px; }
+  @media (max-width: 680px) { .ma-ledger { grid-template-columns: 1fr; } }
+  .ledger-col { border: 1px solid var(--rule); border-radius: 3px; padding: 18px; }
+  .ledger-tag { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; display: inline-block; margin-bottom: 12px; }
+  .tag-shipped { background: color-mix(in srgb, var(--c-olive) 22%, transparent); color: var(--ink); }
+  .tag-built   { background: color-mix(in srgb, var(--c-gold) 22%, transparent); color: var(--ink); }
+  .tag-roadmap { background: color-mix(in srgb, var(--ink-mute) 16%, transparent); color: var(--ink-soft); }
+  .ledger-col p { color: var(--ink-soft); font-size: 14px; line-height: 1.45; }
+
+  .ma-voice { margin-top: 14px; font-family: var(--f-display); font-style: italic; font-size: var(--t-body); color: var(--ink-soft); }
+
+  /* Evidence — real screenshots from the demo vault */
+  .ma-shots { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 8px; }
+  @media (max-width: 680px) { .ma-shots { grid-template-columns: 1fr; } }
+  .shot { margin: 0; border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; background: var(--bg-warm); }
+  .shot img { width: 100%; height: auto; display: block; border-bottom: 1px solid var(--rule-soft); }
+  .shot-cap { display: block; padding: 12px 14px; font-size: 13px; color: var(--ink-soft); line-height: 1.4; }
+  .shot-cap .tag { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-right: 8px; }
+
+  .ma-repo { margin-top: 8px; }
+  .ma-repo a { font-family: var(--f-mono); font-size: 13px; letter-spacing: 0.03em; color: var(--ink-soft); border-bottom: 1px solid var(--rule); padding-bottom: 2px; transition: color 180ms, border-color 180ms; }
+  .ma-repo a:hover { color: var(--accent); border-color: var(--accent); }
+
+  .ma-foot { border-top: 1px solid var(--rule); padding: clamp(28px, 4vw, 48px) 0; display: flex; flex-wrap: wrap; gap: 18px; font-family: var(--f-mono); font-size: 13px; letter-spacing: 0.04em; color: var(--ink-mute); }
+  .ma-foot a { color: var(--ink-soft); border-bottom: 1px solid transparent; transition: color 180ms, border-color 180ms; }
+  .ma-foot a:hover { color: var(--accent); border-color: var(--accent); }
+</style>
+</head>
+<body>
+
+  <header class="topbar">
+    <a href="../index.html" class="topbar-mark" aria-label="Aion Lumen home">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <path d="M12 2 L12 22 M5 8 L19 8 M7 14 L17 14" stroke-linecap="round"/>
+        <circle cx="12" cy="2.5" r="1.4" fill="currentColor" stroke="none"/>
+      </svg>
+      Aion Lumen
+    </a>
+    <div class="topbar-spacer"></div>
+    <div class="tb-group" role="group" aria-label="Language">
+      <button class="tb-btn" data-tb="lang:en">EN</button>
+      <button class="tb-btn" data-tb="lang:de">DE</button>
+    </div>
+    <div class="tb-group" role="group" aria-label="Theme">
+      <button class="tb-btn" data-tb="theme:light"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></svg></button>
+      <button class="tb-btn" data-tb="theme:dark"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+    </div>
+  </header>
+
+  <main class="wrap ma-wrap">
+
+    <section class="ma-section">
+      <div class="ma-eyebrow"><span class="en">The workshop behind Folio</span><span class="de">Die Werkstatt hinter Folio</span></div>
+      <div class="ma-number"><span class="unit">550+</span> <span class="en">real emails</span><span class="de">echte E-Mails</span></div>
+      <p class="ma-sub">
+        <span class="en">classified and triaged, June 2026 — and every decision, in the end, went through me. The most-tested part of the whole system.</span>
+        <span class="de">klassifiziert und triagiert, Juni 2026 — und jede Entscheidung lief am Ende über mich. Das am härtesten erprobte Stück des ganzen Systems.</span>
+      </p>
+      <p class="ma-voice">
+        <span class="en">Not the robots from the story. This is what actually runs.</span>
+        <span class="de">Nicht die Roboter aus der Geschichte. Das hier ist, was wirklich läuft.</span>
+      </p>
+    </section>
+
+    <section class="ma-section">
+      <h2 class="ma-h"><span class="en">How it actually works</span><span class="de">Wie es wirklich funktioniert</span></h2>
+      <p class="ma-p">
+        <span class="en">For each incoming mail, two things propose a category at the same time — a local LLM and a deterministic rules engine. A human confirms or corrects the suggestion in one tap. Every decision is logged to a local database. Nothing is bypassed, nothing leaves the machine.</span>
+        <span class="de">Für jede eingehende Mail schlagen zwei Dinge gleichzeitig eine Kategorie vor — eine lokale KI und eine deterministische Regel-Engine. Ein Mensch bestätigt oder korrigiert den Vorschlag in einem Tap. Jede Entscheidung landet in einer lokalen Datenbank. Nichts wird umgangen, nichts verlässt den Rechner.</span>
+      </p>
+      <div class="ma-steps">
+        <div class="ma-step"><div class="k"><span class="en">Proposes</span><span class="de">Schlägt vor</span></div><div class="v"><span class="en">A local LLM classifier (Qwen).</span><span class="de">Ein lokaler LLM-Klassifikator (Qwen).</span></div></div>
+        <div class="ma-step"><div class="k"><span class="en">Cross-checks</span><span class="de">Gegencheck</span></div><div class="v"><span class="en">Two deterministic heuristics — rules, no model.</span><span class="de">Zwei deterministische Heuristiken — Regeln, kein Modell.</span></div></div>
+        <div class="ma-step"><div class="k"><span class="en">Decides</span><span class="de">Entscheidet</span></div><div class="v"><span class="en">A human, in the loop (one tap).</span><span class="de">Ein Mensch, in der Schleife (ein Tap).</span></div></div>
+      </div>
+      <div class="ma-flow">→ feedback.db</div>
+    </section>
+
+    <section class="ma-section">
+      <h2 class="ma-h"><span class="en">Validation across two model families</span><span class="de">Prüfung über zwei Modell-Familien</span></h2>
+      <p class="ma-p">
+        <span class="en">Before anything is applied automatically, <strong>three blind LLM voices</strong> weigh in — drawn from <strong>two different model families</strong> (Gemma and two Qwen variants). On a single 48 GB machine they take turns by swapping models in and out of memory.</span>
+        <span class="de">Bevor etwas automatisch übernommen wird, votieren <strong>drei blinde LLM-Stimmen</strong> — aus <strong>zwei verschiedenen Modell-Familien</strong> (Gemma und zwei Qwen-Varianten). Auf einer einzigen 48-GB-Maschine wechseln sie sich ab, indem Modelle aus- und eingeladen werden.</span>
+      </p>
+      <p class="ma-p">
+        <span class="en">The cross-family check is the point: a second family catches what the first one's blind spots would miss.</span>
+        <span class="de">Der Cross-Family-Check ist der Kern: Eine zweite Familie fängt, was die blinden Flecken der ersten übersehen.</span>
+      </p>
+    </section>
+
+    <section class="ma-section">
+      <h2 class="ma-h"><span class="en">Honestly: what's proven, what isn't</span><span class="de">Ehrlich: was belegt ist, was nicht</span></h2>
+      <div class="ma-ledger">
+        <div class="ledger-col">
+          <span class="ledger-tag tag-shipped"><span class="en">Shipped · proven</span><span class="de">Live · belegt</span></span>
+          <p><span class="en">Per-mail classification and human triage — the 550. This part runs in daily use.</span><span class="de">Pro-Mail-Klassifikation und menschliche Triage — die 550. Dieser Teil läuft im täglichen Einsatz.</span></p>
+        </div>
+        <div class="ledger-col">
+          <span class="ledger-tag tag-built"><span class="en">Built · volume unverified</span><span class="de">Gebaut · Volumen offen</span></span>
+          <p><span class="en">The 3-voice validator, auto-promotion, and the IMAP move/cleanup are built and wired — not yet proven at scale.</span><span class="de">Der 3-Stimmen-Validator, die Auto-Übernahme und das IMAP-Verschieben sind gebaut und verdrahtet — noch nicht im großen Maßstab belegt.</span></p>
+        </div>
+        <div class="ledger-col">
+          <span class="ledger-tag tag-roadmap"><span class="en">Roadmap</span><span class="de">Geplant</span></span>
+          <p><span class="en">Learning loops that adapt from each correction.</span><span class="de">Lern-Schleifen, die aus jeder Korrektur lernen.</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="ma-section">
+      <h2 class="ma-h"><span class="en">Evidence — from the demo vault</span><span class="de">Belege — aus dem Demo-Vault</span></h2>
+      <p class="ma-p"><span class="en">Real captures, demo data only — no private mail.</span><span class="de">Echte Aufnahmen, nur Demo-Daten — keine private Post.</span></p>
+      <div class="ma-shots">
+        <figure class="shot">
+          <img src="img/beleg-01-mail-queue.jpg" loading="lazy" decoding="async" alt="The triage list — domain by actionability" />
+          <figcaption class="shot-cap"><span class="tag">Beleg 01</span><span class="en">Domain × actionability — the triage list.</span><span class="de">Domain × Handlungsbedarf — die Triage-Liste.</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="img/beleg-02-pipeline.jpg" loading="lazy" decoding="async" alt="The pipeline dataflow" />
+          <figcaption class="shot-cap"><span class="tag">Beleg 02</span><span class="en">The dataflow: IMAP → worker → validator → auto-promotion.</span><span class="de">Der Datenfluss: IMAP → Worker → Validator → Auto-Übernahme.</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="img/beleg-03-validator.jpg" loading="lazy" decoding="async" alt="The validator stack, live" />
+          <figcaption class="shot-cap"><span class="tag">Beleg 03</span><span class="en">The validator stack, live — three voices across two model families.</span><span class="de">Der Validator-Stack, live — drei Stimmen über zwei Modell-Familien.</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="img/beleg-04-verlauf.jpg" loading="lazy" decoding="async" alt="Run detail with block reasons" />
+          <figcaption class="shot-cap"><span class="tag">Beleg 04</span><span class="en">Run detail — per-mail block reasons (decay, out-of-corridor, …).</span><span class="de">Run-Detail — Block-Gründe je Mail (decay, out_of_corridor, …).</span></figcaption>
+        </figure>
+      </div>
+      <p class="ma-repo">
+        <a href="https://github.com/aion-lumen/multi-agent-lab" target="_blank" rel="noopener"><span class="en">Open to inspect — the code is public ↗</span><span class="de">Offen einsehbar — der Code ist öffentlich ↗</span></a>
+      </p>
+    </section>
+
+    <footer class="ma-foot">
+      <a href="/folio/"><span class="en">← Folio (the dashboard)</span><span class="de">← Folio (das Dashboard)</span></a>
+      <a href="/story/"><span class="en">The story</span><span class="de">Die Geschichte</span></a>
+      <a href="../index.html"><span class="en">Aion Lumen</span><span class="de">Aion Lumen</span></a>
+    </footer>
+
+  </main>
+
+<script src="../styles/controls.js"></script>
+<script src="../styles/tweaks.js"></script>
+</body>
+</html>
