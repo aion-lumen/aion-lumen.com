@@ -70,7 +70,9 @@
   }
 
   function renderRead(read, entry, romanIndex) {
-    read.textContent = '';
+    // Render into the entry host so the standing preface above it is preserved.
+    var host = document.getElementById('lt-entry') || read;
+    host.textContent = '';
     var inner = el('div', 'lt-read-inner');
 
     var head = el('div', 'lt-read-head');
@@ -88,8 +90,8 @@
     prose.appendChild(bilingual('div', 'lt-sig', entry.signature_de, entry.signature_en));
     inner.appendChild(prose);
 
-    read.appendChild(inner);
-    read.scrollTop = 0; // a fresh seat starts at the top of the reading room
+    host.appendChild(inner);
+    read.scrollTop = 0; // a fresh seat starts at the top of the reading room (preface first)
   }
 
   function init() {

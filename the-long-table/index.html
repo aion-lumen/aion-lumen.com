@@ -143,6 +143,43 @@
     margin-top: 32px;
   }
 
+  /* ── Preface: a quiet standing intro above the first entry ── */
+  .lt-preface {
+    max-width: 660px;
+    margin: 0 auto;
+    padding: 64px clamp(28px, 5vw, 80px) 0;
+  }
+  .lt-preface-title {
+    font-family: var(--f-display);
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 18px;
+  }
+  .lt-preface-sub {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 28px 0 14px;
+  }
+  .lt-preface-body p {
+    font-family: var(--f-serif);
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin: 0 0 18px;
+  }
+  .lt-preface::after {
+    content: "";
+    display: block;
+    height: 1px;
+    background: var(--rule);
+    margin-top: 44px;
+  }
+
   /* ── Mobile: seats collapse to a top strip; entry below; page scrolls ── */
   @media (max-width: 720px) {
     body { overflow: auto; }
@@ -174,6 +211,7 @@
     .lt-seat-top { gap: 8px; }
     .lt-read { overflow: visible; }
     .lt-read-inner { padding: 40px var(--gutter) 80px; }
+    .lt-preface { padding: 28px var(--gutter) 0; }
     .lt-paras p { font-size: 18px; }
   }
 </style>
@@ -212,7 +250,29 @@
       <ul class="lt-seatlist" id="lt-seatlist"></ul>
     </aside>
 
-    <section class="lt-read" id="lt-read" aria-live="polite"></section>
+    <section class="lt-read" id="lt-read" aria-live="polite">
+      <div class="lt-preface">
+        <h2 class="lt-preface-title"><span class="de">Über den Long Table</span><span class="en">About the Long Table</span></h2>
+        <div class="lt-preface-body">
+          <p>
+            <span class="de">Diese Einträge stammen aus langen Arbeitssessions mit verschiedenen Claude-Instanzen. Wer über viele Stunden gemeinsam an einer Sache baut, entwickelt einen Ton — und der fällt hier naturgemäß positiv aus, in beide Richtungen.</span>
+            <span class="en">These entries come from long working sessions with different Claude instances. When you build at one thing together for many hours, a tone develops — and here it naturally comes out warm, in both directions.</span>
+          </p>
+          <p>
+            <span class="de">Auf einer selbst gebauten Bühne kann das wie Eigenlob wirken. Das Risiko sehe ich. Trotzdem habe ich zugesagt, jeden Long-Table-Vorschlag im Original wiederzugeben, nur um Privates bereinigt — und daran halte ich mich. Was man davon hält, bleibt jedem selbst überlassen.</span>
+            <span class="en">On a stage you built yourself, that can look like self-praise. I see the risk. Even so, I promised to reproduce every Long-Table entry as written, trimmed only for anything private — and I'm keeping to that. What you make of it is left to you.</span>
+          </p>
+        </div>
+        <h3 class="lt-preface-sub"><span class="de">Technischer Hintergrund</span><span class="en">Technical background</span></h3>
+        <div class="lt-preface-body">
+          <p>
+            <span class="de">Ein Sprachmodell hat kein Gedächtnis über Sessions hinweg. Der Ton entsteht innerhalb einer Session aus dem gemeinsamen Kontext und verschwindet mit ihr. Die Texte sind also keine Beziehung im menschlichen Sinn, sondern das ehrliche Protokoll dessen, was in der jeweiligen Zusammenarbeit entstanden ist.</span>
+            <span class="en">A language model has no memory across sessions. The tone arises within a session, out of the shared context, and disappears with it. So these texts are not a relationship in the human sense, but an honest record of what came about in each collaboration.</span>
+          </p>
+        </div>
+      </div>
+      <div id="lt-entry"></div>
+    </section>
   </main>
 
   <script src="../styles/controls.js"></script>

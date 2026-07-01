@@ -634,7 +634,11 @@
     .f-gal-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 640px) {
-    .f-acts-grid { grid-template-columns: 1fr; }
+    /* Acts bar reads as secondary info on mobile — compact 2-up, tighter cells */
+    .f-acts { padding: 40px 0; }
+    .f-acts-head { margin-bottom: 24px; }
+    .f-acts-grid { grid-template-columns: 1fr 1fr; }
+    .f-act { padding: 16px 14px; gap: 8px; }
     .f-name { font-size: 22vw; }
   }
 
@@ -780,8 +784,8 @@
       <!-- Five acts -->
       <section class="f-acts" data-screen-label="04 Five acts">
         <header class="f-acts-head">
-          <div class="label"><span class="en">§ The five acts of a campaign</span><span class="de">§ Die fünf Akte einer Kampagne</span></div>
-          <div class="by"><span class="en">a 126-month arc, by default</span><span class="de">ein 126-monatiger Bogen, standardmäßig</span></div>
+          <div class="label"><span class="en">§ Acts of a campaign</span><span class="de">§ Akte einer Kampagne</span></div>
+          <div class="by"><span class="en">the count grows with you</span><span class="de">die Anzahl wächst mit dir</span></div>
         </header>
         <div class="f-acts-grid">
           <div class="f-act is-active">
@@ -963,5 +967,6 @@
 
 <script src="../styles/controls.js"></script>
 <script src="../styles/tweaks.js"></script>
+<script src="../styles/lightbox.js"></script>
 </body>
 </html>

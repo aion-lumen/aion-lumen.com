@@ -33,6 +33,8 @@
   .scene-voice { font-family: var(--f-voice); font-style: italic; font-size: clamp(20px, 1.2vw + 0.6rem, 24px); line-height: 1.42; color: var(--ink); }
   @media (max-width: 720px) {
     .scene-row, .scene-row.rev { flex-direction: column; align-items: stretch; }
+    /* Show scenes at their natural (16:9) ratio — no top/bottom crop on mobile */
+    .scene-media img { height: auto; }
   }
 
   /* Ingredients triptych — all three veiled; reveal on hover or click (sticky) */
@@ -258,5 +260,6 @@
 
 <script src="../styles/controls.js"></script>
 <script src="../styles/tweaks.js"></script>
+<script src="../styles/lightbox.js"></script>
 </body>
 </html>
