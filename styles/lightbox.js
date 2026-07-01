@@ -6,7 +6,7 @@
 (function () {
   'use strict';
 
-  var SELECTOR = '.scene-media img, .shot img, .f-plate-frame img, .f-gal-frame img';
+  var SELECTOR = '.scene-media img, .trip-media img, .shot img, .f-plate-frame img, .f-gal-frame img';
   var imgs = Array.prototype.slice.call(document.querySelectorAll(SELECTOR));
   if (!imgs.length) return;
 

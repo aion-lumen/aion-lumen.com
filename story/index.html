@@ -44,19 +44,11 @@
   .trip-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
   @media (max-width: 640px) { .trip-grid { grid-template-columns: 1fr; } }
   .trip { margin: 0; }
-  .trip-toggle { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
-  .trip-card { display: block; cursor: pointer; }
+  .trip-card { display: block; }
   .trip-media { position: relative; border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; background: var(--bg-warm); }
-  .trip-media img { display: block; width: 100%; height: clamp(150px, 18vw, 178px); object-fit: cover; filter: grayscale(0.9) blur(7px); opacity: 0.5; transition: filter 0.3s ease, opacity 0.3s ease; }
-  .trip-veil { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; transition: opacity 0.3s ease; }
-  .trip-veil .q { font-family: var(--f-voice); font-size: 34px; color: var(--ink-mute); }
-  .trip-veil .hint { font-family: var(--f-mono); font-size: 8.5px; letter-spacing: 0.14em; color: var(--ink-mute); }
-  .trip-label { font-family: var(--f-mono); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mute); margin: 14px 0 8px; transition: color 0.2s ease; }
-  .trip-cap { font-family: var(--f-voice); font-style: italic; font-size: 16px; line-height: 1.45; color: var(--ink); opacity: 0; transition: opacity 0.3s ease; }
-  .trip-card:hover .trip-media img, .trip-toggle:checked ~ .trip-card .trip-media img { filter: none; opacity: 1; }
-  .trip-card:hover .trip-veil, .trip-toggle:checked ~ .trip-card .trip-veil { opacity: 0; pointer-events: none; }
-  .trip-card:hover ~ .trip-meta .trip-cap, .trip-toggle:checked ~ .trip-meta .trip-cap { opacity: 1; }
-  .trip-card:hover ~ .trip-meta .trip-label, .trip-toggle:checked ~ .trip-meta .trip-label { color: var(--accent); }
+  .trip-media img { display: block; width: 100%; height: clamp(150px, 18vw, 178px); object-fit: cover; }
+  .trip-label { font-family: var(--f-mono); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mute); margin: 14px 0 8px; }
+  .trip-cap { font-family: var(--f-voice); font-style: italic; font-size: 16px; line-height: 1.45; color: var(--ink); }
 
   /* Closing */
   .st-closing { padding: 64px 0 0; border-top: 1px solid var(--rule); margin-top: 8px; text-align: center; }
@@ -157,34 +149,31 @@
     <!-- Ingredients triptych -->
     <div class="trip-head">
       <div class="eyebrow"><span class="en">THE INGREDIENTS</span><span class="de">DIE ZUTATEN</span></div>
-      <div class="sub"><span class="en">Three building blocks — hover each to reveal it. (Only then do you see what is being cooked.)</span><span class="de">Drei Bausteine — fahr über jede, dann zeigt sie sich. (Erst danach versteht man, was da gekocht wird.)</span></div>
+      <div class="sub"><span class="en">Three building blocks — tap each to enlarge.</span><span class="de">Drei Bausteine — tippe für die Vollansicht.</span></div>
     </div>
     <div class="trip-grid">
       <figure class="trip">
-        <input type="checkbox" id="t-5a" class="trip-toggle" />
-        <label for="t-5a" class="trip-card">
-          <div class="trip-media"><img src="img/scene-05-a.jpg" loading="lazy" decoding="async" alt="A second memory" /><span class="trip-veil"><span class="q">?</span><span class="hint"><span class="en">REVEAL</span><span class="de">ZEIGEN</span></span></span></div>
-        </label>
+        <div class="trip-card">
+          <div class="trip-media"><img src="img/scene-05-a.jpg" loading="lazy" decoding="async" alt="A second memory — Zweites Gedächtnis" /></div>
+        </div>
         <div class="trip-meta">
           <div class="trip-label"><span class="en">Second brain</span><span class="de">Zweites Gedächtnis</span></div>
           <div class="trip-cap"><span class="en">„A memory that doesn't start from zero."</span><span class="de">„Ein Gedächtnis, das nicht bei null startet."</span></div>
         </div>
       </figure>
       <figure class="trip">
-        <input type="checkbox" id="t-5b" class="trip-toggle" />
-        <label for="t-5b" class="trip-card">
-          <div class="trip-media"><img src="img/scene-05-b.jpg" loading="lazy" decoding="async" alt="A local AI as a tool" /><span class="trip-veil"><span class="q">?</span><span class="hint"><span class="en">REVEAL</span><span class="de">ZEIGEN</span></span></span></div>
-        </label>
+        <div class="trip-card">
+          <div class="trip-media"><img src="img/scene-05-b.jpg" loading="lazy" decoding="async" alt="A local AI as a tool — Hermes" /></div>
+        </div>
         <div class="trip-meta">
           <div class="trip-label"><span class="en">Hermes</span><span class="de">Hermes</span></div>
           <div class="trip-cap"><span class="en">„A local AI as a tool — not a guardian."</span><span class="de">„Eine lokale KI als Werkzeug — nicht als Vormund."</span></div>
         </div>
       </figure>
       <figure class="trip">
-        <input type="checkbox" id="t-5c" class="trip-toggle" />
-        <label for="t-5c" class="trip-card">
-          <div class="trip-media"><img src="img/scene-05-c.jpg" loading="lazy" decoding="async" alt="Data stays on the machine" /><span class="trip-veil"><span class="q">?</span><span class="hint"><span class="en">REVEAL</span><span class="de">ZEIGEN</span></span></span></div>
-        </label>
+        <div class="trip-card">
+          <div class="trip-media"><img src="img/scene-05-c.jpg" loading="lazy" decoding="async" alt="Data stays on the machine — Lokale Daten" /></div>
+        </div>
         <div class="trip-meta">
           <div class="trip-label"><span class="en">Local data</span><span class="de">Lokale Daten</span></div>
           <div class="trip-cap"><span class="en">„Your data never leaves the machine."</span><span class="de">„Deine Daten verlassen den Rechner nie."</span></div>
