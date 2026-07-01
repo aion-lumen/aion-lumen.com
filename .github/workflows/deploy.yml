@@ -1,0 +1,44 @@
+name: Deploy aion-lumen (static)
+
+# Static-site deploy: push to main -> rsync the repo to the VPS that Caddy serves
+# from /srv/aion-lumen. aion-lumen is NOT a running app, so there is deliberately
+# no build / migrate / service restart / health check / rollback (unlike frag-shifu).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:        # manual trigger for the first run / emergencies
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Sync static site to VPS
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup SSH agent (dedicated deploy key)
+        uses: webfactory/ssh-agent@v0.10.0
+        with:
+          ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
+
+      - name: Add VPS host key
+        run: ssh-keyscan -H 185.143.100.222 >> ~/.ssh/known_hosts
+
+      - name: Deploy (rsync whitelisted site paths, NO --delete in v1)
+        run: |
+          # Deny-by-default whitelist: only real site paths ship. Draft/concept files
+          # (index-a.html, index-b-print.html, *konzept*.html, .cursor, *.md) stay private.
+          # fonts/ lives under styles/fonts/, img/ under the section dirs — both covered.
+          rsync -avz \
+            index.html favicon.svg assets styles story multi-agent folio the-long-table \
+            aionlumen@185.143.100.222:/srv/aion-lumen/
+          # --delete is intentionally NOT enabled (v1, safer: never removes stray files).
+          # To tighten later, review a dry-run first, then enable:
+          #   rsync -avzn --delete ...   # dry-run — inspect what would be deleted
+          #   rsync -avz  --delete ...   # real
