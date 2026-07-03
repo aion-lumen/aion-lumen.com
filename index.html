@@ -1109,19 +1109,6 @@
     padding: 24px;
   }
   .ma-shot img { display: block; width: 100%; height: auto; border-radius: 3px; }
-  .ma-shot--placeholder {
-    border-style: dashed;
-    border-color: color-mix(in srgb, var(--accent) 45%, var(--rule));
-  }
-  .ma-shot-note {
-    font-family: var(--f-mono);
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-mute);
-    text-align: center;
-    line-height: 1.6;
-  }
   @media (max-width: 760px) {
     .ma-grid { grid-template-columns: 1fr; }
   }
@@ -1467,8 +1454,8 @@
               <a class="ma-repo" href="https://github.com/aion-lumen/multi-agent-lab">Repo: multi-agent-lab ↗</a>
             </p>
           </div>
-          <figure class="ma-shot ma-shot--placeholder" aria-label="Placeholder — validator screenshot pending">
-            <span class="ma-shot-note">REAL SHOT: 3-Stimmen-Validator, Council-frei</span>
+          <figure class="ma-shot">
+            <img src="assets/shots/validator.png" width="1600" height="506" loading="lazy" decoding="async" alt="Folio pipeline — mail classification (IMAP → Worker → Validator → auto-promotion) with a 3-voice validator: gemma · qwen · qwen-thinking." />
           </figure>
         </div>
       </section>
