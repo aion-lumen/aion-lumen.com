@@ -942,7 +942,6 @@
     /* Tighten dead vertical space — mobile section paddings ~62px → ~36px */
     .origin-b, .trip-b, .prem-b, .pr-b { padding-top: 40px; padding-bottom: 40px; }
     .hub-sec { padding-top: 40px; padding-bottom: 28px; }
-    .hub-close { margin-top: 32px; }
     .coda-b { padding-top: 52px; padding-bottom: 44px; }
     .brief-b { padding: 36px 0 !important; }
   }
@@ -1022,17 +1021,6 @@
   .door:hover .door-cta { gap: 12px; filter: brightness(1.08); }
 
 
-  /* Closing line — carries the quiet Long-Table spark */
-  .hub-close {
-    margin-top: clamp(48px, 8vw, 104px);
-    font-family: var(--f-display);
-    font-style: italic;
-    font-size: clamp(18px, 1.2vw + 0.4rem, 24px);
-    color: var(--ink-soft);
-    display: inline-flex;
-    align-items: center;
-    gap: 2px;
-  }
 
   /* ── Multi-Agent strip (§5 · Option A) — technical evidence, subordinate to Folio ── */
   .ma-b { padding: clamp(48px, 7vw, 96px) 0; position: relative; }
@@ -1453,12 +1441,6 @@
         <span class="door-cta"><span class="en">Open →</span><span class="de">Öffnen →</span></span>
       </a>
     </nav>
-
-    <div>
-      <span class="hub-close">
-        <span class="en">The course is yours.</span><span class="de">Der Weg gehört dir.</span>
-      </span>
-    </div>
       </section>
 
       <!-- Multi-Agent strip (§5 · Option A) — technical evidence after the two doors, before the principles -->
