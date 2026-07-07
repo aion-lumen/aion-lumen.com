@@ -30,6 +30,12 @@ jobs:
       - name: Add VPS host key
         run: ssh-keyscan -H 185.143.100.222 >> ~/.ssh/known_hosts
 
+      - name: Mirror Folio import spec (source of truth: aion-lumen/folio)
+        run: |
+          mkdir -p folio
+          curl -fsSL https://raw.githubusercontent.com/aion-lumen/folio/main/FOLIO-IMPORT.md \
+            -o folio/import-spec.md
+
       - name: Deploy (rsync whitelisted site paths, NO --delete in v1)
         run: |
           # Deny-by-default whitelist: only real site paths ship. Draft/concept files
