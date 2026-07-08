@@ -42,7 +42,7 @@ jobs:
           # (index-a.html, index-b-print.html, *konzept*.html, .cursor, *.md) stay private.
           # fonts/ lives under styles/fonts/, img/ under the section dirs — both covered.
           rsync -avz \
-            index.html favicon.svg assets styles story multi-agent folio the-long-table \
+            index.html favicon.svg assets styles story multi-agent folio the-long-table impressum \
             aionlumen@185.143.100.222:/srv/aion-lumen/
           # --delete is intentionally NOT enabled (v1, safer: never removes stray files).
           # To tighten later, review a dry-run first, then enable:
