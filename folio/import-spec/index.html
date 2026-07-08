@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-accent="gold" data-lang="en" data-hand="on">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Folio Import Spec · Aion Lumen</title>
+<meta name="description" content="Styled rendering of the Folio Import specification. Source of truth stays /folio/import-spec.md for agents." />
+<link rel="icon" href="../../favicon.svg" />
+<link rel="stylesheet" href="../../styles/base.css?v=2" />
+<style>
+  .spec-wrap { max-width: 980px; padding-top: 88px; }
+  .spec-head { padding: 24px 0 30px; border-bottom: 1px solid var(--rule-soft); margin-bottom: 26px; }
+  .spec-eyebrow { font-family: var(--f-mono); font-size: var(--t-meta); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 12px; }
+  .spec-title { font-size: clamp(32px, 4.4vw, 56px); line-height: 1.05; letter-spacing: -0.03em; color: var(--ink); }
+  .spec-raw { margin-top: 14px; font-family: var(--f-mono); font-size: 12px; color: var(--ink-mute); letter-spacing: 0.03em; }
+  .spec-raw a { color: var(--ink); border-bottom: 1px solid var(--rule); }
+  .spec-body { max-width: 74ch; }
+  .spec-body h1, .spec-body h2, .spec-body h3, .spec-body h4 { margin: 1.3em 0 0.5em; line-height: 1.2; letter-spacing: -0.01em; }
+  .spec-body h1 { font-size: clamp(30px, 3.7vw, 44px); }
+  .spec-body h2 { font-size: clamp(24px, 2.5vw, 34px); }
+  .spec-body h3 { font-size: clamp(20px, 2vw, 26px); }
+  .spec-body p { color: var(--ink-soft); line-height: 1.68; margin: 0.7em 0; }
+  .spec-body a { color: var(--ink); border-bottom: 1px solid var(--rule); }
+  .spec-body strong { color: var(--ink); font-weight: 600; }
+  .spec-body em { color: var(--ink); }
+  .spec-body code { font-family: var(--f-mono); font-size: 0.94em; background: var(--bg-warm); border: 1px solid var(--rule-soft); border-radius: 4px; padding: 0.08em 0.35em; color: var(--ink); }
+  .spec-body pre { overflow: auto; background: var(--bg-warm); border: 1px solid var(--rule); border-radius: 6px; padding: 14px 16px; margin: 1em 0; }
+  .spec-body pre code { background: transparent; border: 0; padding: 0; display: block; line-height: 1.5; }
+  .spec-body ul, .spec-body ol { margin: 0.7em 0 0.9em 1.35em; color: var(--ink-soft); line-height: 1.66; }
+  .spec-body blockquote { margin: 1em 0; padding: 0.3em 0 0.3em 1em; border-left: 2px solid var(--accent); color: var(--ink); }
+  .spec-body hr { border: 0; border-top: 1px solid var(--rule-soft); margin: 1.2em 0; }
+  .spec-body table { width: 100%; border-collapse: collapse; margin: 1em 0; font-size: 0.95rem; }
+  .spec-body th, .spec-body td { border: 1px solid var(--rule); padding: 8px 10px; text-align: left; vertical-align: top; }
+  .spec-body th { color: var(--ink); background: var(--bg-warm); font-weight: 600; }
+  .spec-loading { color: var(--ink-mute); font-family: var(--f-mono); letter-spacing: 0.06em; text-transform: uppercase; font-size: 12px; }
+  .spec-error { color: #d9b0a8; border: 1px solid #6a3a30; background: color-mix(in srgb, #6a3a30 20%, transparent); border-radius: 4px; padding: 10px 12px; }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <a href="../../index.html" class="topbar-mark" aria-label="Aion Lumen home">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <path d="M12 2 L12 22 M5 8 L19 8 M7 14 L17 14" stroke-linecap="round"/>
+        <circle cx="12" cy="2.5" r="1.4" fill="currentColor" stroke="none"/>
+      </svg>
+      Aion Lumen
+    </a>
+    <div class="topbar-spacer"></div>
+    <div class="tb-group" role="group" aria-label="Language">
+      <button class="tb-btn" data-tb="lang:en">EN</button>
+      <button class="tb-btn" data-tb="lang:de">DE</button>
+    </div>
+    <div class="tb-group" role="group" aria-label="Theme">
+      <button class="tb-btn" data-tb="theme:light"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></svg></button>
+      <button class="tb-btn" data-tb="theme:dark"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+    </div>
+  </header>
+
+  <main class="wrap spec-wrap">
+    <section class="spec-head">
+      <div class="spec-eyebrow">Folio Import Spec</div>
+      <h1 class="spec-title">Interchange Format</h1>
+      <p class="spec-raw">
+        <span class="en">Raw Markdown (for agents):</span>
+        <span class="de">Raw Markdown (for agents):</span>
+        <a href="/folio/import-spec.md">/folio/import-spec.md</a>
+      </p>
+    </section>
+    <article id="spec-content" class="spec-body">
+      <p class="spec-loading">Loading spec…</p>
+    </article>
+  </main>
+
+  <script src="../../styles/controls.js"></script>
+  <script src="../../styles/tweaks.js"></script>
+  <script src="../../styles/md.js"></script>
+  <script>
+    (function () {
+      var target = document.getElementById('spec-content');
+      fetch('../import-spec.md', { cache: 'no-store' })
+        .then(function (res) {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.text();
+        })
+        .then(function (md) {
+          target.innerHTML = window.renderMarkdown(md);
+        })
+        .catch(function (err) {
+          target.innerHTML = '<p class="spec-error">Spec could not be loaded: ' + (err && err.message ? err.message : String(err)) + '</p>';
+        });
+    })();
+  </script>
+</body>
+</html>

@@ -1102,13 +1102,9 @@
     border: 1px solid var(--rule);
     border-radius: 4px;
     background: var(--bg-warm);
-    min-height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
+    overflow: hidden;
   }
-  .ma-shot img { display: block; width: 100%; height: auto; border-radius: 3px; }
+  .ma-shot img { display: block; width: 100%; height: auto; border-bottom: 1px solid var(--rule-soft); }
   @media (max-width: 760px) {
     .ma-grid { grid-template-columns: 1fr; }
   }
@@ -1450,8 +1446,8 @@
               <span class="de"><strong>Geliefert &amp; belegt:</strong> Klassifikation + Triage. · <strong>Gebaut, Menge offen:</strong> 3-Stimmen-Validator, Auto-Übernahme, IMAP-Move. · <strong>Roadmap:</strong> Lern-Schleifen.</span>
             </p>
             <p class="ma-body">
-              <span class="en"><strong>New:</strong> document import with staging inbox and LLM triage — agents never write directly to the target store; every proposal passes deterministic guardrails; model choice via eval harness. <a href="/folio/import-spec.md">Spec →</a></span>
-              <span class="de"><strong>Neu:</strong> Dokumenten-Import mit Staging-Inbox und LLM-Triage — Agenten schreiben nie direkt in den Zielspeicher; jeder Vorschlag passiert deterministische Guardrails; Modellauswahl per Eval-Harness. <a href="/folio/import-spec.md">Spec →</a></span>
+              <span class="en"><strong>New:</strong> document import with staging inbox and LLM triage — agents never write directly to the target store; every proposal passes deterministic guardrails; model choice via eval harness. <a href="/folio/import-spec/">Spec →</a></span>
+              <span class="de"><strong>Neu:</strong> Dokumenten-Import mit Staging-Inbox und LLM-Triage — Agenten schreiben nie direkt in den Zielspeicher; jeder Vorschlag passiert deterministische Guardrails; Modellauswahl per Eval-Harness. <a href="/folio/import-spec/">Spec →</a></span>
             </p>
             <p class="ma-links">
               <a class="ma-cta" href="/multi-agent/"><span class="en">See the evidence →</span><span class="de">Beleg ansehen →</span></a>
@@ -1563,6 +1559,7 @@
 
 <script src="styles/controls.js"></script>
 <script src="styles/tweaks.js"></script>
+<script src="styles/lightbox.js"></script>
 
 <template id="__bundler_thumbnail" data-bg-color="#0C0A0F">
   <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
