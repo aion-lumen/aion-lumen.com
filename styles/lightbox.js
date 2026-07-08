@@ -31,6 +31,7 @@
   var nextBtn = dlg.querySelector('.lb-next');
   var idx = 0;
   var trigger = null;
+  var pushedState = false;
 
   function caption(img) {
     var label = img.getAttribute('data-label') || '';
@@ -59,11 +60,30 @@
     show(i);
     document.body.style.overflow = 'hidden';
     dlg.showModal();
+    try {
+      history.pushState({ lb: true }, '');
+      pushedState = true;
+    } catch (_) {
+      pushedState = false;
+    }
+  }
+
+  function closeDialog() {
+    if (!dlg.open) return;
+    dlg.close();
   }
 
   dlg.addEventListener('close', function () {
     document.body.style.overflow = '';
     if (trigger) { trigger.focus(); trigger = null; }
+    if (pushedState) {
+      pushedState = false;
+      try {
+        history.back();
+      } catch (_) {
+        /* no-op */
+      }
+    }
   });
 
   var single = imgs.length < 2;
@@ -79,13 +99,19 @@
     });
   });
 
-  dlg.querySelector('.lb-close').addEventListener('click', function () { dlg.close(); });
+  dlg.querySelector('.lb-close').addEventListener('click', function () { closeDialog(); });
   prevBtn.addEventListener('click', function (e) { e.stopPropagation(); show(idx - 1); });
   nextBtn.addEventListener('click', function (e) { e.stopPropagation(); show(idx + 1); });
 
+  lbImg.addEventListener('click', function () { closeDialog(); });
+  dlg.querySelector('.lb-fig').addEventListener('click', function (e) {
+    if (e.target === lbImg) return;
+    closeDialog();
+  });
+
   /* Click on the scrim / padding (the dialog itself, not its children) closes. */
   dlg.addEventListener('click', function (e) {
-    if (e.target === dlg) dlg.close();
+    if (e.target === dlg) closeDialog();
   });
 
   document.addEventListener('keydown', function (e) {
@@ -93,5 +119,12 @@
     if (e.key === 'ArrowRight') { e.preventDefault(); show(idx + 1); }
     else if (e.key === 'ArrowLeft') { e.preventDefault(); show(idx - 1); }
     /* Esc is handled natively by <dialog>, which fires 'close'. */
+  });
+
+  window.addEventListener('popstate', function () {
+    if (dlg.open) {
+      pushedState = false;
+      closeDialog();
+    }
   });
 })();

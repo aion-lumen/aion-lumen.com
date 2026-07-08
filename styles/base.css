@@ -512,28 +512,81 @@ dialog.lb[open] { display: flex; align-items: center; justify-content: center; }
 
 .lb-close, .lb-nav {
   position: fixed;
-  background: none;
-  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(22, 19, 16, 0.58);
+  border: 1px solid rgba(245, 240, 230, 0.32);
   color: var(--c-cream);
   cursor: pointer;
   font-family: var(--f-mono);
-  opacity: 0.8;
-  transition: opacity 180ms ease;
+  opacity: 1;
+  transition: background 180ms ease, border-color 180ms ease, opacity 180ms ease;
   z-index: 2;
 }
-.lb-close:hover, .lb-nav:hover { opacity: 1; }
-.lb-close { top: 18px; right: 22px; font-size: 22px; line-height: 1; }
-.lb-nav { top: 50%; transform: translateY(-50%); font-size: 42px; line-height: 1; padding: 8px 16px; }
-.lb-prev { left: 6px; }
-.lb-next { right: 6px; }
+.lb-close:hover, .lb-nav:hover {
+  background: rgba(22, 19, 16, 0.86);
+  border-color: var(--c-gold);
+}
+.lb-close {
+  top: 16px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 22px;
+  line-height: 1;
+}
+.lb-nav {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  font-size: 34px;
+  line-height: 1;
+}
+.lb-prev { left: 16px; }
+.lb-next { right: 16px; }
+.lb-close:focus-visible,
+.lb-nav:focus-visible {
+  outline: 2px solid var(--c-gold);
+  outline-offset: 2px;
+}
 .lb-hint {
   position: fixed;
-  left: 0; right: 0; bottom: 16px;
+  left: 0;
+  right: 0;
+  bottom: 16px;
   text-align: center;
   font-family: var(--f-mono);
   font-size: 10.5px;
   letter-spacing: 0.14em;
-  color: var(--c-gold);
-  opacity: 0.6;
+  color: var(--c-cream);
+  pointer-events: none;
+}
+.lb-hint span {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(22, 19, 16, 0.7);
+  border: 1px solid rgba(245, 240, 230, 0.28);
+  opacity: 0.9;
 }
 @media (prefers-reduced-motion: reduce) { .lb-fig { animation: none; } }
+
+@media (max-width: 680px) {
+  .lb-close {
+    width: 40px;
+    height: 40px;
+    top: 12px;
+    right: 12px;
+  }
+  .lb-nav {
+    width: 44px;
+    height: 44px;
+    font-size: 30px;
+  }
+  .lb-prev { left: 10px; }
+  .lb-next { right: 10px; }
+}
