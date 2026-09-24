@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Folio — Inbox, calendar and household overview · Aion Lumen</title>
-<meta name="description" content="Folio public preview: local mail processing, calendar, applications and an evidence-linked household ledger. Synthetic screenshots; optional integrations configured separately." />
+<title>Folio — Local-first life planning · Aion Lumen</title>
+<meta name="description" content="Folio: a markdown vault as memory, a local AI agent as your strategy partner. Plan your life in five acts, on your own machine." />
 <link rel="stylesheet" href="../styles/base.css?v=2" />
 <style>
   /* ──────────────────────────────────────────────────────────────
@@ -643,6 +643,19 @@
   }
 
   /* hand block visibility tied to user preference */
+
+  /* Additive galleries retain the existing plates and lightbox behaviour. */
+  .f-mail-gallery .f-gal-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .f-mail-gallery .f-gal-frame { aspect-ratio: 8 / 5; }
+  .f-gal-frame::after { pointer-events: none; }
+  .f-supplement-text { color: var(--ink-soft); font-size: var(--t-body); line-height: 1.7; max-width: 76ch; margin: 20px 0 28px; }
+  .f-preview-figure { max-width: 960px; margin: 28px auto; }
+  .f-preview-figure .f-gal-frame { aspect-ratio: auto; }
+  .f-preview-figure .f-gal-frame::after { display: none; }
+  .f-preview-figure img { display: block; width: 100%; height: auto; filter: none; }
+  .f-preview-figure figcaption { color: var(--ink-mute); font-size: 13px; padding: 12px 0; }
+  @media (max-width: 700px) { .f-mail-gallery .f-gal-grid { grid-template-columns: 1fr; } }
+
 </style>
 </head>
 <body data-folio-locked="dark">
@@ -685,12 +698,12 @@
       <h1 class="f-name">Folio<span class="dot">.</span></h1>
 
       <p class="f-tag">
-        <span class="en">From inbox to <em>overview</em>. Local mail processing, a calendar, applications and a household ledger that leads from the chart to the source.</span>
-        <span class="de">Vom Posteingang zum <em>Überblick</em>. Lokale Mailverarbeitung, Kalender, Bewerbungen und ein Haushaltsbuch, das vom Diagramm bis zum Beleg führt.</span>
+        <span class="en">A markdown vault as <em>memory</em>. A local AI that knows your situation and thinks alongside you — on your machine, on your terms.</span>
+        <span class="de">Ein Markdown-Vault als <em>Gedächtnis</em>. Eine lokale KI, die deine Lage kennt und mitdenkt — auf deinem Rechner, zu deinen Bedingungen.</span>
       </p>
       <p class="f-tag" style="font-size: var(--t-body); color: var(--ink-mute); margin-top: 14px;">
-        <span class="en">No cloud account required. By default your data stays on your device. You can optionally connect an online session you already use; Folio then shows you the exact case and hands it over only after your explicit approval. No email is ever sent automatically. Google Calendar is a separately configured, optional external connection.</span>
-        <span class="de">Kein Cloud-Konto erforderlich. Standardmässig bleiben Daten auf deinem Gerät. Du kannst optional eine Online-Session verbinden, die du selbst nutzt; Folio zeigt dir dann den exakten Fall und übergibt ihn erst nach deiner ausdrücklichen Freigabe. Keine E-Mail wird automatisch versendet. Google Kalender ist eine separat eingerichtete, optionale externe Verbindung.</span>
+        <span class="en">No cloud account required. By default your data stays on your device. You can optionally connect an online session you already use; Folio then shows you the exact case and hands it over only after your explicit approval. No email is ever sent automatically.</span>
+        <span class="de">Kein Cloud-Konto erforderlich. Standardmässig bleiben Daten auf deinem Gerät. Du kannst optional eine Online-Session verbinden, die du selbst nutzt; Folio zeigt dir dann den exakten Fall und übergibt ihn erst nach deiner ausdrücklichen Freigabe. Keine E-Mail wird automatisch versendet.</span>
       </p>
 
       <div class="f-meta-row">
@@ -704,11 +717,11 @@
     <!-- Plate -->
     <section class="f-plate" data-screen-label="02 Plate">
       <div class="f-plate-frame">
-        <div class="f-plate-tag"><span class="dot"></span>Ledger · synthetic test data · March–August 2026</div>
-        <img src="../assets/folio-v0.6.0-preview.1/ledger-overview.png" alt="Folio Ledger — household overview with income, expenses and categories; synthetic data" />
+        <div class="f-plate-tag"><span class="dot"></span>demo-vault.local · Akt I · Kapitel 1 · synced 22:37</div>
+        <img src="../assets/folio-01-overview.png" alt="Folio dashboard — full overview with timeline, kanban and Hermes chat panel" />
       </div>
       <div class="f-plate-caption">
-        <span><span class="en">Pl. I · Ledger · synthetic data · v0.6.0-preview.1</span><span class="de">Tafel I · Ledger · Testdaten · v0.6.0-preview.1</span></span>
+        <span><span class="en">Pl. I · Folio dashboard · v0.5.0</span><span class="de">Tafel I · Folio-Dashboard · v0.5.0</span></span>
         <span class="right hand-block hand">
           <span class="en">a desk lit late.</span>
           <span class="de">ein Schreibtisch, spät beleuchtet.</span>
@@ -821,53 +834,78 @@
         </div>
       </section>
 
+      <!-- Established mail workflow: original demo images, before the supplementary modules -->
+      <section class="f-gallery f-mail-gallery" id="mail-workflow" data-screen-label="05 Mail workflow">
+        <header class="f-gallery-head">
+          <div class="label"><span class="en">§ Mail · the everyday starting point</span><span class="de">§ Mail · der Ausgangspunkt im Alltag</span></div>
+          <h3><span class="en">Understand the inbox. See how a decision was reached.</span><span class="de">Den Posteingang verstehen. Entscheidungen nachvollziehen.</span></h3>
+        </header>
+        <p class="f-supplement-text"><span class="en">Folio brings messages, categories and model assessments together. The pipeline shows each processing stage; the history makes disagreement and reasons for review visible. These are the established demo captures, with fictional mail.</span><span class="de">Folio bringt Nachrichten, Kategorien und Modellbewertungen zusammen. Die Pipeline zeigt die Verarbeitungsschritte; im Verlauf bleiben Uneinigkeit und Prüfgründe sichtbar. Hier die bewährten Demo-Aufnahmen mit erfundenen Mail-Inhalten.</span></p>
+        <div class="f-gal-grid">
+          <article class="f-gal reveal"><div class="f-gal-frame"><img src="../multi-agent/img/beleg-01-mail-queue.jpg" loading="lazy" alt="Mail queue — established Folio demo with fictional mail" /></div><div class="f-gal-meta"><span class="num">Mail 01</span><h4><span class="en">Mail queue</span><span class="de">Posteingang</span></h4><p><span class="en">The triage list: categories, actionability and model assessments.</span><span class="de">Die Triage-Liste: Kategorien, Handlungsbedarf und Modellbewertungen.</span></p></div></article>
+          <article class="f-gal reveal"><div class="f-gal-frame"><img src="../multi-agent/img/beleg-02-pipeline.jpg" loading="lazy" alt="Pipeline — established Folio demo with fictional mail" /></div><div class="f-gal-meta"><span class="num">Mail 02</span><h4><span class="en">Pipeline</span><span class="de">Pipeline</span></h4><p><span class="en">From import to worker and validator, with the run status in view.</span><span class="de">Vom Import zum Worker und Validator, mit dem Laufstatus im Blick.</span></p></div></article>
+          <article class="f-gal reveal"><div class="f-gal-frame"><img src="../multi-agent/img/beleg-03-validator.jpg" loading="lazy" alt="Model checks — established Folio demo with fictional mail" /></div><div class="f-gal-meta"><span class="num">Mail 03</span><h4><span class="en">Model checks</span><span class="de">Modellprüfung</span></h4><p><span class="en">The validator stack makes the individual assessments visible.</span><span class="de">Der Validator-Stack macht die einzelnen Bewertungen sichtbar.</span></p></div></article>
+          <article class="f-gal reveal"><div class="f-gal-frame"><img src="../multi-agent/img/beleg-04-verlauf.jpg" loading="lazy" alt="Run history — established Folio demo with fictional mail" /></div><div class="f-gal-meta"><span class="num">Mail 04</span><h4><span class="en">Run history</span><span class="de">Verlauf</span></h4><p><span class="en">Detailed reasons why a message needs review.</span><span class="de">Detaillierte Gründe, warum eine Nachricht geprüft werden muss.</span></p></div></article>
+        </div>
+        <p class="f-supplement-text"><span class="en">June 2026 demo; model labels and some controls reflect that version. <a href="/multi-agent/">The complete mail walkthrough and pilot context →</a></span><span class="de">Demo vom Juni 2026; Modellnamen und einzelne Bedienelemente entsprechen diesem Stand. <a href="/multi-agent/">Ausführlicher Mail-Rundgang und Pilotkontext →</a></span></p>
+      </section>
+
       <!-- Gallery -->
       <section class="f-gallery" data-screen-label="05 Gallery">
         <header class="f-gallery-head">
           <div class="label"><span class="en">§ What it looks like</span><span class="de">§ Wie es aussieht</span></div>
           <h3>
-            <span class="en">From overview to the individual source.</span>
-            <span class="de">Vom Überblick bis zur einzelnen Quelle.</span>
+            <span class="en">Three plates from the night-side of the dashboard.</span>
+            <span class="de">Drei Tafeln von der Nachtseite des Dashboards.</span>
           </h3>
         </header>
         <div class="f-gal-grid">
           <article class="f-gal reveal">
-            <div class="f-gal-frame"><img src="../assets/folio-v0.6.0-preview.1/ledger-cashflow.png" alt="Cash flow and expandable categories with synthetic data" /></div>
+            <div class="f-gal-frame"><img src="../assets/folio-02-timeline.png" alt="Five-act timeline view in Folio" /></div>
             <div class="f-gal-meta">
               <span class="num">Pl. II</span>
-              <h4><span class="en">Cashflow</span><span class="de">Cashflow</span></h4>
-              <p><span class="en">Income, expenses and a separately marked projection. Period selection in the same view.</span><span class="de">Einnahmen, Ausgaben und separat markierte Projektion. Zeitraumwahl in derselben Ansicht.</span></p>
+              <h4><span class="en">Timeline</span><span class="de">Zeitlinie</span></h4>
+              <p><span class="en">Five acts, the active one lit. Long horizons made visible.</span><span class="de">Fünf Akte, der aktive leuchtet. Lange Horizonte sichtbar gemacht.</span></p>
             </div>
           </article>
           <article class="f-gal reveal" style="--d: 100ms;">
-            <div class="f-gal-frame"><img src="../assets/folio-v0.6.0-preview.1/ledger-evidence-detail.png" alt="Transaction linked to a synthetic statement" /></div>
+            <div class="f-gal-frame"><img src="../assets/folio-03-kanban.png" alt="Kanban view with four status columns" /></div>
             <div class="f-gal-meta">
               <span class="num">Pl. III</span>
-              <h4><span class="en">Evidence</span><span class="de">Belegkette</span></h4>
-              <p><span class="en">Category → provider → transaction → original statement. Missing links remain visible.</span><span class="de">Kategorie → Anbieter → Buchung → Originalauszug. Fehlende Zuordnungen bleiben sichtbar.</span></p>
+              <h4><span class="en">Kanban</span><span class="de">Kanban</span></h4>
+              <p><span class="en">Open · In progress · Blocked · Done. Drag-and-drop, written to plain markdown.</span><span class="de">Offen · In Arbeit · Blockiert · Erledigt. Drag-and-Drop, schreibt reines Markdown.</span></p>
             </div>
           </article>
           <article class="f-gal reveal" style="--d: 200ms;">
-            <div class="f-gal-frame"><img src="../assets/folio-v0.6.0-preview.1/career-approval.png" alt="Synthetic application with ambiguous rejection awaiting approval" /></div>
+            <div class="f-gal-frame"><img src="../assets/folio-04-chat.png" alt="Hermes chat panel reading vault files via tool calls" /></div>
             <div class="f-gal-meta">
               <span class="num">Pl. IV</span>
-              <h4><span class="en">Applications</span><span class="de">Bewerbungen</span></h4>
-              <p><span class="en">Open applications and source-linked responses. Ambiguous matches require review.</span><span class="de">Offene Bewerbungen und belegte Rückmeldungen. Mehrdeutige Zuordnungen bleiben zur Prüfung offen.</span></p>
+              <h4><span class="en">Hermes chat</span><span class="de">Hermes-Chat</span></h4>
+              <p><span class="en">A local agent that reads &amp; edits your vault. Tool calls, not magic.</span><span class="de">Eine lokale Agentin, die deinen Vault liest und ändert. Tool-Calls, kein Zauber.</span></p>
             </div>
           </article>
         </div>
       </section>
 
       <p style="color: var(--ink-soft); font-size: var(--t-body); line-height: 1.6; max-width: 70ch; margin-bottom: 32px;">
-        <span class="en">The screenshots show the v0.6.0-preview.1 public preview with synthetic data only. Ledger is an overview of imported sources, not audited accounting, a bank connection or a trading platform. Optional import and model runtimes need separate setup. Local development may be ahead. <a href="https://github.com/aion-lumen/folio/releases">GitHub releases and their release notes</a> identify the publicly available version.</span>
-        <span class="de">Die Screenshots zeigen die öffentliche Vorschau v0.6.0-preview.1 ausschliesslich mit Testdaten. Ledger ist eine Übersicht importierter Quellen, keine geprüfte Buchhaltung, Bankanbindung oder Tradingplattform. Import- und Modelllaufzeiten benötigen eine separate Einrichtung. Die lokale Entwicklungsfassung kann weiter sein. Für den öffentlich verfügbaren Stand sind die <a href="https://github.com/aion-lumen/folio/releases">GitHub-Releases und die zugehörigen Release-Notes</a> massgeblich.</span>
+        <span class="en">The campaign screenshots above show the v0.5.0 public preview. Local development may be ahead. <a href="https://github.com/aion-lumen/folio/releases">GitHub releases and their release notes</a> identify the publicly available version.</span>
+        <span class="de">Die Kampagnenbilder oben zeigen die öffentliche Vorschau v0.5.0. Die lokale Entwicklungsfassung kann weiter sein. Für den öffentlich verfügbaren Stand sind die <a href="https://github.com/aion-lumen/folio/releases">GitHub-Releases und die zugehörigen Release-Notes</a> massgeblich.</span>
       </p>
+
+      <!-- Additive preview section; the established introduction and gallery remain intact -->
+      <section class="f-gallery f-preview-supplement" id="preview-06" data-screen-label="06 Preview additions">
+        <header class="f-gallery-head"><div class="label"><span class="en">§ Added in 0.6 Preview</span><span class="de">§ Ergänzt in 0.6 Preview</span></div><h3><span class="en">Where the mail leads next.</span><span class="de">Was aus den Mails weitergeht.</span></h3></header>
+        <p class="f-supplement-text"><span class="en">Calendar proposals, application responses and recurring costs can now be followed in their own overviews. Ledger adds income, expenses and cash flow, with expandable categories leading to the individual transaction and statement. Clear matches can be processed automatically; uncertain cases stay visible for review.</span><span class="de">Terminvorschläge, Bewerbungsrückmeldungen und wiederkehrende Kosten lassen sich jetzt in eigenen Übersichten verfolgen. Ledger ergänzt Einnahmen, Ausgaben und Cashflow, mit aufklappbaren Kategorien bis zur einzelnen Buchung und zum Kontoauszug. Eindeutige Zuordnungen können automatisch verarbeitet werden; unklare Fälle bleiben zur Prüfung sichtbar.</span></p>
+        <figure class="f-preview-figure"><div class="f-gal-frame"><img src="../assets/folio-v0.6.0-preview.1/ledger-dashboard-complete.jpg" loading="lazy" alt="Complete Ledger dashboard: assets, income, expenses, cash flow, categories and period slider; synthetic data" /></div><figcaption>Ledger · v0.6 Preview · Demo · 1920 × 1365</figcaption></figure>
+        <p class="f-supplement-text"><span class="en">Ledger remains a preview for imported evidence; projections are estimates. Calendar events require approval before creation. <a href="https://github.com/aion-lumen/folio/blob/main/docs/preview-0.6.md">Setup and release details →</a></span><span class="de">Ledger bleibt eine Preview für importierte Belege; Projektionen sind Schätzungen. Das Anlegen von Kalenderterminen erfordert eine Freigabe. <a href="https://github.com/aion-lumen/folio/blob/main/docs/preview-0.6.md">Einrichtung und Release-Details →</a></span></p>
+        <p class="f-supplement-text"><span class="en">Mail processing and model assessment remain local; optionally configured connections such as Google Calendar communicate with the respective provider.</span><span class="de">Mailverarbeitung und Modellbewertung bleiben lokal; optional eingerichtete Verbindungen wie Google Kalender kommunizieren mit dem jeweiligen Anbieter.</span></p>
+      </section>
 
       <!-- Status -->
       <section class="f-status" data-screen-label="06 Status">
         <div class="grid">
           <div class="f-status-col">
-            <h3><span class="num">v0.6.0-preview.1</span><span class="en">What works today</span><span class="de">Was heute funktioniert</span></h3>
+            <h3><span class="num">v0.6</span><span class="en">What works today</span><span class="de">Was heute funktioniert</span></h3>
             <ul class="f-status-list now">
               <li><span class="ix">01</span><span><span class="en">Strategic view — campaign banner, all five acts, active chapter</span><span class="de">Strategische Sicht — Kampagnen-Banner, alle fünf Akte, aktives Kapitel</span></span></li>
               <li><span class="ix">02</span><span><span class="en">Tactical view — kanban with drag-and-drop, gantt, objective selection</span><span class="de">Taktische Sicht — Kanban mit Drag-and-Drop, Gantt, Objective-Auswahl</span></span></li>
@@ -877,16 +915,13 @@
               <li><span class="ix">06</span><span><span class="en">Setup wizard, demo vault, model switcher</span><span class="de">Setup-Wizard, Demo-Vault, Modell-Switcher</span></span></li>
               <li><span class="ix">07</span><span><span class="en">Leuchtfeuer — reach from anonymised server logs only; no cookies, no client-side tracking, no external analytics</span><span class="de">Leuchtfeuer — Reichweite allein aus anonymisierten Server-Logs; keine Cookies, kein Client-Tracking, keine externe Analytik</span></span></li>
               <li><span class="ix">08</span><span><span class="en">Session Relay — hand a reviewed case to a session you run yourself; every cloud handover needs your explicit approval, and no email is ever sent automatically</span><span class="de">Session Relay — einen geprüften Fall an eine Session übergeben, die du selbst betreibst; jede Cloud-Übergabe braucht deine ausdrückliche Freigabe, und keine E-Mail wird automatisch versendet</span></span></li>
-              <li><span class="ix">09</span><span><span class="en">Ledger preview — household charts, period selection and categories down to the original statement</span><span class="de">Ledger-Preview — Haushaltsdiagramme, Zeitraumwahl und Kategorien bis zum Originalbeleg</span></span></li>
-              <li><span class="ix">10</span><span><span class="en">Calendar, applications and recurring costs — source-backed status; uncertain matches stay open</span><span class="de">Kalender, Bewerbungen und Fixkosten — belegter Status; unklare Zuordnungen bleiben offen</span></span></li>
-              <li><span class="ix">11</span><span><span class="en">Optional local model comparison for mail triage — requires a test cohort and the separate multi-agent runtime</span><span class="de">Optionaler lokaler Modellvergleich für Mail-Triage — benötigt Testkohorte und separate Multi-Agent-Laufzeit</span></span></li>
             </ul>
           </div>
           <div class="f-status-col">
             <h3><span class="num">→ next</span><span class="en">What's coming</span><span class="de">Was als nächstes kommt</span></h3>
             <ul class="f-status-list next">
-              <li><span class="ix">→</span><span><span class="en">Daily-use validation of the new modules. Voice and broader agent abilities remain private workbench experiments.</span><span class="de">Alltagserprobung der neuen Module. Voice und weitergehende Agentenfunktionen bleiben private Werkstattarbeit.</span></span></li>
-              <li><span class="ix">→</span><span><span class="en">Trading as a separate future stage, after the household overview has proved useful.</span><span class="de">Trading als eigene spätere Stufe, nachdem sich die Haushaltsübersicht bewährt hat.</span></span></li>
+              <li><span class="ix">→</span><span><span class="en">Voice input (STT), interview-style setup wizard, mobile PWA, approval UI for risky tool calls</span><span class="de">Spracheingabe (STT), Interview-Setup-Wizard, Mobile PWA, Approval-UI für riskante Tool-Calls</span></span></li>
+              <li><span class="ix">→</span><span><span class="en">Frostpunk view — generator metaphor, resource decay, harder visual atmosphere</span><span class="de">Frostpunk-Sicht — Generator-Metapher, Ressourcen-Decay, härtere visuelle Atmosphäre</span></span></li>
               <li><span class="ix">v1.0</span><span><span class="en">Multi-user, NAS deployment, public vault templates</span><span class="de">Multi-User, NAS-Deploy, öffentliche Vault-Templates</span></span></li>
             </ul>
             <p style="margin-top: 24px; color: var(--ink-mute); font-size: 13px; font-family: var(--f-mono); letter-spacing: 0.06em; line-height: 1.6;">
@@ -940,7 +975,7 @@
             <span class="en">View on GitHub</span><span class="de">Auf GitHub ansehen</span>
             <span class="arr">↗</span>
           </a>
-          <a class="f-btn ghost" href="https://github.com/aion-lumen/folio#run-locally" target="_blank" rel="noopener">
+          <a class="f-btn ghost" href="https://github.com/aion-lumen/folio#quick-start" target="_blank" rel="noopener">
             <span class="en">Read the quick start</span><span class="de">Quick-Start lesen</span>
             <span class="arr">→</span>
           </a>
