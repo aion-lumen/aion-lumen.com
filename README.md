@@ -26,6 +26,12 @@ links to the equivalent page. All routes share local fonts, blue design tokens,
 light/dark display settings, keyboard navigation and a native image viewer.
 The original Beacon is unchanged.
 
+The home page opens with a scroll-led 3D surf scene: a breaking wave and a board
+that separates into knowledge, local models, and rules/tools. The scene has a
+pause control and a direct link to the mail examples. Reduced-motion settings
+start with a static view; a poster remains available without WebGL or JavaScript.
+Three.js is served locally; see [assets/surf/README.md](assets/surf/README.md).
+
 ## Run locally
 
 No framework or build step is required. From the repository root:

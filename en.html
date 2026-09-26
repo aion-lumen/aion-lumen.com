@@ -25,6 +25,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" />
     <link rel="stylesheet" href="/styles/site.css" />
+    <link rel="stylesheet" href="/styles/surf.css" />
   </head>
   <body class="">
     <script>
@@ -33,7 +34,7 @@
           document.body.classList.add("dark");
       } catch (e) {}
     </script>
-    <a class="skip" href="#main">Skip to content</a>
+    <a class="skip" href="#folio">Skip to content</a>
     <header class="header">
       <div class="nav-shell">
         <a class="brand" href="/en.html" aria-label="Aion Lumen · Home"
@@ -71,23 +72,114 @@
       </nav>
     </header>
     <main id="main">
-      <section class="hero" id="top">
-        <div
-          class="hero-art"
-          role="img"
-          aria-label="A surfer riding a bright turquoise wave"
-        ></div>
-        <div class="hero-wash" aria-hidden="true"></div>
-        <div class="hero-inner wrap">
-          <h1>How do I surf<br />the <em>AI wave?</em></h1>
-          <p>
-            I build software that makes AI useful in everyday life. Folio starts
-            with your inbox: sorting invoices, spotting appointments and making
-            sense of recurring costs.
-          </p>
-          <a class="button primary" href="#folio"
-            >Meet Folio <span aria-hidden="true">↓</span></a
+      <section
+        class="surf-story story"
+        id="top"
+        aria-label="The wave and the tool"
+      >
+        <div class="surf-stage stage">
+          <img
+            class="fallback"
+            src="/assets/wave/welle.png"
+            alt="Illustration of a blue wave and a surfboard"
+          />
+          <canvas id="surf-ocean" aria-hidden="true"></canvas>
+          <div class="scene-shade"></div>
+          <div class="scene-loading" role="status" hidden>
+            The wave is taking shape<span> · · ·</span>
+          </div>
+          <div class="phase intro" data-phase="intro">
+            <p class="eyebrow">YOUR EVERYDAY LIFE. YOUR TOOL.</p>
+            <h1>How do I ride<br />the <span>AI wave?</span></h1>
+            <p class="lead">
+              I build software that makes AI useful in everyday life. With
+              Folio, that starts with your mail: sorting invoices, spotting
+              appointments and understanding recurring costs.
+            </p>
+            <a class="primary" href="#folio" data-jump="0.48">
+              Meet Folio <span aria-hidden="true">↓</span>
+            </a>
+            <p class="mouse-hint">
+              <span aria-hidden="true">↔</span> Move your mouse. The board
+              gently follows.
+            </p>
+          </div>
+          <div
+            class="phase board-copy"
+            data-phase="board"
+            aria-hidden="true"
+            inert
           >
+            <p class="eyebrow">FOLIO / UNDER THE SURFACE</p>
+            <h2>Three layers.<br /><em>One tool.</em></h2>
+            <p>
+              Knowledge, local models and tools with defined limits work
+              together. You keep the overview.
+            </p>
+            <ol class="steps">
+              <li>
+                <span>01</span>
+                <div>
+                  <strong>Your knowledge</strong
+                  ><small>Mail, documents, confirmed facts</small>
+                </div>
+              </li>
+              <li>
+                <span>02</span>
+                <div>
+                  <strong>Local models</strong
+                  ><small>Classify and explain suggestions</small>
+                </div>
+              </li>
+              <li>
+                <span>03</span>
+                <div>
+                  <strong>Rules &amp; tools</strong
+                  ><small>Limited, traceable steps</small>
+                </div>
+              </li>
+            </ol>
+            <button class="quiet" data-jump="0.91">
+              Back to the bigger picture <span aria-hidden="true">↗</span>
+            </button>
+          </div>
+          <div
+            class="phase return-copy"
+            data-phase="return"
+            aria-hidden="true"
+            inert
+          >
+            <p class="eyebrow">BACK TO EVERYDAY LIFE</p>
+            <h2>The wave is here.<br />Find<br /><em>your course.</em></h2>
+            <p>Now for the actual tool.<br />Folio starts in your inbox.</p>
+            <a class="primary" href="#folio"
+              >See Folio <span aria-hidden="true">↓</span></a
+            >
+          </div>
+          <a class="surf-skip" href="#folio">Skip to Folio ↗</a>
+          <div class="stage-bottom">
+            <div class="scroll-hint">
+              <span class="scroll-mark" aria-hidden="true"></span
+              ><span id="surf-scroll-instruction">Scroll to move closer</span>
+            </div>
+            <nav class="chapter-nav" aria-label="Scene chapters">
+              <button data-jump="0" aria-label="Wide view" aria-current="step">
+                01 <span>Wave</span></button
+              ><i aria-hidden="true"></i
+              ><button data-jump="0.48" aria-label="Board close-up">
+                02 <span>Board</span></button
+              ><i aria-hidden="true"></i
+              ><button data-jump="0.91" aria-label="Back to the wave">
+                03 <span>Course</span>
+              </button>
+            </nav>
+            <button class="motion-button" id="surf-motion" aria-pressed="false">
+              Ⅱ <span>Pause animation</span>
+            </button>
+          </div>
+          <div class="progress" aria-hidden="true">
+            <span id="surf-progress-fill"></span>
+          </div>
         </div>
       </section>
       <section class="mail section wrap" id="folio">
@@ -588,6 +680,7 @@
       </div>
       <div class="lightbox-scroll"><img id="lightbox-image" alt="" /></div>
     </dialog>
+    <script type="module" src="/styles/surf.js"></script>
     <script src="/styles/site.js"></script>
     <script src="/styles/cases.js"></script>
   </body>

@@ -1,0 +1,460 @@
+/* Scroll-led scene, scoped to the home page. The rest of the site stays native. */
+.surf-story {
+  --surf-header: 84px;
+  --ink: #152e50;
+  --soft: #456382;
+  --blue: #2362bc;
+  position: relative;
+  min-height: calc(100svh - var(--surf-header));
+  color: var(--ink);
+}
+.surf-story.animated {
+  height: 360svh;
+}
+.surf-story .stage {
+  position: sticky;
+  top: var(--surf-header);
+  height: calc(100svh - var(--surf-header));
+  min-height: 550px;
+  overflow: hidden;
+  isolation: isolate;
+  background: #d7edfb;
+}
+.surf-story canvas,
+.surf-story .fallback,
+.surf-story .scene-shade {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.surf-story canvas {
+  display: block;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  touch-action: pan-y;
+}
+.surf-story.ready canvas {
+  opacity: 1;
+}
+.surf-story .fallback {
+  object-fit: cover;
+  object-position: 65% center;
+}
+.surf-story.ready .fallback {
+  visibility: hidden;
+}
+.surf-story .scene-shade {
+  background: linear-gradient(
+    90deg,
+    #eff7ffed 0%,
+    #eff7ffc7 28%,
+    #eff7ff00 62%
+  );
+  pointer-events: none;
+}
+.surf-story .phase {
+  position: absolute;
+  top: 18%;
+  left: 7.4vw;
+  max-width: 510px;
+  will-change: opacity, transform;
+}
+.surf-story .eyebrow {
+  font:
+    10px Mono,
+    monospace;
+  letter-spacing: 0.14em;
+  color: #456382;
+  margin-bottom: 24px;
+}
+.surf-story h1,
+.surf-story h2 {
+  line-height: 1.08;
+  letter-spacing: -0.065em;
+  color: #152e50;
+}
+.surf-story h1 {
+  font-size: clamp(45px, 5.6vw, 86px);
+  margin-left: -3px;
+}
+.surf-story h1 span,
+.surf-story em {
+  color: #2362bc;
+}
+.surf-story .lead {
+  margin-top: 24px;
+  max-width: 390px;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #355474;
+}
+.surf-story .primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 38px;
+  justify-content: space-between;
+  margin-top: 27px;
+  padding: 12px 20px;
+  color: white;
+  background: #163b6b;
+  border: 0;
+  border-radius: 7px;
+  font-size: 13px;
+}
+.surf-story .primary:hover {
+  background: #205392;
+}
+.surf-story .mouse-hint {
+  font-size: 11px;
+  color: #456382;
+  margin-top: 20px;
+}
+.surf-story .mouse-hint span {
+  margin-right: 5px;
+}
+.surf-story .board-copy,
+.surf-story .return-copy {
+  opacity: 0;
+  pointer-events: none;
+}
+.surf-story .board-copy h2,
+.surf-story .return-copy h2 {
+  font-size: clamp(39px, 4.8vw, 68px);
+}
+.surf-story .board-copy > p:not(.eyebrow),
+.surf-story .return-copy > p:not(.eyebrow) {
+  font-size: 14px;
+  line-height: 1.75;
+  color: #456382;
+  margin-top: 23px;
+  max-width: 315px;
+}
+.surf-story .steps {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  max-width: 320px;
+}
+.surf-story .steps li {
+  display: flex;
+  gap: 17px;
+  align-items: center;
+  padding: 10px 0;
+  border-top: 1px solid #7592b83b;
+}
+.surf-story .steps li > span {
+  font:
+    11px Mono,
+    monospace;
+  color: #2362bc;
+}
+.surf-story .steps strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+}
+.surf-story .steps small {
+  display: block;
+  color: #456382;
+  font-size: 11px;
+}
+.surf-story .quiet {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font-size: 12px;
+  color: #2362bc;
+}
+.surf-story .quiet span {
+  margin-left: 10px;
+}
+.surf-story .stage-bottom {
+  position: absolute;
+  bottom: 25px;
+  left: 4.4vw;
+  right: 4.4vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  color: #254b74;
+}
+.surf-story .scroll-hint {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  font-size: 10px;
+}
+.surf-story .scroll-mark {
+  height: 28px;
+  width: 15px;
+  border: 1px solid #456d97;
+  border-radius: 10px;
+  position: relative;
+}
+.surf-story .scroll-mark:after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 5px;
+  width: 1px;
+  height: 6px;
+  background: #456d97;
+  animation: surf-scroll 2.2s infinite;
+}
+.surf-story .chapter-nav {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  background: #f5fbffdb;
+  padding: 2px 10px;
+  border-radius: 6px;
+}
+.surf-story .chapter-nav button {
+  display: flex;
+  gap: 6px;
+  padding: 7px 5px;
+  min-height: 34px;
+  border: 0;
+  background: transparent;
+  font:
+    10px Mono,
+    monospace;
+  opacity: 0.72;
+}
+.surf-story .chapter-nav button[aria-current] {
+  opacity: 1;
+}
+.surf-story .chapter-nav i {
+  height: 1px;
+  width: 22px;
+  background: #254b7440;
+}
+.surf-story .motion-button {
+  border: 1px solid #99b9d260;
+  font-size: 13px;
+  color: #163b6b;
+  background: #f5fbffde;
+  border-radius: 6px;
+  padding: 6px 10px;
+  min-width: 38px;
+}
+.surf-story .motion-button span {
+  font-size: 10px;
+  margin-left: 6px;
+}
+.surf-story .surf-skip {
+  position: absolute;
+  right: 4.4vw;
+  top: 22px;
+  font-size: 11px;
+  color: #163b6b;
+  padding: 5px 9px;
+  background: #f5fbffda;
+  border-radius: 4px;
+}
+.surf-story .progress {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: #152e5012;
+}
+.surf-story .progress span {
+  display: block;
+  height: 100%;
+  background: #306cc2;
+  width: 0;
+}
+.surf-story:not(.animated) .chapter-nav,
+.surf-story:not(.ready) .stage-bottom,
+.surf-story.no-webgl .motion-button,
+.surf-story.no-webgl .chapter-nav,
+.surf-story.reduced .mouse-hint,
+.surf-story:not(.ready) .mouse-hint {
+  display: none;
+}
+.surf-story.reduced .scroll-mark:after,
+.surf-story.paused .scroll-mark:after {
+  animation: none;
+}
+.surf-story.no-webgl canvas {
+  display: none;
+}
+.surf-story.no-webgl .fallback {
+  visibility: visible;
+}
+.surf-story.no-webgl .intro {
+  opacity: 1 !important;
+  transform: none !important;
+}
+.surf-story.no-webgl .board-copy,
+.surf-story.no-webgl .return-copy {
+  display: none;
+}
+.surf-story a:focus-visible,
+.surf-story button:focus-visible {
+  outline: 3px solid #bd8530;
+  outline-offset: 5px;
+}
+@keyframes surf-scroll {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  45% {
+    transform: translateY(7px);
+    opacity: 1;
+  }
+}
+@media (max-width: 1150px) {
+  .surf-story .phase {
+    left: 6vw;
+    max-width: 405px;
+  }
+  .surf-story h1 {
+    font-size: 58px;
+  }
+  .surf-story .board-copy h2,
+  .surf-story .return-copy h2 {
+    font-size: 48px;
+  }
+  .surf-story .scroll-hint {
+    display: none;
+  }
+}
+@media (min-width: 901px) and (max-height: 800px) {
+  .surf-story .phase {
+    top: 13%;
+  }
+  .surf-story .board-copy h2,
+  .surf-story .return-copy h2 {
+    font-size: clamp(38px, 4vw, 54px);
+  }
+  .surf-story .eyebrow {
+    margin-bottom: 16px;
+  }
+  .surf-story .steps {
+    margin-block: 14px;
+  }
+  .surf-story .steps li {
+    padding-block: 8px;
+  }
+}
+@media (max-width: 900px) {
+  .surf-story .stage {
+    min-height: 650px;
+  }
+  .surf-story .phase {
+    top: 9%;
+    left: 7vw;
+    right: 7vw;
+    max-width: none;
+  }
+  .surf-story .eyebrow {
+    font-size: 8px;
+    margin-bottom: 14px;
+  }
+  .surf-story h1 {
+    font-size: clamp(37px, 10.5vw, 62px);
+  }
+  .surf-story .lead {
+    font-size: 13px;
+    line-height: 1.65;
+    margin-top: 15px;
+    max-width: 400px;
+  }
+  .surf-story .primary {
+    margin-top: 17px;
+    padding: 10px 15px;
+    gap: 20px;
+    font-size: 12px;
+  }
+  .surf-story .mouse-hint {
+    display: none;
+  }
+  .surf-story .scene-shade {
+    background: linear-gradient(#f3faffcf 0%, #f3faffa6 33%, #e8f6ff00 64%);
+  }
+  .surf-story .board-copy h2 {
+    font-size: 34px;
+  }
+  .surf-story .board-copy h2 br {
+    display: none;
+  }
+  .surf-story .board-copy h2 em:before {
+    content: " ";
+  }
+  .surf-story .board-copy > p:not(.eyebrow) {
+    font-size: 12px;
+    line-height: 1.55;
+    margin-top: 12px;
+    max-width: 310px;
+  }
+  .surf-story .steps {
+    display: flex;
+    gap: 12px;
+    max-width: none;
+    margin-top: 18px;
+  }
+  .surf-story .steps li {
+    display: block;
+    flex: 1;
+    padding-top: 5px;
+  }
+  .surf-story .steps li > span {
+    font-size: 9px;
+  }
+  .surf-story .steps strong {
+    font-size: 10px;
+    margin-top: 3px;
+  }
+  .surf-story .steps small {
+    display: none;
+  }
+  .surf-story .board-copy .quiet {
+    font-size: 10px;
+  }
+  .surf-story .return-copy h2 {
+    font-size: 42px;
+  }
+  .surf-story .return-copy > p:not(.eyebrow) {
+    font-size: 13px;
+  }
+  .surf-story .stage-bottom {
+    bottom: 20px;
+    left: 22px;
+    right: 22px;
+    gap: 10px;
+  }
+  .surf-story .chapter-nav {
+    gap: 5px;
+  }
+  .surf-story .chapter-nav i {
+    width: 10px;
+  }
+  .surf-story .chapter-nav button {
+    font-size: 9px;
+    padding: 8px 1px;
+  }
+  .surf-story .motion-button span {
+    display: none;
+  }
+  .surf-story .surf-skip {
+    top: 15px;
+    right: 7vw;
+    font-size: 10px;
+  }
+}
+@media (max-width: 760px) {
+  .surf-story {
+    --surf-header: 72px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .surf-story canvas {
+    transition: none;
+  }
+}

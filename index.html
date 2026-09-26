@@ -25,6 +25,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" />
     <link rel="stylesheet" href="/styles/site.css" />
+    <link rel="stylesheet" href="/styles/surf.css" />
   </head>
   <body class="">
     <script>
@@ -33,7 +34,7 @@
           document.body.classList.add("dark");
       } catch (e) {}
     </script>
-    <a class="skip" href="#main">Zum Inhalt</a>
+    <a class="skip" href="#folio">Zum Inhalt</a>
     <header class="header">
       <div class="nav-shell">
         <a class="brand" href="/" aria-label="Aion Lumen · Startseite"
@@ -70,23 +71,125 @@
       </nav>
     </header>
     <main id="main">
-      <section class="hero" id="top">
-        <div
-          class="hero-art"
-          role="img"
-          aria-label="Ein Surfer auf einer hellen türkisblauen Welle"
-        ></div>
-        <div class="hero-wash" aria-hidden="true"></div>
-        <div class="hero-inner wrap">
-          <h1>Wie surfe ich<br />die <em>AI-Welle?</em></h1>
-          <p>
-            Ich baue Software, die KI im Alltag nützlich macht. Mit Folio
-            beginnt das bei deinen Mails: Rechnungen einordnen, Termine erkennen
-            und laufende Kosten verstehen.
-          </p>
-          <a class="button primary" href="#folio"
-            >Folio kennenlernen <span aria-hidden="true">↓</span></a
+      <section
+        class="surf-story story"
+        id="top"
+        aria-label="Die Welle und das Werkzeug"
+      >
+        <div class="surf-stage stage">
+          <img
+            class="fallback"
+            src="/assets/wave/welle.png"
+            alt="Illustration einer blauen Welle mit Surfbrett"
+          />
+          <canvas id="surf-ocean" aria-hidden="true"></canvas>
+          <div class="scene-shade"></div>
+          <div class="scene-loading" role="status" hidden>
+            Die Welle baut sich auf<span> · · ·</span>
+          </div>
+          <div class="phase intro" data-phase="intro">
+            <p class="eyebrow">DEIN ALLTAG. DEIN WERKZEUG.</p>
+            <h1>Wie surfe ich<br />die <span>AI-Welle?</span></h1>
+            <p class="lead">
+              Ich baue Software, die KI im Alltag nützlich macht. Mit Folio
+              beginnt das bei deinen Mails: Rechnungen einordnen, Termine
+              erkennen und laufende Kosten verstehen.
+            </p>
+            <a class="primary" href="#folio" data-jump="0.48">
+              Folio kennenlernen <span aria-hidden="true">↓</span>
+            </a>
+            <p class="mouse-hint">
+              <span aria-hidden="true">↔</span> Bewege die Maus. Das Brett folgt
+              leicht.
+            </p>
+          </div>
+          <div
+            class="phase board-copy"
+            data-phase="board"
+            aria-hidden="true"
+            inert
           >
+            <p class="eyebrow">FOLIO / UNTER DER OBERFLÄCHE</p>
+            <h2>Drei Schichten.<br /><em>Ein Werkzeug.</em></h2>
+            <p>
+              Wissen, lokale Modelle und begrenzte Werkzeuge arbeiten zusammen.
+              Du behältst den Überblick.
+            </p>
+            <ol class="steps">
+              <li>
+                <span>01</span>
+                <div>
+                  <strong>Dein Wissen</strong
+                  ><small>Mails, Dokumente, bestätigte Fakten</small>
+                </div>
+              </li>
+              <li>
+                <span>02</span>
+                <div>
+                  <strong>Lokale Modelle</strong
+                  ><small>Einordnen und Vorschläge begründen</small>
+                </div>
+              </li>
+              <li>
+                <span>03</span>
+                <div>
+                  <strong>Regeln &amp; Werkzeuge</strong
+                  ><small>Begrenzte, nachvollziehbare Schritte</small>
+                </div>
+              </li>
+            </ol>
+            <button class="quiet" data-jump="0.91">
+              Wieder aufs Ganze schauen <span aria-hidden="true">↗</span>
+            </button>
+          </div>
+          <div
+            class="phase return-copy"
+            data-phase="return"
+            aria-hidden="true"
+            inert
+          >
+            <p class="eyebrow">WIEDER IM ALLTAG</p>
+            <h2>
+              Die Welle bleibt.<br />Du findest<br /><em>deinen Kurs.</em>
+            </h2>
+            <p>
+              Und jetzt das wirkliche Werkzeug.<br />Folio beginnt im
+              Posteingang.
+            </p>
+            <a class="primary" href="#folio"
+              >Folio ansehen <span aria-hidden="true">↓</span></a
+            >
+          </div>
+          <a class="surf-skip" href="#folio">Direkt zu Folio ↗</a>
+          <div class="stage-bottom">
+            <div class="scroll-hint">
+              <span class="scroll-mark" aria-hidden="true"></span
+              ><span id="surf-scroll-instruction"
+                >Scrollen, um näherzukommen</span
+              >
+            </div>
+            <nav class="chapter-nav" aria-label="Stationen der Kamerafahrt">
+              <button
+                data-jump="0"
+                aria-label="Weite Ansicht"
+                aria-current="step"
+              >
+                01 <span>Welle</span></button
+              ><i aria-hidden="true"></i
+              ><button data-jump="0.48" aria-label="Nahaufnahme des Bretts">
+                02 <span>Brett</span></button
+              ><i aria-hidden="true"></i
+              ><button data-jump="0.91" aria-label="Zurück zur Welle">
+                03 <span>Kurs</span>
+              </button>
+            </nav>
+            <button class="motion-button" id="surf-motion" aria-pressed="false">
+              Ⅱ <span>Animation pausieren</span>
+            </button>
+          </div>
+          <div class="progress" aria-hidden="true">
+            <span id="surf-progress-fill"></span>
+          </div>
         </div>
       </section>
       <section class="mail section wrap" id="folio">
@@ -592,6 +695,7 @@
       </div>
       <div class="lightbox-scroll"><img id="lightbox-image" alt="" /></div>
     </dialog>
+    <script type="module" src="/styles/surf.js"></script>
     <script src="/styles/site.js"></script>
     <script src="/styles/cases.js"></script>
   </body>
