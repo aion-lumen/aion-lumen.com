@@ -127,11 +127,24 @@ body.home-flow.dark {
   padding-top: 75px;
   padding-bottom: 125px;
 }
+.ocean-journey .projects {
+  gap: 20px;
+  border: 0;
+}
 .ocean-journey .projects > a {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 28px;
   background: #f8fcffe3;
-  border-color: #aac8dfb0;
+  border: 1px solid #aac8dfb0;
+  border-radius: 20px;
   backdrop-filter: blur(10px);
   box-shadow: 0 18px 40px -30px #24548140;
+}
+.ocean-journey .project-link {
+  margin-top: auto;
+  padding-top: 24px;
 }
 .home-flow footer {
   background: #e6f3fc;
@@ -241,6 +254,20 @@ body.home-flow.dark {
   }
   .ocean-journey .workshop {
     padding-block: 50px 75px;
+  }
+  .ocean-journey .projects {
+    gap: 16px;
+  }
+  .ocean-journey .projects > a {
+    padding: 24px;
+    border-radius: 18px;
+  }
+  .ocean-journey .project-number {
+    right: 24px;
+    top: 28px;
+  }
+  .ocean-journey .projects h3 {
+    padding-right: 30px;
   }
   .ocean-journey .shot {
     border-radius: 11px;
