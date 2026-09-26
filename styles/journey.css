@@ -32,11 +32,38 @@ body.home-flow.dark {
   z-index: -1;
   pointer-events: none;
 }
-.journey-water img {
+.journey-base {
   width: 100%;
   height: 100%;
   object-fit: fill;
-  opacity: 0.83;
+  opacity: 0.68;
+}
+/* Still fragments rendered from the actual hero wave; no second WebGL loop. */
+.journey-swell {
+  position: absolute;
+  height: auto;
+  max-width: none;
+  opacity: 0.2;
+  mask-image: radial-gradient(ellipse at center, #000 12%, transparent 71%);
+}
+.swell-arrival {
+  width: 125%;
+  left: -12%;
+  top: -170px;
+}
+.swell-middle {
+  width: 100%;
+  left: -32%;
+  top: 39%;
+  transform: rotate(-13deg);
+  opacity: 0.17;
+}
+.swell-outro {
+  width: 100%;
+  right: -27%;
+  top: 76%;
+  transform: rotate(9deg);
+  opacity: 0.16;
 }
 .ocean-journey > section {
   position: relative;
@@ -225,11 +252,25 @@ body.home-flow.dark {
   .ocean-journey .section-head h2 {
     font-size: 34px;
   }
-  .journey-water img {
+  .journey-base {
     width: 180%;
     max-width: none;
     margin-left: -40%;
     opacity: 0.62;
+  }
+  .journey-swell {
+    width: 220%;
+    opacity: 0.13;
+  }
+  .swell-arrival {
+    left: -45%;
+    top: -110px;
+  }
+  .swell-middle {
+    left: -120%;
+  }
+  .swell-outro {
+    right: -120%;
   }
   .ocean-journey .engineering {
     padding-block: 20px 40px;

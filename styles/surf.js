@@ -1,5 +1,6 @@
 import * as THREE from "../assets/surf/three.module.min.js";
 import { createBreaker } from "./surf-wave.js";
+import { GLTFLoader } from "../assets/surf/GLTFLoader.js";
 
 const root = document.querySelector(".surf-story");
 const en = document.documentElement.lang === "en";
@@ -187,7 +188,26 @@ const oceanMaterial = new THREE.ShaderMaterial({
   vertexShader: `uniform float uTime; varying vec3 vWorld; varying vec3 vNormal; varying float vHeight; ${waveGLSL}
  void main(){vec3 p=position; p.y=heightAt(p.xz); float d=.035; vNormal=normalize(vec3(heightAt(p.xz-vec2(d,0.))-heightAt(p.xz+vec2(d,0.)),2.*d,heightAt(p.xz-vec2(0.,d))-heightAt(p.xz+vec2(0.,d))));vHeight=p.y;vWorld=(modelMatrix*vec4(p,1.)).xyz;gl_Position=projectionMatrix*modelViewMatrix*vec4(p,1.);}`,
   fragmentShader: `uniform float uTime;uniform vec3 uLight;varying vec3 vWorld;varying vec3 vNormal;varying float vHeight;
- void main(){vec3 n=normalize(vNormal);vec3 view=normalize(cameraPosition-vWorld);float shade=.64+.36*max(0.,dot(n,uLight));float fresnel=pow(1.-max(0.,dot(n,view)),3.);vec3 deep=vec3(.028,.20,.43);vec3 light=vec3(.075,.43,.72);vec3 c=mix(deep,light,smoothstep(-.85,.85,vHeight));c*=shade;c=mix(c,vec3(.36,.67,.88),fresnel*.55);float lines=sin(vWorld.x*2.8+sin(vWorld.z*2.6)+uTime*.21)*.5+.5;float foam=smoothstep(.72,1.08,vHeight)*(.4+.6*lines);c=mix(c,vec3(.80,.93,.99),foam*.78);float glint=pow(max(0.,dot(reflect(-uLight,n),view)),90.);c+=vec3(.73,.85,.93)*glint*.5;float haze=smoothstep(19.,72.,distance(cameraPosition.xz,vWorld.xz));c=mix(c,vec3(.69,.84,.94),haze);gl_FragColor=vec4(c,1.);}`,
+ float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+ float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);}
+ void main(){
+   vec2 flow=vWorld.xz*5.+vec2(uTime*.14,-uTime*.3);
+   float grain=noise(flow*3.1), detail=noise(flow*7.7);
+   vec3 n=normalize(vNormal+vec3((grain-.5)*.06,0.,(detail-.5)*.055));
+   vec3 view=normalize(cameraPosition-vWorld);
+   float shade=.64+.36*max(0.,dot(n,uLight));
+   float fresnel=pow(1.-max(0.,dot(n,view)),3.);
+   vec3 deep=vec3(.028,.20,.43), light=vec3(.075,.43,.72);
+   vec3 c=mix(deep,light,smoothstep(-.85,.85,vHeight))*shade;
+   c=mix(c,vec3(.36,.67,.88),fresnel*.55);
+   float cells=1.-abs(2.*noise(flow+noise(flow*.4)*2.)-1.);
+   float foam=smoothstep(.68,1.1,vHeight)*smoothstep(.69,.94,cells)*(.22+.65*grain);
+   c=mix(c,vec3(.81,.94,.99),foam*.68);
+   float glint=pow(max(0.,dot(reflect(-uLight,n),view)),100.);
+   c+=vec3(.73,.85,.93)*glint*.46;
+   float haze=smoothstep(19.,72.,distance(cameraPosition.xz,vWorld.xz));
+   c=mix(c,vec3(.69,.84,.94),haze);gl_FragColor=vec4(c,1.);
+ }`,
 });
 const ocean = new THREE.Mesh(oceanGeometry, oceanMaterial);
 ocean.position.z = -24;
@@ -396,159 +416,52 @@ const guides = new THREE.LineSegments(
   }),
 );
 board.add(guides);
-// Adult proportions and a coherent surf stance: chest turns toward the rail,
-// the neck makes only a small further turn toward the nose of the board (-Z).
+// Locally modelled and rigged character; its baked animation keeps both feet planted.
 const rider = new THREE.Group();
-rider.position.y = 0.585;
+rider.position.y = 0.61;
 rig.add(rider);
-const skin = material("#c58f71", {
-  transparent: true,
-  roughness: 0.76,
-  metalness: 0,
-});
-const suit = material("#18374d", {
-  transparent: true,
-  roughness: 0.84,
-  metalness: 0,
-});
-const panel = material("#2c546b", {
-  transparent: true,
-  roughness: 0.82,
-  metalness: 0,
-});
-const hair = material("#382c26", {
-  transparent: true,
-  roughness: 0.95,
-  metalness: 0,
-});
-const eye = material("#33342f", { transparent: true, roughness: 0.5 });
-const white = material("#d8cbbd", { transparent: true, roughness: 0.7 });
-const lips = material("#9c6e59", { transparent: true, roughness: 0.8 });
-const riderMaterials = [skin, suit, panel, hair, eye, white, lips];
-function limb(parent, a, b, r1, r2, mat) {
-  const p = new THREE.Vector3(...a),
-    q = new THREE.Vector3(...b),
-    dir = q.clone().sub(p);
-  const mesh = new THREE.Mesh(
-    new THREE.CylinderGeometry(r2, r1, dir.length(), 20, 1),
-    mat,
+const riderMaterials = [];
+let characterMixer,
+  characterHead,
+  characterReady = false;
+if (renderer)
+  new GLTFLoader().load(
+    new URL("../assets/surf/surfer.glb", import.meta.url).href,
+    (gltf) => {
+      const model = gltf.scene;
+      characterMixer = new THREE.AnimationMixer(model);
+      if (gltf.animations[0])
+        characterMixer.clipAction(gltf.animations[0]).play();
+      characterMixer.setTime(0);
+      model.updateMatrixWorld(true);
+      const bounds = new THREE.Box3().setFromObject(model, true);
+      const scale = 2.25 / (bounds.max.y - bounds.min.y);
+      model.scale.setScalar(scale);
+      model.position.y = -bounds.min.y * scale;
+      model.rotation.y = 1.8;
+      model.traverse((object) => {
+        if (object.isBone && object.name === "head") characterHead = object;
+        if (!object.isMesh) return;
+        object.frustumCulled = false;
+        const materials = Array.isArray(object.material)
+          ? object.material
+          : [object.material];
+        for (const m of materials) {
+          m.transparent = true;
+          m.side = THREE.FrontSide;
+          if (!riderMaterials.includes(m)) riderMaterials.push(m);
+        }
+      });
+      rider.add(model);
+      characterReady = true;
+      requestFrame();
+    },
+    undefined,
+    () => {
+      // Keep the useful scene and board interaction if a local asset cannot load.
+      root.dataset.character = "unavailable";
+    },
   );
-  mesh.position.copy(p.add(q).multiplyScalar(0.5));
-  mesh.quaternion.setFromUnitVectors(
-    new THREE.Vector3(0, 1, 0),
-    dir.normalize(),
-  );
-  parent.add(mesh);
-  return mesh;
-}
-ellipsoid(rider, [0.22, 0.16, 0.25], [0, 0.92, 0.1], suit);
-// Bent legs, with feet planted across the board rather than pointing backwards.
-for (const [hip, knee, ankle] of [
-  [
-    [-0.11, 0.92, -0.03],
-    [-0.27, 0.54, -0.67],
-    [-0.14, 0.16, -0.93],
-  ],
-  [
-    [0.12, 0.92, 0.23],
-    [0.38, 0.49, 0.48],
-    [0.16, 0.15, 0.87],
-  ],
-]) {
-  limb(rider, hip, knee, 0.14, 0.105, suit);
-  ellipsoid(rider, [0.105, 0.113, 0.1], knee, suit);
-  limb(rider, knee, ankle, 0.104, 0.058, suit);
-  ellipsoid(rider, [0.06, 0.09, 0.064], ankle, skin);
-}
-const frontFoot = ellipsoid(
-  rider,
-  [0.1, 0.046, 0.2],
-  [-0.14, 0.085, -0.95],
-  skin,
-);
-frontFoot.rotation.y = -0.92;
-const rearFoot = ellipsoid(rider, [0.1, 0.047, 0.19], [0.16, 0.08, 0.88], skin);
-rearFoot.rotation.y = -0.65;
-const body = new THREE.Group();
-body.position.set(0.025, 0.94, 0.08);
-body.rotation.set(0.07, 1.9, 0.08);
-rider.add(body);
-const torsoProfile = [
-  new THREE.Vector2(0.17, 0),
-  new THREE.Vector2(0.2, 0.07),
-  new THREE.Vector2(0.22, 0.25),
-  new THREE.Vector2(0.275, 0.46),
-  new THREE.Vector2(0.28, 0.54),
-  new THREE.Vector2(0.22, 0.64),
-  new THREE.Vector2(0.095, 0.69),
-];
-const torso = new THREE.Mesh(new THREE.LatheGeometry(torsoProfile, 32), suit);
-torso.scale.z = 0.67;
-body.add(torso);
-const chest = ellipsoid(body, [0.206, 0.215, 0.022], [0, 0.4, 0.151], panel);
-chest.rotation.x = -0.05;
-limb(body, [0, 0.67, 0.01], [0, 0.83, 0.03], 0.077, 0.071, skin);
-// Arms balance to either side of the chest, one leading, one trailing.
-for (const [shoulder, elbow, wrist, hand] of [
-  [
-    [-0.255, 0.56, 0],
-    [-0.52, 0.34, 0.02],
-    [-0.8, 0.19, 0.19],
-    [-0.85, 0.17, 0.22],
-  ],
-  [
-    [0.255, 0.56, 0],
-    [0.54, 0.36, 0.12],
-    [0.84, 0.3, 0.23],
-    [0.89, 0.29, 0.25],
-  ],
-]) {
-  ellipsoid(body, [0.105, 0.12, 0.106], shoulder, suit);
-  limb(body, shoulder, elbow, 0.103, 0.077, suit);
-  ellipsoid(body, [0.077, 0.077, 0.077], elbow, suit);
-  limb(body, elbow, wrist, 0.075, 0.046, suit);
-  const palm = ellipsoid(body, [0.069, 0.035, 0.094], hand, skin);
-  palm.rotation.y = 0.55;
-}
-const head = new THREE.Group();
-head.position.set(0, 0.98, 0.035);
-head.rotation.set(0.06, 0.55, 0);
-body.add(head);
-ellipsoid(head, [0.157, 0.215, 0.169], [0, 0, 0], skin);
-ellipsoid(head, [0.124, 0.09, 0.115], [0, -0.115, 0.037], skin);
-ellipsoid(head, [0.026, 0.047, 0.038], [-0.157, -0.004, -0.008], skin);
-ellipsoid(head, [0.026, 0.047, 0.038], [0.157, -0.004, -0.008], skin);
-ellipsoid(head, [0.025, 0.048, 0.046], [0, 0.012, 0.168], skin);
-ellipsoid(head, [0.034, 0.017, 0.024], [0, -0.026, 0.193], skin);
-for (const side of [-1, 1]) {
-  ellipsoid(head, [0.025, 0.01, 0.01], [side * 0.061, 0.043, 0.154], white);
-  ellipsoid(head, [0.009, 0.009, 0.006], [side * 0.06, 0.043, 0.163], eye);
-  link(
-    head,
-    [side * 0.037, 0.074, 0.155],
-    [side * 0.088, 0.073, 0.142],
-    0.007,
-    hair,
-  );
-}
-const mouth = new THREE.CatmullRomCurve3([
-  new THREE.Vector3(-0.038, -0.081, 0.154),
-  new THREE.Vector3(0, -0.085, 0.165),
-  new THREE.Vector3(0.038, -0.08, 0.154),
-]);
-head.add(
-  new THREE.Mesh(new THREE.TubeGeometry(mouth, 12, 0.0045, 5, false), lips),
-);
-const hairCap = new THREE.Mesh(
-  new THREE.SphereGeometry(1, 32, 18, 0, Math.PI * 2, 0, Math.PI * 0.55),
-  hair,
-);
-hairCap.scale.set(0.165, 0.139, 0.176);
-hairCap.position.set(0, 0.111, -0.012);
-hairCap.rotation.x = -0.13;
-head.add(hairCap);
-for (const side of [-1, 1])
-  ellipsoid(head, [0.018, 0.047, 0.051], [side * 0.145, 0.036, -0.048], hair);
 
 // White water leaving the tail. Particles are small and follow the same wave field.
 const sprayGeometry = new THREE.BufferGeometry(),
@@ -736,8 +649,15 @@ function draw(now) {
     }
   }
   rig.position.y = mix(waterline + 0.08, 1.05, z);
-  rider.rotation.z = Math.sin(time * 0.9 + 0.4) * 0.017 + aim.x * 0.035;
-  head.rotation.y = 0.55 + aim.x * 0.05;
+  // The animation contains the balance movement; rotating the whole body would lift feet.
+  if (characterMixer) characterMixer.setTime(time);
+  if (characterHead) {
+    const gaze = new THREE.Quaternion().setFromAxisAngle(
+      new THREE.Vector3(0, 1, 0),
+      aim.x * 0.025,
+    );
+    characterHead.quaternion.multiply(gaze);
+  }
   const personOpacity = 1 - smooth(0.15, 0.76, z);
   rider.visible = personOpacity > 0.005;
   riderMaterials.forEach((m) => {
@@ -852,8 +772,10 @@ function draw(now) {
     birds: birds.length,
     layers: [shell.position.y, core.position.y, deck.position.y],
     breaker: true,
-    headYaw: head.rotation.y,
-    torsoYaw: body.rotation.y,
+    character: characterReady
+      ? "rigged-glb"
+      : root.dataset.character || "loading",
+    characterAnimation: characterMixer?.time ?? 0,
     drawCalls: renderer.info.render.calls,
     triangles: renderer.info.render.triangles,
     camera: camera.position.toArray(),

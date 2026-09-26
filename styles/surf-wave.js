@@ -13,8 +13,10 @@ export function createBreaker(THREE) {
         : bezier(vec2(-.6,4.35),vec2(-.2,6.1),vec2(3.4,5.9),vec2(2.25,2.65),(uv.y-.55)/.45);
       float shoulder=.56+.44*exp(-pow((x-3.)/13.,2.));
       float pulse=sin(x*.23-uTime*.65)*.15+sin(x*.59+uTime*.34)*.05;
-      float ripple=sin(x*3.7+uv.y*29.-uTime*1.2)*sin(uv.y*3.14159)*.018;
-      return vec3(x,p.y*shoulder+pulse*uv.y+ripple,p.x-5.+sin(x*.13+uTime*.19)*.3);
+      float ripple=sin(x*3.7+uv.y*29.-uTime*1.2)*sin(uv.y*3.14159)*.027;
+      ripple+=sin(x*8.3-uv.y*51.+uTime*.8)*.009;
+      float brokenLip=smoothstep(.86,1.,uv.y)*(sin(x*2.9+uTime*.9)*.044+sin(x*6.1-uTime*.5)*.019);
+      return vec3(x,p.y*shoulder+pulse*uv.y+ripple+brokenLip,p.x-5.+sin(x*.13+uTime*.19)*.3);
     }`;
   const material = new THREE.ShaderMaterial({
     uniforms,
@@ -27,33 +29,48 @@ export function createBreaker(THREE) {
       void main(){
         vec3 n=normalize(norm);if(!gl_FrontFacing)n=-n;
         vec3 eye=normalize(cameraPosition-world), light=normalize(vec3(-.5,1.,.55));
-        float r=.55*noise(vec2(world.x*9.,coord.y*140.-uTime*.65))+.3*noise(vec2(world.x*19.,coord.y*260.-uTime))+.15*noise(vec2(world.x*43.,coord.y*480.+uTime));
-        n=normalize(n+vec3(sin(world.x*17.+uTime)*.023,r*.045,cos(coord.y*190.+world.x)*.025));
+        vec2 flow=vec2(world.x*2.3,coord.y*42.-uTime*.38);
+        float broad=noise(flow*.34);
+        vec2 warped=flow+vec2(noise(flow*.42+uTime*.08),noise(flow*.38-13.))*1.5;
+        float grain=noise(warped*4.7);
+        float fine=noise(warped*11.9);
+        float ridges=1.-abs(2.*noise(warped*2.1)-1.);
+        float rippleX=sin(world.x*25.+coord.y*11.+uTime*.8)*.02;
+        float rippleY=sin(coord.y*230.+noise(vec2(world.x*3.,uTime*.1))*4.-uTime*1.3)*.015;
+        n=normalize(n+vec3(rippleX+(grain-.5)*.055,rippleY,(fine-.5)*.04));
         float fresnel=pow(1.-abs(dot(n,eye)),3.);
         float sun=max(0.,dot(n,light));
-        vec3 deep=vec3(.015,.17,.37), crest=vec3(.13,.58,.73);
+        vec3 deep=vec3(.018,.17,.34), crest=vec3(.10,.48,.68);
         vec3 c=mix(deep,crest,smoothstep(.6,4.8,world.y));
         c*=.62+.46*sun;
-        c+=vec3(.14,.31,.40)*fresnel;
-        float streak=pow(.5+.5*sin(world.x*5.8+noise(vec2(world.x*.7,coord.y*10.))*4.+coord.y*48.-uTime*.9),11.);
-        c+=vec3(.19,.32,.35)*streak*.19;
-        float edge=smoothstep(.915+.025*r,.99,coord.y);
-        float lip=smoothstep(.62,.76,coord.y)*(1.-smoothstep(.81,.88,coord.y));
-        float foam=clamp(edge*(.76+.24*r)+lip*.48*smoothstep(.40,.63,r),0.,1.);
-        c=mix(c,vec3(.89,.97,1.),foam);
-        float sparkle=pow(max(0.,dot(reflect(-light,n),eye)),70.);
-        c+=vec3(.7,.82,.88)*sparkle*.35;
+        c+=vec3(.13,.26,.35)*fresnel;
+        // Fine flowing highlights follow the curl rather than repeating a flat stripe.
+        float streak=pow(.5+.5*sin(world.x*8.1+broad*5.+coord.y*39.-uTime*.7),15.);
+        c+=vec3(.13,.24,.30)*streak*.24;
+        c+=vec3(.07,.14,.18)*pow(ridges,9.)*.17;
+        float crestBand=smoothstep(.59,.72,coord.y)*(1.-smoothstep(.81,.88,coord.y));
+        float lipFront=smoothstep(.91+.035*broad,.991,coord.y);
+        float lace=smoothstep(.70,.96,ridges)*(.3+.7*grain);
+        float foamIslands=smoothstep(.47,.70,noise(warped*.82)+grain*.15);
+        float foam=clamp(lipFront*(.72+.25*grain)+crestBand*(foamIslands*.57+lace*.35),0.,1.);
+        // Thin broken trails flow away from the crest into the dark face.
+        float trails=smoothstep(.70,.89,coord.y)*(1.-smoothstep(.925,.98,coord.y));
+        foam+=trails*pow(noise(vec2(world.x*14.,coord.y*9.-uTime*.18)),7.)*.44;
+        vec3 foamColor=mix(vec3(.64,.82,.91),vec3(.93,.98,1.),fine*.55+.45);
+        c=mix(c,foamColor,clamp(foam,0.,1.));
+        float sparkle=pow(max(0.,dot(reflect(-light,n),eye)),100.);
+        c+=vec3(.7,.82,.88)*sparkle*.42;
         float haze=smoothstep(21.,48.,distance(cameraPosition,world));
         c=mix(c,vec3(.69,.84,.94),haze);
         gl_FragColor=vec4(c,1.);
       }`,
   });
-  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(1, 1, 220, 76), material);
+  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(1, 1, 240, 96), material);
   // The shader expands a unit plane into a large breaker, so its CPU bounds do not apply.
   mesh.frustumCulled = false;
   group.add(mesh);
   // Fine spray follows the lip and falls into the face; no billboard video.
-  const count = 1050,
+  const count = 1350,
     seeds = new Float32Array(count * 3);
   for (let i = 0; i < count; i++) {
     seeds[i * 3] = (i * 0.61803398875) % 1;
