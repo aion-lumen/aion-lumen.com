@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Blog · Aion Lumen</title>
+    <meta
+      name="description"
+      content="Short notes on Folio, local AI and building Aion Lumen."
+    />
+    <link rel="canonical" href="https://aion-lumen.ch/blog/en.html" />
+    <link rel="alternate" hreflang="de" href="https://aion-lumen.ch/blog/" />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://aion-lumen.ch/blog/en.html"
+    />
+    <meta property="og:title" content="Blog" />
+    <meta
+      property="og:description"
+      content="Short notes on Folio, local AI and building Aion Lumen."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://aion-lumen.ch/blog/en.html" />
+    <meta
+      property="og:image"
+      content="https://aion-lumen.ch/assets/wave/site-preview.jpg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="stylesheet" href="/styles/site.css" />
+  </head>
+  <body class="">
+    <script>
+      try {
+        if (localStorage.getItem("al.theme") === "dark")
+          document.body.classList.add("dark");
+      } catch (e) {}
+    </script>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="header">
+      <div class="nav-shell">
+        <a class="brand" href="/en.html" aria-label="Aion Lumen · Home"
+          ><img src="/favicon.svg" alt="" width="40" height="40" /><span
+            >AION LUMEN</span
+          ></a
+        >
+        <nav aria-label="Main navigation">
+          <a href="/folio/en.html">Folio</a
+          ><a href="/multi-agent/en.html">Lab</a
+          ><a href="/blog/en.html" aria-current="page">Blog</a>
+        </nav>
+        <div class="nav-tools">
+          <a
+            class="language"
+            href="/blog/"
+            lang="de"
+            aria-label="Zu Deutsch wechseln"
+            >DE</a
+          ><button id="theme" aria-label="Dark theme" aria-pressed="false">
+            ◐</button
+          ><button
+            id="menu"
+            aria-label="Open menu"
+            aria-controls="mobile-nav"
+            aria-expanded="false"
+          >
+            ☰
+          </button>
+        </div>
+      </div>
+      <nav id="mobile-nav" aria-label="Mobile navigation" hidden>
+        <a href="/folio/en.html">Folio</a><a href="/multi-agent/en.html">Lab</a
+        ><a href="/blog/en.html" aria-current="page">Blog</a>
+      </nav>
+    </header>
+    <main id="main">
+      <header class="page-head wrap">
+        <p class="eyebrow">NOTES FROM THE WORKSHOP</p>
+        <h1>Blog</h1>
+        <p class="lead">
+          What I build, what works and what I learn along the way.
+        </p>
+      </header>
+      <section class="wrap content-section">
+        <article class="log-entry">
+          <p class="eyebrow">01 / 26.09.2026<br />Afschin Mirhamed</p>
+          <div>
+            <h2>
+              <a href="/blog/surfbrett/en.html"
+                >How I’m building my surfboard.</a
+              >
+            </h2>
+            <p>
+              From the AI wave to a tool of my own: why I started with mail and
+              what grew from it.
+            </p>
+            <a class="text-link" href="/blog/surfbrett/en.html"
+              >Read the story →</a
+            >
+          </div>
+        </article>
+        <article class="log-entry">
+          <p class="eyebrow">FROM THE LAB</p>
+          <div>
+            <h2>
+              <a href="/multi-agent/tests/en.html"
+                >Which model for which job?</a
+              >
+            </h2>
+            <p>
+              A short report on local tests, including results, corrections and
+              limitations.
+            </p>
+            <a class="text-link" href="/multi-agent/tests/en.html"
+              >Read the test report →</a
+            >
+          </div>
+        </article>
+      </section>
+    </main>
+    <footer class="wrap footer">
+      <a class="brand" href="/en.html" aria-label="Aion Lumen · Home"
+        ><img src="/favicon.svg" alt="" width="40" height="40" /><span
+          >AION LUMEN</span
+        ></a
+      >
+      <div class="footer-links">
+        <a href="/story/en.html">Origins</a
+        ><a href="/the-long-table/en.html">The Long Table</a
+        ><a href="/impressum/en.html">Legal notice</a
+        ><a href="https://github.com/aion-lumen">GitHub ↗</a>
+      </div>
+      <p>Open software. Built from everyday experience.</p>
+    </footer>
+    <dialog id="lightbox" aria-label="Image viewer">
+      <div class="lightbox-toolbar">
+        <p id="lightbox-caption"></p>
+        <div>
+          <button id="toggle-zoom" aria-pressed="false">Original size</button
+          ><button class="close" data-close="lightbox" aria-label="Close image">
+            ✕
+          </button>
+        </div>
+      </div>
+      <div class="lightbox-scroll"><img id="lightbox-image" alt="" /></div>
+    </dialog>
+    <script src="/styles/site.js"></script>
+  </body>
+</html>

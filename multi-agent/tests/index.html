@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="de" data-lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Testbericht · September 2026 · Aion Lumen</title>
+    <meta
+      name="description"
+      content="Ein begrenzter, nachvollziehbarer Bericht über synthetische lokale Modelltests."
+    />
+    <link rel="canonical" href="https://aion-lumen.ch/multi-agent/tests/" />
+    <link
+      rel="alternate"
+      hreflang="de"
+      href="https://aion-lumen.ch/multi-agent/tests/"
+    />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://aion-lumen.ch/multi-agent/tests/en.html"
+    />
+    <meta property="og:title" content="Testbericht · September 2026" />
+    <meta
+      property="og:description"
+      content="Ein begrenzter, nachvollziehbarer Bericht über synthetische lokale Modelltests."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://aion-lumen.ch/multi-agent/tests/"
+    />
+    <meta
+      property="og:image"
+      content="https://aion-lumen.ch/assets/wave/site-preview.jpg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="stylesheet" href="/styles/site.css" />
+  </head>
+  <body class="">
+    <script>
+      try {
+        if (localStorage.getItem("al.theme") === "dark")
+          document.body.classList.add("dark");
+      } catch (e) {}
+    </script>
+    <a class="skip" href="#main">Zum Inhalt</a>
+    <header class="header">
+      <div class="nav-shell">
+        <a class="brand" href="/" aria-label="Aion Lumen · Startseite"
+          ><img src="/favicon.svg" alt="" width="40" height="40" /><span
+            >AION LUMEN</span
+          ></a
+        >
+        <nav aria-label="Hauptnavigation">
+          <a href="/folio/">Folio</a><a href="/multi-agent/">Werkstatt</a
+          ><a href="/blog/">Blog</a>
+        </nav>
+        <div class="nav-tools">
+          <a
+            class="language"
+            href="/multi-agent/tests/en.html"
+            lang="en"
+            aria-label="Switch to English"
+            >EN</a
+          ><button id="theme" aria-label="Dunkle Ansicht" aria-pressed="false">
+            ◐</button
+          ><button
+            id="menu"
+            aria-label="Menü öffnen"
+            aria-controls="mobile-nav"
+            aria-expanded="false"
+          >
+            ☰
+          </button>
+        </div>
+      </div>
+      <nav id="mobile-nav" aria-label="Mobile Navigation" hidden>
+        <a href="/folio/">Folio</a><a href="/multi-agent/">Werkstatt</a
+        ><a href="/blog/">Blog</a>
+      </nav>
+    </header>
+    <main id="main">
+      <header class="page-head wrap">
+        <p class="eyebrow">WERKSTATT / TESTBERICHT</p>
+        <h1>Was die Tests zeigen.</h1>
+        <p class="lead">
+          Auswertung vorhandener Läufe vom August und September 2026.
+          Veröffentlicht werden synthetische Messwerte und technische
+          Modellangaben, keine privaten Mailinhalte.
+        </p>
+      </header>
+      <div class="wrap content-section">
+        <div class="test-report" id="test-report">
+          <p class="eyebrow">24.09.2026 · 14 AUFGABENFÄLLE · SYNTHETISCH</p>
+          <h3>Was ist wirklich eine Aufgabe?</h3>
+          <p class="fine">
+            Drei Modelle, derselbe Auftrag. Hier die ursprüngliche Wertung der
+            Promptvariante v1.
+          </p>
+          <div class="legend">
+            <span>Richtige Einordnungen / 14</span
+            ><span>Antwortzeit · Median</span>
+          </div>
+          <div class="bench-row">
+            <div>Gemma 4 26B A4B</div>
+            <div class="bench-track" aria-hidden="true">
+              <div class="bench-fill" style="width: 92.86%"></div>
+            </div>
+            <strong>13/14</strong><span>1.3 s</span>
+          </div>
+          <div class="bench-row">
+            <div>Qwen 3.6 35B A3B</div>
+            <div class="bench-track" aria-hidden="true">
+              <div class="bench-fill mid" style="width: 85.71%"></div>
+            </div>
+            <strong>12/14</strong><span>22.5 s</span>
+          </div>
+          <div class="bench-row">
+            <div>Qwen 3 Thinking</div>
+            <div class="bench-track" aria-hidden="true">
+              <div class="bench-fill light" style="width: 78.57%"></div>
+            </div>
+            <strong>11/14</strong><span>8.2 s</span>
+          </div>
+          <p class="bench-note">
+            Bei der fachlichen Nachprüfung war ein Sollwert falsch. Mit dem
+            korrigierten Label ergeben dieselben Antworten 14, 13 und 12
+            Treffer. Das ist eine Neuauswertung, kein neuer Modelllauf.
+          </p>
+        </div>
+        <h2 style="margin-top: 52px">1. Aufgaben verstehen</h2>
+        <p class="section-lead">
+          14 Fälle × drei Modelle × zwei Prompts: 84 lokale Aufrufe, alle
+          technisch verwertbar. Gemessen wurde nur die Einordnung als Aufgabe,
+          unklarer Fall oder Nicht-Aufgabe.
+        </p>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Modell</th>
+                <th>Prompt</th>
+                <th>Original</th>
+                <th>Sollwert korrigiert</th>
+                <th>Median</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Gemma 4 26B A4B</td>
+                <td>v1</td>
+                <td>13/14</td>
+                <td>14/14</td>
+                <td>1.3 s</td>
+              </tr>
+              <tr>
+                <td>Gemma 4 26B A4B</td>
+                <td>v1-strict</td>
+                <td>13/14</td>
+                <td>14/14</td>
+                <td>1.3 s</td>
+              </tr>
+              <tr>
+                <td>Qwen 3.6 35B A3B</td>
+                <td>v1</td>
+                <td>12/14</td>
+                <td>13/14</td>
+                <td>22.5 s</td>
+              </tr>
+              <tr>
+                <td>Qwen 3.6 35B A3B</td>
+                <td>v1-strict</td>
+                <td>11/14</td>
+                <td>12/14</td>
+                <td>23.2 s</td>
+              </tr>
+              <tr>
+                <td>Qwen 3 30B A3B Thinking</td>
+                <td>v1</td>
+                <td>11/14</td>
+                <td>12/14</td>
+                <td>8.2 s</td>
+              </tr>
+              <tr>
+                <td>Qwen 3 30B A3B Thinking</td>
+                <td>v1-strict</td>
+                <td>12/14</td>
+                <td>13/14</td>
+                <td>9.2 s</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="scope-box">
+          Die Korrektur betrifft eine reine Besprechungsnotiz, die nach der
+          Testdefinition keine neue Aufgabe ist. Gemessen wurde auf der lokalen
+          Arbeitsmaschine, nicht in einer hardwareübergreifenden Benchmark. Die
+          kleine Stichprobe begründet keine allgemeine Folio-Erfolgsquote.
+        </p>
+        <h2 style="margin-top: 52px">2. Ledger als vollständiger Ablauf</h2>
+        <p class="section-lead">
+          Am 22. September erreichte Qwen 3.8 nach Anpassungen 28 von 30 Fällen
+          beim Verstehen von Ledger-Fragen. Der separate Integrationstest
+          bestand 18 von 18 Fällen und enthielt neun tatsächliche Modellaufrufe;
+          28 weitere Rechenprüfungen liefen ganz ohne Modell.
+        </p>
+        <p class="fine">
+          Diese Ergebnisse messen unterschiedliche Ebenen und werden nicht zu
+          einer gemeinsamen Genauigkeit addiert. Nachgebesserte Testfälle sind
+          kein unabhängiger Nachweis für unbekannte Formulierungen.
+        </p>
+        <h2 style="margin-top: 52px">
+          3. Warum daraus kein Gesamtsieger folgt
+        </h2>
+        <p class="section-lead">
+          Die früheren Mailtests nutzten 40 synthetische Nachrichten. Einige
+          Kandidaten lieferten leere oder nicht lesbare Antworten; solche
+          Protokollfehler sind keine belastbare Messung ihrer fachlichen
+          Qualität. Wissensauswahl und die heutige Mailkonfiguration stammen aus
+          weiteren, getrennten Versuchen.
+        </p>
+        <p class="scope-box">
+          <strong>Folgerung:</strong> Die aktuelle Besetzung bleibt eine
+          praktische Arbeitskonfiguration. Gemma 4 26B ist ein guter Kandidat
+          für kurze Triage-Aufgaben; für einen Rollenwechsel müssen dieselben
+          Aufgaben einschließlich Grenzfällen und Werkzeugaufrufen erneut
+          geprüft werden.
+        </p>
+        <div class="actions">
+          <a
+            class="text-link"
+            href="/multi-agent/img/task-results-2026-09.png"
+            download
+            >Grafik herunterladen ↓</a
+          ><a class="text-link" href="/multi-agent/results-2026-09.json"
+            >Messwerte als JSON ↓</a
+          ><a class="text-link" href="/multi-agent/">← Zur Werkstatt</a>
+        </div>
+      </div>
+    </main>
+    <footer class="wrap footer">
+      <a class="brand" href="/" aria-label="Aion Lumen · Startseite"
+        ><img src="/favicon.svg" alt="" width="40" height="40" /><span
+          >AION LUMEN</span
+        ></a
+      >
+      <div class="footer-links">
+        <a href="/story/">Die Anfänge</a
+        ><a href="/the-long-table/">The Long Table</a
+        ><a href="/impressum/">Impressum</a
+        ><a href="https://github.com/aion-lumen">GitHub ↗</a>
+      </div>
+      <p>Offene Software. Aus eigener Erfahrung gebaut.</p>
+    </footer>
+    <dialog id="lightbox" aria-label="Vergrößerte Aufnahme">
+      <div class="lightbox-toolbar">
+        <p id="lightbox-caption"></p>
+        <div>
+          <button id="toggle-zoom" aria-pressed="false">Originalgröße</button
+          ><button
+            class="close"
+            data-close="lightbox"
+            aria-label="Bild schließen"
+          >
+            ✕
+          </button>
+        </div>
+      </div>
+      <div class="lightbox-scroll"><img id="lightbox-image" alt="" /></div>
+    </dialog>
+    <script src="/styles/site.js"></script>
+  </body>
+</html>
