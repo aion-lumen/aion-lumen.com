@@ -12,6 +12,12 @@ perspective change. Pause, keyboard navigation, a direct content link and a
 reduced-motion alternative are available. Rendering stops when the scene is
 offscreen or the tab is hidden; pixel density is capped.
 
+Below the hero, `continuum.svg` carries the same blue water landscape through
+the content. `styles/journey.css` and `styles/journey.js` add restrained,
+one-time reveals without another render loop. The animation control also
+disables these transitions. Reduced-motion settings and keyboard focus are
+respected; content remains visible without JavaScript.
+
 ## Dependency
 
 `three.module.min.js` and `three.core.min.js` are Three.js 0.185.1 ES modules,

@@ -71,6 +71,9 @@ function syncMotion() {
         ' <span aria-hidden="true">↓</span>'
       : text("Das Brett entdecken", "Explore the board") +
         ' <span aria-hidden="true">↓</span>';
+  window.dispatchEvent(
+    new CustomEvent("surf-motion", { detail: { paused, reduced } }),
+  );
   motionButton.setAttribute("aria-pressed", String(paused || reduced));
   motionButton.innerHTML =
     (reduced || paused ? "▶" : "Ⅱ") +
@@ -393,64 +396,159 @@ const guides = new THREE.LineSegments(
   }),
 );
 board.add(guides);
-// A soft, simplified character: a movement study, not a purchased character asset.
+// Adult proportions and a coherent surf stance: chest turns toward the rail,
+// the neck makes only a small further turn toward the nose of the board (-Z).
 const rider = new THREE.Group();
 rider.position.y = 0.585;
 rig.add(rider);
-const skin = material("#e4a47f", { transparent: true });
-const suit = material("#1a467f", { transparent: true });
-const shirt = material("#f0c8a3", { transparent: true });
-const hair = material("#503728", { transparent: true });
-const eye = material("#253954", { transparent: true });
-const white = material("#fff6e9", { transparent: true });
-const riderMaterials = [skin, suit, shirt, hair, eye, white];
-const pelvis = ellipsoid(rider, [0.24, 0.21, 0.28], [0, 1.03, 0.04], suit);
-link(rider, [-0.12, 1.08, -0.08], [-0.33, 0.63, -0.57], 0.125, suit);
-link(rider, [-0.33, 0.63, -0.57], [-0.2, 0.16, -0.96], 0.088, skin);
-link(rider, [0.12, 1.08, 0.16], [0.39, 0.63, 0.46], 0.125, suit);
-link(rider, [0.39, 0.63, 0.46], [0.13, 0.13, 0.91], 0.086, skin);
-ellipsoid(rider, [0.12, 0.065, 0.23], [-0.18, 0.095, -0.94], skin);
-ellipsoid(rider, [0.12, 0.065, 0.22], [0.13, 0.095, 0.91], skin);
-const torso = ellipsoid(rider, [0.26, 0.43, 0.21], [0.06, 1.43, 0.01], suit);
-torso.rotation.z = -0.14;
-torso.rotation.x = -0.12;
-ellipsoid(rider, [0.1, 0.15, 0.1], [0.12, 1.82, 0.0], skin);
+const skin = material("#c58f71", {
+  transparent: true,
+  roughness: 0.76,
+  metalness: 0,
+});
+const suit = material("#18374d", {
+  transparent: true,
+  roughness: 0.84,
+  metalness: 0,
+});
+const panel = material("#2c546b", {
+  transparent: true,
+  roughness: 0.82,
+  metalness: 0,
+});
+const hair = material("#382c26", {
+  transparent: true,
+  roughness: 0.95,
+  metalness: 0,
+});
+const eye = material("#33342f", { transparent: true, roughness: 0.5 });
+const white = material("#d8cbbd", { transparent: true, roughness: 0.7 });
+const lips = material("#9c6e59", { transparent: true, roughness: 0.8 });
+const riderMaterials = [skin, suit, panel, hair, eye, white, lips];
+function limb(parent, a, b, r1, r2, mat) {
+  const p = new THREE.Vector3(...a),
+    q = new THREE.Vector3(...b),
+    dir = q.clone().sub(p);
+  const mesh = new THREE.Mesh(
+    new THREE.CylinderGeometry(r2, r1, dir.length(), 20, 1),
+    mat,
+  );
+  mesh.position.copy(p.add(q).multiplyScalar(0.5));
+  mesh.quaternion.setFromUnitVectors(
+    new THREE.Vector3(0, 1, 0),
+    dir.normalize(),
+  );
+  parent.add(mesh);
+  return mesh;
+}
+ellipsoid(rider, [0.22, 0.16, 0.25], [0, 0.92, 0.1], suit);
+// Bent legs, with feet planted across the board rather than pointing backwards.
+for (const [hip, knee, ankle] of [
+  [
+    [-0.11, 0.92, -0.03],
+    [-0.27, 0.54, -0.67],
+    [-0.14, 0.16, -0.93],
+  ],
+  [
+    [0.12, 0.92, 0.23],
+    [0.38, 0.49, 0.48],
+    [0.16, 0.15, 0.87],
+  ],
+]) {
+  limb(rider, hip, knee, 0.14, 0.105, suit);
+  ellipsoid(rider, [0.105, 0.113, 0.1], knee, suit);
+  limb(rider, knee, ankle, 0.104, 0.058, suit);
+  ellipsoid(rider, [0.06, 0.09, 0.064], ankle, skin);
+}
+const frontFoot = ellipsoid(
+  rider,
+  [0.1, 0.046, 0.2],
+  [-0.14, 0.085, -0.95],
+  skin,
+);
+frontFoot.rotation.y = -0.92;
+const rearFoot = ellipsoid(rider, [0.1, 0.047, 0.19], [0.16, 0.08, 0.88], skin);
+rearFoot.rotation.y = -0.65;
+const body = new THREE.Group();
+body.position.set(0.025, 0.94, 0.08);
+body.rotation.set(0.07, 1.9, 0.08);
+rider.add(body);
+const torsoProfile = [
+  new THREE.Vector2(0.17, 0),
+  new THREE.Vector2(0.2, 0.07),
+  new THREE.Vector2(0.22, 0.25),
+  new THREE.Vector2(0.275, 0.46),
+  new THREE.Vector2(0.28, 0.54),
+  new THREE.Vector2(0.22, 0.64),
+  new THREE.Vector2(0.095, 0.69),
+];
+const torso = new THREE.Mesh(new THREE.LatheGeometry(torsoProfile, 32), suit);
+torso.scale.z = 0.67;
+body.add(torso);
+const chest = ellipsoid(body, [0.206, 0.215, 0.022], [0, 0.4, 0.151], panel);
+chest.rotation.x = -0.05;
+limb(body, [0, 0.67, 0.01], [0, 0.83, 0.03], 0.077, 0.071, skin);
+// Arms balance to either side of the chest, one leading, one trailing.
+for (const [shoulder, elbow, wrist, hand] of [
+  [
+    [-0.255, 0.56, 0],
+    [-0.52, 0.34, 0.02],
+    [-0.8, 0.19, 0.19],
+    [-0.85, 0.17, 0.22],
+  ],
+  [
+    [0.255, 0.56, 0],
+    [0.54, 0.36, 0.12],
+    [0.84, 0.3, 0.23],
+    [0.89, 0.29, 0.25],
+  ],
+]) {
+  ellipsoid(body, [0.105, 0.12, 0.106], shoulder, suit);
+  limb(body, shoulder, elbow, 0.103, 0.077, suit);
+  ellipsoid(body, [0.077, 0.077, 0.077], elbow, suit);
+  limb(body, elbow, wrist, 0.075, 0.046, suit);
+  const palm = ellipsoid(body, [0.069, 0.035, 0.094], hand, skin);
+  palm.rotation.y = 0.55;
+}
 const head = new THREE.Group();
-head.position.set(0.12, 2.04, -0.02);
-head.rotation.y = -0.25;
-rider.add(head);
-ellipsoid(head, [0.24, 0.28, 0.235], [0, 0, 0], skin);
-ellipsoid(head, [0.05, 0.09, 0.065], [-0.23, -0.02, 0], skin);
-ellipsoid(head, [0.05, 0.09, 0.065], [0.23, -0.02, 0], skin);
-ellipsoid(head, [0.048, 0.055, 0.06], [0.02, -0.04, 0.223], skin);
-ellipsoid(head, [0.064, 0.075, 0.024], [-0.082, 0.031, 0.205], white);
-ellipsoid(head, [0.06, 0.074, 0.024], [0.097, 0.029, 0.204], white);
-ellipsoid(head, [0.026, 0.037, 0.014], [-0.072, 0.026, 0.229], eye);
-ellipsoid(head, [0.026, 0.037, 0.014], [0.107, 0.024, 0.228], eye);
-ellipsoid(head, [0.24, 0.145, 0.23], [0, 0.205, -0.022], hair);
-for (let i = 0; i < 9; i++) {
-  const a = i * 2.399;
-  ellipsoid(
+head.position.set(0, 0.98, 0.035);
+head.rotation.set(0.06, 0.55, 0);
+body.add(head);
+ellipsoid(head, [0.157, 0.215, 0.169], [0, 0, 0], skin);
+ellipsoid(head, [0.124, 0.09, 0.115], [0, -0.115, 0.037], skin);
+ellipsoid(head, [0.026, 0.047, 0.038], [-0.157, -0.004, -0.008], skin);
+ellipsoid(head, [0.026, 0.047, 0.038], [0.157, -0.004, -0.008], skin);
+ellipsoid(head, [0.025, 0.048, 0.046], [0, 0.012, 0.168], skin);
+ellipsoid(head, [0.034, 0.017, 0.024], [0, -0.026, 0.193], skin);
+for (const side of [-1, 1]) {
+  ellipsoid(head, [0.025, 0.01, 0.01], [side * 0.061, 0.043, 0.154], white);
+  ellipsoid(head, [0.009, 0.009, 0.006], [side * 0.06, 0.043, 0.163], eye);
+  link(
     head,
-    [0.082, 0.072, 0.082],
-    [Math.cos(a) * 0.18, 0.22 + (i % 3) * 0.035, Math.sin(a) * 0.14],
+    [side * 0.037, 0.074, 0.155],
+    [side * 0.088, 0.073, 0.142],
+    0.007,
     hair,
   );
 }
-const smileCurve = new THREE.CatmullRomCurve3([
-  new THREE.Vector3(-0.063, -0.12, 0.203),
-  new THREE.Vector3(0, -0.136, 0.222),
-  new THREE.Vector3(0.076, -0.109, 0.199),
+const mouth = new THREE.CatmullRomCurve3([
+  new THREE.Vector3(-0.038, -0.081, 0.154),
+  new THREE.Vector3(0, -0.085, 0.165),
+  new THREE.Vector3(0.038, -0.08, 0.154),
 ]);
 head.add(
-  new THREE.Mesh(new THREE.TubeGeometry(smileCurve, 12, 0.009, 5, false), hair),
+  new THREE.Mesh(new THREE.TubeGeometry(mouth, 12, 0.0045, 5, false), lips),
 );
-link(rider, [-0.12, 1.68, 0.0], [-0.51, 1.46, -0.12], 0.082, suit);
-link(rider, [-0.51, 1.46, -0.12], [-0.93, 1.56, -0.42], 0.06, skin);
-ellipsoid(rider, [0.09, 0.05, 0.12], [-0.95, 1.56, -0.43], skin);
-link(rider, [0.27, 1.66, 0.04], [0.64, 1.42, 0.24], 0.081, suit);
-link(rider, [0.64, 1.42, 0.24], [0.97, 1.5, 0.49], 0.059, skin);
-ellipsoid(rider, [0.09, 0.05, 0.12], [1.0, 1.5, 0.5], skin);
+const hairCap = new THREE.Mesh(
+  new THREE.SphereGeometry(1, 32, 18, 0, Math.PI * 2, 0, Math.PI * 0.55),
+  hair,
+);
+hairCap.scale.set(0.165, 0.139, 0.176);
+hairCap.position.set(0, 0.111, -0.012);
+hairCap.rotation.x = -0.13;
+head.add(hairCap);
+for (const side of [-1, 1])
+  ellipsoid(head, [0.018, 0.047, 0.051], [side * 0.145, 0.036, -0.048], hair);
 
 // White water leaving the tail. Particles are small and follow the same wave field.
 const sprayGeometry = new THREE.BufferGeometry(),
@@ -638,8 +736,8 @@ function draw(now) {
     }
   }
   rig.position.y = mix(waterline + 0.08, 1.05, z);
-  rider.rotation.z = Math.sin(time * 0.9 + 0.4) * 0.028 + aim.x * 0.06;
-  head.rotation.y = -0.25 + aim.x * 0.08;
+  rider.rotation.z = Math.sin(time * 0.9 + 0.4) * 0.017 + aim.x * 0.035;
+  head.rotation.y = 0.55 + aim.x * 0.05;
   const personOpacity = 1 - smooth(0.15, 0.76, z);
   rider.visible = personOpacity > 0.005;
   riderMaterials.forEach((m) => {
@@ -754,6 +852,8 @@ function draw(now) {
     birds: birds.length,
     layers: [shell.position.y, core.position.y, deck.position.y],
     breaker: true,
+    headYaw: head.rotation.y,
+    torsoYaw: body.rotation.y,
     drawCalls: renderer.info.render.calls,
     triangles: renderer.info.render.triangles,
     camera: camera.position.toArray(),
