@@ -100,34 +100,80 @@
             einen verständlichen Überblick zu machen.
           </p>
         </div>
-        <div class="mail-flow" aria-label="Einordnung von Beispielmails">
-          <div class="flow-item">
-            <span class="flow-icon" aria-hidden="true">↳</span>
-            <div>
-              <small>Jahresabrechnung · Strom</small
+        <div class="mail-flow" aria-label="Beispielmails erkunden">
+          <a
+            class="flow-item case-card"
+            href="/assets/cases/invoice.png"
+            data-case="invoice"
+            aria-haspopup="dialog"
+          >
+            <span class="case-copy"
+              ><small>Jahresabrechnung · Strom</small
               ><strong>Rechnung erkannt</strong
-              ><span class="status">Automatisch eingeordnet</span>
-            </div>
-          </div>
-          <div class="flow-item">
-            <span class="flow-icon" aria-hidden="true">▦</span>
-            <div>
-              <small>Terminbestätigung · Wartung</small
+              ><span class="status">Automatisch eingeordnet</span></span
+            >
+            <span class="case-thumb" aria-hidden="true"
+              ><img
+                src="/assets/cases/invoice.png"
+                alt=""
+                width="1149"
+                height="1700"
+                loading="lazy"
+            /></span>
+            <span class="case-invite"
+              >Fall erkunden <span aria-hidden="true">↗</span></span
+            ></a
+          >
+          <a
+            class="flow-item case-card"
+            href="/assets/cases/appointment.png"
+            data-case="appointment"
+            aria-haspopup="dialog"
+          >
+            <span class="case-copy"
+              ><small>Terminbestätigung · Wartung</small
               ><strong>Termin vorgeschlagen</strong
-              ><span class="status">Zur Freigabe</span>
-            </div>
-          </div>
-          <div class="flow-item decision">
-            <span class="flow-icon" aria-hidden="true">?</span>
-            <div>
-              <small>Vertragsverlängerung · Mobilfunk</small
+              ><span class="status">Zur Freigabe</span></span
+            >
+            <span class="case-thumb" aria-hidden="true"
+              ><img
+                src="/assets/cases/appointment.png"
+                alt=""
+                width="1149"
+                height="1700"
+                loading="lazy"
+            /></span>
+            <span class="case-invite"
+              >Fall erkunden <span aria-hidden="true">↗</span></span
+            ></a
+          >
+          <a
+            class="flow-item case-card decision"
+            href="/assets/cases/contract.png"
+            data-case="contract"
+            aria-haspopup="dialog"
+          >
+            <span class="case-copy"
+              ><small>Vertragsverlängerung · Mobilfunk</small
               ><strong>Verlängerung prüfen</strong
-              ><span class="status">Deine Entscheidung</span>
-            </div>
-          </div>
+              ><span class="status">Deine Entscheidung</span></span
+            >
+            <span class="case-thumb" aria-hidden="true"
+              ><img
+                src="/assets/cases/contract.png"
+                alt=""
+                width="1149"
+                height="1700"
+                loading="lazy"
+            /></span>
+            <span class="case-invite"
+              >Fall erkunden <span aria-hidden="true">↗</span></span
+            ></a
+          >
         </div>
         <p class="example-note">
-          Vereinfachter Beispielablauf. Darunter die echte Folio-Mailansicht.
+          Fall auswählen und das echte Detailpanel ansehen. Erfundenes Beispiel
+          mit vorbereiteten Bewertungen.
         </p>
         <figure class="screenshot mail-shot">
           <button
@@ -547,5 +593,6 @@
       <div class="lightbox-scroll"><img id="lightbox-image" alt="" /></div>
     </dialog>
     <script src="/styles/site.js"></script>
+    <script src="/styles/cases.js"></script>
   </body>
 </html>

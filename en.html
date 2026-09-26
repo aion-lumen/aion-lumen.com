@@ -101,34 +101,80 @@
             a view you can make sense of.
           </p>
         </div>
-        <div class="mail-flow" aria-label="Example email classification">
-          <div class="flow-item">
-            <span class="flow-icon" aria-hidden="true">↳</span>
-            <div>
-              <small>Annual statement · electricity</small
-              ><strong>Invoice identified</strong
-              ><span class="status">Automatically classified</span>
-            </div>
-          </div>
-          <div class="flow-item">
-            <span class="flow-icon" aria-hidden="true">▦</span>
-            <div>
-              <small>Appointment · maintenance</small
+        <div class="mail-flow" aria-label="Explore example messages">
+          <a
+            class="flow-item case-card"
+            href="/assets/cases/invoice.png"
+            data-case="invoice"
+            aria-haspopup="dialog"
+          >
+            <span class="case-copy"
+              ><small>Annual statement · Electricity</small
+              ><strong>Invoice recognised</strong
+              ><span class="status">Automatically classified</span></span
+            >
+            <span class="case-thumb" aria-hidden="true"
+              ><img
+                src="/assets/cases/invoice.png"
+                alt=""
+                width="1149"
+                height="1700"
+                loading="lazy"
+            /></span>
+            <span class="case-invite"
+              >Explore case <span aria-hidden="true">↗</span></span
+            ></a
+          >
+          <a
+            class="flow-item case-card"
+            href="/assets/cases/appointment.png"
+            data-case="appointment"
+            aria-haspopup="dialog"
+          >
+            <span class="case-copy"
+              ><small>Confirmation · Maintenance</small
               ><strong>Appointment proposed</strong
-              ><span class="status">Ready for approval</span>
-            </div>
-          </div>
-          <div class="flow-item decision">
-            <span class="flow-icon" aria-hidden="true">?</span>
-            <div>
-              <small>Contract renewal · mobile</small
+              ><span class="status">Awaiting approval</span></span
+            >
+            <span class="case-thumb" aria-hidden="true"
+              ><img
+                src="/assets/cases/appointment.png"
+                alt=""
+                width="1149"
+                height="1700"
+                loading="lazy"
+            /></span>
+            <span class="case-invite"
+              >Explore case <span aria-hidden="true">↗</span></span
+            ></a
+          >
+          <a
+            class="flow-item case-card decision"
+            href="/assets/cases/contract.png"
+            data-case="contract"
+            aria-haspopup="dialog"
+          >
+            <span class="case-copy"
+              ><small>Renewal · Mobile plan</small
               ><strong>Review renewal</strong
-              ><span class="status">Your decision</span>
-            </div>
-          </div>
+              ><span class="status">Your decision</span></span
+            >
+            <span class="case-thumb" aria-hidden="true"
+              ><img
+                src="/assets/cases/contract.png"
+                alt=""
+                width="1149"
+                height="1700"
+                loading="lazy"
+            /></span>
+            <span class="case-invite"
+              >Explore case <span aria-hidden="true">↗</span></span
+            ></a
+          >
         </div>
         <p class="example-note">
-          Illustrative example flow. The actual Folio inbox is shown below.
+          Select a case to see the real detail panel. Fictional data and
+          prepared example assessments.
         </p>
         <figure class="screenshot mail-shot">
           <button
@@ -543,5 +589,6 @@
       <div class="lightbox-scroll"><img id="lightbox-image" alt="" /></div>
     </dialog>
     <script src="/styles/site.js"></script>
+    <script src="/styles/cases.js"></script>
   </body>
 </html>

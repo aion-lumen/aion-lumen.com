@@ -73,20 +73,19 @@
   let trigger = null;
   const original = en ? "Original size" : "Originalgröße",
     fit = en ? "Fit image" : "Einpassen";
-  document.querySelectorAll("[data-zoom]").forEach((b) =>
-    b.addEventListener("click", () => {
-      trigger = b;
-      image.src = b.dataset.zoom;
-      image.alt = b.querySelector("img")?.alt || "";
-      document.getElementById("lightbox-caption").textContent =
-        b.dataset.caption;
-      lightbox.classList.remove("is-zoomed");
-      zoom.textContent = original;
-      zoom.setAttribute("aria-pressed", "false");
-      lightbox.showModal();
-      document.body.style.overflow = "hidden";
-    }),
-  );
+  document.addEventListener("click", (event) => {
+    const b = event.target.closest("[data-zoom]");
+    if (!b) return;
+    trigger = b;
+    image.src = b.querySelector("picture img")?.currentSrc || b.dataset.zoom;
+    image.alt = b.querySelector("img")?.alt || "";
+    document.getElementById("lightbox-caption").textContent = b.dataset.caption;
+    lightbox.classList.remove("is-zoomed");
+    zoom.textContent = original;
+    zoom.setAttribute("aria-pressed", "false");
+    lightbox.showModal();
+    document.body.style.overflow = "hidden";
+  });
   zoom.addEventListener("click", () => {
     const on = lightbox.classList.toggle("is-zoomed");
     zoom.textContent = on ? fit : original;
@@ -100,7 +99,9 @@
       ),
     );
   lightbox.addEventListener("close", () => {
-    document.body.style.overflow = "";
+    document.body.style.overflow = document.querySelector("dialog[open]")
+      ? "hidden"
+      : "";
     trigger?.focus();
   });
   lightbox.addEventListener("click", (e) => {

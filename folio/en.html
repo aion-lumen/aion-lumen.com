@@ -109,6 +109,81 @@
             can inspect the reasons and individual model assessments.
           </p>
         </div>
+        <div class="mail-flow" aria-label="Explore example messages">
+          <a
+            class="flow-item case-card"
+            href="/assets/cases/invoice.png"
+            data-case="invoice"
+            aria-haspopup="dialog"
+          >
+            <span class="case-copy"
+              ><small>Annual statement · Electricity</small
+              ><strong>Invoice recognised</strong
+              ><span class="status">Automatically classified</span></span
+            >
+            <span class="case-thumb" aria-hidden="true"
+              ><img
+                src="/assets/cases/invoice.png"
+                alt=""
+                width="1149"
+                height="1700"
+                loading="lazy"
+            /></span>
+            <span class="case-invite"
+              >Explore case <span aria-hidden="true">↗</span></span
+            ></a
+          >
+          <a
+            class="flow-item case-card"
+            href="/assets/cases/appointment.png"
+            data-case="appointment"
+            aria-haspopup="dialog"
+          >
+            <span class="case-copy"
+              ><small>Confirmation · Maintenance</small
+              ><strong>Appointment proposed</strong
+              ><span class="status">Awaiting approval</span></span
+            >
+            <span class="case-thumb" aria-hidden="true"
+              ><img
+                src="/assets/cases/appointment.png"
+                alt=""
+                width="1149"
+                height="1700"
+                loading="lazy"
+            /></span>
+            <span class="case-invite"
+              >Explore case <span aria-hidden="true">↗</span></span
+            ></a
+          >
+          <a
+            class="flow-item case-card decision"
+            href="/assets/cases/contract.png"
+            data-case="contract"
+            aria-haspopup="dialog"
+          >
+            <span class="case-copy"
+              ><small>Renewal · Mobile plan</small
+              ><strong>Review renewal</strong
+              ><span class="status">Your decision</span></span
+            >
+            <span class="case-thumb" aria-hidden="true"
+              ><img
+                src="/assets/cases/contract.png"
+                alt=""
+                width="1149"
+                height="1700"
+                loading="lazy"
+            /></span>
+            <span class="case-invite"
+              >Explore case <span aria-hidden="true">↗</span></span
+            ></a
+          >
+        </div>
+        <p class="example-note case-spacing">
+          Open a case: read the message, inspect the assessment and see the next
+          step.
+        </p>
         <figure class="screenshot">
           <button
             class="shot"
@@ -224,24 +299,63 @@
               categories down to a transaction and its evidence.
             </p>
           </div>
-          <figure class="screenshot">
-            <button
-              class="shot"
-              data-zoom="/assets/wave/ledger.jpg"
-              data-caption="Sample data · imported statements, not live banking · projections are estimates"
-              aria-label="Complete Ledger dashboard"
-            >
-              <img
-                src="/assets/wave/ledger.jpg"
-                alt="Complete Ledger dashboard"
-                loading="lazy"
-              /><span class="enlarge" aria-hidden="true">↗</span>
-            </button>
-            <figcaption>
-              Sample data · imported statements, not live banking · projections
-              are estimates
-            </figcaption>
-          </figure>
+          <div class="evidence-switch" data-evidence-switch>
+            <div class="evidence-controls" aria-label="Ledger views">
+              <button
+                type="button"
+                aria-pressed="true"
+                data-evidence="overview"
+              >
+                01 · Overview
+              </button>
+              <button type="button" aria-pressed="false" data-evidence="detail">
+                02 · Transaction & statement
+              </button>
+              <span>Follow the evidence ↳</span>
+            </div>
+            <div data-evidence-panel="overview">
+              <figure class="screenshot">
+                <button
+                  class="shot"
+                  data-zoom="/assets/wave/ledger.jpg"
+                  data-caption="Sample data · imported statements, not live banking · projections are estimates"
+                  aria-label="Complete Ledger dashboard"
+                >
+                  <img
+                    src="/assets/wave/ledger.jpg"
+                    alt="Complete Ledger dashboard"
+                    loading="lazy"
+                  /><span class="enlarge" aria-hidden="true">↗</span>
+                </button>
+                <figcaption>
+                  Sample data · imported statements, not live banking ·
+                  projections are estimates
+                </figcaption>
+              </figure>
+            </div>
+            <div data-evidence-panel="detail" hidden>
+              <figure class="screenshot">
+                <button
+                  class="shot"
+                  data-zoom="/assets/folio-v0.6.0-preview.1/ledger-evidence-detail.png"
+                  data-caption="Ledger · real UI with fictional transactions and statement"
+                  aria-label="Enlarge transaction and statement"
+                >
+                  <img
+                    src="/assets/folio-v0.6.0-preview.1/ledger-evidence-detail.png"
+                    alt="Telephone & internet category expanded to an individual payment and its source statement"
+                    loading="lazy"
+                    width="1280"
+                    height="720"
+                  /><span class="enlarge" aria-hidden="true">↗</span>
+                </button>
+                <figcaption>
+                  Category → provider → transaction → statement. Real UI;
+                  fictional example.
+                </figcaption>
+              </figure>
+            </div>
+          </div>
           <p class="local-note">
             Mail processing and model evaluation stay local; optional
             connections such as Google Calendar communicate with the respective
@@ -364,5 +478,6 @@
       <div class="lightbox-scroll"><img id="lightbox-image" alt="" /></div>
     </dialog>
     <script src="/styles/site.js"></script>
+    <script src="/styles/cases.js"></script>
   </body>
 </html>

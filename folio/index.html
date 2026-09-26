@@ -110,6 +110,81 @@
             nachlesen.
           </p>
         </div>
+        <div class="mail-flow" aria-label="Beispielmails erkunden">
+          <a
+            class="flow-item case-card"
+            href="/assets/cases/invoice.png"
+            data-case="invoice"
+            aria-haspopup="dialog"
+          >
+            <span class="case-copy"
+              ><small>Jahresabrechnung · Strom</small
+              ><strong>Rechnung erkannt</strong
+              ><span class="status">Automatisch eingeordnet</span></span
+            >
+            <span class="case-thumb" aria-hidden="true"
+              ><img
+                src="/assets/cases/invoice.png"
+                alt=""
+                width="1149"
+                height="1700"
+                loading="lazy"
+            /></span>
+            <span class="case-invite"
+              >Fall erkunden <span aria-hidden="true">↗</span></span
+            ></a
+          >
+          <a
+            class="flow-item case-card"
+            href="/assets/cases/appointment.png"
+            data-case="appointment"
+            aria-haspopup="dialog"
+          >
+            <span class="case-copy"
+              ><small>Terminbestätigung · Wartung</small
+              ><strong>Termin vorgeschlagen</strong
+              ><span class="status">Zur Freigabe</span></span
+            >
+            <span class="case-thumb" aria-hidden="true"
+              ><img
+                src="/assets/cases/appointment.png"
+                alt=""
+                width="1149"
+                height="1700"
+                loading="lazy"
+            /></span>
+            <span class="case-invite"
+              >Fall erkunden <span aria-hidden="true">↗</span></span
+            ></a
+          >
+          <a
+            class="flow-item case-card decision"
+            href="/assets/cases/contract.png"
+            data-case="contract"
+            aria-haspopup="dialog"
+          >
+            <span class="case-copy"
+              ><small>Vertragsverlängerung · Mobilfunk</small
+              ><strong>Verlängerung prüfen</strong
+              ><span class="status">Deine Entscheidung</span></span
+            >
+            <span class="case-thumb" aria-hidden="true"
+              ><img
+                src="/assets/cases/contract.png"
+                alt=""
+                width="1149"
+                height="1700"
+                loading="lazy"
+            /></span>
+            <span class="case-invite"
+              >Fall erkunden <span aria-hidden="true">↗</span></span
+            ></a
+          >
+        </div>
+        <p class="example-note case-spacing">
+          Einen Fall öffnen: Mail lesen, Einordnung prüfen und den nächsten
+          Schritt sehen.
+        </p>
         <figure class="screenshot">
           <button
             class="shot"
@@ -228,24 +303,63 @@
               Kategorien lassen sich bis zur Buchung und ihrem Beleg aufklappen.
             </p>
           </div>
-          <figure class="screenshot">
-            <button
-              class="shot"
-              data-zoom="/assets/wave/ledger.jpg"
-              data-caption="Beispieldaten · Importierte Auszüge statt Live-Banking · Projektionen sind Schätzungen"
-              aria-label="Vollständiges Ledger-Dashboard"
-            >
-              <img
-                src="/assets/wave/ledger.jpg"
-                alt="Vollständiges Ledger-Dashboard"
-                loading="lazy"
-              /><span class="enlarge" aria-hidden="true">↗</span>
-            </button>
-            <figcaption>
-              Beispieldaten · Importierte Auszüge statt Live-Banking ·
-              Projektionen sind Schätzungen
-            </figcaption>
-          </figure>
+          <div class="evidence-switch" data-evidence-switch>
+            <div class="evidence-controls" aria-label="Ledger-Ansichten">
+              <button
+                type="button"
+                aria-pressed="true"
+                data-evidence="overview"
+              >
+                01 · Überblick
+              </button>
+              <button type="button" aria-pressed="false" data-evidence="detail">
+                02 · Buchung & Kontoauszug
+              </button>
+              <span>Der Zahl auf den Grund gehen ↳</span>
+            </div>
+            <div data-evidence-panel="overview">
+              <figure class="screenshot">
+                <button
+                  class="shot"
+                  data-zoom="/assets/wave/ledger.jpg"
+                  data-caption="Beispieldaten · Importierte Auszüge statt Live-Banking · Projektionen sind Schätzungen"
+                  aria-label="Vollständiges Ledger-Dashboard"
+                >
+                  <img
+                    src="/assets/wave/ledger.jpg"
+                    alt="Vollständiges Ledger-Dashboard"
+                    loading="lazy"
+                  /><span class="enlarge" aria-hidden="true">↗</span>
+                </button>
+                <figcaption>
+                  Beispieldaten · Importierte Auszüge statt Live-Banking ·
+                  Projektionen sind Schätzungen
+                </figcaption>
+              </figure>
+            </div>
+            <div data-evidence-panel="detail" hidden>
+              <figure class="screenshot">
+                <button
+                  class="shot"
+                  data-zoom="/assets/folio-v0.6.0-preview.1/ledger-evidence-detail.png"
+                  data-caption="Ledger · echte Oberfläche mit erfundenen Buchungen und Kontoauszug"
+                  aria-label="Buchung und Kontoauszug vergrößern"
+                >
+                  <img
+                    src="/assets/folio-v0.6.0-preview.1/ledger-evidence-detail.png"
+                    alt="Telefon und Internet aufgeklappt bis zur einzelnen Zahlung und ihrem Kontoauszug"
+                    loading="lazy"
+                    width="1280"
+                    height="720"
+                  /><span class="enlarge" aria-hidden="true">↗</span>
+                </button>
+                <figcaption>
+                  Kategorie → Anbieter → Buchung → Kontoauszug. Echte
+                  Oberfläche, erfundenes Beispiel.
+                </figcaption>
+              </figure>
+            </div>
+          </div>
           <p class="local-note">
             Mailverarbeitung und Modellbewertung bleiben lokal; optional
             eingerichtete Verbindungen wie Google Kalender kommunizieren mit dem
@@ -378,5 +492,6 @@
       <div class="lightbox-scroll"><img id="lightbox-image" alt="" /></div>
     </dialog>
     <script src="/styles/site.js"></script>
+    <script src="/styles/cases.js"></script>
   </body>
 </html>
