@@ -1,5 +1,5 @@
 import * as THREE from "../assets/surf/three.module.min.js";
-import { createBreaker } from "./surf-wave.js";
+import { createBreaker } from "./surf-wave.js?v=a5789735f8e7";
 import { GLTFLoader } from "../assets/surf/GLTFLoader.js";
 import { advanceHeading, followingTurn } from "./surf-steering.mjs?v=b257488077ab";
 
@@ -215,6 +215,10 @@ const ocean = new THREE.Mesh(oceanGeometry, oceanMaterial);
 ocean.position.z = -24;
 scene.add(ocean);
 const breaker = createBreaker(THREE);
+// Face the rounded back of the breaker toward the rider. Turn the wave
+// once in world space, then leave it fixed while the rider steers.
+breaker.group.rotation.y = Math.PI;
+breaker.group.position.z = -14;
 scene.add(breaker.group);
 // A quiet, distant headland gives the open water a sense of place.
 const coastGeometry = new THREE.PlaneGeometry(36, 15, 70, 28);
@@ -253,6 +257,7 @@ const coast = new THREE.Mesh(
   }),
 );
 coast.position.set(-19, 0, -33);
+coast.scale.y = 2.1;
 scene.add(coast);
 // Match the shader's world-local surface so the board follows the water.
 const heightAt = (x, z, t) =>
@@ -529,8 +534,8 @@ const cloudMaterial = material("#f7fbff", {
   opacity: 0.85,
 });
 for (const [x, y, z, s] of [
-  [-15, 8, -34, 2.2],
-  [14, 10, -38, 3.3],
+  [-15, 10.5, -34, 2.2],
+  [8, 12, -38, 3.3],
   [1, 12, -54, 4],
 ]) {
   const group = new THREE.Group();
