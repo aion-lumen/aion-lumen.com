@@ -3,6 +3,8 @@ import { createBreaker } from "./surf-wave.js?v=a5789735f8e7";
 import { GLTFLoader } from "../assets/surf/GLTFLoader.js";
 import { advanceHeading, followingTurn } from "./surf-steering.mjs?v=b257488077ab";
 
+const trial = new URLSearchParams(location.search).get("scene");
+const reverseTrial = trial === "reverse-world" || trial === "reverse-view";
 const root = document.querySelector(".surf-story");
 const en = document.documentElement.lang === "en";
 const text = (de, english) => (en ? english : de);
@@ -157,6 +159,10 @@ try {
 }
 
 const scene = new THREE.Scene();
+if (reverseTrial) {
+  scene.rotation.y = Math.PI;
+  scene.position.x = 5.4; // Turn the world around the initial board position.
+}
 scene.background = new THREE.Color("#d9edfa");
 scene.fog = new THREE.Fog("#d9edfa", 24, 74);
 const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 170);
@@ -188,7 +194,7 @@ const waveGLSL = `float heightAt(vec2 p){return .7*sin(p.y*.54+p.x*.10-uTime*.68
 const oceanMaterial = new THREE.ShaderMaterial({
   uniforms: waterUniforms,
   vertexShader: `uniform float uTime; varying vec3 vWorld; varying vec3 vNormal; varying float vHeight; ${waveGLSL}
- void main(){vec3 p=position; p.y=heightAt(p.xz); float d=.035; vNormal=normalize(vec3(heightAt(p.xz-vec2(d,0.))-heightAt(p.xz+vec2(d,0.)),2.*d,heightAt(p.xz-vec2(0.,d))-heightAt(p.xz+vec2(0.,d))));vHeight=p.y;vWorld=(modelMatrix*vec4(p,1.)).xyz;gl_Position=projectionMatrix*modelViewMatrix*vec4(p,1.);}`,
+ void main(){vec3 p=position; p.y=heightAt(p.xz); float d=.035; vNormal=normalize(vec3(heightAt(p.xz-vec2(d,0.))-heightAt(p.xz+vec2(d,0.)),2.*d,heightAt(p.xz-vec2(0.,d))-heightAt(p.xz+vec2(0.,d))));vNormal=normalize(mat3(modelMatrix)*vNormal);vHeight=p.y;vWorld=(modelMatrix*vec4(p,1.)).xyz;gl_Position=projectionMatrix*modelViewMatrix*vec4(p,1.);}`,
   fragmentShader: `uniform float uTime;uniform vec3 uLight;varying vec3 vWorld;varying vec3 vNormal;varying float vHeight;
  float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
  float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);}
@@ -217,8 +223,8 @@ scene.add(ocean);
 const breaker = createBreaker(THREE);
 // Face the rounded back of the breaker toward the rider. Turn the wave
 // once in world space, then leave it fixed while the rider steers.
-breaker.group.rotation.y = Math.PI;
-breaker.group.position.z = -14;
+breaker.group.rotation.y = reverseTrial ? 0 : Math.PI;
+breaker.group.position.z = reverseTrial ? 0 : -14;
 scene.add(breaker.group);
 // A quiet, distant headland gives the open water a sense of place.
 const coastGeometry = new THREE.PlaneGeometry(36, 15, 70, 28);
@@ -257,7 +263,7 @@ const coast = new THREE.Mesh(
   }),
 );
 coast.position.set(-19, 0, -33);
-coast.scale.y = 2.1;
+coast.scale.y = reverseTrial ? 1 : 2.1;
 scene.add(coast);
 // Match the shader's world-local surface so the board follows the water.
 const heightAt = (x, z, t) =>
@@ -710,7 +716,7 @@ function draw(now) {
       0.22,
     ) *
       (1 - z * 0.8),
-    -0.42 + turn,
+    -0.42 + turn + (reverseTrial ? Math.PI * (1 - z) : 0),
     Math.sin(time * 0.9) * 0.035 + aim.x * 0.075 * (1 - z),
   );
   // Keep the whole hull above the curved surface, including during the reveal.
@@ -838,6 +844,12 @@ function draw(now) {
   };
   turnWorldPoint(camera.position);
   turnWorldPoint(look);
+  if (trial === "reverse-view") {
+    for (const point of [camera.position, look]) {
+      point.x = 5.4 - point.x;
+      point.z = -point.z;
+    }
+  }
   camera.lookAt(look);
   updateCopy(state);
   renderer.render(scene, camera);
