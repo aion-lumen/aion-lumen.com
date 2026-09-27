@@ -25,7 +25,7 @@
       steps: [
         {
           label: t("Mail & Einordnung", "Message & classification"),
-          image: "invoice.png",
+          image: "v0.6.0-preview.2/invoice.png",
           caption: t(
             "Die Originalnachricht bleibt neben der Einordnung lesbar.",
             "The original message remains available alongside its classification.",
@@ -33,10 +33,10 @@
         },
         {
           label: t("Modellstimmen", "Assessments"),
-          image: "model-voices.png",
+          image: "v0.6.0-preview.2/model-voices.png",
           caption: t(
-            "Die echte Stimmenkomponente mit Modellnamen. Vorbereitete Beispielbewertungen; kein neuer Modelltest.",
-            "The actual assessment component with model names. Prepared example assessments, not a new model test.",
+            "Jede Bewertung mit ihrem Modellnamen. Testdaten aus Folio 0.6.0-preview.2.",
+            "Each assessment with its model name. Sample data in Folio 0.6.0-preview.2.",
           ),
         },
       ],
@@ -62,7 +62,7 @@
       steps: [
         {
           label: t("Mail & Einordnung", "Message & classification"),
-          image: "appointment.png",
+          image: "v0.6.0-preview.2/appointment.png",
           caption: t(
             "Der Fall bleibt offen, solange die Terminfreigabe fehlt.",
             "The case remains open while calendar approval is pending.",
@@ -99,7 +99,7 @@
       steps: [
         {
           label: t("Mail & Entscheidung", "Message & decision"),
-          image: "contract.png",
+          image: "v0.6.0-preview.2/contract.png",
           caption: t(
             "Die neuen Bedingungen im Mailtext; die Entscheidung bleibt offen.",
             "The new terms in the message; the decision remains open.",
@@ -122,22 +122,17 @@
     link.setAttribute("aria-expanded", "false");
     const thumb = link.querySelector(".case-thumb");
     const img = thumb.querySelector("img");
-    const invite = link.querySelector(".case-invite");
     const panel = document.createElement("div");
     panel.className = "case-inline";
     panel.id = `case-inline-${index}`;
     panel.hidden = true;
     link.setAttribute("aria-controls", panel.id);
-    panel.innerHTML = `<div class="case-steps"></div><button type="button" class="case-inline-image"></button><p class="case-caption"></p><p class="case-provenance"></p>`;
+    panel.innerHTML = `<div class="case-steps"></div><button type="button" class="case-inline-image"></button><p class="case-caption"></p>`;
     card.append(panel);
     const imageButton = panel.querySelector(".case-inline-image");
     imageButton.setAttribute(
       "aria-label",
       t("Bild wieder verkleinern", "Return image to thumbnail"),
-    );
-    panel.querySelector(".case-provenance").textContent = t(
-      "Echte Folio-Oberfläche · erfundene Daten und vorbereitete Bewertungen.",
-      "Actual Folio UI · fictional data and prepared assessments.",
     );
     let expanded = false;
     let animation;
@@ -151,6 +146,7 @@
         .querySelectorAll(".case-steps button")
         .forEach((b, n) => b.setAttribute("aria-pressed", String(i === n)));
     }
+    panel.querySelector(".case-steps").hidden = data.steps.length < 2;
     data.steps.forEach((step, i) => {
       const b = document.createElement("button");
       b.type = "button";
@@ -179,9 +175,6 @@
         img.alt = "";
         openCase = null;
       }
-      invite.textContent = expanded
-        ? t("Wieder verkleinern ↙", "Return to thumbnail ↙")
-        : t("Fall erkunden ↗", "Explore case ↗");
       const to = img.getBoundingClientRect();
       if (!motion.matches && to.width && to.height) {
         animation = img.animate(

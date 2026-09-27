@@ -1946,18 +1946,6 @@ body.legacy-layout .spec-wrap {
   object-fit: cover;
   object-position: top;
 }
-.case-invite {
-  grid-column: 1 / -1;
-  display: flex;
-  justify-content: space-between;
-  border-top: 1px solid var(--line);
-  padding-top: 10px;
-  color: var(--blue);
-  font-size: 12px;
-}
-.case-card.decision .case-invite {
-  color: var(--gold);
-}
 .case-spacing {
   margin-bottom: 25px;
 }
@@ -2293,6 +2281,7 @@ article.case-card {
   display: block;
 }
 .case-trigger {
+  cursor: zoom-in;
   display: grid;
   grid-template-columns: minmax(0, 1fr) 78px;
   gap: 15px;
@@ -2307,6 +2296,7 @@ article.case-card {
   align-items: start;
 }
 .case-card.is-open .case-trigger {
+  cursor: zoom-out;
   grid-template-columns: 1fr;
   position: sticky;
   top: 100px;
@@ -2416,3 +2406,5 @@ article.case-card {
   width: max(100%, 1200px);
   max-width: none;
 }
+
+.case-inline .case-steps[hidden] { display: none; }
