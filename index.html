@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="/styles/site.css?v=d57f461b8304" />
     <link rel="stylesheet" href="/styles/surf.css" />
     <link rel="stylesheet" href="/styles/journey.css" />
-    <link rel="stylesheet" href="/styles/model-layer.css?v=581f8c22a626" />
+    <link rel="stylesheet" href="/styles/architecture.css?v=12ef1ac0c1b1" />
   </head>
   <body class="home-flow">
     <script>
@@ -112,7 +112,33 @@
           >
             <p class="eyebrow">FOLIO / UNTER DER OBERFLÄCHE</p>
             <h2>Drei Schichten.<br /><em>Ein Werkzeug.</em></h2>
-            <div class="layer-demo layer-demo-hero" data-layer-demo></div>
+            <p>
+              Wissen, lokale Modelle und begrenzte Werkzeuge arbeiten zusammen.
+              Du behältst den Überblick.
+            </p>
+            <ol class="steps">
+              <li>
+                <span>01</span>
+                <div>
+                  <strong>Dein Wissen</strong
+                  ><small>Mails, Dokumente, bestätigte Fakten</small><a class="layer-more" href="#memory">Memory & Architektur →</a>
+                </div>
+              </li>
+              <li>
+                <span>02</span>
+                <div>
+                  <strong>Lokale Modelle</strong
+                  ><small>Einordnen und Vorschläge begründen</small><a class="layer-more" href="#mail-modelle">Modellstimmen ansehen →</a>
+                </div>
+              </li>
+              <li>
+                <span>03</span>
+                <div>
+                  <strong>Regeln &amp; Werkzeuge</strong
+                  ><small>Begrenzte, nachvollziehbare Schritte</small><a class="layer-more" href="#mail-regeln">Regeln & Ablauf →</a>
+                </div>
+              </li>
+            </ol>
             <button class="quiet" data-jump="0.91">
               Wieder aufs Ganze schauen <span aria-hidden="true">↗</span>
             </button>
@@ -311,8 +337,7 @@
                   <title id="boardTitle">Das Folio-Brett, von innen</title>
                   <desc id="boardDesc">
                     Drei übereinanderliegende Ebenen verbinden eigenes Wissen,
-                    lokale Modelle und begrenzte Werkzeuge. Die Ebenen lassen
-                    sich über die Schaltflächen daneben erläutern.
+                    lokale Modelle und begrenzte Werkzeuge. Die Links daneben führen zu Architektur und Beispielen.
                   </desc>
                   <defs>
                     <linearGradient id="deck" x1="0" y1="0" x2="1" y2="1">
@@ -385,7 +410,7 @@
                       REGELN &amp; WERKZEUGE
                     </text>
                   </g>
-                  <g class="board-layer is-active" data-layer="1">
+                  <g class="board-layer" data-layer="1">
                     <path
                       d="M102 221Q124 179 274 165L697 113Q756 128 777 148Q741 198 640 229L245 285Q146 271 102 221Z"
                       fill="url(#core)"
@@ -425,7 +450,7 @@
                       LOKALE KI
                     </text>
                   </g>
-                  <g class="board-layer" data-layer="0">
+                  <g class="board-layer is-active" data-layer="0">
                     <path
                       d="M102 158Q124 116 274 102L697 50Q756 65 777 85Q741 135 640 166L245 222Q146 208 102 158Z"
                       fill="url(#deck)"
@@ -472,7 +497,36 @@
                   Das Prinzip · vereinfacht dargestellt
                 </p>
               </div>
-              <div class="layer-demo" data-layer-demo><noscript>Lokale Modelle bewerten Mails auf einem MacBook mit 48 GB RAM. Feste Regeln ergänzen ihre Bewertungen.</noscript></div>
+              <div class="layer-controls">
+                <a class="layer-button" data-board-layer="0" href="#memory">
+                  <span>01</span
+                  ><span
+                    ><strong>Dein Wissen</strong
+                    ><small
+                      >Mails, Dokumente und bestätigte Fakten liefern den
+                      Zusammenhang.</small
+                    ><em class="layer-more">Memory & Architektur →</em></span
+                  ></a
+                ><a class="layer-button" data-board-layer="1" href="#mail-modelle">
+                  <span>02</span
+                  ><span
+                    ><strong>Lokale Modelle</strong
+                    ><small
+                      >KI ordnet ein und macht Vorschläge. Ihre Einschätzung
+                      bleibt nachvollziehbar.</small
+                    ><em class="layer-more">Modellstimmen ansehen →</em></span
+                  ></a
+                ><a class="layer-button" data-board-layer="2" href="#mail-regeln">
+                  <span>03</span
+                  ><span
+                    ><strong>Begrenzte Werkzeuge</strong
+                    ><small
+                      >Klare Regeln begrenzen Aktionen. Unklare Fälle bleiben
+                      bei dir.</small
+                    ><em class="layer-more">Regeln & Ablauf →</em></span
+                  >
+                </a>
+              </div>
             </div>
             <p class="local-note">
               Mailverarbeitung und Modellbewertung bleiben lokal; optional
@@ -480,6 +534,34 @@
               dem jeweiligen Anbieter.
             </p>
           </div>
+        </section>
+        <section class="architecture-section wrap" id="mail-modelle">
+          <span class="architecture-anchor" id="mail-regeln" aria-hidden="true"></span>
+          <div class="section-head">
+            <div><p class="eyebrow">IM INNEREN / MAIL</p><h2>Eine Mail. Ein sichtbarer Weg.</h2></div>
+            <p>Feste Regeln und lokale Modelle liefern getrennte Einschätzungen. Folio prüft, was daraus folgen darf.</p>
+          </div>
+          <div class="workflow-animation" data-workflow>
+            <div class="flow-toolbar"><span>Vereinfachter Ablauf · keine Live-Verarbeitung</span><button type="button" data-flow-play>Ablauf abspielen</button></div>
+            <ol class="architecture-flow "><li style="--step:0"><span class="flow-number">01</span><strong>Eingang</strong><small>Mail lokal ablegen</small></li><li style="--step:1"><span class="flow-number">02</span><strong>Feste Regeln</strong><small>Signale erkennen</small></li><li style="--step:2"><span class="flow-number">03</span><strong>Lokale Modelle</strong><small>Getrennt bewerten</small></li><li style="--step:3"><span class="flow-number">04</span><strong>Abgleich</strong><small>Stimmen & Grenzen prüfen</small></li><li style="--step:4"><span class="flow-number">05</span><strong>Nächster Schritt</strong><small>Erledigen oder dir vorlegen</small></li></ol>
+            <div class="flow-branches"><span>Eindeutig + freigegeben → begrenzte Automatik</span><span>Unklar oder Entscheidung nötig → zu dir</span></div>
+          </div>
+          <div class="workflow-evidence">
+            <article class="architecture-card" data-evidence-kind="models">
+              <p class="eyebrow">LOKALE MODELLE</p><h3>Jede Stimme hat einen Namen.</h3>
+              <p>GLM-4.7 Flash, Qwen 3.6 und Qwen 3.8 bewerten Mailstapel nacheinander auf meinem MacBook mit 48 GB RAM. Eine zusätzliche Prüfung kann bei Bedarf folgen.</p>
+              <div class="model-sequence" aria-label="Modelle laufen nacheinander"><span>GLM-4.7 Flash</span><i aria-hidden="true">→</i><span>Qwen 3.6</span><i aria-hidden="true">→</i><span>Qwen 3.8</span></div>
+              <figure class="screenshot"><button class="shot" data-zoom="/assets/cases/v0.6.0-preview.2/model-voices.png" aria-label="Modellstimmen im Detail ansehen"><img src="/assets/cases/v0.6.0-preview.2/model-voices.png" alt="Folio-Detailpanel: drei benannte Modelle und die feste Regel H zur Stromabrechnung." loading="lazy"/><span class="enlarge" aria-hidden="true">↗</span></button><figcaption>Echte Oberfläche · erfundene Mail, vorbereitete Bewertungen.</figcaption></figure>
+              <a class="layer-more" href="/multi-agent/#roles">Wie wir die Modelle auswählen →</a>
+            </article>
+            <article class="architecture-card" data-evidence-kind="rules">
+              <p class="eyebrow">REGELN & WERKZEUGE</p><h3>Erkannt heißt nicht freigegeben.</h3>
+              <p>Die Stimmen sind Hinweise, keine Handlungsfreigabe. Im Beispiel bleibt das Vertragsangebot zur Entscheidung offen – Folio schließt keinen Vertrag für dich ab.</p>
+              <div class="decision-path"><span>Angebot erkannt</span><i aria-hidden="true">→</i><span>Entscheidung offen</span></div>
+              <figure class="screenshot"><button class="shot rule-shot" data-zoom="/assets/cases/v0.6.0-preview.2/contract.png" aria-label="Vertragsfall im Detail ansehen"><img src="/assets/cases/v0.6.0-preview.2/contract.png" alt="Folio-Detailpanel: Mobilfunkangebot mit neuen Konditionen und offener Entscheidung." loading="lazy"/><span class="enlarge" aria-hidden="true">↗</span></button><figcaption>Echte Oberfläche · fiktives Vertragsangebot. Zum Vergrößern klicken.</figcaption></figure>
+            </article>
+          </div>
+          <a class="architecture-back" href="#arbeitsweise">↑ Zurück zu den drei Schichten</a>
         </section>
         <section class="ledger section wrap" id="ledger">
           <div class="section-head">
@@ -544,6 +626,17 @@
               v0.6.0-preview.2
             </figcaption>
           </figure>
+          <div class="memory-architecture">
+            <p class="eyebrow">VON DER QUELLE BIS ZUR ANTWORT</p>
+            <ol class="architecture-flow memory-flow"><li style="--step:0"><span class="flow-number">01</span><strong>Quellen</strong><small>Mails · Dateien · Markdown</small></li><li style="--step:1"><span class="flow-number">02</span><strong>Vorschläge</strong><small>Fakten mit Belegstellen</small></li><li style="--step:2"><span class="flow-number">03</span><strong>Prüfung</strong><small>Bestätigen oder korrigieren</small></li><li style="--step:3"><span class="flow-number">04</span><strong>Wissenskern</strong><small>Fakten · Zeit · Herkunft</small></li><li style="--step:4"><span class="flow-number">05</span><strong>Nutzung</strong><small>Suche · Kontext · Graph</small></li></ol>
+            <div class="memory-layers">
+              <div><span>01</span><strong>Originale bleiben erhalten</strong><p>Markdown im Vault, Mails und Dokumente als Quellen. Eine Aussage bleibt auf ihren Beleg zurückführbar.</p></div>
+              <div><span>02</span><strong>Bestätigtes Wissen</strong><p>Folios lokale Datenbank hält Fakten, Herkunft und Änderungen fest. Ein Vorschlag ist noch kein bestätigter Fakt.</p></div>
+              <div><span>03</span><strong>Sichten auf das Wissen</strong><p>Suche und Kontext nutzen den Wissenskern. Der Graph macht Beziehungen sichtbar; er ist eine abgeleitete, neu aufbaubare Ansicht.</p></div>
+            </div>
+            <p class="architecture-note">Die Prüfung erfolgt durch dich oder eine von dir freigegebene unabhängige Prüfung. Die Grafik zeigt das Prinzip; die räumliche Graphoberfläche ist weiterhin in Entwicklung.</p>
+            <a class="architecture-back" href="#arbeitsweise">↑ Zurück zu den drei Schichten</a>
+          </div>
         </section>
         <section class="journal" id="blog">
           <div class="wrap journal-inner">
@@ -652,10 +745,10 @@
       </div>
       <div class="lightbox-scroll"><img id="lightbox-image" alt="" /></div>
     </dialog>
-    <script type="module" src="/styles/surf.js?v=32105ec458a4"></script>
+    <script type="module" src="/styles/surf.js?v=ad865d60146c"></script>
     <script src="/styles/cases.js?v=c9a1be2f485d"></script>
     <script src="/styles/journey.js"></script>
-    <script src="/styles/model-layer.js?v=daf0388d17bc"></script>
+    <script src="/styles/architecture.js?v=8ddf84f3c2e3"></script>
     <script src="/styles/site.js?v=620a9968138d"></script>
   </body>
 </html>

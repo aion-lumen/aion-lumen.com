@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="/styles/site.css?v=d57f461b8304" />
     <link rel="stylesheet" href="/styles/surf.css" />
     <link rel="stylesheet" href="/styles/journey.css" />
-    <link rel="stylesheet" href="/styles/model-layer.css?v=581f8c22a626" />
+    <link rel="stylesheet" href="/styles/architecture.css?v=12ef1ac0c1b1" />
   </head>
   <body class="home-flow">
     <script>
@@ -113,7 +113,33 @@
           >
             <p class="eyebrow">FOLIO / UNDER THE SURFACE</p>
             <h2>Three layers.<br /><em>One tool.</em></h2>
-            <div class="layer-demo layer-demo-hero" data-layer-demo></div>
+            <p>
+              Knowledge, local models and tools with defined limits work
+              together. You keep the overview.
+            </p>
+            <ol class="steps">
+              <li>
+                <span>01</span>
+                <div>
+                  <strong>Your knowledge</strong
+                  ><small>Mail, documents, confirmed facts</small><a class="layer-more" href="#memory">Memory & architecture →</a>
+                </div>
+              </li>
+              <li>
+                <span>02</span>
+                <div>
+                  <strong>Local models</strong
+                  ><small>Classify and explain suggestions</small><a class="layer-more" href="#mail-modelle">Model assessments →</a>
+                </div>
+              </li>
+              <li>
+                <span>03</span>
+                <div>
+                  <strong>Rules &amp; tools</strong
+                  ><small>Limited, traceable steps</small><a class="layer-more" href="#mail-regeln">Rules & workflow →</a>
+                </div>
+              </li>
+            </ol>
             <button class="quiet" data-jump="0.91">
               Back to the bigger picture <span aria-hidden="true">↗</span>
             </button>
@@ -301,7 +327,7 @@
                   <title id="boardTitle">Inside Folio</title>
                   <desc id="boardDesc">
                     Three layers connect your information, local models and
-                    bounded tools. Select a layer using the adjacent buttons.
+                    bounded tools. Follow the adjacent links to architecture and examples.
                   </desc>
                   <defs>
                     <linearGradient id="deck" x1="0" y1="0" x2="1" y2="1">
@@ -374,7 +400,7 @@
                       RULES &amp; TOOLS
                     </text>
                   </g>
-                  <g class="board-layer is-active" data-layer="1">
+                  <g class="board-layer" data-layer="1">
                     <path
                       d="M102 221Q124 179 274 165L697 113Q756 128 777 148Q741 198 640 229L245 285Q146 271 102 221Z"
                       fill="url(#core)"
@@ -414,7 +440,7 @@
                       LOCAL AI
                     </text>
                   </g>
-                  <g class="board-layer" data-layer="0">
+                  <g class="board-layer is-active" data-layer="0">
                     <path
                       d="M102 158Q124 116 274 102L697 50Q756 65 777 85Q741 135 640 166L245 222Q146 208 102 158Z"
                       fill="url(#deck)"
@@ -461,7 +487,36 @@
                   The principle · simplified illustration
                 </p>
               </div>
-              <div class="layer-demo" data-layer-demo><noscript>Local models assess emails on a MacBook with 48 GB of RAM. Fixed rules complement their assessments.</noscript></div>
+              <div class="layer-controls">
+                <a class="layer-button" data-board-layer="0" href="#memory">
+                  <span>01</span
+                  ><span
+                    ><strong>Your knowledge</strong
+                    ><small
+                      >Emails, documents and confirmed facts provide
+                      context.</small
+                    ><em class="layer-more">Memory & architecture →</em></span
+                  ></a
+                ><a class="layer-button" data-board-layer="1" href="#mail-modelle">
+                  <span>02</span
+                  ><span
+                    ><strong>Local models</strong
+                    ><small
+                      >AI classifies and proposes. Its assessment stays open to
+                      inspection.</small
+                    ><em class="layer-more">Model assessments →</em></span
+                  ></a
+                ><a class="layer-button" data-board-layer="2" href="#mail-regeln">
+                  <span>03</span
+                  ><span
+                    ><strong>Bounded tools</strong
+                    ><small
+                      >Clear rules limit actions. Uncertain cases come back to
+                      you.</small
+                    ><em class="layer-more">Rules & workflow →</em></span
+                  >
+                </a>
+              </div>
             </div>
             <p class="local-note">
               Email processing and model evaluation remain local; optional
@@ -469,6 +524,34 @@
               respective provider.
             </p>
           </div>
+        </section>
+        <section class="architecture-section wrap" id="mail-modelle">
+          <span class="architecture-anchor" id="mail-regeln" aria-hidden="true"></span>
+          <div class="section-head">
+            <div><p class="eyebrow">INSIDE / MAIL</p><h2>One email. A visible path.</h2></div>
+            <p>Fixed rules and local models provide separate assessments. Folio checks what may follow from them.</p>
+          </div>
+          <div class="workflow-animation" data-workflow>
+            <div class="flow-toolbar"><span>Simplified workflow · not live processing</span><button type="button" data-flow-play>Play workflow</button></div>
+            <ol class="architecture-flow "><li style="--step:0"><span class="flow-number">01</span><strong>Inbox</strong><small>Store the email locally</small></li><li style="--step:1"><span class="flow-number">02</span><strong>Fixed rules</strong><small>Identify signals</small></li><li style="--step:2"><span class="flow-number">03</span><strong>Local models</strong><small>Assess independently</small></li><li style="--step:3"><span class="flow-number">04</span><strong>Comparison</strong><small>Check assessments & limits</small></li><li style="--step:4"><span class="flow-number">05</span><strong>Next step</strong><small>Process or ask you</small></li></ol>
+            <div class="flow-branches"><span>Clear + authorised → bounded automation</span><span>Unclear or decision needed → back to you</span></div>
+          </div>
+          <div class="workflow-evidence">
+            <article class="architecture-card" data-evidence-kind="models">
+              <p class="eyebrow">LOCAL MODELS</p><h3>Every assessment has a name.</h3>
+              <p>GLM-4.7 Flash, Qwen 3.6 and Qwen 3.8 assess email batches in sequence on my MacBook with 48 GB RAM. An additional review can follow when needed.</p>
+              <div class="model-sequence" aria-label="Models run in sequence"><span>GLM-4.7 Flash</span><i aria-hidden="true">→</i><span>Qwen 3.6</span><i aria-hidden="true">→</i><span>Qwen 3.8</span></div>
+              <figure class="screenshot"><button class="shot" data-zoom="/assets/cases/v0.6.0-preview.2/model-voices.png" aria-label="View model assessments in detail"><img src="/assets/cases/v0.6.0-preview.2/model-voices.png" alt="Folio detail panel: three named models and fixed rule H for an electricity statement." loading="lazy"/><span class="enlarge" aria-hidden="true">↗</span></button><figcaption>Actual interface · fictional email, prepared assessments.</figcaption></figure>
+              <a class="layer-more" href="/multi-agent/en.html#roles">How we select the models →</a>
+            </article>
+            <article class="architecture-card" data-evidence-kind="rules">
+              <p class="eyebrow">RULES & TOOLS</p><h3>Recognised does not mean approved.</h3>
+              <p>Assessments are evidence, not permission to act. In this example, the contract offer stays open for your decision — Folio does not accept a contract for you.</p>
+              <div class="decision-path"><span>Offer identified</span><i aria-hidden="true">→</i><span>Decision pending</span></div>
+              <figure class="screenshot"><button class="shot rule-shot" data-zoom="/assets/cases/v0.6.0-preview.2/contract.png" aria-label="View the contract case in detail"><img src="/assets/cases/v0.6.0-preview.2/contract.png" alt="Folio detail panel: a mobile plan offer with new terms and a pending decision." loading="lazy"/><span class="enlarge" aria-hidden="true">↗</span></button><figcaption>Actual interface · fictional contract offer. Click to expand.</figcaption></figure>
+            </article>
+          </div>
+          <a class="architecture-back" href="#arbeitsweise">↑ Back to the three layers</a>
         </section>
         <section class="ledger section wrap" id="ledger">
           <div class="section-head">
@@ -534,6 +617,17 @@
               v0.6.0-preview.2
             </figcaption>
           </figure>
+          <div class="memory-architecture">
+            <p class="eyebrow">FROM SOURCE TO ANSWER</p>
+            <ol class="architecture-flow memory-flow"><li style="--step:0"><span class="flow-number">01</span><strong>Sources</strong><small>Emails · files · Markdown</small></li><li style="--step:1"><span class="flow-number">02</span><strong>Candidates</strong><small>Facts with source evidence</small></li><li style="--step:2"><span class="flow-number">03</span><strong>Review</strong><small>Confirm or correct</small></li><li style="--step:3"><span class="flow-number">04</span><strong>Knowledge core</strong><small>Facts · time · provenance</small></li><li style="--step:4"><span class="flow-number">05</span><strong>Use</strong><small>Search · context · graph</small></li></ol>
+            <div class="memory-layers">
+              <div><span>01</span><strong>Originals are preserved</strong><p>Markdown in the vault, emails and documents as sources. A statement remains traceable to its evidence.</p></div>
+              <div><span>02</span><strong>Confirmed knowledge</strong><p>Folio’s local database records facts, provenance and changes. A candidate is not yet a confirmed fact.</p></div>
+              <div><span>03</span><strong>Views of the knowledge</strong><p>Search and context use the knowledge core. The graph reveals connections; it is a derived view that can be rebuilt.</p></div>
+            </div>
+            <p class="architecture-note">Review is performed by you or through independent review you authorise. This diagram shows the principle; the spatial graph interface remains in development.</p>
+            <a class="architecture-back" href="#arbeitsweise">↑ Back to the three layers</a>
+          </div>
         </section>
         <section class="journal" id="blog">
           <div class="wrap journal-inner">
@@ -634,10 +728,10 @@
       </div>
       <div class="lightbox-scroll"><img id="lightbox-image" alt="" /></div>
     </dialog>
-    <script type="module" src="/styles/surf.js?v=32105ec458a4"></script>
+    <script type="module" src="/styles/surf.js?v=ad865d60146c"></script>
     <script src="/styles/cases.js?v=c9a1be2f485d"></script>
     <script src="/styles/journey.js"></script>
-    <script src="/styles/model-layer.js?v=daf0388d17bc"></script>
+    <script src="/styles/architecture.js?v=8ddf84f3c2e3"></script>
     <script src="/styles/site.js?v=620a9968138d"></script>
   </body>
 </html>
