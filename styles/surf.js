@@ -1,7 +1,7 @@
 import * as THREE from "../assets/surf/three.module.min.js";
 import { createBreaker } from "./surf-wave.js";
 import { GLTFLoader } from "../assets/surf/GLTFLoader.js";
-import { advanceHeading } from "./surf-steering.mjs?v=229e9d4bf330";
+import { advanceHeading, followingTurn } from "./surf-steering.mjs?v=b257488077ab";
 
 const root = document.querySelector(".surf-story");
 const en = document.documentElement.lang === "en";
@@ -691,6 +691,11 @@ function draw(now) {
     0,
     z * 1.3 - steering * 0.6,
   );
+  const initialAzimuth = Math.atan2(
+    (narrow() ? 10.5 : 10) - aim.x * 0.85 - rig.position.x,
+    (narrow() ? 16 : 14) - rig.position.z,
+  );
+  const turn = followingTurn(heading, initialAzimuth, z);
   rig.rotation.set(
     clamp(
       (waterY(rig.position.x, rig.position.z - 0.1, time) -
@@ -700,7 +705,7 @@ function draw(now) {
       0.22,
     ) *
       (1 - z * 0.8),
-    -0.42,
+    -0.42 + turn,
     Math.sin(time * 0.9) * 0.035 + aim.x * 0.075 * (1 - z),
   );
   // Keep the whole hull above the curved surface, including during the reveal.
@@ -818,20 +823,13 @@ function draw(now) {
   camera.position.y += aim.y * 0.24 * (1 - z * 0.85);
   look.copy(startTarget).lerp(closeTarget, z);
   look.y += rig.position.y * 0.25 * z;
-  // Move the viewpoint through the whole world, not just the board.
-  // Rotating eye and target around the same pivot keeps the surfer framed
-  // while coast, clouds, birds and wave crests change perspective together.
-  // Keep the 180-degree arc on the open face of the wave. The initial
-  // three-quarter view is preserved; both ends reach a true side view.
-  const initialAzimuth = Math.atan2(
-    camera.position.x - rig.position.x, camera.position.z - rig.position.z,
-  );
-  const orbit = (-heading - initialAzimuth * Math.abs(heading) / (Math.PI / 2)) * (1 - z);
+  // The camera follows the rider's heading. World geometry never turns.
+  // Apply the same turn to rider, camera offset and viewing direction.
   const turnWorldPoint = (point) => {
     const x = point.x - rig.position.x;
     const depth = point.z - rig.position.z;
-    point.x = rig.position.x + x * Math.cos(orbit) + depth * Math.sin(orbit);
-    point.z = rig.position.z - x * Math.sin(orbit) + depth * Math.cos(orbit);
+    point.x = rig.position.x + x * Math.cos(turn) + depth * Math.sin(turn);
+    point.z = rig.position.z - x * Math.sin(turn) + depth * Math.cos(turn);
   };
   turnWorldPoint(camera.position);
   turnWorldPoint(look);

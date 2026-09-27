@@ -12,3 +12,9 @@ export function advanceHeading(heading, pointer, dt, zoom, moving = true) {
   const input = Math.sign(pointer) * (Math.min(1, Math.abs(pointer)) - deadZone) / (1 - deadZone);
   return Math.max(-limit, Math.min(limit, heading - input * speed * dt));
 }
+
+// Left input turns both rider and following camera left in a fixed world.
+// Keep the full half-circle on the open face of the wave.
+export function followingTurn(heading, initialAzimuth, zoom) {
+  return (heading - initialAzimuth * Math.abs(heading) / limit) * (1 - zoom);
+}
