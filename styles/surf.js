@@ -255,7 +255,9 @@ const coast = new THREE.Mesh(
     roughness: 1,
   }),
 );
-coast.position.set(-35, 0, -5);
+// The rotated headland spans 18 units in Z: even its nearest edge
+// stays behind the breaker, with a strip of open water between them.
+coast.position.set(-35, 0, -27);
 coast.rotation.y = Math.PI / 2;
 coast.scale.y = 1.4;
 scene.add(coast);
