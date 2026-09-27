@@ -33,10 +33,10 @@
         },
         {
           label: t("Modellstimmen", "Assessments"),
-          image: "invoice-voices.png",
+          image: "model-voices.png",
           caption: t(
-            "Vier vorbereitete Beispielstimmen, einzeln aufgeklappt. Kein neuer Modelltest.",
-            "Four prepared example assessments, expanded individually. Not a new model test.",
+            "Die echte Stimmenkomponente mit Modellnamen. Vorbereitete Beispielbewertungen; kein neuer Modelltest.",
+            "The actual assessment component with model names. Prepared example assessments, not a new model test.",
           ),
         },
       ],
@@ -108,159 +108,119 @@
       ],
     },
   };
-  const triggers = document.querySelectorAll("[data-case]");
-  if (triggers.length) {
-    const dialog = document.createElement("dialog");
-    dialog.id = "case-dialog";
-    dialog.setAttribute("aria-labelledby", "case-title");
-    // Only fixed template markup; content below is assigned through textContent.
-    dialog.innerHTML = `<div class="case-toolbar"><span class="case-eyebrow"></span><button type="button" class="close case-close">✕</button></div>
-      <div class="case-layout"><div class="case-context"><nav class="case-nav"></nav><h2 id="case-title"></h2><p class="case-summary"></p><ul class="case-facts"></ul><p class="case-provenance"></p></div>
-      <div class="case-view"><div class="case-steps"></div><p class="case-caption" aria-live="polite"></p><div class="case-image-scroll" tabindex="0"><button class="case-image-button" data-zoom=""><picture><source media="(max-width: 760px)"/><img alt=""/></picture><span class="case-zoom">↗</span></button></div><div class="case-bottom"><span></span><button type="button" class="case-next"></button></div></div></div>`;
-    document.body.append(dialog);
-    const q = (s) => dialog.querySelector(s);
-    q(".case-eyebrow").textContent = t(
-      "FOLIO / EINEN FALL ERKUNDEN",
-      "FOLIO / EXPLORE A CASE",
-    );
-    q(".case-close").setAttribute(
+  const motion = matchMedia("(prefers-reduced-motion: reduce)");
+  let openCase = null;
+  document.querySelectorAll("[data-case]").forEach((link, index) => {
+    const data = cases[link.dataset.case];
+    if (!data) return;
+    const card = document.createElement("article");
+    card.className = link.className;
+    link.className = "case-trigger";
+    link.before(card);
+    card.append(link);
+    link.setAttribute("role", "button");
+    link.setAttribute("aria-expanded", "false");
+    const thumb = link.querySelector(".case-thumb");
+    const img = thumb.querySelector("img");
+    const invite = link.querySelector(".case-invite");
+    const panel = document.createElement("div");
+    panel.className = "case-inline";
+    panel.id = `case-inline-${index}`;
+    panel.hidden = true;
+    link.setAttribute("aria-controls", panel.id);
+    panel.innerHTML = `<div class="case-steps"></div><button type="button" class="case-inline-image"></button><p class="case-caption"></p><p class="case-provenance"></p>`;
+    card.append(panel);
+    const imageButton = panel.querySelector(".case-inline-image");
+    imageButton.setAttribute(
       "aria-label",
-      t("Beispiel schließen", "Close example"),
+      t("Bild wieder verkleinern", "Return image to thumbnail"),
     );
-    q(".case-nav").setAttribute(
-      "aria-label",
-      t("Beispielfall wählen", "Choose example case"),
+    panel.querySelector(".case-provenance").textContent = t(
+      "Echte Folio-Oberfläche · erfundene Daten und vorbereitete Bewertungen.",
+      "Actual Folio UI · fictional data and prepared assessments.",
     );
-    q(".case-steps").setAttribute(
-      "aria-label",
-      t("Ansicht wählen", "Choose view"),
-    );
-    q(".case-image-scroll").setAttribute(
-      "aria-label",
-      t("Screenshot, bei Bedarf scrollen", "Screenshot, scroll as needed"),
-    );
-    q(".case-provenance").textContent = t(
-      "Echte Folio-Oberfläche. Erfundenes Beispiel mit vorbereiteten Bewertungen; kein Nachweis eines neuen Modelllaufs.",
-      "Actual Folio UI. Fictional example with prepared assessments, not evidence of a new model run.",
-    );
-    q(".case-bottom span").textContent = t(
-      "Im Bild scrollen · zum Vergrößern anklicken",
-      "Scroll the image · click to enlarge",
-    );
-    let current = "invoice",
-      step = 0,
-      trigger = null;
-    function renderStep(i) {
-      step = i;
-      const c = cases[current],
-        s = c.steps[step],
-        img = q(".case-image-button img");
-      q(".case-caption").textContent = s.caption;
-      img.src = "/assets/cases/" + s.image;
-      q(".case-image-button source").srcset =
-        "/assets/cases/" + s.image.replace(".png", "-mobile.png");
-      img.alt =
-        c.label +
-        " · " +
-        s.label +
-        t(
-          " · echte Oberfläche mit Beispieldaten",
-          " · real UI with fictional data",
-        );
-      q(".case-image-button").dataset.zoom = img.getAttribute("src");
-      q(".case-image-button").dataset.caption = img.alt;
-      q(".case-image-button").setAttribute(
-        "aria-label",
-        t("Aufnahme vergrößern: ", "Enlarge screenshot: ") + s.label,
-      );
-      q(".case-image-scroll").scrollTop = 0;
-      q(".case-image-scroll").classList.toggle(
-        "is-wide",
-        s.image === "calendar-approval.png",
-      );
-      q(".case-steps")
-        .querySelectorAll("button")
-        .forEach((b, n) => b.setAttribute("aria-pressed", String(n === step)));
-      const next = q(".case-next");
-      next.hidden = step === c.steps.length - 1;
-      next.textContent = next.hidden ? "" : c.steps[step + 1].label + " →";
+    let expanded = false;
+    let animation;
+    const originalSrc = img.getAttribute("src");
+    function selectStep(i) {
+      const step = data.steps[i];
+      img.src = "/assets/cases/" + step.image;
+      img.alt = data.label + " · " + step.label;
+      panel.querySelector(".case-caption").textContent = step.caption;
+      panel
+        .querySelectorAll(".case-steps button")
+        .forEach((b, n) => b.setAttribute("aria-pressed", String(i === n)));
     }
-    function renderCase(key) {
-      current = key;
-      const c = cases[key];
-      q("#case-title").textContent = c.title;
-      q(".case-summary").textContent = c.summary;
-      q(".case-facts").replaceChildren(
-        ...c.facts.map((f) => {
-          const li = document.createElement("li");
-          li.textContent = f;
-          return li;
-        }),
-      );
-      q(".case-context").classList.toggle("is-decision", key === "contract");
-      q(".case-nav")
-        .querySelectorAll("button")
-        .forEach((b) =>
-          b.setAttribute("aria-pressed", String(b.dataset.selectCase === key)),
-        );
-      q(".case-steps").replaceChildren(
-        ...c.steps.map((s, i) => {
-          const b = document.createElement("button");
-          b.type = "button";
-          b.textContent = String(i + 1).padStart(2, "0") + " / " + s.label;
-          b.addEventListener("click", () => renderStep(i));
-          return b;
-        }),
-      );
-      renderStep(0);
-    }
-    Object.entries(cases).forEach(([key, c]) => {
+    data.steps.forEach((step, i) => {
       const b = document.createElement("button");
       b.type = "button";
-      b.textContent = c.label;
-      b.dataset.selectCase = key;
-      b.addEventListener("click", () => renderCase(key));
-      q(".case-nav").append(b);
+      b.textContent = step.label;
+      b.addEventListener("click", () => selectStep(i));
+      panel.querySelector(".case-steps").append(b);
     });
-    triggers.forEach((a) =>
-      a.addEventListener("click", (e) => {
-        if (
-          e.ctrlKey ||
-          e.metaKey ||
-          e.shiftKey ||
-          e.altKey ||
-          !dialog.showModal
-        )
-          return;
+    function toggle(next = !expanded) {
+      if (next === expanded) return;
+      if (next && openCase) openCase(false);
+      const from = img.getBoundingClientRect();
+      animation?.cancel();
+      thumb.style.overflow = "visible";
+      expanded = next;
+      card.classList.toggle("is-open", expanded);
+      panel.hidden = !expanded;
+      link.setAttribute("aria-expanded", String(expanded));
+      thumb.setAttribute("aria-hidden", "true");
+      if (expanded) {
+        imageButton.append(img);
+        selectStep(0);
+        openCase = toggle;
+      } else {
+        thumb.append(img);
+        img.src = originalSrc;
+        img.alt = "";
+        openCase = null;
+      }
+      invite.textContent = expanded
+        ? t("Wieder verkleinern ↙", "Return to thumbnail ↙")
+        : t("Fall erkunden ↗", "Explore case ↗");
+      const to = img.getBoundingClientRect();
+      if (!motion.matches && to.width && to.height) {
+        animation = img.animate(
+          [
+            {
+              transformOrigin: "top left",
+              transform: `translate(${from.left - to.left}px, ${from.top - to.top}px) scale(${from.width / to.width}, ${from.height / to.height})`,
+            },
+            { transformOrigin: "top left", transform: "none" },
+          ],
+          { duration: 500, easing: "cubic-bezier(.22,.7,.2,1)" },
+        );
+        animation.onfinish = () => {
+          thumb.style.overflow = "";
+        };
+      } else thumb.style.overflow = "";
+    }
+    link.addEventListener("click", (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      toggle();
+    });
+    link.addEventListener("keydown", (e) => {
+      if (e.key === " ") {
         e.preventDefault();
-        trigger = a;
-        renderCase(a.dataset.case);
-        dialog.showModal();
-        document.body.style.overflow = "hidden";
-      }),
-    );
-    q(".case-close").addEventListener("click", () => dialog.close());
-    q(".case-next").addEventListener("click", () => {
-      renderStep(step + 1);
-      q('.case-steps [aria-pressed="true"]').focus();
-    });
-    dialog.addEventListener("close", () => {
-      document.body.style.overflow = "";
-      trigger?.focus();
-    });
-    dialog.addEventListener("click", (e) => {
-      if (e.target === dialog) {
-        const r = dialog.getBoundingClientRect();
-        if (
-          e.clientX < r.left ||
-          e.clientX > r.right ||
-          e.clientY < r.top ||
-          e.clientY > r.bottom
-        )
-          dialog.close();
+        toggle();
       }
     });
-  }
+    imageButton.addEventListener("click", () => {
+      toggle(false);
+      link.focus({ preventScroll: true });
+    });
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && expanded) {
+        toggle(false);
+        link.focus({ preventScroll: true });
+      }
+    });
+  });
   document.querySelectorAll("[data-evidence-switch]").forEach((group) => {
     group.querySelectorAll("[data-evidence]").forEach((button) =>
       button.addEventListener("click", () => {

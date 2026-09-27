@@ -1,4 +1,4 @@
-/* Shared navigation and native image viewer. No external services. */
+/* Shared navigation and inline image expansion. No external services. */
 (() => {
   "use strict";
   const en = document.documentElement.lang === "en";
@@ -67,52 +67,39 @@
         );
     }),
   );
-  const lightbox = document.getElementById("lightbox"),
-    image = document.getElementById("lightbox-image"),
-    zoom = document.getElementById("toggle-zoom");
-  let trigger = null;
-  const original = en ? "Original size" : "Originalgröße",
-    fit = en ? "Fit image" : "Einpassen";
-  document.addEventListener("click", (event) => {
-    const b = event.target.closest("[data-zoom]");
-    if (!b) return;
-    trigger = b;
-    image.src = b.querySelector("picture img")?.currentSrc || b.dataset.zoom;
-    image.alt = b.querySelector("img")?.alt || "";
-    document.getElementById("lightbox-caption").textContent = b.dataset.caption;
-    lightbox.classList.remove("is-zoomed");
-    zoom.textContent = original;
-    zoom.setAttribute("aria-pressed", "false");
-    lightbox.showModal();
-    document.body.style.overflow = "hidden";
-  });
-  zoom.addEventListener("click", () => {
-    const on = lightbox.classList.toggle("is-zoomed");
-    zoom.textContent = on ? fit : original;
-    zoom.setAttribute("aria-pressed", String(on));
-  });
-  document
-    .querySelectorAll("[data-close]")
-    .forEach((b) =>
-      b.addEventListener("click", () =>
-        document.getElementById(b.dataset.close).close(),
-      ),
-    );
-  lightbox.addEventListener("close", () => {
-    document.body.style.overflow = document.querySelector("dialog[open]")
-      ? "hidden"
-      : "";
-    trigger?.focus();
-  });
-  lightbox.addEventListener("click", (e) => {
-    if (e.target !== lightbox) return;
-    const r = lightbox.getBoundingClientRect();
-    if (
-      e.clientX < r.left ||
-      e.clientX > r.right ||
-      e.clientY < r.top ||
-      e.clientY > r.bottom
-    )
-      lightbox.close();
+  document.querySelectorAll(".shot[data-zoom]").forEach((button) => {
+    const image = button.querySelector("img");
+    const frame = button.closest("figure");
+    if (!image || !frame) return;
+    let expanded = false;
+    button.setAttribute("aria-expanded", "false");
+    button.addEventListener("click", () => {
+      const from = image.getBoundingClientRect();
+      expanded = !expanded;
+      frame.classList.toggle("image-expanded", expanded);
+      button.setAttribute("aria-expanded", String(expanded));
+      const icon = button.querySelector(".enlarge");
+      if (icon) icon.textContent = expanded ? "↙" : "↗";
+      const to = image.getBoundingClientRect();
+      if (
+        !matchMedia("(prefers-reduced-motion: reduce)").matches &&
+        to.width &&
+        to.height
+      ) {
+        image.animate(
+          [
+            {
+              transformOrigin: "top left",
+              transform: `translate(${from.left - to.left}px,${from.top - to.top}px) scale(${from.width / to.width},${from.height / to.height})`,
+            },
+            { transformOrigin: "top left", transform: "none" },
+          ],
+          { duration: 500, easing: "cubic-bezier(.22,.7,.2,1)" },
+        );
+      }
+    });
+    button.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && expanded) button.click();
+    });
   });
 })();

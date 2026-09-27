@@ -214,9 +214,9 @@ for frame in range(1,74,2):
         assert knee.y < min(hip.y,ankle.y)-.12, 'Knee bends behind the stance'
         assert 85 < flexion < 150, 'Knee too straight or too tightly folded'
         metrics.append({'frame':frame,'side':side,'knee_angle':round(flexion,2),'hip':list(hip),'knee':list(knee),'ankle':list(ankle)})
-        # Leading arm is lower and softly bent; trailing arm opens farther for balance.
-        hand=Vector((.50,-.15,.90)) if sign==1 else Vector((-.61,-.015,1.025))
-        shoulder,elbow,_,forearm=limb(side,'upperarm','lowerarm','wrist',hand,Vector((sign*.7,.07,.82 if sign==1 else .95)))
+        # Leading arm reaches ahead; trailing arm stays lower and bent for balance.
+        hand=Vector((.61,-.015,1.025)) if sign==1 else Vector((-.50,-.15,.90))
+        shoulder,elbow,_,forearm=limb(side,'upperarm','lowerarm','wrist',hand,Vector((sign*.7,.07,.95 if sign==1 else .82)))
         # Continue the forearm with a relaxed wrist, rather than a bent-back palm.
         bone_pose('wrist.'+side,forearm)
     # Flex fingers around the world-space knuckle axis; left and right are mirrored.

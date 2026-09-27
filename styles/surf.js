@@ -459,7 +459,7 @@ const rider = new THREE.Group();
 rider.position.y = 0.61;
 rig.add(rider);
 const riderMaterials = [];
-const characterRevision = "32c3c15b75fc";
+const characterRevision = "01951df5a429";
 let characterMixer,
   characterHead,
   characterReady = false;

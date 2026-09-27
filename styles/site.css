@@ -2287,3 +2287,132 @@ body.legacy-layout .spec-wrap {
     padding: 0 16px 20px;
   }
 }
+
+/* Screenshots stay in their frame instead of opening a modal. */
+article.case-card {
+  display: block;
+}
+.case-trigger {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 78px;
+  gap: 15px;
+  color: inherit;
+  text-decoration: none;
+}
+.case-card.is-open {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(180px, 0.6fr) minmax(0, 1.4fr);
+  gap: 28px;
+  align-items: start;
+}
+.case-card.is-open .case-trigger {
+  grid-template-columns: 1fr;
+  position: sticky;
+  top: 100px;
+}
+.case-card.is-open .case-thumb {
+  display: none;
+}
+.case-card .case-inline {
+  display: block;
+  min-width: 0;
+}
+.case-inline[hidden] {
+  display: none;
+}
+.case-inline-image {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 1px solid var(--line);
+  background: white;
+  border-radius: 9px;
+  cursor: zoom-out;
+}
+.case-inline-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: min(76vh, 850px);
+  object-fit: contain;
+  object-position: top;
+}
+.case-inline .case-steps {
+  margin-bottom: 12px;
+}
+.case-inline .case-caption {
+  margin-top: 14px;
+}
+.case-inline .case-provenance {
+  margin-top: 8px;
+}
+.case-trigger:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 6px;
+  border-radius: 6px;
+}
+.screenshot.image-expanded {
+  grid-column: 1 / -1;
+  width: 100%;
+  max-width: none;
+}
+.memory:has(.image-expanded) {
+  grid-template-columns: 1fr;
+}
+.image-expanded .shot {
+  max-width: none;
+  cursor: zoom-out;
+  max-height: none;
+}
+.image-expanded .shot img {
+  max-height: none;
+  object-fit: contain;
+}
+.shot {
+  cursor: zoom-in;
+}
+.local-runtime {
+  margin: 24px 0;
+  padding: 20px 24px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--pale);
+  color: var(--soft);
+  font-size: 14px;
+  line-height: 1.65;
+}
+.local-runtime strong {
+  color: var(--ink);
+}
+.local-runtime p + p {
+  margin-top: 8px;
+}
+.local-runtime a {
+  color: var(--blue);
+}
+@media (max-width: 760px) {
+  .case-trigger {
+    grid-template-columns: minmax(0, 1fr) 65px;
+  }
+  .case-card.is-open {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .case-card.is-open .case-trigger {
+    position: static;
+  }
+  .local-runtime {
+    padding: 16px;
+  }
+}
+
+.image-expanded .shot {
+  overflow: auto;
+  max-height: 78vh;
+  overscroll-behavior: contain;
+}
+.image-expanded .shot img {
+  width: max(100%, 1200px);
+  max-width: none;
+}

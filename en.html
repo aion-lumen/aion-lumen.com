@@ -24,7 +24,7 @@
     />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" />
-    <link rel="stylesheet" href="/styles/site.css" />
+    <link rel="stylesheet" href="/styles/site.css?v=27ede5633274" />
     <link rel="stylesheet" href="/styles/surf.css" />
     <link rel="stylesheet" href="/styles/journey.css" />
   </head>
@@ -221,7 +221,6 @@
               class="flow-item case-card"
               href="/assets/cases/invoice.png"
               data-case="invoice"
-              aria-haspopup="dialog"
             >
               <span class="case-copy"
                 ><small>Annual statement · Electricity</small
@@ -244,7 +243,6 @@
               class="flow-item case-card"
               href="/assets/cases/appointment.png"
               data-case="appointment"
-              aria-haspopup="dialog"
             >
               <span class="case-copy"
                 ><small>Confirmation · Maintenance</small
@@ -267,7 +265,6 @@
               class="flow-item case-card decision"
               href="/assets/cases/contract.png"
               data-case="contract"
-              aria-haspopup="dialog"
             >
               <span class="case-copy"
                 ><small>Renewal · Mobile plan</small
@@ -291,6 +288,22 @@
             Select a case to see the real detail panel. Fictional data and
             prepared example assessments.
           </p>
+          <aside class="local-runtime" aria-label="Local model workflow">
+            <p>
+              <strong>Runs on my MacBook with 48 GB of RAM.</strong> Email
+              classification stays on the computer. Models work through a batch
+              of messages one after another; switching models frees memory for
+              the next pass.
+            </p>
+            <p>
+              The email “votes” are these local assessments: GLM-4.7 Flash, Qwen
+              3.6 and Qwen 3.8. H denotes fixed rules; Gemma 4 adds a review
+              when needed.
+              <a href="/multi-agent/en.html#roles"
+                >Model roles and how they were tested →</a
+              >
+            </p>
+          </aside>
           <figure class="screenshot mail-shot">
             <button
               class="shot"
@@ -715,9 +728,9 @@
       </div>
       <div class="lightbox-scroll"><img id="lightbox-image" alt="" /></div>
     </dialog>
-    <script type="module" src="/styles/surf.js?v=5b46035a7d26"></script>
+    <script type="module" src="/styles/surf.js?v=e7a1704c5af7"></script>
     <script src="/styles/journey.js"></script>
-    <script src="/styles/site.js"></script>
-    <script src="/styles/cases.js"></script>
+    <script src="/styles/site.js?v=620a9968138d"></script>
+    <script src="/styles/cases.js?v=a034ef6a219a"></script>
   </body>
 </html>

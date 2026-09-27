@@ -28,7 +28,7 @@
     />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" />
-    <link rel="stylesheet" href="/styles/site.css" />
+    <link rel="stylesheet" href="/styles/site.css?v=27ede5633274" />
   </head>
   <body class="">
     <script>
@@ -115,7 +115,6 @@
             class="flow-item case-card"
             href="/assets/cases/invoice.png"
             data-case="invoice"
-            aria-haspopup="dialog"
           >
             <span class="case-copy"
               ><small>Jahresabrechnung · Strom</small
@@ -138,7 +137,6 @@
             class="flow-item case-card"
             href="/assets/cases/appointment.png"
             data-case="appointment"
-            aria-haspopup="dialog"
           >
             <span class="case-copy"
               ><small>Terminbestätigung · Wartung</small
@@ -161,7 +159,6 @@
             class="flow-item case-card decision"
             href="/assets/cases/contract.png"
             data-case="contract"
-            aria-haspopup="dialog"
           >
             <span class="case-copy"
               ><small>Vertragsverlängerung · Mobilfunk</small
@@ -203,6 +200,20 @@
             Bilder vergrößerbar
           </figcaption>
         </figure>
+        <aside class="local-runtime" aria-label="Lokale Modellbewertung">
+          <p>
+            <strong>Läuft auf meinem MacBook mit 48 GB RAM.</strong> Die
+            Mailbewertung bleibt auf dem Rechner. Die Modelle bearbeiten einen
+            Stapel Nachrichten nacheinander; beim Modellwechsel wird Speicher
+            für den nächsten Durchlauf frei.
+          </p>
+          <p>
+            Die „Stimmen“ einer Mail sind diese lokalen Bewertungen: GLM-4.7
+            Flash, Qwen 3.6 und Qwen 3.8. H steht für feste Regeln; Gemma 4
+            prüft bei Bedarf zusätzlich.
+            <a href="/multi-agent/#roles">Modellrollen und ihre Erprobung →</a>
+          </p>
+        </aside>
         <div class="takeaways">
           <div>
             <span class="number">01</span>
@@ -491,7 +502,7 @@
       </div>
       <div class="lightbox-scroll"><img id="lightbox-image" alt="" /></div>
     </dialog>
-    <script src="/styles/site.js"></script>
-    <script src="/styles/cases.js"></script>
+    <script src="/styles/site.js?v=620a9968138d"></script>
+    <script src="/styles/cases.js?v=a034ef6a219a"></script>
   </body>
 </html>

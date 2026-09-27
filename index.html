@@ -24,7 +24,7 @@
     />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" />
-    <link rel="stylesheet" href="/styles/site.css" />
+    <link rel="stylesheet" href="/styles/site.css?v=27ede5633274" />
     <link rel="stylesheet" href="/styles/surf.css" />
     <link rel="stylesheet" href="/styles/journey.css" />
   </head>
@@ -231,7 +231,6 @@
               class="flow-item case-card"
               href="/assets/cases/invoice.png"
               data-case="invoice"
-              aria-haspopup="dialog"
             >
               <span class="case-copy"
                 ><small>Jahresabrechnung · Strom</small
@@ -254,7 +253,6 @@
               class="flow-item case-card"
               href="/assets/cases/appointment.png"
               data-case="appointment"
-              aria-haspopup="dialog"
             >
               <span class="case-copy"
                 ><small>Terminbestätigung · Wartung</small
@@ -277,7 +275,6 @@
               class="flow-item case-card decision"
               href="/assets/cases/contract.png"
               data-case="contract"
-              aria-haspopup="dialog"
             >
               <span class="case-copy"
                 ><small>Vertragsverlängerung · Mobilfunk</small
@@ -301,6 +298,22 @@
             Fall auswählen und das echte Detailpanel ansehen. Erfundenes
             Beispiel mit vorbereiteten Bewertungen.
           </p>
+          <aside class="local-runtime" aria-label="Lokale Modellbewertung">
+            <p>
+              <strong>Läuft auf meinem MacBook mit 48 GB RAM.</strong> Die
+              Mailbewertung bleibt auf dem Rechner. Die Modelle bearbeiten einen
+              Stapel Nachrichten nacheinander; beim Modellwechsel wird Speicher
+              für den nächsten Durchlauf frei.
+            </p>
+            <p>
+              Die „Stimmen“ einer Mail sind diese lokalen Bewertungen: GLM-4.7
+              Flash, Qwen 3.6 und Qwen 3.8. H steht für feste Regeln; Gemma 4
+              prüft bei Bedarf zusätzlich.
+              <a href="/multi-agent/#roles"
+                >Modellrollen und ihre Erprobung →</a
+              >
+            </p>
+          </aside>
           <figure class="screenshot mail-shot">
             <button
               class="shot"
@@ -734,9 +747,9 @@
       </div>
       <div class="lightbox-scroll"><img id="lightbox-image" alt="" /></div>
     </dialog>
-    <script type="module" src="/styles/surf.js?v=5b46035a7d26"></script>
+    <script type="module" src="/styles/surf.js?v=e7a1704c5af7"></script>
     <script src="/styles/journey.js"></script>
-    <script src="/styles/site.js"></script>
-    <script src="/styles/cases.js"></script>
+    <script src="/styles/site.js?v=620a9968138d"></script>
+    <script src="/styles/cases.js?v=a034ef6a219a"></script>
   </body>
 </html>
