@@ -220,34 +220,49 @@ const breaker = createBreaker(THREE);
 // Keep the breaker fixed; steering is measured against its east-west crest.
 scene.add(breaker.group);
 // A quiet, distant headland gives the open water a sense of place.
-const coastGeometry = new THREE.PlaneGeometry(36, 15, 70, 28);
+// Multi-scale ridges and eroded gullies, generated once at startup.
+const coastHash = (x, z) => {
+  const n = Math.sin(x * 127.1 + z * 311.7) * 43758.5453;
+  return n - Math.floor(n);
+};
+const coastNoise = (x, z) => {
+  const ix = Math.floor(x), iz = Math.floor(z);
+  const fx = x - ix, fz = z - iz;
+  const u = fx * fx * (3 - 2 * fx), v = fz * fz * (3 - 2 * fz);
+  return mix(mix(coastHash(ix, iz), coastHash(ix + 1, iz), u),
+    mix(coastHash(ix, iz + 1), coastHash(ix + 1, iz + 1), u), v);
+};
+const coastGeometry = new THREE.PlaneGeometry(36, 15, 140, 56);
 coastGeometry.rotateX(-Math.PI / 2);
 const coastPositions = coastGeometry.attributes.position;
-const coastColors = [];
 for (let i = 0; i < coastPositions.count; i++) {
-  const x = coastPositions.getX(i),
-    z = coastPositions.getZ(i);
-  const ridge =
-    5.6 * Math.exp(-(((x + 8) / 10) ** 2)) +
+  const x = coastPositions.getX(i), z = coastPositions.getZ(i);
+  const ridge = 5.6 * Math.exp(-(((x + 8) / 10) ** 2)) +
     3.1 * Math.exp(-(((x - 6) / 5.5) ** 2));
   const edge = Math.max(0, 1 - (x / 18) ** 8);
+  const spine = z + (coastNoise(x * 0.28, 4) - 0.5) * 2.8;
   const depth = Math.max(0, 1 - (z / 7.5) ** 2);
-  const height =
-    (ridge + 0.22 * Math.sin(x * 1.7 + z) + 0.12 * Math.cos(z * 3)) *
-    edge *
-    depth;
+  const sharpRidge = Math.pow(Math.max(0, 1 - Math.abs(spine) / 9), 0.7);
+  const crags = (coastNoise(x * 0.65, z * 0.72) - 0.5) * 1.15 +
+    (coastNoise(x * 1.5, z * 1.6) - 0.5) * 0.46 +
+    (coastNoise(x * 3.2, z * 3.4) - 0.5) * 0.18;
+  const gullies = Math.pow(1 - Math.abs(2 * coastNoise(x * 0.9 + z * 0.3, z * 0.23) - 1), 5) * 0.6;
+  const height = Math.max(0, ridge * sharpRidge + crags - gullies) * edge * depth;
   coastPositions.setY(i, height - 0.25);
-  const c = new THREE.Color(
-    height < 0.5 ? "#8c9796" : height < 2 ? "#3f5a67" : "#345564",
-  );
-  c.multiplyScalar(0.92 + 0.08 * Math.sin(x * 1.4 + z * 2));
+}
+coastGeometry.computeVertexNormals();
+const coastColors = [], coastNormals = coastGeometry.attributes.normal;
+for (let i = 0; i < coastPositions.count; i++) {
+  const x = coastPositions.getX(i), z = coastPositions.getZ(i), h = coastPositions.getY(i);
+  const steep = 1 - Math.abs(coastNormals.getY(i));
+  const rock = new THREE.Color("#697786"), vegetation = new THREE.Color("#3e5c58");
+  const c = vegetation.lerp(rock, smooth(0.16, 0.56, steep) * 0.85 + smooth(2.2, 5.8, h) * 0.15);
+  const strata = Math.sin(h * 11 + coastNoise(x * 0.5, z * 0.6) * 3);
+  c.multiplyScalar(0.80 + coastNoise(x * 3, z * 3) * 0.25 + strata * 0.07);
+  if (h < 0.45) c.lerp(new THREE.Color("#9a9991"), 1 - smooth(-0.15, 0.45, h));
   coastColors.push(c.r, c.g, c.b);
 }
-coastGeometry.setAttribute(
-  "color",
-  new THREE.Float32BufferAttribute(coastColors, 3),
-);
-coastGeometry.computeVertexNormals();
+coastGeometry.setAttribute("color", new THREE.Float32BufferAttribute(coastColors, 3));
 const coast = new THREE.Mesh(
   coastGeometry,
   new THREE.MeshStandardMaterial({
@@ -468,7 +483,7 @@ const rider = new THREE.Group();
 rider.position.y = 0.61;
 rig.add(rider);
 const riderMaterials = [];
-const characterRevision = "01951df5a429";
+const characterRevision = "4a6171748ed8";
 let characterMixer,
   characterHead,
   characterReady = false;

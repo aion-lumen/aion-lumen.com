@@ -90,12 +90,23 @@ for old,i in remap.items():
     knee=math.exp(-((abs(v.x)-.153)/.075)**4-((v.z-.50)/.098)**4)*(1-smooth(-.015,.035,v.y))
     c=navyc.lerp(bluec,max(shoulder,sidepanel,outerleg)*.95)
     c=c.lerp(navyc*.58,knee*.65).lerp(skinc,exposed)
+    # Subtle facial colour follows the existing anatomy rather than painted lines.
+    if v.z > 1.51 and v.y < -.105:
+        front=1-smooth(-.14,-.105,v.y)
+        lips=math.exp(-(v.x/.027)**4-((v.z-1.558)/.008)**4)*front
+        c=c.lerp(Vector((.31,.115,.085)),lips*.48)
+        cheeks=math.exp(-((abs(v.x)-.045)/.020)**2-((v.z-1.597)/.020)**2)*front
+        c=c.lerp(Vector((.53,.22,.15)),cheeks*.12)
+        stubble=smooth(1.51,1.53,v.z)*(1-smooth(1.58,1.605,v.z))*front*(1-lips)
+        c=c.lerp(Vector((.16,.105,.075)),stubble*.13)
+        socket=math.exp(-((abs(v.x)-.030)/.021)**2-((v.z-1.630)/.012)**2)*front
+        c*=1-socket*.14
     attr.data[i].color=(*c,1)
 for poly in mesh.polygons:poly.use_smooth=True
 # A single subdivision improves the silhouette; reduce it for the browser.
 bpy.context.view_layer.objects.active=body;body.select_set(True)
 sub=body.modifiers.new('Surface refinement','SUBSURF');sub.levels=1;bpy.ops.object.modifier_apply(modifier=sub.name)
-dec=body.modifiers.new('Web density','DECIMATE');dec.ratio=.43;bpy.ops.object.modifier_apply(modifier=dec.name)
+dec=body.modifiers.new('Web density','DECIMATE');dec.ratio=.62;bpy.ops.object.modifier_apply(modifier=dec.name)
 mod=body.modifiers.new('Anatomical deformation','ARMATURE');mod.object=arm;mod.use_deform_preserve_volume=False
 body.parent=arm;body.select_set(False)
 # Attach small independent surfaces to the anatomical head using the same armature.
@@ -117,7 +128,7 @@ for f in faces:
         if i not in hmap:
             v=coords[i].copy();center=Vector((0,-.022,1.69));n=(v-center).normalized()
             top=max(0,min(1,(v.z-1.65)/.085))
-            loft=.006+.028*top + .012*top*max(0,1-abs(v.x-.025)/.08)
+            loft=.004+.016*top + .009*top*max(0,1-abs(v.x-.025)/.08)
             loft+=.0035*math.sin(v.x*95+v.y*62)*top
             v+=n*loft;hmap[i]=len(hairverts);hairverts.append(v)
         nf.append(hmap[i])
@@ -145,8 +156,16 @@ for k in range(72):
 bpy.ops.object.select_all(action='DESELECT');ho.select_set(True)
 for o in locks:o.select_set(True)
 bpy.context.view_layer.objects.active=ho;bpy.ops.object.join();ho.select_set(False)
+# Strand shading stays in vertex colours: no external textures or extra draw calls.
+haircolors=ho.data.color_attributes.new(name='HairColor',type='FLOAT_COLOR',domain='POINT')
+for i,v in enumerate(ho.data.vertices):
+    strand=.5+.5*math.sin(v.co.x*370+v.co.y*210)
+    highlight=smooth(1.65,1.78,v.co.z)*(.035+.10*strand)
+    base=Vector(hairmat.diffuse_color[:3]);haircolors.data[i].color=(*base.lerp(Vector((.16,.09,.044)),highlight),1)
+hairnode=hairmat.node_tree.nodes.new('ShaderNodeVertexColor');hairnode.layer_name='HairColor'
+hairmat.node_tree.links.new(hairnode.outputs['Color'],hairmat.node_tree.nodes.get('Principled BSDF').inputs['Base Color'])
 # Eyes sit behind the actual modelled lids. The iris is a curved shallow surface.
-white=mat('Eyes · warm white','cabfac',.34);iris=mat('Iris · hazel','463b29',.46);pupil=mat('Pupil','080b0c',.22)
+white=mat('Eyes · warm white','e4dccd',.32);iris=mat('Iris · hazel','58634b',.4);pupil=mat('Pupil','080b0c',.22)
 def sphere(name,loc,scale,material,segments=24):
     bpy.ops.mesh.primitive_uv_sphere_add(segments=segments,ring_count=16,location=loc);o=bpy.context.object;o.name=name;o.scale=scale;bpy.ops.object.transform_apply(location=False,rotation=False,scale=True);o.data.materials.append(material)
     # Armature expects all vertices in its coordinate space.
@@ -156,10 +175,21 @@ for side in ['L','R']:
     sphere('Eye '+side,c,(.0125,.0125,.0125),white)
     sphere('Iris '+side,c+Vector((0,-.0122,0)),(.0054,.0014,.0054),iris)
     sphere('Pupil '+side,c+Vector((0,-.01335,0)),(.0024,.0007,.0024),pupil)
-# Simplified eyebrows follow the brow ridge, not separate joint spheres.
-for sign in [-1,1]:
-    c=joint('eye.'+('L' if sign==1 else 'R')+'____head')
-    sphere('Brow',c+Vector((sign*.002,-.0135,.021)),(.017,.0025,.0038),hairmat)
+# Fit the brows to the actual forehead surface so they never sink into it.
+face_surface=BVHTree.FromPolygons([v.co for v in body.data.vertices],[list(p.vertices) for p in body.data.polygons])
+for side in ['L','R']:
+    c=joint('eye.'+side+'____head')
+    curve=bpy.data.curves.new('Fitted eyebrow '+side,'CURVE');curve.dimensions='3D'
+    curve.bevel_depth=.0015;curve.bevel_resolution=2;curve.resolution_u=3
+    spline=curve.splines.new('BEZIER');spline.bezier_points.add(8)
+    for k,point in enumerate(spline.bezier_points):
+        t=(k-4)/4;x=c.x+t*.0185;z=c.z+.015+.0035*(1-t*t)
+        hit,normal,index,distance=face_surface.ray_cast(Vector((x,-.30,z)),Vector((0,1,0)))
+        point.co=Vector((x,(hit.y if hit is not None else c.y-.016)-.0014,z))
+        point.handle_left_type='AUTO';point.handle_right_type='AUTO';point.radius=.35+.65*(1-t*t)
+    o=bpy.data.objects.new('Brow '+side,curve);bpy.context.collection.objects.link(o)
+    o.data.materials.append(hairmat);bpy.context.view_layer.objects.active=o;o.select_set(True)
+    bpy.ops.object.convert(target='MESH');bind(bpy.context.object);bpy.context.object.select_set(False)
 # Solve each anatomical limb as two rigid segments. Split/twist bones within a
 # thigh or shin must follow the segment; they are not additional knee joints.
 from mathutils import Quaternion
@@ -253,4 +283,12 @@ output=args.output.resolve();output.parent.mkdir(parents=True,exist_ok=True)
 bpy.ops.export_scene.gltf(filepath=str(output),export_format='GLB',use_selection=True,export_animations=True,export_frame_range=True,export_force_sampling=True,export_anim_single_armature=True,export_yup=True,export_apply=False,export_cameras=False,export_lights=False,export_extras=False)
 refresh_preview_assets(output)
 scene.render.filepath=str(P/'evidence/character-preview.png');bpy.ops.render.render(write_still=True)
+# A close view makes facial changes reviewable even when the site uses a wide shot.
+head_transform=arm.pose.bones['head'].matrix @ arm.data.bones['head'].matrix_local.inverted()
+face_center=head_transform @ Vector((0,-.10,1.635))
+face_front=head_transform.to_3x3() @ Vector((.32,-1,.10))
+cam.location=face_center+face_front.normalized()*.8
+cam.rotation_euler=(face_center-cam.location).to_track_quat('-Z','Y').to_euler()
+camdata.ortho_scale=.31
+scene.render.filepath=str(P/'evidence/face-detail.png');bpy.ops.render.render(write_still=True)
 print('EXPORT_READY',output,output.stat().st_size,'body vertices',len(body.data.vertices),'hair',len(ho.data.vertices))
