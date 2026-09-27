@@ -38,7 +38,11 @@ blender --background --factory-startup --python scripts/build-surfer.py -- \
 
 The build directory receives the editable Blender file and a studio preview.
 Only the figure is exported; studio lights, camera and IK controls are omitted.
-Foot-contact constraints are baked into the animation before export.
+Anatomical limbs are solved as two rigid segments. Split/twist bones follow
+their segment instead of acting as extra knee or elbow joints. The build
+checks forward knee flexion and reachable targets at each animation sample;
+fixed ankle poses preserve foot contact. The Blender preview uses the same
+linear skinning as the browser.
 
 ## Dependency
 

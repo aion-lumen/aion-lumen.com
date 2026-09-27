@@ -416,7 +416,7 @@ const guides = new THREE.LineSegments(
   }),
 );
 board.add(guides);
-// Locally modelled and rigged character; its baked animation keeps both feet planted.
+// Anatomical two-segment limbs, baked balance and fixed foot contact.
 const rider = new THREE.Group();
 rider.position.y = 0.61;
 rig.add(rider);
@@ -438,7 +438,7 @@ if (renderer)
       const scale = 2.25 / (bounds.max.y - bounds.min.y);
       model.scale.setScalar(scale);
       model.position.y = -bounds.min.y * scale;
-      model.rotation.y = 1.8;
+      model.rotation.y = 1.35;
       model.traverse((object) => {
         if (object.isBone && object.name === "head") characterHead = object;
         if (!object.isMesh) return;

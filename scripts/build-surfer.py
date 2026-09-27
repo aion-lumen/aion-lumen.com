@@ -17,7 +17,7 @@ for ln in (S/'base.obj').read_text().splitlines():
     if ln.startswith('v '): verts.append(Vector(map(float,ln.split()[1:])))
     elif ln.startswith('g '): group=ln[2:]
     elif ln.startswith('f ') and group=='body': faces.append([int(x.split('/')[0])-1 for x in ln.split()[1:]])
-for name,weight in [('caucasian-male-young.target',1),('universal-male-young-averagemuscle-averageweight.target',.72),('universal-male-young-maxmuscle-averageweight.target',.28)]:
+for name,weight in [('caucasian-male-young.target',.82),('caucasian-male-old.target',.18),('universal-male-young-averagemuscle-averageweight.target',.72),('universal-male-young-maxmuscle-averageweight.target',.28)]:
     for ln in (S/name).read_text().splitlines():
         if not ln.strip() or ln.startswith('#'):continue
         data=ln.split();verts[int(data[0])]+=Vector(map(float,data[1:]))*weight
@@ -69,14 +69,16 @@ for old,i in remap.items():
     shoulder=smooth(.155,.218,abs(v.x))*smooth(1.05,1.25,v.z)
     sidepanel=smooth(.10,.145,abs(v.x))*(1-smooth(.165,.19,abs(v.x)))*smooth(.9,1.0,v.z)*(1-smooth(1.29,1.36,v.z))
     outerleg=smooth(.19,.235,abs(v.x))*(1-smooth(.26,.29,abs(v.x)))*smooth(.19,.3,v.z)*(1-smooth(.78,.9,v.z))
-    c=navyc.lerp(bluec,max(shoulder,sidepanel,outerleg)*.8).lerp(skinc,exposed)
+    knee=math.exp(-((abs(v.x)-.153)/.075)**4-((v.z-.50)/.098)**4)*(1-smooth(-.015,.035,v.y))
+    c=navyc.lerp(bluec,max(shoulder,sidepanel,outerleg)*.95)
+    c=c.lerp(navyc*.58,knee*.65).lerp(skinc,exposed)
     attr.data[i].color=(*c,1)
 for poly in mesh.polygons:poly.use_smooth=True
 # A single subdivision improves the silhouette; reduce it for the browser.
 bpy.context.view_layer.objects.active=body;body.select_set(True)
 sub=body.modifiers.new('Surface refinement','SUBSURF');sub.levels=1;bpy.ops.object.modifier_apply(modifier=sub.name)
 dec=body.modifiers.new('Web density','DECIMATE');dec.ratio=.43;bpy.ops.object.modifier_apply(modifier=dec.name)
-mod=body.modifiers.new('Anatomical deformation','ARMATURE');mod.object=arm;mod.use_deform_preserve_volume=True
+mod=body.modifiers.new('Anatomical deformation','ARMATURE');mod.object=arm;mod.use_deform_preserve_volume=False
 body.parent=arm;body.select_set(False)
 # Attach small independent surfaces to the anatomical head using the same armature.
 def bind(obj,bone='head'):
@@ -96,27 +98,28 @@ for f in faces:
     for i in f:
         if i not in hmap:
             v=coords[i].copy();center=Vector((0,-.022,1.69));n=(v-center).normalized()
-            loft=.005+.011*max(0,min(1,(v.z-1.65)/.10))
-            loft+=.004*math.sin(v.x*160+v.y*90)*max(0,min(1,(v.z-1.65)/.08))
+            top=max(0,min(1,(v.z-1.65)/.085))
+            loft=.006+.028*top + .012*top*max(0,1-abs(v.x-.025)/.08)
+            loft+=.0035*math.sin(v.x*95+v.y*62)*top
             v+=n*loft;hmap[i]=len(hairverts);hairverts.append(v)
         nf.append(hmap[i])
     hairfaces.append(nf)
 hm=bpy.data.meshes.new('Sculpted short hair');hm.from_pydata(hairverts,[],hairfaces);hm.materials.append(hairmat);ho=bpy.data.objects.new('Short swept hair',hm);bpy.context.collection.objects.link(ho)
 bpy.context.view_layer.objects.active=ho;ho.select_set(True);sub=ho.modifiers.new('Hair surface','SUBSURF');sub.levels=1;bpy.ops.object.modifier_apply(modifier=sub.name);ho.select_set(False);bind(ho)
 # Short tapered locks follow the crown; the source scalp remains a continuous base.
-from mathutils.kdtree import KDTree
-scalp=KDTree(len(hairverts))
-for n,v in enumerate(hairverts):scalp.insert((v.x,v.y,0),n)
-scalp.balance()
+from mathutils.bvhtree import BVHTree
+scalp=BVHTree.FromPolygons([v.co for v in ho.data.vertices],[list(p.vertices) for p in ho.data.polygons])
 def surface_z(x,y):
-    near=scalp.find_n((x,y,0),4)
-    return sum(hairverts[i].z/(d+.001) for _,i,d in near)/sum(1/(d+.001) for _,i,d in near)
+    hit,normal,index,distance=scalp.ray_cast(Vector((x,y,2.0)),Vector((0,0,-1)))
+    return hit.z if hit is not None else None
 locks=[]
-for k in range(22):
-    x=-.063+(k%8)*.017; y=-.082+(k//8)*.045
-    curve=bpy.data.curves.new('Swept lock','CURVE');curve.dimensions='3D';curve.bevel_depth=.0028;curve.bevel_resolution=2
+for k in range(72):
+    x=-.071+(k%12)*.012; y=-.092+(k//12)*.023
+    samples=[(x,y),(x+.009,y+.016),(x+.019,y+.032)]
+    if any(surface_z(xx,yy) is None for xx,yy in samples):continue
+    curve=bpy.data.curves.new('Swept lock','CURVE');curve.dimensions='3D';curve.bevel_depth=.0036;curve.bevel_resolution=2
     sp=curve.splines.new('BEZIER');sp.bezier_points.add(2)
-    for point,(xx,yy),radius in zip(sp.bezier_points,[(x,y),(x+.007,y+.018),(x+.014,y+.041)],[.75,1,.05]):
+    for point,(xx,yy),radius in zip(sp.bezier_points,samples,[.40,1,.03]):
         point.co=(xx,yy,surface_z(xx,yy)+.0015);point.handle_left_type='AUTO';point.handle_right_type='AUTO';point.radius=radius
     o=bpy.data.objects.new('Hair lock',curve);bpy.context.collection.objects.link(o);o.data.materials.append(hairmat)
     bpy.ops.object.select_all(action='DESELECT');o.select_set(True);bpy.context.view_layer.objects.active=o;bpy.ops.object.convert(target='MESH');bind(o);o.select_set(False);locks.append(o)
@@ -139,51 +142,83 @@ for side in ['L','R']:
 for sign in [-1,1]:
     c=joint('eye.'+('L' if sign==1 else 'R')+'____head')
     sphere('Brow',c+Vector((sign*.002,-.0135,.021)),(.017,.0025,.0038),hairmat)
-# Pose helpers remain private and are baked before export.
-controls=[]
-def target(name,point):
-    o=bpy.data.objects.new(name,None);bpy.context.collection.objects.link(o);o.location=point;controls.append(o);return o
-feet={}
-for side,sign in [('L',1),('R',-1)]:
-    start=joint('foot.'+side+'____head');foot=target('Foot contact '+side,(sign*.47,-.01,start.z));feet[side]=foot
-    pole=target('Knee direction '+side,(sign*.4,-1.0,.7))
-    con=arm.pose.bones['lowerleg02.'+side].constraints.new('IK');con.target=foot;con.pole_target=pole;con.chain_count=4;con.use_stretch=False
-    # A copy-rotation target preserves flat feet, including toes, while knees flex.
-    rot=target('Foot orientation '+side,start);rot.rotation_euler=arm.data.bones['foot.'+side].matrix_local.to_euler();rot.rotation_euler.z+=sign*.17
-    cr=arm.pose.bones['foot.'+side].constraints.new('COPY_ROTATION');cr.target=rot;cr.target_space='WORLD';cr.owner_space='WORLD'
-# Arm targets are just below shoulder height, with the hands relaxed.
-for side,sign in [('L',1),('R',-1)]:
-    hand=target('Hand balance '+side,(sign*.64,-.10,1.07 if sign==1 else 1.12));pole=target('Elbow direction '+side,(sign*.8,-.22,.66))
-    con=arm.pose.bones['lowerarm02.'+side].constraints.new('IK');con.target=hand;con.pole_target=pole;con.chain_count=4;con.use_stretch=False
-    wrist=arm.data.bones['wrist.'+side]
-    direction=(wrist.tail_local-wrist.head_local).normalized()
-    desired=Vector((sign*.75,-.12,-.4)).normalized()
-    rot=target('Wrist orientation '+side,hand.location)
-    rot.rotation_mode='QUATERNION';rot.rotation_quaternion=direction.rotation_difference(desired)@wrist.matrix_local.to_quaternion()
-    cr=arm.pose.bones['wrist.'+side].constraints.new('COPY_ROTATION');cr.target=rot;cr.target_space='WORLD';cr.owner_space='WORLD'
-# A gentle finger curl removes the spread-palm resting shape.
-for name in arm.pose.bones.keys():
-    if name.startswith('finger') and ('-2.' in name or '-3.' in name):
-        pb=arm.pose.bones[name];pb.rotation_mode='XYZ';pb.rotation_euler.x=.16 if name.endswith('.L') else -.16
-# Continuous loop: root varies by millimetres; fixed IK targets keep feet planted.
+# Solve each anatomical limb as two rigid segments. Split/twist bones within a
+# thigh or shin must follow the segment; they are not additional knee joints.
+from mathutils import Quaternion
 scene=bpy.context.scene;scene.frame_start=1;scene.frame_end=73;scene.render.fps=24
-root=arm.pose.bones['root'];root.rotation_mode='QUATERNION'
-head=arm.pose.bones['head'];head.rotation_mode='QUATERNION'
-for frame,phase in [(1,0),(19,math.pi/2),(37,math.pi),(55,math.pi*1.5),(73,math.pi*2)]:
-    scene.frame_set(frame)
-    # Root's local orientation is not assumed: convert the desired world shift.
-    root.location=arm.data.bones['root'].matrix_local.to_3x3().inverted()@Vector((math.sin(phase)*.008,-.035,-.19+math.cos(phase)*.005))
-    root.keyframe_insert(data_path='location',frame=frame)
-    # Small look toward the leading shoulder; broad body orientation happens in web scene.
-    axis=arm.data.bones['head'].matrix_local.to_3x3().inverted()@Vector((0,0,1))
-    from mathutils import Quaternion
-    head.rotation_quaternion=Quaternion(axis,.32+math.sin(phase)*.015);head.keyframe_insert(data_path='rotation_quaternion',frame=frame)
-scene.frame_set(1)
-# Bake constraints for portable glTF animation; retain all skin joints and no runtime IK cost.
-bpy.ops.object.select_all(action='DESELECT');arm.select_set(True);bpy.context.view_layer.objects.active=arm;bpy.ops.object.mode_set(mode='POSE');bpy.ops.pose.select_all(action='SELECT')
-bpy.ops.nla.bake(frame_start=1,frame_end=73,step=2,only_selected=True,visual_keying=True,clear_constraints=True,use_current_action=True,bake_types={'POSE'})
-bpy.ops.object.mode_set(mode='OBJECT');arm.animation_data.action.name='Quiet balance · feet planted'
-for obj in controls:bpy.data.objects.remove(obj,do_unlink=True)
+for pb in arm.pose.bones:pb.rotation_mode='QUATERNION'
+
+def bone_pose(name, transform):
+    arm.pose.bones[name].matrix=transform @ arm.data.bones[name].matrix_local
+    bpy.context.view_layer.update()
+
+def segment_transform(a,b,c,d):
+    # One rigid rotation/translation, preserving source length and skin volume.
+    rotation=(b-a).rotation_difference(d-c).to_matrix().to_4x4()
+    return Matrix.Translation(c) @ rotation @ Matrix.Translation(-a)
+
+def hinge(a,b,upper,lower,pole):
+    axis=(b-a).normalized();distance=(b-a).length
+    assert abs(upper-lower)+.001 < distance < upper+lower-.001, 'Limb target out of reach'
+    along=(upper*upper-lower*lower+distance*distance)/(2*distance)
+    bend=pole-a; bend=(bend-axis*bend.dot(axis)).normalized()
+    return a+axis*along+bend*math.sqrt(max(0,upper*upper-along*along))
+
+def limb(side,upper,lower,end,target,pole):
+    first=upper+'01.'+side; middle=lower+'01.'+side;last=end+'.'+side
+    a=arm.data.bones[first].head_local.copy();b=arm.data.bones[middle].head_local.copy();c=arm.data.bones[last].head_local.copy()
+    start=arm.pose.bones[first].head.copy()
+    elbow=hinge(start,target,(b-a).length,(c-b).length,pole)
+    top=segment_transform(a,b,start,elbow);bottom=segment_transform(b,c,elbow,target)
+    for name in [upper+'01.'+side,upper+'02.'+side]:bone_pose(name,top)
+    for name in [lower+'01.'+side,lower+'02.'+side]:bone_pose(name,bottom)
+    return start,elbow,target,bottom
+
+metrics=[]
+for frame in range(1,74,2):
+    scene.frame_set(frame);phase=(frame-1)/72*math.tau
+    # Start from rest every sample: fixed soles, soft crouch, chest slightly forward.
+    for pb in arm.pose.bones:pb.matrix_basis=Matrix.Identity(4)
+    root_shift=Vector((.004*math.sin(phase),.082,-.265+.004*math.cos(phase)))
+    bone_pose('root',Matrix.Translation(root_shift))
+    for name,angle in [('spine05',.045),('spine03',.055),('spine01',.015)]:
+        pb=arm.pose.bones[name];pivot=pb.head.copy();current=pb.matrix.copy()
+        pb.matrix=Matrix.Translation(pivot) @ Matrix.Rotation(angle,4,'X') @ Matrix.Translation(-pivot) @ current
+        bpy.context.view_layer.update()
+    for side,sign in [('L',1),('R',-1)]:
+        original_foot=arm.data.bones['foot.'+side].head_local.copy()
+        ankle=Vector((sign*.405,-.025 if sign==1 else .025,original_foot.z))
+        hip,knee,_,_=limb(side,'upperleg','lowerleg','foot',ankle,Vector((sign*.52,-1,.55)))
+        # Feet keep the rest sole height and turn outward a little; toes follow.
+        foot_transform=Matrix.Translation(ankle) @ Matrix.Rotation(sign*.17,4,'Z') @ Matrix.Translation(-original_foot)
+        bone_pose('foot.'+side,foot_transform)
+        flexion=math.degrees((hip-knee).angle(ankle-knee))
+        assert knee.y < min(hip.y,ankle.y)-.12, 'Knee bends behind the stance'
+        assert 85 < flexion < 150, 'Knee too straight or too tightly folded'
+        metrics.append({'frame':frame,'side':side,'knee_angle':round(flexion,2),'hip':list(hip),'knee':list(knee),'ankle':list(ankle)})
+        hand=Vector((sign*(.605 if sign==1 else .57),-.08 if sign==1 else -.17,.925 if sign==1 else .88))
+        shoulder,elbow,_,forearm=limb(side,'upperarm','lowerarm','wrist',hand,Vector((sign*.7,.3,1.0)))
+        # Continue the forearm with a relaxed wrist, rather than a bent-back palm.
+        bone_pose('wrist.'+side,forearm)
+    # Flex fingers around the world-space knuckle axis; left and right are mirrored.
+    for side,sign in [('L',1),('R',-1)]:
+        for name in arm.pose.bones.keys():
+            if not name.startswith('finger') or not name.endswith('.'+side):continue
+            if '-2.' not in name and '-3.' not in name:continue
+            pb=arm.pose.bones[name];axis=arm.data.bones[name].matrix_local.to_3x3().inverted() @ Vector((1,0,0))
+            pb.rotation_quaternion=Quaternion(axis,.15 if '-2.' in name else .10)
+    bpy.context.view_layer.update()
+    # A small distributed turn through the neck keeps the head seated naturally.
+    for name,angle in [('neck01',.10),('neck02',.08),('neck03',.06),('head',.10+.01*math.sin(phase))]:
+        pb=arm.pose.bones[name];axis=pb.matrix.to_3x3().inverted()@Vector((0,0,1))
+        pb.rotation_quaternion=Quaternion(axis,angle);bpy.context.view_layer.update()
+    for pb in arm.pose.bones:
+        pb.keyframe_insert(data_path='location',frame=frame)
+        pb.keyframe_insert(data_path='rotation_quaternion',frame=frame)
+        pb.keyframe_insert(data_path='scale',frame=frame)
+arm.animation_data.action.name='Balanced surf stance · anatomical knees'
+(P/'evidence/pose-metrics.json').write_text(json.dumps(metrics,indent=2))
+
 # A neutral blue studio preview for inspecting anatomy and foot contact.
 scene.world.color=(.25,.32,.4)
 def area(name,loc,power,size):
