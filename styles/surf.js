@@ -1,6 +1,7 @@
 import * as THREE from "../assets/surf/three.module.min.js";
 import { createBreaker } from "./surf-wave.js";
 import { GLTFLoader } from "../assets/surf/GLTFLoader.js";
+import { advanceHeading } from "./surf-steering.mjs";
 
 const root = document.querySelector(".surf-story");
 const en = document.documentElement.lang === "en";
@@ -20,6 +21,7 @@ let progress = 0,
   time = 0,
   last = performance.now(),
   frame = 0;
+let heading = 0;
 const mouse = new THREE.Vector2(),
   aim = new THREE.Vector2();
 const clamp = THREE.MathUtils.clamp;
@@ -133,7 +135,7 @@ stage.addEventListener(
     if (e.pointerType !== "mouse" || reduced || paused) return;
     const r = stage.getBoundingClientRect();
     mouse.set(
-      clamp((e.clientX / r.width - 0.5) * 2, -1, 1),
+      clamp(((e.clientX - r.left) / r.width - 0.5) * 2, -1, 1),
       clamp(((e.clientY - r.top) / r.height - 0.5) * 2, -1, 1),
     );
   },
@@ -683,6 +685,7 @@ function draw(now) {
   waterUniforms.uTime.value = time;
   breaker.update(time);
   const steering = aim.x * 0.75 * (1 - z);
+  heading = advanceHeading(heading, aim.x, dt, z, !paused && !reduced);
   rig.position.set(
     2.7 + Math.sin(time * 0.24) * 0.2 + steering * 0.8,
     0,
@@ -697,7 +700,7 @@ function draw(now) {
       0.22,
     ) *
       (1 - z * 0.8),
-    -0.42 - aim.x * 0.22 * (1 - z),
+    -0.42 + heading * (1 - z),
     Math.sin(time * 0.9) * 0.035 + aim.x * 0.075 * (1 - z),
   );
   // Keep the whole hull above the curved surface, including during the reveal.
@@ -849,6 +852,7 @@ function draw(now) {
     board: rig.position.toArray(),
     boardScreen: rig.position.clone().project(camera).toArray(),
     mouse: aim.toArray(),
+    headingDegrees: THREE.MathUtils.radToDeg(heading * (1 - z)),
   };
   if (
     (!paused && !reduced) ||
