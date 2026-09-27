@@ -214,6 +214,44 @@ ocean.position.z = -24;
 scene.add(ocean);
 const breaker = createBreaker(THREE);
 scene.add(breaker.group);
+// A quiet, distant headland gives the open water a sense of place.
+const coastGeometry = new THREE.PlaneGeometry(36, 15, 70, 28);
+coastGeometry.rotateX(-Math.PI / 2);
+const coastPositions = coastGeometry.attributes.position;
+const coastColors = [];
+for (let i = 0; i < coastPositions.count; i++) {
+  const x = coastPositions.getX(i),
+    z = coastPositions.getZ(i);
+  const ridge =
+    5.6 * Math.exp(-(((x + 8) / 10) ** 2)) +
+    3.1 * Math.exp(-(((x - 6) / 5.5) ** 2));
+  const edge = Math.max(0, 1 - (x / 18) ** 8);
+  const depth = Math.max(0, 1 - (z / 7.5) ** 2);
+  const height =
+    (ridge + 0.22 * Math.sin(x * 1.7 + z) + 0.12 * Math.cos(z * 3)) *
+    edge *
+    depth;
+  coastPositions.setY(i, height - 0.25);
+  const c = new THREE.Color(
+    height < 0.5 ? "#8c9796" : height < 2 ? "#3f5a67" : "#345564",
+  );
+  c.multiplyScalar(0.92 + 0.08 * Math.sin(x * 1.4 + z * 2));
+  coastColors.push(c.r, c.g, c.b);
+}
+coastGeometry.setAttribute(
+  "color",
+  new THREE.Float32BufferAttribute(coastColors, 3),
+);
+coastGeometry.computeVertexNormals();
+const coast = new THREE.Mesh(
+  coastGeometry,
+  new THREE.MeshStandardMaterial({
+    vertexColors: true,
+    roughness: 1,
+  }),
+);
+coast.position.set(-19, 0, -33);
+scene.add(coast);
 // Match the shader's world-local surface so the board follows the water.
 const heightAt = (x, z, t) =>
   0.7 * Math.sin(z * 0.54 + x * 0.1 - t * 0.68) +
@@ -421,7 +459,7 @@ const rider = new THREE.Group();
 rider.position.y = 0.61;
 rig.add(rider);
 const riderMaterials = [];
-const characterRevision = "4d399503d2dc";
+const characterRevision = "32c3c15b75fc";
 let characterMixer,
   characterHead,
   characterReady = false;
@@ -440,7 +478,7 @@ if (renderer)
       const scale = 2.25 / (bounds.max.y - bounds.min.y);
       model.scale.setScalar(scale);
       model.position.y = -bounds.min.y * scale;
-      model.rotation.y = 1.35;
+      model.rotation.y = 1.55;
       model.traverse((object) => {
         if (object.isBone && object.name === "head") characterHead = object;
         if (!object.isMesh) return;
@@ -506,7 +544,7 @@ for (const [x, y, z, s] of [
 }
 function gull() {
   const g = new THREE.Group();
-  const feather = material("#f9fcff", { roughness: 0.8 });
+  const feather = material("#dce5ed", { roughness: 0.8 });
   ellipsoid(g, [0.085, 0.075, 0.23], [0, 0, 0], feather);
   ellipsoid(g, [0.064, 0.065, 0.07], [0, 0.037, 0.22], feather);
   const beak = new THREE.Mesh(
@@ -527,7 +565,7 @@ function gull() {
     const wing = new THREE.Mesh(
       new THREE.ShapeGeometry(ws, 12),
       new THREE.MeshStandardMaterial({
-        color: "#f7fbff",
+        color: "#cedce7",
         side: THREE.DoubleSide,
         roughness: 0.75,
       }),
@@ -535,6 +573,24 @@ function gull() {
     wing.rotation.x = Math.PI / 2;
     wing.scale.x = side;
     pivot.add(wing);
+    // Slate flight feathers keep the bird legible against bright sky and foam.
+    const tipShape = new THREE.Shape();
+    tipShape.moveTo(0.62, 0.155);
+    tipShape.quadraticCurveTo(0.8, 0.15, 0.94, 0.06);
+    tipShape.quadraticCurveTo(0.82, 0.09, 0.66, 0.01);
+    tipShape.closePath();
+    const tip = new THREE.Mesh(
+      new THREE.ShapeGeometry(tipShape, 8),
+      new THREE.MeshStandardMaterial({
+        color: "#243647",
+        side: THREE.DoubleSide,
+        roughness: 0.9,
+      }),
+    );
+    tip.rotation.x = Math.PI / 2;
+    tip.scale.x = side;
+    tip.position.y = 0.004;
+    pivot.add(tip);
     g.add(pivot);
     wings.push(pivot);
   }
@@ -622,11 +678,16 @@ function draw(now) {
     z = state.zoom;
   aim.lerp(
     paused || reduced ? new THREE.Vector2() : mouse,
-    1 - Math.exp(-dt * 3),
+    1 - Math.exp(-dt * 4.2),
   );
   waterUniforms.uTime.value = time;
   breaker.update(time);
-  rig.position.set(2.7 + Math.sin(time * 0.24) * 0.2, 0, z * 1.3);
+  const steering = aim.x * 0.75 * (1 - z);
+  rig.position.set(
+    2.7 + Math.sin(time * 0.24) * 0.2 + steering * 0.8,
+    0,
+    z * 1.3 - steering * 0.6,
+  );
   rig.rotation.set(
     clamp(
       (waterY(rig.position.x, rig.position.z - 0.1, time) -
@@ -636,8 +697,8 @@ function draw(now) {
       0.22,
     ) *
       (1 - z * 0.8),
-    -0.42 + aim.x * 0.12 * (1 - z),
-    Math.sin(time * 0.9) * 0.035 - aim.x * 0.045 * (1 - z),
+    -0.42 - aim.x * 0.22 * (1 - z),
+    Math.sin(time * 0.9) * 0.035 + aim.x * 0.075 * (1 - z),
   );
   // Keep the whole hull above the curved surface, including during the reveal.
   let waterline = -Infinity;
@@ -723,16 +784,15 @@ function draw(now) {
   birds.forEach(({ g, wings }, i) => {
     const t = time * 0.13 + i * 2.3;
     g.position.set(
-      (i ? -3.8 : 3.0) + Math.sin(t) * 1.7,
-      5.3 + i * 0.15 + Math.sin(t * 0.8) * 0.24,
-      -4 - i * 7,
+      (i ? 0.5 : 4.0) + Math.sin(t) * 1.4,
+      (narrow() ? 7.6 : 6.8) + i * 0.7 + Math.sin(t * 0.8) * 0.2,
+      -4 - i * 5,
     );
-    g.rotation.set(0.05, Math.sin(t) * 0.36, 0.08 * Math.cos(t));
-    g.scale.setScalar(i ? 0.85 : 1.0);
+    g.rotation.set(0.16, Math.sin(t) * 0.36, 0.16 * Math.cos(t));
+    g.scale.setScalar(i ? 1.05 : 1.25);
     wings.forEach(
       (w, j) =>
-        (w.rotation.z =
-          (j ? 1 : -1) * (0.08 + Math.sin(time * 1.8 + i) * 0.19)),
+        (w.rotation.z = (j ? 1 : -1) * (0.22 + Math.sin(time * 1.8 + i) * 0.2)),
     );
   });
   if (narrow()) {
@@ -751,7 +811,7 @@ function draw(now) {
     closeTarget.set(0.45, 1.75, 1.3);
   }
   camera.position.copy(startCamera).lerp(closeCamera, z);
-  camera.position.x += aim.x * 0.55 * (1 - z * 0.85);
+  camera.position.x -= aim.x * 0.85 * (1 - z * 0.85);
   camera.position.y += aim.y * 0.24 * (1 - z * 0.85);
   look.copy(startTarget).lerp(closeTarget, z);
   look.y += rig.position.y * 0.25 * z;
@@ -773,6 +833,8 @@ function draw(now) {
     reduced,
     paused,
     birds: birds.length,
+    birdHeights: birds.map(({ g }) => g.position.y),
+    coast: true,
     layers: [shell.position.y, core.position.y, deck.position.y],
     breaker: true,
     character: characterReady
@@ -785,6 +847,7 @@ function draw(now) {
     camera: camera.position.toArray(),
     target: look.toArray(),
     board: rig.position.toArray(),
+    boardScreen: rig.position.clone().project(camera).toArray(),
     mouse: aim.toArray(),
   };
   if (

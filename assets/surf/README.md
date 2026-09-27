@@ -1,14 +1,14 @@
 # Surf scene
 
 The German and English home pages share `styles/surf.js`, `styles/surf-wave.js`
-and `styles/surf.css`. Water, board and birds are built in code. The character
+and `styles/surf.css`. Water, a distant headland, board and birds are built in code. The character
 is a locally served, rigged GLB with a baked balance animation. No external
 model service, film clip or remote texture is requested at runtime.
 
 The three board layers illustrate a principle, not a live model execution:
 sources and knowledge, local models, and tools with defined limits. Native
-scrolling opens and closes the same board. Pointer movement adds a small
-perspective change. Pause, keyboard navigation, a direct content link and a
+scrolling opens and closes the same board. Pointer movement steers the board in the same screen direction and adds a
+restrained perspective change; it fades during the board close-up. Pause, keyboard navigation, a direct content link and a
 reduced-motion alternative are available. Rendering stops when the scene is
 offscreen or the tab is hidden; pixel density is capped.
 

@@ -177,7 +177,7 @@ def segment_transform(a,b,c,d):
 
 def hinge(a,b,upper,lower,pole):
     axis=(b-a).normalized();distance=(b-a).length
-    assert abs(upper-lower)+.001 < distance < upper+lower-.001, 'Limb target out of reach'
+    assert abs(upper-lower)+.001 < distance < upper+lower-.001, f'Limb target out of reach: {distance:.3f}, maximum {upper+lower:.3f}, start {tuple(a)}, target {tuple(b)}'
     along=(upper*upper-lower*lower+distance*distance)/(2*distance)
     bend=pole-a; bend=(bend-axis*bend.dot(axis)).normalized()
     return a+axis*along+bend*math.sqrt(max(0,upper*upper-along*along))
@@ -214,8 +214,9 @@ for frame in range(1,74,2):
         assert knee.y < min(hip.y,ankle.y)-.12, 'Knee bends behind the stance'
         assert 85 < flexion < 150, 'Knee too straight or too tightly folded'
         metrics.append({'frame':frame,'side':side,'knee_angle':round(flexion,2),'hip':list(hip),'knee':list(knee),'ankle':list(ankle)})
-        hand=Vector((sign*(.605 if sign==1 else .57),-.08 if sign==1 else -.17,.925 if sign==1 else .88))
-        shoulder,elbow,_,forearm=limb(side,'upperarm','lowerarm','wrist',hand,Vector((sign*.7,.3,1.0)))
+        # Leading arm is lower and softly bent; trailing arm opens farther for balance.
+        hand=Vector((.50,-.15,.90)) if sign==1 else Vector((-.61,-.015,1.025))
+        shoulder,elbow,_,forearm=limb(side,'upperarm','lowerarm','wrist',hand,Vector((sign*.7,.07,.82 if sign==1 else .95)))
         # Continue the forearm with a relaxed wrist, rather than a bent-back palm.
         bone_pose('wrist.'+side,forearm)
     # Flex fingers around the world-space knuckle axis; left and right are mirrored.
@@ -226,8 +227,8 @@ for frame in range(1,74,2):
             pb=arm.pose.bones[name];axis=arm.data.bones[name].matrix_local.to_3x3().inverted() @ Vector((1,0,0))
             pb.rotation_quaternion=Quaternion(axis,.15 if '-2.' in name else .10)
     bpy.context.view_layer.update()
-    # A small distributed turn through the neck keeps the head seated naturally.
-    for name,angle in [('neck01',.10),('neck02',.08),('neck03',.06),('head',.10+.01*math.sin(phase))]:
+    # Distribute the forward gaze through the neck instead of twisting only the head.
+    for name,angle in [('neck01',.22),('neck02',.20),('neck03',.18),('head',.28+.01*math.sin(phase))]:
         pb=arm.pose.bones[name];axis=pb.matrix.to_3x3().inverted()@Vector((0,0,1))
         pb.rotation_quaternion=Quaternion(axis,angle);bpy.context.view_layer.update()
     for pb in arm.pose.bones:
