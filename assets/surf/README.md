@@ -52,3 +52,8 @@ distributed under the MIT license in `THREE-LICENSE.txt`. They are loaded from
 this site, with no CDN request. Add-on import paths point to these local files.
 The scene requires a WebGL-capable browser for
 animation; the rest of the site does not.
+
+When rebuilding the candidate asset, the build script refreshes both the model
+URL and the home-page scene-script URLs with their content hashes. This prevents
+a browser from mixing a new page with a cached pose. Exports elsewhere leave
+the website unchanged.

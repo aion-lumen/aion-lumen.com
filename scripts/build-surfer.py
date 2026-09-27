@@ -11,6 +11,24 @@ parser.add_argument('--output',type=Path,required=True)
 args=parser.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
 P=args.workdir.resolve();P.mkdir(parents=True,exist_ok=True);(P/'evidence').mkdir(exist_ok=True)
 S=args.sources.resolve()
+
+def refresh_preview_assets(output):
+    """Invalidate the scene and model URLs together after a candidate rebuild."""
+    import hashlib, re
+    repository=Path(__file__).resolve().parents[1]
+    if output != repository/'assets/surf/surfer.glb':return
+    script=repository/'styles/surf.js'
+    revision=hashlib.sha256(output.read_bytes()).hexdigest()[:12]
+    text,count=re.subn(r'const characterRevision = "[a-f0-9]+";',f'const characterRevision = "{revision}";',script.read_text())
+    if count!=1:raise RuntimeError('Expected one characterRevision in surf.js')
+    script.write_text(text)
+    scene_revision=hashlib.sha256(script.read_bytes()).hexdigest()[:12]
+    for name in ['index.html','en.html']:
+        page=repository/name
+        text,count=re.subn(r'src="/styles/surf\.js(?:\?v=[^"]+)?"',f'src="/styles/surf.js?v={scene_revision}"',page.read_text())
+        if count!=1:raise RuntimeError(f'Expected one surf.js reference in {name}')
+        page.write_text(text)
+
 bpy.ops.object.select_all(action='SELECT'); bpy.ops.object.delete(use_global=False)
 verts=[]; faces=[]; group=''
 for ln in (S/'base.obj').read_text().splitlines():
@@ -232,5 +250,6 @@ bpy.ops.object.select_all(action='DESELECT');arm.select_set(True)
 for o in arm.children:o.select_set(True)
 output=args.output.resolve();output.parent.mkdir(parents=True,exist_ok=True)
 bpy.ops.export_scene.gltf(filepath=str(output),export_format='GLB',use_selection=True,export_animations=True,export_frame_range=True,export_force_sampling=True,export_anim_single_armature=True,export_yup=True,export_apply=False,export_cameras=False,export_lights=False,export_extras=False)
+refresh_preview_assets(output)
 scene.render.filepath=str(P/'evidence/character-preview.png');bpy.ops.render.render(write_still=True)
 print('EXPORT_READY',output,output.stat().st_size,'body vertices',len(body.data.vertices),'hair',len(ho.data.vertices))

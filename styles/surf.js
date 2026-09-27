@@ -421,12 +421,14 @@ const rider = new THREE.Group();
 rider.position.y = 0.61;
 rig.add(rider);
 const riderMaterials = [];
+const characterRevision = "4d399503d2dc";
 let characterMixer,
   characterHead,
   characterReady = false;
 if (renderer)
   new GLTFLoader().load(
-    new URL("../assets/surf/surfer.glb", import.meta.url).href,
+    new URL(`../assets/surf/surfer.glb?v=${characterRevision}`, import.meta.url)
+      .href,
     (gltf) => {
       const model = gltf.scene;
       characterMixer = new THREE.AnimationMixer(model);
@@ -454,6 +456,7 @@ if (renderer)
       });
       rider.add(model);
       characterReady = true;
+      root.dataset.characterRevision = characterRevision;
       requestFrame();
     },
     undefined,
@@ -775,6 +778,7 @@ function draw(now) {
     character: characterReady
       ? "rigged-glb"
       : root.dataset.character || "loading",
+    characterRevision: characterReady ? characterRevision : null,
     characterAnimation: characterMixer?.time ?? 0,
     drawCalls: renderer.info.render.calls,
     triangles: renderer.info.render.triangles,
