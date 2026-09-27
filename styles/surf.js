@@ -366,6 +366,14 @@ const fin = new THREE.Mesh(
 fin.rotation.x = Math.PI;
 fin.position.set(0, -0.22, 1.4);
 board.add(fin);
+// Match the highlighted 3D layer to the nearby example without moving the board.
+let selectedLayer = 1;
+root.addEventListener("click", event => {
+  const control = event.target.closest("[data-example-layer]");
+  if (!control) return;
+  selectedLayer = Number(control.dataset.exampleLayer);
+  requestFrame();
+});
 // Three real layers separate vertically; their materials remain solid.
 const inner = new THREE.Group();
 board.add(inner);
@@ -772,9 +780,13 @@ function draw(now) {
     circuitMaterial,
     packetMaterial,
   ].forEach((m) => (m.opacity = reveal));
-  labels.forEach(({ mesh, part }) => {
+  [deck, core, shell].forEach((part, i) => {
+    part.material.emissive.set("#397ab8");
+    part.material.emissiveIntensity = reveal * (i === selectedLayer ? 0.22 : 0);
+  });
+  labels.forEach(({ mesh, part }, i) => {
     mesh.position.y = part.position.y + 0.09;
-    mesh.material.opacity = reveal;
+    mesh.material.opacity = reveal * (i === selectedLayer ? 1 : 0.55);
   });
   packets.forEach((m, i) =>
     m.position.set(

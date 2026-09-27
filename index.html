@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="/styles/site.css?v=d57f461b8304" />
     <link rel="stylesheet" href="/styles/surf.css" />
     <link rel="stylesheet" href="/styles/journey.css" />
+    <link rel="stylesheet" href="/styles/model-layer.css?v=581f8c22a626" />
   </head>
   <body class="home-flow">
     <script>
@@ -111,33 +112,7 @@
           >
             <p class="eyebrow">FOLIO / UNTER DER OBERFLÄCHE</p>
             <h2>Drei Schichten.<br /><em>Ein Werkzeug.</em></h2>
-            <p>
-              Wissen, lokale Modelle und begrenzte Werkzeuge arbeiten zusammen.
-              Du behältst den Überblick.
-            </p>
-            <ol class="steps">
-              <li>
-                <span>01</span>
-                <div>
-                  <strong>Dein Wissen</strong
-                  ><small>Mails, Dokumente, bestätigte Fakten</small>
-                </div>
-              </li>
-              <li>
-                <span>02</span>
-                <div>
-                  <strong>Lokale Modelle</strong
-                  ><small>Einordnen und Vorschläge begründen</small>
-                </div>
-              </li>
-              <li>
-                <span>03</span>
-                <div>
-                  <strong>Regeln &amp; Werkzeuge</strong
-                  ><small>Begrenzte, nachvollziehbare Schritte</small>
-                </div>
-              </li>
-            </ol>
+            <div class="layer-demo layer-demo-hero" data-layer-demo></div>
             <button class="quiet" data-jump="0.91">
               Wieder aufs Ganze schauen <span aria-hidden="true">↗</span>
             </button>
@@ -285,22 +260,7 @@
             >
           </div>
           <p class="example-note">Echte Oberfläche · erfundene Daten und vorbereitete Bewertungen.</p>
-          <aside class="local-runtime" aria-label="Lokale Modellbewertung">
-            <p>
-              <strong>Läuft auf meinem MacBook mit 48 GB RAM.</strong> Die
-              Mailbewertung bleibt auf dem Rechner. Die Modelle bearbeiten einen
-              Stapel Nachrichten nacheinander; beim Modellwechsel wird Speicher
-              für den nächsten Durchlauf frei.
-            </p>
-            <p>
-              Die „Stimmen“ einer Mail sind diese lokalen Bewertungen: GLM-4.7
-              Flash, Qwen 3.6 und Qwen 3.8. H steht für feste Regeln; Gemma 4
-              prüft bei Bedarf zusätzlich.
-              <a href="/multi-agent/#roles"
-                >Modellrollen und ihre Erprobung →</a
-              >
-            </p>
-          </aside>
+          <p class="example-note">Die „Stimmen“ sind Bewertungen lokaler Modelle. <a href="#arbeitsweise">So arbeiten sie im Inneren des Bretts →</a></p>
           <figure class="screenshot mail-shot">
             <button
               class="shot"
@@ -425,7 +385,7 @@
                       REGELN &amp; WERKZEUGE
                     </text>
                   </g>
-                  <g class="board-layer" data-layer="1">
+                  <g class="board-layer is-active" data-layer="1">
                     <path
                       d="M102 221Q124 179 274 165L697 113Q756 128 777 148Q741 198 640 229L245 285Q146 271 102 221Z"
                       fill="url(#core)"
@@ -465,7 +425,7 @@
                       LOKALE KI
                     </text>
                   </g>
-                  <g class="board-layer is-active" data-layer="0">
+                  <g class="board-layer" data-layer="0">
                     <path
                       d="M102 158Q124 116 274 102L697 50Q756 65 777 85Q741 135 640 166L245 222Q146 208 102 158Z"
                       fill="url(#deck)"
@@ -512,48 +472,7 @@
                   Das Prinzip · vereinfacht dargestellt
                 </p>
               </div>
-              <div class="layer-controls">
-                <button
-                  class="layer-button active"
-                  data-select-layer="0"
-                  aria-pressed="true"
-                >
-                  <span>01</span
-                  ><span
-                    ><strong>Dein Wissen</strong
-                    ><small
-                      >Mails, Dokumente und bestätigte Fakten liefern den
-                      Zusammenhang.</small
-                    ></span
-                  ></button
-                ><button
-                  class="layer-button"
-                  data-select-layer="1"
-                  aria-pressed="false"
-                >
-                  <span>02</span
-                  ><span
-                    ><strong>Lokale Modelle</strong
-                    ><small
-                      >KI ordnet ein und macht Vorschläge. Ihre Einschätzung
-                      bleibt nachvollziehbar.</small
-                    ></span
-                  ></button
-                ><button
-                  class="layer-button"
-                  data-select-layer="2"
-                  aria-pressed="false"
-                >
-                  <span>03</span
-                  ><span
-                    ><strong>Begrenzte Werkzeuge</strong
-                    ><small
-                      >Klare Regeln begrenzen Aktionen. Unklare Fälle bleiben
-                      bei dir.</small
-                    ></span
-                  >
-                </button>
-              </div>
+              <div class="layer-demo" data-layer-demo><noscript>Lokale Modelle bewerten Mails auf einem MacBook mit 48 GB RAM. Feste Regeln ergänzen ihre Bewertungen.</noscript></div>
             </div>
             <p class="local-note">
               Mailverarbeitung und Modellbewertung bleiben lokal; optional
@@ -733,9 +652,10 @@
       </div>
       <div class="lightbox-scroll"><img id="lightbox-image" alt="" /></div>
     </dialog>
-    <script type="module" src="/styles/surf.js?v=ad865d60146c"></script>
-    <script src="/styles/cases.js?v=25579f3203d1"></script>
+    <script type="module" src="/styles/surf.js?v=32105ec458a4"></script>
+    <script src="/styles/cases.js?v=c9a1be2f485d"></script>
     <script src="/styles/journey.js"></script>
+    <script src="/styles/model-layer.js?v=daf0388d17bc"></script>
     <script src="/styles/site.js?v=620a9968138d"></script>
   </body>
 </html>

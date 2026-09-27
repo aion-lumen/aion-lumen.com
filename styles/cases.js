@@ -31,14 +31,6 @@
             "The original message remains available alongside its classification.",
           ),
         },
-        {
-          label: t("Modellstimmen", "Assessments"),
-          image: "v0.6.0-preview.2/model-voices.png",
-          caption: t(
-            "Jede Bewertung mit ihrem Modellnamen. Testdaten aus Folio 0.6.0-preview.2.",
-            "Each assessment with its model name. Sample data in Folio 0.6.0-preview.2.",
-          ),
-        },
       ],
     },
     appointment: {
@@ -48,8 +40,8 @@
         "A message becomes a proposal.",
       ),
       summary: t(
-        "Datum, Uhrzeit und Ort stehen in der Mail. Die nächste Ansicht zeigt den vorbereiteten Termin vor der Freigabe.",
-        "The message contains the date, time and place. The next view shows the prepared calendar entry before approval.",
+        "Datum, Uhrzeit und Ort stehen in der Mail. Ein Termin wird erst nach Freigabe angelegt.",
+        "The message contains the date, time and place. An event is created only after approval.",
       ),
       facts: [
         t("30. September · 10–11 Uhr", "30 September · 10–11 a.m."),
@@ -66,14 +58,6 @@
           caption: t(
             "Der Fall bleibt offen, solange die Terminfreigabe fehlt.",
             "The case remains open while calendar approval is pending.",
-          ),
-        },
-        {
-          label: t("Terminfreigabe", "Calendar approval"),
-          image: "calendar-approval.png",
-          caption: t(
-            "Die echte Freigabekomponente. Diese Aufnahme ist nicht bedienbar und legt keinen Termin an.",
-            "The actual approval component. This screenshot cannot be operated and creates no event.",
           ),
         },
       ],
@@ -127,7 +111,7 @@
     panel.id = `case-inline-${index}`;
     panel.hidden = true;
     link.setAttribute("aria-controls", panel.id);
-    panel.innerHTML = `<div class="case-steps"></div><button type="button" class="case-inline-image"></button><p class="case-caption"></p>`;
+    panel.innerHTML = `<button type="button" class="case-inline-image"></button><p class="case-caption"></p>`;
     card.append(panel);
     const imageButton = panel.querySelector(".case-inline-image");
     imageButton.setAttribute(
@@ -142,18 +126,7 @@
       img.src = "/assets/cases/" + step.image;
       img.alt = data.label + " · " + step.label;
       panel.querySelector(".case-caption").textContent = step.caption;
-      panel
-        .querySelectorAll(".case-steps button")
-        .forEach((b, n) => b.setAttribute("aria-pressed", String(i === n)));
     }
-    panel.querySelector(".case-steps").hidden = data.steps.length < 2;
-    data.steps.forEach((step, i) => {
-      const b = document.createElement("button");
-      b.type = "button";
-      b.textContent = step.label;
-      b.addEventListener("click", () => selectStep(i));
-      panel.querySelector(".case-steps").append(b);
-    });
     function toggle(next = !expanded) {
       if (next === expanded) return;
       if (next && openCase) openCase(false);

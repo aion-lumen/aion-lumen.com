@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="/styles/site.css?v=d57f461b8304" />
     <link rel="stylesheet" href="/styles/surf.css" />
     <link rel="stylesheet" href="/styles/journey.css" />
+    <link rel="stylesheet" href="/styles/model-layer.css?v=581f8c22a626" />
   </head>
   <body class="home-flow">
     <script>
@@ -112,33 +113,7 @@
           >
             <p class="eyebrow">FOLIO / UNDER THE SURFACE</p>
             <h2>Three layers.<br /><em>One tool.</em></h2>
-            <p>
-              Knowledge, local models and tools with defined limits work
-              together. You keep the overview.
-            </p>
-            <ol class="steps">
-              <li>
-                <span>01</span>
-                <div>
-                  <strong>Your knowledge</strong
-                  ><small>Mail, documents, confirmed facts</small>
-                </div>
-              </li>
-              <li>
-                <span>02</span>
-                <div>
-                  <strong>Local models</strong
-                  ><small>Classify and explain suggestions</small>
-                </div>
-              </li>
-              <li>
-                <span>03</span>
-                <div>
-                  <strong>Rules &amp; tools</strong
-                  ><small>Limited, traceable steps</small>
-                </div>
-              </li>
-            </ol>
+            <div class="layer-demo layer-demo-hero" data-layer-demo></div>
             <button class="quiet" data-jump="0.91">
               Back to the bigger picture <span aria-hidden="true">↗</span>
             </button>
@@ -275,22 +250,7 @@
             >
           </div>
           <p class="example-note">Actual interface · fictional data and prepared assessments.</p>
-          <aside class="local-runtime" aria-label="Local model workflow">
-            <p>
-              <strong>Runs on my MacBook with 48 GB of RAM.</strong> Email
-              classification stays on the computer. Models work through a batch
-              of messages one after another; switching models frees memory for
-              the next pass.
-            </p>
-            <p>
-              The email “votes” are these local assessments: GLM-4.7 Flash, Qwen
-              3.6 and Qwen 3.8. H denotes fixed rules; Gemma 4 adds a review
-              when needed.
-              <a href="/multi-agent/en.html#roles"
-                >Model roles and how they were tested →</a
-              >
-            </p>
-          </aside>
+          <p class="example-note">The “votes” are assessments from local models. <a href="#arbeitsweise">See how they work inside the board →</a></p>
           <figure class="screenshot mail-shot">
             <button
               class="shot"
@@ -414,7 +374,7 @@
                       RULES &amp; TOOLS
                     </text>
                   </g>
-                  <g class="board-layer" data-layer="1">
+                  <g class="board-layer is-active" data-layer="1">
                     <path
                       d="M102 221Q124 179 274 165L697 113Q756 128 777 148Q741 198 640 229L245 285Q146 271 102 221Z"
                       fill="url(#core)"
@@ -454,7 +414,7 @@
                       LOCAL AI
                     </text>
                   </g>
-                  <g class="board-layer is-active" data-layer="0">
+                  <g class="board-layer" data-layer="0">
                     <path
                       d="M102 158Q124 116 274 102L697 50Q756 65 777 85Q741 135 640 166L245 222Q146 208 102 158Z"
                       fill="url(#deck)"
@@ -501,48 +461,7 @@
                   The principle · simplified illustration
                 </p>
               </div>
-              <div class="layer-controls">
-                <button
-                  class="layer-button active"
-                  data-select-layer="0"
-                  aria-pressed="true"
-                >
-                  <span>01</span
-                  ><span
-                    ><strong>Your knowledge</strong
-                    ><small
-                      >Emails, documents and confirmed facts provide
-                      context.</small
-                    ></span
-                  ></button
-                ><button
-                  class="layer-button"
-                  data-select-layer="1"
-                  aria-pressed="false"
-                >
-                  <span>02</span
-                  ><span
-                    ><strong>Local models</strong
-                    ><small
-                      >AI classifies and proposes. Its assessment stays open to
-                      inspection.</small
-                    ></span
-                  ></button
-                ><button
-                  class="layer-button"
-                  data-select-layer="2"
-                  aria-pressed="false"
-                >
-                  <span>03</span
-                  ><span
-                    ><strong>Bounded tools</strong
-                    ><small
-                      >Clear rules limit actions. Uncertain cases come back to
-                      you.</small
-                    ></span
-                  >
-                </button>
-              </div>
+              <div class="layer-demo" data-layer-demo><noscript>Local models assess emails on a MacBook with 48 GB of RAM. Fixed rules complement their assessments.</noscript></div>
             </div>
             <p class="local-note">
               Email processing and model evaluation remain local; optional
@@ -715,9 +634,10 @@
       </div>
       <div class="lightbox-scroll"><img id="lightbox-image" alt="" /></div>
     </dialog>
-    <script type="module" src="/styles/surf.js?v=ad865d60146c"></script>
-    <script src="/styles/cases.js?v=25579f3203d1"></script>
+    <script type="module" src="/styles/surf.js?v=32105ec458a4"></script>
+    <script src="/styles/cases.js?v=c9a1be2f485d"></script>
     <script src="/styles/journey.js"></script>
+    <script src="/styles/model-layer.js?v=daf0388d17bc"></script>
     <script src="/styles/site.js?v=620a9968138d"></script>
   </body>
 </html>
