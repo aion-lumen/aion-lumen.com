@@ -1,10 +1,8 @@
 import * as THREE from "../assets/surf/three.module.min.js";
 import { createBreaker } from "./surf-wave.js?v=a5789735f8e7";
 import { GLTFLoader } from "../assets/surf/GLTFLoader.js";
-import { advanceHeading, followingTurn } from "./surf-steering.mjs?v=b257488077ab";
+import { advanceHeading, followingTurn, riderYaw } from "./surf-steering.mjs?v=3470dff17019";
 
-const trial = new URLSearchParams(location.search).get("scene");
-const reverseTrial = trial === "reverse-world" || trial === "reverse-view";
 const root = document.querySelector(".surf-story");
 const en = document.documentElement.lang === "en";
 const text = (de, english) => (en ? english : de);
@@ -159,10 +157,8 @@ try {
 }
 
 const scene = new THREE.Scene();
-if (reverseTrial) {
-  scene.rotation.y = Math.PI;
-  scene.position.x = 5.4; // Turn the world around the initial board position.
-}
+scene.rotation.y = Math.PI;
+scene.position.x = 5.4; // World and following camera share the accepted half-turn.
 scene.background = new THREE.Color("#d9edfa");
 scene.fog = new THREE.Fog("#d9edfa", 24, 74);
 const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 170);
@@ -221,10 +217,7 @@ const ocean = new THREE.Mesh(oceanGeometry, oceanMaterial);
 ocean.position.z = -24;
 scene.add(ocean);
 const breaker = createBreaker(THREE);
-// Face the rounded back of the breaker toward the rider. Turn the wave
-// once in world space, then leave it fixed while the rider steers.
-breaker.group.rotation.y = reverseTrial ? 0 : Math.PI;
-breaker.group.position.z = reverseTrial ? 0 : -14;
+// Keep the breaker fixed; steering is measured against its east-west crest.
 scene.add(breaker.group);
 // A quiet, distant headland gives the open water a sense of place.
 const coastGeometry = new THREE.PlaneGeometry(36, 15, 70, 28);
@@ -262,8 +255,9 @@ const coast = new THREE.Mesh(
     roughness: 1,
   }),
 );
-coast.position.set(-19, 0, -33);
-coast.scale.y = reverseTrial ? 1 : 2.1;
+coast.position.set(-35, 0, -5);
+coast.rotation.y = Math.PI / 2;
+coast.scale.y = 1.4;
 scene.add(coast);
 // Match the shader's world-local surface so the board follows the water.
 const heightAt = (x, z, t) =>
@@ -716,7 +710,7 @@ function draw(now) {
       0.22,
     ) *
       (1 - z * 0.8),
-    -0.42 + turn + (reverseTrial ? Math.PI * (1 - z) : 0),
+    riderYaw(heading, z),
     Math.sin(time * 0.9) * 0.035 + aim.x * 0.075 * (1 - z),
   );
   // Keep the whole hull above the curved surface, including during the reveal.
@@ -835,7 +829,7 @@ function draw(now) {
   look.copy(startTarget).lerp(closeTarget, z);
   look.y += rig.position.y * 0.25 * z;
   // The camera follows the rider's heading. World geometry never turns.
-  // Apply the same turn to rider, camera offset and viewing direction.
+  // Keep the camera arc unobstructed; the rider uses wave-parallel end stops.
   const turnWorldPoint = (point) => {
     const x = point.x - rig.position.x;
     const depth = point.z - rig.position.z;
@@ -844,11 +838,9 @@ function draw(now) {
   };
   turnWorldPoint(camera.position);
   turnWorldPoint(look);
-  if (trial === "reverse-view") {
-    for (const point of [camera.position, look]) {
-      point.x = 5.4 - point.x;
-      point.z = -point.z;
-    }
+  for (const point of [camera.position, look]) {
+    point.x = 5.4 - point.x;
+    point.z = -point.z;
   }
   camera.lookAt(look);
   updateCopy(state);

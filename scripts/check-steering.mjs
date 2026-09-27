@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { advanceHeading, followingTurn } from '../styles/surf-steering.mjs';
+import { advanceHeading, followingTurn, riderYaw } from '../styles/surf-steering.mjs';
 
 function run(heading, pointer, seconds, zoom = 0, moving = true) {
   for (let i = 0; i < seconds * 60; i++) {
@@ -25,9 +25,12 @@ assert.ok(Math.abs(left - right - Math.PI) < 1e-10);
 assert.ok(Math.abs(azimuth + left - Math.PI / 2) < 1e-10);
 assert.ok(Math.abs(azimuth + right + Math.PI / 2) < 1e-10);
 assert.equal(followingTurn(1, azimuth, 1), 0);
-// The coast is left of the initial camera bearing: a small left turn
-// must reduce its angular distance from the forward direction.
-const coastBearing = Math.atan2(21.7, 33);
-const smallLeft = followingTurn(0.15, azimuth, 0);
-assert.ok(Math.abs(coastBearing - azimuth - smallLeft) < Math.abs(coastBearing - azimuth));
-console.log('PASS: following-camera direction, coast bearing, 180° bounds and zoom reset');
+// Every travel direction must stay on the open side of the fixed crest.
+for (let i = -90; i <= 90; i++) {
+  const yaw = riderYaw(i * Math.PI / 180, 0);
+  assert.ok(-Math.cos(yaw) >= -1e-10, `heading ${i} points into the wave`);
+}
+assert.ok(Math.abs(Math.cos(riderYaw(Math.PI / 2, 0))) < 1e-10);
+assert.ok(Math.abs(Math.cos(riderYaw(-Math.PI / 2, 0))) < 1e-10);
+assert.equal(riderYaw(0, 1), -0.42);
+console.log('PASS: following camera, 180° bounds, wave-parallel end stops, 181 safe headings, zoom reset');

@@ -18,3 +18,10 @@ export function advanceHeading(heading, pointer, dt, zoom, moving = true) {
 export function followingTurn(heading, initialAzimuth, zoom) {
   return (heading - initialAzimuth * Math.abs(heading) / limit) * (1 - zoom);
 }
+
+// The wave crest runs along X. Local +Z points away from its face.
+// Both end stops therefore run parallel to the crest, never into it.
+export function riderYaw(heading, zoom) {
+  const bounded = Math.max(-limit, Math.min(limit, heading));
+  return (Math.PI + bounded) * (1 - zoom) - 0.42 * zoom;
+}
