@@ -1,5 +1,5 @@
 const limit = Math.PI / 2;
-const speed = 28 * Math.PI / 180;
+const speed = 18 * Math.PI / 180;
 const deadZone = 0.12;
 
 // A 180-degree arc around the starting heading, never a full turn.
