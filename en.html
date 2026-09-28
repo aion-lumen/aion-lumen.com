@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="/styles/surf.css" />
     <link rel="stylesheet" href="/styles/journey.css" />
     <link rel="stylesheet" href="/styles/architecture.css?v=12ef1ac0c1b1" />
+    <link rel="stylesheet" href="/styles/memory-explorer.css?v=1" />
   </head>
   <body class="home-flow">
     <script>
@@ -586,48 +587,23 @@
             </figcaption>
           </figure>
         </section>
-        <section class="memory wrap" id="memory">
-          <div class="memory-copy">
-            <p class="eyebrow">04 / FOLIO’S MEMORY</p>
-            <h2>Keep connections<br />within reach.</h2>
-            <p>
-              An email belongs to a contract. A receipt explains a transaction.
-              Confirmed knowledge stays connected to its sources.
-            </p>
-            <p class="scope">
-              <strong>You can now explore knowledge in space.</strong> The graph
-              is included in v0.6.0-preview.3, with search, filters and sources for each node.
-            </p>
-          </div>
-          <figure class="screenshot">
-            <button
-              class="shot"
-              data-zoom="/assets/cases/v0.6.0-preview.3/memory-graph.png"
-              data-caption="Sample data · Memory graph in v0.6.0-preview.3"
-              aria-label="Enlarge image: Knowledge graph with fictional sources and connections"
-            >
-              <img
-                src="/assets/cases/v0.6.0-preview.3/memory-graph.png"
-                alt="Knowledge graph with fictional sources and connections"
-                loading="lazy"
-              /><span class="enlarge" aria-hidden="true">↗</span>
-            </button>
-            <figcaption>
-              Sample data · Memory graph in v0.6.0-preview.3
-            </figcaption>
-          </figure>
-          <div class="memory-architecture">
-            <p class="eyebrow">FROM SOURCE TO ANSWER</p>
-            <ol class="architecture-flow memory-flow"><li style="--step:0"><span class="flow-number">01</span><strong>Sources</strong><small>Emails · files · Markdown</small></li><li style="--step:1"><span class="flow-number">02</span><strong>Candidates</strong><small>Facts with source evidence</small></li><li style="--step:2"><span class="flow-number">03</span><strong>Review</strong><small>Confirm or correct</small></li><li style="--step:3"><span class="flow-number">04</span><strong>Knowledge core</strong><small>Facts · time · provenance</small></li><li style="--step:4"><span class="flow-number">05</span><strong>Use</strong><small>Search · context · graph</small></li></ol>
-            <div class="memory-layers">
-              <div><span>01</span><strong>Originals are preserved</strong><p>Markdown in the vault, emails and documents as sources. A statement remains traceable to its evidence.</p></div>
-              <div><span>02</span><strong>Confirmed knowledge</strong><p>Folio’s local database records facts, provenance and changes. A candidate is not yet a confirmed fact.</p></div>
-              <div><span>03</span><strong>Views of the knowledge</strong><p>Search and context use the knowledge core. The graph reveals connections; it is a derived view that can be rebuilt.</p></div>
-            </div>
-            <p class="architecture-note">Review is performed by you or through independent review you authorise. The graph shows stored connections; its spatial arrangement does not create new knowledge.</p>
-            <a class="architecture-back" href="#arbeitsweise">↑ Back to the three layers</a>
-          </div>
-        </section>
+        <section class="memory-explorer wrap" id="memory" data-memory-explorer>
+  <header class="me-heading"><div><p class="eyebrow">FOLIO / MEMORY</p><h2>A memory you can explore.</h2></div><p>Follow a fictional electricity contract — from its source to a useful answer.</p></header>
+  <div class="me-frame">
+    <div class="me-tabs" role="tablist" aria-label="Explore memory"><button type="button" role="tab" id="memory-tab-0" aria-controls="memory-panel" aria-selected="true" tabindex="0" data-memory-tab="0"><span>01</span>Build</button><button type="button" role="tab" id="memory-tab-1" aria-controls="memory-panel" aria-selected="false" tabindex="-1" data-memory-tab="1"><span>02</span>Find</button><button type="button" role="tab" id="memory-tab-2" aria-controls="memory-panel" aria-selected="false" tabindex="-1" data-memory-tab="2"><span>03</span>Connect</button><button type="button" role="tab" id="memory-tab-3" aria-controls="memory-panel" aria-selected="false" tabindex="-1" data-memory-tab="3"><span>04</span>Limit</button></div>
+    <div id="memory-panel" class="me-panel" role="tabpanel" aria-labelledby="memory-tab-0">
+      <p class="me-caption" data-memory-caption>A candidate does not automatically become knowledge.</p>
+      <div class="me-workspace">
+        <div class="me-scene" data-memory-scene aria-label="Illustrative memory workflow"></div>
+        <aside class="me-detail" data-memory-detail aria-live="polite"></aside>
+      </div>
+    </div>
+    <div class="me-overlay" data-memory-overlay hidden></div>
+    <footer class="me-tools"><small>Illustration · fictional data</small><div><button type="button" data-memory-evidence>Actual interface ↗</button><button type="button" data-memory-tech>Behind the scenes +</button></div></footer>
+  </div>
+  <noscript><p>The local Memory graph connects confirmed facts and source evidence. JavaScript enables the interactive explanation.</p><img src="/assets/cases/v0.6.0-preview.3/memory-graph.png" alt="Memory graph with sample data" loading="lazy" style="width:100%"/></noscript>
+  <p class="me-release">Graph available in <a href="https://github.com/aion-lumen/folio/releases/tag/v0.6.0-preview.3">v0.6.0-preview.3</a> · local · owner access</p>
+</section>
         <section class="journal" id="blog">
           <div class="wrap journal-inner">
             <div class="journal-index">
@@ -732,5 +708,6 @@
     <script src="/styles/journey.js"></script>
     <script src="/styles/architecture.js?v=8ddf84f3c2e3"></script>
     <script src="/styles/site.js?v=620a9968138d"></script>
+    <script src="/styles/memory-explorer.js?v=1"></script>
   </body>
 </html>

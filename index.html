@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="/styles/surf.css" />
     <link rel="stylesheet" href="/styles/journey.css" />
     <link rel="stylesheet" href="/styles/architecture.css?v=12ef1ac0c1b1" />
+    <link rel="stylesheet" href="/styles/memory-explorer.css?v=1" />
   </head>
   <body class="home-flow">
     <script>
@@ -595,48 +596,23 @@
             </figcaption>
           </figure>
         </section>
-        <section class="memory wrap" id="memory">
-          <div class="memory-copy">
-            <p class="eyebrow">04 / FOLIOS GEDÄCHTNIS</p>
-            <h2>Zusammenhänge<br />bleiben greifbar.</h2>
-            <p>
-              Eine Mail gehört zu einem Vertrag. Ein Beleg erklärt eine Buchung.
-              Bestätigtes Wissen bleibt mit seinen Quellen verbunden.
-            </p>
-            <p class="scope">
-              <strong>Wissen lässt sich jetzt räumlich erkunden.</strong> Der Graph
-              ist Teil von v0.6.0-preview.3 — mit Suche, Filtern und Quellen zu jedem Knoten.
-            </p>
-          </div>
-          <figure class="screenshot">
-            <button
-              class="shot"
-              data-zoom="/assets/cases/v0.6.0-preview.3/memory-graph.png"
-              data-caption="Beispieldaten · Memory-Graph in v0.6.0-preview.3"
-              aria-label="Bild vergrößern: Wissensgraph mit erfundenen Quellen und Verbindungen"
-            >
-              <img
-                src="/assets/cases/v0.6.0-preview.3/memory-graph.png"
-                alt="Wissensgraph mit erfundenen Quellen und Verbindungen"
-                loading="lazy"
-              /><span class="enlarge" aria-hidden="true">↗</span>
-            </button>
-            <figcaption>
-              Beispieldaten · Memory-Graph in v0.6.0-preview.3
-            </figcaption>
-          </figure>
-          <div class="memory-architecture">
-            <p class="eyebrow">VON DER QUELLE BIS ZUR ANTWORT</p>
-            <ol class="architecture-flow memory-flow"><li style="--step:0"><span class="flow-number">01</span><strong>Quellen</strong><small>Mails · Dateien · Markdown</small></li><li style="--step:1"><span class="flow-number">02</span><strong>Vorschläge</strong><small>Fakten mit Belegstellen</small></li><li style="--step:2"><span class="flow-number">03</span><strong>Prüfung</strong><small>Bestätigen oder korrigieren</small></li><li style="--step:3"><span class="flow-number">04</span><strong>Wissenskern</strong><small>Fakten · Zeit · Herkunft</small></li><li style="--step:4"><span class="flow-number">05</span><strong>Nutzung</strong><small>Suche · Kontext · Graph</small></li></ol>
-            <div class="memory-layers">
-              <div><span>01</span><strong>Originale bleiben erhalten</strong><p>Markdown im Vault, Mails und Dokumente als Quellen. Eine Aussage bleibt auf ihren Beleg zurückführbar.</p></div>
-              <div><span>02</span><strong>Bestätigtes Wissen</strong><p>Folios lokale Datenbank hält Fakten, Herkunft und Änderungen fest. Ein Vorschlag ist noch kein bestätigter Fakt.</p></div>
-              <div><span>03</span><strong>Sichten auf das Wissen</strong><p>Suche und Kontext nutzen den Wissenskern. Der Graph macht Beziehungen sichtbar; er ist eine abgeleitete, neu aufbaubare Ansicht.</p></div>
-            </div>
-            <p class="architecture-note">Die Prüfung erfolgt durch dich oder eine von dir freigegebene unabhängige Prüfung. Der Graph zeigt gespeicherte Verbindungen; seine räumliche Anordnung erzeugt kein neues Wissen.</p>
-            <a class="architecture-back" href="#arbeitsweise">↑ Zurück zu den drei Schichten</a>
-          </div>
-        </section>
+        <section class="memory-explorer wrap" id="memory" data-memory-explorer>
+  <header class="me-heading"><div><p class="eyebrow">FOLIO / MEMORY</p><h2>Ein Gedächtnis zum Erkunden.</h2></div><p>Folge einem fiktiven Stromvertrag — von der Quelle bis zur passenden Antwort.</p></header>
+  <div class="me-frame">
+    <div class="me-tabs" role="tablist" aria-label="Gedächtnis erkunden"><button type="button" role="tab" id="memory-tab-0" aria-controls="memory-panel" aria-selected="true" tabindex="0" data-memory-tab="0"><span>01</span>Aufbauen</button><button type="button" role="tab" id="memory-tab-1" aria-controls="memory-panel" aria-selected="false" tabindex="-1" data-memory-tab="1"><span>02</span>Wiederfinden</button><button type="button" role="tab" id="memory-tab-2" aria-controls="memory-panel" aria-selected="false" tabindex="-1" data-memory-tab="2"><span>03</span>Verbinden</button><button type="button" role="tab" id="memory-tab-3" aria-controls="memory-panel" aria-selected="false" tabindex="-1" data-memory-tab="3"><span>04</span>Begrenzen</button></div>
+    <div id="memory-panel" class="me-panel" role="tabpanel" aria-labelledby="memory-tab-0">
+      <p class="me-caption" data-memory-caption>Ein Vorschlag wird nicht automatisch zu Wissen.</p>
+      <div class="me-workspace">
+        <div class="me-scene" data-memory-scene aria-label="Beispielhafter Memory-Ablauf"></div>
+        <aside class="me-detail" data-memory-detail aria-live="polite"></aside>
+      </div>
+    </div>
+    <div class="me-overlay" data-memory-overlay hidden></div>
+    <footer class="me-tools"><small>Veranschaulichung · erfundene Daten</small><div><button type="button" data-memory-evidence>Echte Oberfläche ↗</button><button type="button" data-memory-tech>Technik dahinter +</button></div></footer>
+  </div>
+  <noscript><p>Der lokale Memory-Graph verbindet bestätigte Fakten mit ihren Quellen. Mit JavaScript lässt sich die Erklärung interaktiv erkunden.</p><img src="/assets/cases/v0.6.0-preview.3/memory-graph.png" alt="Memory-Graph mit Beispieldaten" loading="lazy" style="width:100%"/></noscript>
+  <p class="me-release">Graph verfügbar in <a href="https://github.com/aion-lumen/folio/releases/tag/v0.6.0-preview.3">v0.6.0-preview.3</a> · lokal · Owner-Zugang</p>
+</section>
         <section class="journal" id="blog">
           <div class="wrap journal-inner">
             <div class="journal-index">
@@ -749,5 +725,6 @@
     <script src="/styles/journey.js"></script>
     <script src="/styles/architecture.js?v=8ddf84f3c2e3"></script>
     <script src="/styles/site.js?v=620a9968138d"></script>
+    <script src="/styles/memory-explorer.js?v=1"></script>
   </body>
 </html>
