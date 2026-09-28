@@ -17,10 +17,6 @@
       facts: [
         t("48 EUR Guthaben angekündigt", "EUR 48 credit announced"),
         t("62 EUR neuer Monatsabschlag", "EUR 62 new monthly instalment"),
-        t(
-          "Ein Zahlungseingang ist noch nicht belegt.",
-          "Receipt of payment is not yet evidenced.",
-        ),
       ],
       steps: [
         {
@@ -69,16 +65,12 @@
         "New terms. Your decision.",
       ),
       summary: t(
-        "Eine korrekt erkannte Vertragsmail ist noch keine Zustimmung. Der offene Fall hält Preis und Laufzeit zur Prüfung bereit.",
-        "Recognising a contract message does not mean accepting it. The open case presents price and duration for review.",
+        "Preis und Laufzeit liegen zur Prüfung bereit. Du entscheidest über das Angebot.",
+        "Price and duration are ready for review. You decide on the offer.",
       ),
       facts: [
         t("39 statt 29 EUR monatlich", "EUR 39 instead of EUR 29 per month"),
         t("Zwölf Monate ab November", "Twelve months from November"),
-        t(
-          "Keine automatische Verlängerung durch Folio.",
-          "Folio does not automatically renew the contract.",
-        ),
       ],
       steps: [
         {

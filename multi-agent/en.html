@@ -110,16 +110,10 @@
         <aside class="local-runtime">
           <p>
             <strong>One MacBook. 48 GB of RAM. One model at a time.</strong>
-            Each model evaluates a batch before the next model is loaded. This
-            allows multiple assessments without keeping all the models in memory
-            together.
+            Each model evaluates a batch before the next model is loaded.
           </p>
           <p>
-            The mail roles were chosen through task-specific comparisons, human
-            checking, response quality and speed. They are not derived from the
-            separate task test below. The H vote comes from rules; the numbered
-            votes come from the local models, and R is an additional review. Two
-            Qwen versions still share a model family.
+            Selected for response quality, speed and human-checked results. H denotes fixed rules, numbered votes are local models, and R is an additional review.
           </p>
         </aside>
         <div class="role-flow">
@@ -141,14 +135,10 @@
           <div class="role">
             <small>04 / REVIEW</small>
             <h3>Gemma 4 31B</h3>
-            <p>An extra check when assessments disagree, not for every mail.</p>
+            <p>An extra check when assessments disagree.</p>
           </div>
         </div>
-        <p class="fine">
-          These are the configured roles, not a ranking. Fixed rules limit when
-          results can be accepted. Two Qwen models are not two independent model
-          families.
-        </p>
+
       </section>
       <section class="wrap content-section" id="models">
         <div class="section-head">
@@ -157,16 +147,14 @@
             <h2>Twelve models.<br />Different experiments.</h2>
           </div>
           <p>
-            From small, fast candidates to larger models. Experiments cover mail
-            classification, knowledge selection or task interpretation; not
-            every model took every test.
+            Models for mail classification, knowledge selection and task interpretation.
           </p>
         </div>
         <figure class="screenshot">
           <button
             class="shot"
             data-zoom="/multi-agent/img/model-catalog-2026-09.png"
-            data-caption="New presentation capture of the real Folio interface · documented catalog including Muse as an archive candidate · not a new benchmark run"
+            data-caption="Folio model workbench · documented candidates"
             aria-label="Folio model workbench with twelve documented candidates"
           >
             <img
@@ -176,9 +164,7 @@
             /><span class="enlarge" aria-hidden="true">↗</span>
           </button>
           <figcaption>
-            New presentation capture of the real Folio interface · documented
-            catalog including Muse as an archive candidate · not a new benchmark
-            run
+            Folio model workbench · documented candidates
           </figcaption>
         </figure>
         <details class="disclosure">
@@ -290,9 +276,7 @@
             <strong>11/14</strong><span>8.2 s</span>
           </div>
           <p class="bench-note">
-            One reference label was wrong on inspection. With the corrected
-            label, the same answers score 14, 13 and 12. This is a re-scoring,
-            not a new model run.
+            After correcting a reference label: 14, 13 and 12 correct answers. <a href="/multi-agent/tests/en.html">Evaluation and test scope →</a>
           </p>
         </div>
         <div class="takeaways">
@@ -300,9 +284,7 @@
             <span class="number">01</span>
             <h3>Speed matters.</h3>
             <p>
-              Gemma 4 26B was fast and accurate on these short tasks. That makes
-              it interesting for narrow jobs, not automatically a replacement
-              for the whole companion.
+              Gemma 4 26B was fast and accurate on these short tasks.
             </p>
           </div>
           <div>
@@ -316,7 +298,7 @@
           </div>
           <div>
             <span class="number">03</span>
-            <h3>A majority is not enough.</h3>
+            <h3>Check the results.</h3>
             <p>
               Errors can be in the model, prompt or reference answer. Evidence
               and technical failures therefore remain part of the evaluation.

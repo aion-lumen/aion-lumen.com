@@ -110,17 +110,10 @@
             <strong
               >Ein MacBook. 48 GB RAM. Ein Modell nach dem anderen.</strong
             >
-            Jedes Modell bewertet einen Nachrichtenstapel, bevor das nächste
-            geladen wird. So entstehen mehrere Einschätzungen, ohne alle Modelle
-            gleichzeitig im Speicher zu halten.
+            Jedes Modell bewertet einen Nachrichtenstapel, bevor das nächste geladen wird.
           </p>
           <p>
-            Die Mailrollen wurden mit aufgabenspezifischen Vergleichen,
-            menschlicher Gegenprüfung, Antwortqualität und Tempo ausgewählt. Sie
-            leiten sich nicht aus dem separaten Aufgabentest weiter unten ab.
-            Die Stimme H kommt aus Regeln, die nummerierten Stimmen aus lokalen
-            Modellen und R aus einer Zusatzprüfung. Zwei Qwen-Versionen bleiben
-            dabei dieselbe Modellfamilie.
+            Ausgewählt nach Antwortqualität, Tempo und menschlicher Gegenprüfung. H steht für feste Regeln, die nummerierten Stimmen für lokale Modelle und R für eine Zusatzprüfung.
           </p>
         </aside>
         <div class="role-flow">
@@ -142,14 +135,10 @@
           <div class="role">
             <small>04 / REVIEW</small>
             <h3>Gemma 4 31B</h3>
-            <p>Zusätzliche Prüfung bei Uneinigkeit, nicht bei jeder Mail.</p>
+            <p>Zusätzliche Prüfung bei Uneinigkeit.</p>
           </div>
         </div>
-        <p class="fine">
-          Das sind die eingerichteten Rollen, keine Rangliste. Feste Regeln
-          begrenzen die Übernahme von Ergebnissen. Zwei Qwen-Modelle sind zudem
-          keine zwei unabhängigen Modellfamilien.
-        </p>
+
       </section>
       <section class="wrap content-section" id="models">
         <div class="section-head">
@@ -158,16 +147,14 @@
             <h2>Zwölf Modelle.<br />Verschiedene Versuche.</h2>
           </div>
           <p>
-            Von kleinen, schnellen Kandidaten bis zu größeren Modellen. Erprobt
-            wurden Mailklassifikation, Wissensauswahl oder Aufgabenverständnis –
-            nicht jedes Modell in jeder Prüfung.
+            Modelle für Mailklassifikation, Wissensauswahl und Aufgabenverständnis.
           </p>
         </div>
         <figure class="screenshot">
           <button
             class="shot"
             data-zoom="/multi-agent/img/model-catalog-2026-09.png"
-            data-caption="Neue Präsentationsaufnahme der echten Folio-Oberfläche · dokumentierter Katalog einschließlich Muse als Archivkandidat · kein neuer Messlauf"
+            data-caption="Folio-Modellprüfstand · dokumentierte Kandidaten"
             aria-label="Folio-Modellprüfstand mit zwölf dokumentierten Modellkandidaten"
           >
             <img
@@ -177,9 +164,7 @@
             /><span class="enlarge" aria-hidden="true">↗</span>
           </button>
           <figcaption>
-            Neue Präsentationsaufnahme der echten Folio-Oberfläche ·
-            dokumentierter Katalog einschließlich Muse als Archivkandidat · kein
-            neuer Messlauf
+            Folio-Modellprüfstand · dokumentierte Kandidaten
           </figcaption>
         </figure>
         <details class="disclosure">
@@ -291,9 +276,7 @@
             <strong>11/14</strong><span>8.2 s</span>
           </div>
           <p class="bench-note">
-            Bei der fachlichen Nachprüfung war ein Sollwert falsch. Mit dem
-            korrigierten Label ergeben dieselben Antworten 14, 13 und 12
-            Treffer. Das ist eine Neuauswertung, kein neuer Modelllauf.
+            Nach Korrektur eines Sollwerts: 14, 13 und 12 Treffer. <a href="/multi-agent/tests/">Auswertung und Testumfang →</a>
           </p>
         </div>
         <div class="takeaways">
@@ -301,9 +284,7 @@
             <span class="number">01</span>
             <h3>Tempo ist relevant.</h3>
             <p>
-              Gemma 4 26B war bei diesen kurzen Aufgaben schnell und
-              treffsicher. Das macht es interessant für eng begrenzte Aufgaben,
-              nicht automatisch zum Ersatz für den ganzen Begleiter.
+              Gemma 4 26B war bei diesen kurzen Aufgaben schnell und treffsicher.
             </p>
           </div>
           <div>
@@ -317,7 +298,7 @@
           </div>
           <div>
             <span class="number">03</span>
-            <h3>Mehrheit reicht nicht.</h3>
+            <h3>Ergebnisse gegenprüfen.</h3>
             <p>
               Fehler können im Modell, im Prompt oder im Sollwert liegen.
               Deshalb bleiben Belege und technische Fehler Teil der Auswertung.
