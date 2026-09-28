@@ -21,22 +21,50 @@
  denied:{icon:'lock',label:t('Kein Zugriff','No access'),title:t('Hier ist die Grenze.','This is the boundary.'),text:t('Ein Empfänger außerhalb seiner erlaubten Datenbereiche oder Vertraulichkeitsstufe erhält keinen solchen Kontext. Die Grafik zeigt das Prinzip, keinen Live-Sicherheitstest.','A recipient outside its permitted domains or sensitivity level receives no such context. This diagram explains the principle; it is not a live security test.')}
  };
  const modes=[
- {caption:t('Ein Vorschlag wird nicht automatisch zu Wissen.','A candidate does not automatically become knowledge.'),nodes:[['mail',17,24],['file',17,70],['candidate',48,48],['review',80,24,'gold'],['fact',80,70]],edges:[['mail','candidate'],['file','candidate'],['candidate','review'],['review','fact'],['mail','fact','trace']],select:'candidate',note:t('Quelle → Vorschlag → geprüftes Wissen','Source → candidate → reviewed knowledge')},
- {caption:t('Für jede Frage kommt der passende Ausschnitt ins Blickfeld.','Each question brings the relevant knowledge into focus.'),nodes:[['question',16,48],['date',50,28],['amount',50,70],['answer',84,48]],edges:[['question','date'],['question','amount','trace'],['date','answer'],['amount','answer','trace']],select:'date'},
- {caption:t('Zusammenhänge bleiben mit ihren Quellen verbunden.','Connections stay linked to their sources.'),nodes:[['contract',50,46],['mail',20,23],['fact',80,22],['amount',80,72],['date',20,74]],edges:[['contract','mail'],['contract','fact'],['contract','amount'],['contract','date'],['mail','fact','trace']],select:'contract'},
+ {caption:t('Ein Vorschlag wird nicht automatisch zu Wissen.','A candidate does not automatically become knowledge.'),nodes:[['mail',17,24],['file',17,70],['candidate',48,48],['review',80,24,'gold'],['fact',80,70]],edges:[['mail','candidate'],['file','candidate'],['candidate','review'],['review','fact'],['fact','mail','trace']],select:'candidate',note:t('Durchgezogen: Ablauf · Gestrichelt: zurück zum Beleg','Solid: workflow · Dashed: back to evidence')},
+ {caption:t('Für jede Frage kommt der passende Ausschnitt ins Blickfeld.','Each question brings the relevant knowledge into focus.'),nodes:[['question',16,48],['date',50,28],['amount',50,70],['answer',84,48]],edges:[['question','date'],['question','amount'],['date','answer'],['amount','answer']],select:'date'},
+ {caption:t('Zusammenhänge bleiben mit ihren Quellen verbunden.','Connections stay linked to their sources.'),nodes:[['contract',50,46],['mail',20,23],['fact',80,22],['amount',80,72],['date',20,74]],edges:[['contract','mail'],['contract','fact'],['contract','amount'],['contract','date'],['fact','mail','trace']],select:'contract'},
  {caption:t('Nicht jedes Werkzeug darf alles lesen oder verändern.','Not every tool may read or change everything.'),nodes:[['domain',20,28],['tool',50,28],['approval',80,28,'gold'],['denied',35,72,'blocked'],['answer',80,72]],edges:[['domain','tool'],['tool','approval'],['approval','answer'],['domain','denied','blocked']],select:'domain'}
  ];
  document.querySelectorAll('[data-memory-explorer]').forEach(root=>{
   const scene=root.querySelector('[data-memory-scene]'),detail=root.querySelector('[data-memory-detail]'),panel=root.querySelector('.me-panel'),tabs=[...root.querySelectorAll('[data-memory-tab]')],overlay=root.querySelector('[data-memory-overlay]');
   let mode=0,selected='candidate',angle=0,query='date',lastTrigger;
-  function point(n){if(mode!==2||n[0]==='contract')return[n[1],n[2]];const x=n[1]-50,y=n[2]-47,c=Math.cos(angle),s=Math.sin(angle);return[50+x*c-y*s*.75,47+x*s*.7+y*c];}
+  function point(n){if(mode!==2||n[0]==='contract')return[n[1],n[2]];const x=n[1]-50,y=n[2]-47,c=Math.cos(angle),s=Math.sin(angle);return[Math.max(18,Math.min(82,50+x*c-y*s*.75)),Math.max(25,Math.min(74,47+x*s*.7+y*c))];}
   function showDetail(id){selected=id;const n=nodeData[id];scene.querySelectorAll('[data-node]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.node===id)));detail.innerHTML=`<div class="me-kicker">${escape(n.label)}</div><h3>${escape(n.title)}</h3><p>${escape(n.text)}</p>${n.quote?`<div class="me-mini-source">${escape(n.quote)}</div>`:''}${n.meta?`<dl>${n.meta.map(([k,v])=>`<div><dt>${escape(k)}</dt><dd>${escape(v)}</dd></div>`).join('')}</dl>`:''}`;detail.scrollTop=0;}
+  // Use actual icon bounds, so arrowheads remain outside icons at every breakpoint.
+  function drawConnections(){
+   const svg=scene.querySelector('.me-wires');if(!svg)return;
+   const width=scene.clientWidth,height=scene.clientHeight;
+   const bounds=Object.fromEntries([...scene.querySelectorAll('[data-node]')].map(button=>{
+    const icon=button.querySelector('.me-symbol');
+    return[button.dataset.node,{x:button.offsetLeft-button.offsetWidth/2+icon.offsetLeft+icon.offsetWidth/2,y:button.offsetTop-button.offsetHeight/2+icon.offsetTop+icon.offsetHeight/2,r:icon.offsetWidth/2+7}];
+   }));
+   svg.setAttribute('viewBox',`0 0 ${width} ${height}`);
+   const markerId=`${root.id}-direction`;
+   const marker=(id,kind)=>`<marker id="${id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="me-arrow ${kind}" d="M1 1 9 5 1 9Z"/></marker>`;
+   svg.innerHTML=`<defs>${marker(markerId,'')}${marker(markerId+'-blocked','blocked')}</defs>`+modes[mode].edges.map(([a,b,style=''])=>{
+    const p=bounds[a],q=bounds[b],dim=mode===1&&[a,b].some(id=>['date','amount'].includes(id)&&id!==query);
+    let d;
+    if(style==='trace'){
+     // Provenance returns around the outside instead of crossing the candidate.
+     const outer=width-6,top=8,r=12;
+     d=`M ${p.x+p.r} ${p.y+14} H ${outer-r} Q ${outer} ${p.y+14} ${outer} ${p.y+14-r} V ${top+r} Q ${outer} ${top} ${outer-r} ${top} H ${q.x+r} Q ${q.x} ${top} ${q.x} ${top+r} V ${q.y-q.r}`;
+    }else if(Math.abs(p.x-q.x)<Math.abs(p.y-q.y)*.5){
+     const x=Math.min(width-14,Math.max(p.x+p.r,q.x+q.r)+20);
+     d=`M ${p.x+p.r} ${p.y} C ${x} ${p.y} ${x} ${q.y} ${q.x+q.r} ${q.y}`;
+    }else{
+     const direction=q.x>p.x?1:-1,sx=p.x+direction*p.r,ex=q.x-direction*q.r,middle=(sx+ex)/2;
+     d=`M ${sx} ${p.y} C ${middle} ${p.y} ${middle} ${q.y} ${ex} ${q.y}`;
+    }
+    return `<path class="me-wire ${style} ${dim?'dim':''}" marker-end="url(#${markerId}${style==='blocked'?'-blocked':''})" d="${d}"/>`;
+   }).join('');
+  }
   function renderScene(){const m=modes[mode],points=Object.fromEntries(m.nodes.map(n=>[n[0],point(n)]));
-   let lines=m.edges.map(([a,b,style=''])=>{const p=points[a],q=points[b];const dim=mode===1&&((query==='date'&&(a==='amount'||b==='amount'))||(query==='amount'&&(a==='date'||b==='date')));return `<path class="me-wire ${style}" style="${dim?'opacity:.08':''}" d="M ${p[0]*6} ${p[1]*4-12} Q ${(p[0]+q[0])*3} ${(p[1]+q[1])*2-35} ${q[0]*6} ${q[1]*4-12}"/>`;}).join('');
-   scene.innerHTML=`${mode===3?`<div class="me-fence"><span>${t('RAHMEN FÜR DEN AGENTEN','BOUNDARIES FOR THE AGENT')}</span></div>`:''}<svg class="me-wires" viewBox="0 0 600 400" preserveAspectRatio="none" aria-hidden="true">${lines}</svg>`+m.nodes.map(n=>{const p=points[n[0]],data=nodeData[n[0]],dim=mode===1&&['date','amount'].includes(n[0])&&n[0]!==query;return `<button type="button" class="me-node ${n[3]||''} ${dim?'dim':''}" data-node="${n[0]}" style="--x:${p[0]}%;--y:${p[1]}%" aria-pressed="${selected===n[0]}"><span class="me-symbol"><svg viewBox="0 0 30 30" aria-hidden="true">${icons[data.icon]}</svg></span><span class="me-label">${escape(data.label)}</span></button>`;}).join('');
+   scene.innerHTML=`${mode===3?`<div class="me-fence"><span>${t('RAHMEN FÜR DEN AGENTEN','BOUNDARIES FOR THE AGENT')}</span></div>`:''}<svg class="me-wires" aria-hidden="true"></svg>`+m.nodes.map(n=>{const p=points[n[0]],data=nodeData[n[0]],dim=mode===1&&['date','amount'].includes(n[0])&&n[0]!==query;return `<button type="button" class="me-node ${n[3]||''} ${dim?'dim':''}" data-node="${n[0]}" style="--x:${p[0]}%;--y:${p[1]}%" aria-pressed="${selected===n[0]}"><span class="me-symbol"><svg viewBox="0 0 30 30" aria-hidden="true">${icons[data.icon]}</svg></span><span class="me-label">${escape(data.label)}</span></button>`;}).join('');
    if(mode===1)scene.insertAdjacentHTML('beforeend',`<div class="me-queries"><button type="button" data-query="date" aria-pressed="${query==='date'}">${t('Wann endet er?','When does it end?')}</button><button type="button" data-query="amount" aria-pressed="${query==='amount'}">${t('Was kostet er?','What does it cost?')}</button></div>`);
    if(mode===2)scene.insertAdjacentHTML('beforeend',`<div class="me-turn"><button type="button" data-turn="-1" aria-label="${t('Netz nach links drehen','Turn network left')}">←</button><span>${t('Gleiche Verbindungen. Neuer Blickwinkel.','Same connections. A new perspective.')}</span><button type="button" data-turn="1" aria-label="${t('Netz nach rechts drehen','Turn network right')}">→</button></div>`);
    if(m.note)scene.insertAdjacentHTML('beforeend',`<div class="me-scene-note">${escape(m.note)}</div>`);
+   drawConnections();
   }
   function choose(i){mode=i;selected=i===1?query:modes[i].select;tabs.forEach((tab,j)=>{tab.setAttribute('aria-selected',String(j===i));tab.tabIndex=j===i?0:-1;});panel.setAttribute('aria-labelledby',tabs[i].id);root.querySelector('[data-memory-caption]').textContent=modes[i].caption;root.querySelector('.me-workspace').dataset.mode=i;renderScene();showDetail(selected);}
   tabs.forEach((tab,i)=>{tab.addEventListener('click',()=>choose(i));tab.addEventListener('keydown',e=>{let next;if(e.key==='ArrowRight')next=(i+1)%4;if(e.key==='ArrowLeft')next=(i+3)%4;if(e.key==='Home')next=0;if(e.key==='End')next=3;if(next!==undefined){e.preventDefault();choose(next);tabs[next].focus();}});});
@@ -51,5 +79,7 @@
   function close(){overlay.hidden=true;panel.inert=false;root.querySelector('.me-tabs').inert=false;lastTrigger?.focus();}
   function open(kind,trigger){lastTrigger=trigger;overlay.hidden=false;panel.inert=true;root.querySelector('.me-tabs').inert=true;overlay.innerHTML=`<header><h3>${kind==='tech'?t('Technik dahinter','Behind the scenes'):t('Der echte Folio-Graph','The actual Folio graph')}</h3><button type="button" class="me-close">${t('Zurück','Back')} ×</button></header>`+(kind==='tech'?`<div class="me-tech-grid">${tech.map(([title,kicker,text])=>`<article><span>${escape(kicker)}</span><h4>${escape(title)}</h4><p>${escape(text)}</p></article>`).join('')}</div>`:`<img src="/assets/cases/v0.6.0-preview.3/memory-graph.png" alt="${t('Folio-Graph mit ausschließlich erfundenen Beispieldaten','Folio graph containing only fictional sample data')}"/><p class="me-image-caption">v0.6.0-preview.3 · ${t('Echte Oberfläche, vorbereitete Beispieldaten. Keine Live-Verarbeitung.','Actual interface, prepared sample data. No live processing.')}</p>`);overlay.querySelector('.me-close').addEventListener('click',close);overlay.querySelector('.me-close').focus();}
   root.querySelector('[data-memory-tech]').addEventListener('click',e=>open('tech',e.currentTarget));root.querySelector('[data-memory-evidence]').addEventListener('click',e=>open('evidence',e.currentTarget));root.addEventListener('keydown',e=>{if(e.key==='Escape'&&!overlay.hidden){e.preventDefault();close();}});choose(0);
+  new ResizeObserver(drawConnections).observe(scene);
+  document.fonts.ready.then(drawConnections);
  });
 })();
