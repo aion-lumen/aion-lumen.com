@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 5000" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="sea" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#569bd0" stop-opacity=".54"/><stop offset=".47" stop-color="#a3d4ee" stop-opacity=".18"/><stop offset="1" stop-color="#3483bf" stop-opacity=".36"/>
+    </linearGradient>
+    <linearGradient id="ribbon" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#82bce4" stop-opacity=".65"/><stop offset=".55" stop-color="#d3ebfb" stop-opacity=".18"/><stop offset="1" stop-color="#6ca9d9" stop-opacity=".48"/>
+    </linearGradient>
+    <linearGradient id="foam" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#fff" stop-opacity=".12"/><stop offset=".5" stop-color="#fff" stop-opacity=".92"/><stop offset="1" stop-color="#fff" stop-opacity=".18"/>
+    </linearGradient>
+  </defs>
+  <!-- Broad water forms continue between sections; there are no content masks. -->
+  <path d="M0 0H1440V260C1160 365 1150 80 855 158S414 464 0 290Z" fill="url(#sea)"/>
+  <path d="M0 164C370 400 567 50 875 144S1130 435 1440 260V600C1070 373 861 310 555 504S231 676 0 486Z" fill="url(#ribbon)"/>
+  <path d="M0 126C465 520 851-40 1440 251" fill="none" stroke="url(#foam)" stroke-width="5"/>
+  <path d="M0 168C450 524 930 3 1440 292" fill="none" stroke="#7ebce2" stroke-opacity=".28" stroke-width="2"/>
+  <path d="M0 584C281 713 302 903 164 1101S22 1493 354 1620C713 1757 986 1424 1440 1700V2060C1076 1765 567 2137 226 1843S28 1246 0 1220Z" fill="url(#sea)"/>
+  <path d="M0 670C386 880-150 1305 210 1574S1045 1396 1440 1770" fill="none" stroke="url(#foam)" stroke-width="7"/>
+  <path d="M0 732C321 901-122 1251 224 1532S1100 1366 1440 1716" fill="none" stroke="#539bcf" stroke-opacity=".18" stroke-width="2"/>
+  <path d="M1440 899C1136 1089 1328 1385 1440 1500Z" fill="url(#ribbon)"/>
+  <path d="M1440 969C1225 1130 1296 1372 1440 1450" fill="none" stroke="url(#foam)" stroke-width="4"/>
+  <path d="M1440 2220C1011 2035 1129 2490 864 2655S290 2742 0 2900V3270C335 2847 825 3029 1195 2811S1285 2590 1440 2700Z" fill="url(#sea)"/>
+  <path d="M1440 2230C1005 2060 1210 2629 752 2742S291 2787 0 3050" fill="none" stroke="url(#foam)" stroke-width="6"/>
+  <path d="M1440 2258C1038 2125 1235 2645 774 2786S309 2800 0 3115" fill="none" stroke="#438fc5" stroke-opacity=".17" stroke-width="2"/>
+  <path d="M0 3540C261 3346 509 3552 625 3740S1094 4115 1440 3910V4210C987 4371 650 4130 457 3936S107 3683 0 3840Z" fill="url(#ribbon)"/>
+  <path d="M0 3540C355 3386 457 3636 677 3863S1207 4110 1440 3980" fill="none" stroke="url(#foam)" stroke-width="5"/>
+  <path d="M0 4380C329 4587 648 4206 1018 4433S1185 4807 1440 4617V5000H0Z" fill="url(#sea)"/>
+  <path d="M0 4496C347 4645 686 4269 1001 4514S1248 4797 1440 4704" fill="none" stroke="url(#foam)" stroke-width="7"/>
+</svg>

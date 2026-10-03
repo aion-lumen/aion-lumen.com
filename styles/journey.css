@@ -1,0 +1,327 @@
+/* A single water landscape carries the home-page content beyond the hero. */
+body.home-flow {
+  background: #e6f3fc;
+}
+body.home-flow.dark {
+  background: #132d49;
+}
+.home-flow .surf-story::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 150px;
+  background: linear-gradient(transparent, #d7edfb);
+  pointer-events: none;
+}
+.ocean-journey {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  background: linear-gradient(
+    #d7edfb 0,
+    #eff8fe 640px,
+    #f6fbff 44%,
+    #e6f3fc 100%
+  );
+}
+.journey-water {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.journey-base {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  opacity: 0.68;
+}
+/* Still fragments rendered from the actual hero wave; no second WebGL loop. */
+.journey-swell {
+  position: absolute;
+  height: auto;
+  max-width: none;
+  opacity: 0.2;
+  mask-image: radial-gradient(ellipse at center, #000 12%, transparent 71%);
+}
+.swell-arrival {
+  width: 125%;
+  left: -12%;
+  top: -170px;
+}
+.swell-middle {
+  width: 100%;
+  left: -32%;
+  top: 39%;
+  transform: rotate(-13deg);
+  opacity: 0.17;
+}
+.swell-outro {
+  width: 100%;
+  right: -27%;
+  top: 76%;
+  transform: rotate(9deg);
+  opacity: 0.16;
+}
+.ocean-journey > section {
+  position: relative;
+}
+.ocean-journey .mail {
+  padding-top: 155px;
+  padding-bottom: 125px;
+}
+.ocean-journey .section-head {
+  margin-bottom: 46px;
+}
+.ocean-journey .section-head h2 {
+  font-size: clamp(34px, 3.5vw, 50px);
+  letter-spacing: -0.06em;
+}
+.ocean-journey .section-head > p {
+  max-width: 420px;
+}
+.ocean-journey .case-card {
+  background: #f9fcffe8;
+  border-color: #afcbe2c2;
+  box-shadow:
+    0 14px 38px #265b8310,
+    inset 0 1px 0 #fff;
+  backdrop-filter: blur(12px);
+}
+.ocean-journey .case-card.decision {
+  background: #fcf8edee;
+  border-color: #d0ba8b9c;
+}
+.ocean-journey .shot {
+  border: 1px solid #a7c5de;
+  border-radius: 16px;
+  box-shadow:
+    0 34px 80px -35px #1b4f8369,
+    0 2px 8px #244d7a0c;
+}
+.ocean-journey .mail-shot {
+  margin-top: 34px;
+}
+.ocean-journey .engineering {
+  background: transparent;
+  border: 0;
+  padding: 35px 0 75px;
+}
+.ocean-journey .engineering > .wrap {
+  background: #f6fbffb8;
+  border: 1px solid #aecce170;
+  border-radius: 25px;
+  padding: 54px 48px 30px;
+  box-shadow: 0 30px 80px -50px #204c7240;
+  backdrop-filter: blur(14px);
+}
+.ocean-journey .layer-button {
+  background: #ffffff47;
+  border-color: #adc8df7d;
+}
+.ocean-journey .layer-button.active {
+  background: #fffffff5;
+  border-color: #759dcb;
+}
+.ocean-journey .ledger {
+  padding-top: 95px;
+  padding-bottom: 100px;
+}
+.ocean-journey .memory {
+  border: 0;
+  padding: 65px 42px;
+  border-radius: 24px;
+  background: #fafdffb3;
+  box-shadow: 0 25px 90px -60px #204c7266;
+  backdrop-filter: blur(12px);
+  margin-bottom: 115px;
+}
+.ocean-journey .memory .shot {
+  box-shadow: 0 18px 48px -28px #1b4f8355;
+}
+.ocean-journey .journal {
+  background: transparent;
+  border: 0;
+  padding: 25px 0 70px;
+}
+.ocean-journey .journal-inner {
+  padding-block: 45px;
+  border-block: 1px solid #8fb5d261;
+}
+.ocean-journey .workshop {
+  padding-top: 75px;
+  padding-bottom: 125px;
+}
+.ocean-journey .projects {
+  gap: 20px;
+  border: 0;
+}
+.ocean-journey .projects > a {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 28px;
+  background: #f8fcffe3;
+  border: 1px solid #aac8dfb0;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 18px 40px -30px #24548140;
+}
+.ocean-journey .project-link {
+  margin-top: auto;
+  padding-top: 24px;
+}
+.home-flow footer {
+  background: #e6f3fc;
+}
+/* Content is visible by default. JS only stages elements below the viewport. */
+.flow-reveal {
+  transition:
+    opacity 0.72s ease,
+    transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.flow-reveal.is-waiting {
+  opacity: 0;
+  transform: translateY(22px);
+}
+.flow-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+.home-flow.flow-still .flow-reveal {
+  transition: none;
+  opacity: 1;
+  transform: none;
+}
+.home-flow.dark .surf-story::after {
+  background: linear-gradient(transparent, #142e49);
+}
+.home-flow.dark .ocean-journey {
+  background: linear-gradient(#142e49, #0c2038 20%, #132d49 100%);
+}
+.home-flow.dark .journey-water {
+  opacity: 0.24;
+}
+.home-flow.dark .ocean-journey .case-card,
+.home-flow.dark .ocean-journey .projects > a {
+  background: #162d46e8;
+  border-color: #52729270;
+  box-shadow: 0 14px 35px #08162624;
+}
+.home-flow.dark .ocean-journey .case-card.decision {
+  background: #35362fe8;
+  border-color: #b5986269;
+}
+.home-flow.dark .ocean-journey .engineering > .wrap,
+.home-flow.dark .ocean-journey .memory {
+  background: #112b44c9;
+  border-color: #55799754;
+}
+.home-flow.dark .ocean-journey .layer-button {
+  background: #213b544c;
+  border-color: #52739370;
+}
+.home-flow.dark .ocean-journey .layer-button.active {
+  background: #274a69d9;
+}
+.home-flow.dark footer {
+  background: #132d49;
+}
+@media (max-width: 1000px) {
+  .ocean-journey .engineering > .wrap {
+    padding: 40px 28px 25px;
+  }
+  .ocean-journey .memory {
+    padding: 42px 28px;
+    gap: 30px;
+  }
+}
+@media (max-width: 760px) {
+  .home-flow .surf-story::after {
+    height: 90px;
+  }
+  .ocean-journey .mail {
+    padding-top: 100px;
+    padding-bottom: 75px;
+  }
+  .ocean-journey .section-head {
+    margin-bottom: 30px;
+  }
+  .ocean-journey .section-head h2 {
+    font-size: 34px;
+  }
+  .journey-base {
+    width: 180%;
+    max-width: none;
+    margin-left: -40%;
+    opacity: 0.62;
+  }
+  .journey-swell {
+    width: 220%;
+    opacity: 0.13;
+  }
+  .swell-arrival {
+    left: -45%;
+    top: -110px;
+  }
+  .swell-middle {
+    left: -120%;
+  }
+  .swell-outro {
+    right: -120%;
+  }
+  .ocean-journey .engineering {
+    padding-block: 20px 40px;
+  }
+  .ocean-journey .engineering > .wrap {
+    padding: 30px 20px 24px;
+    border-radius: 18px;
+  }
+  .ocean-journey .ledger {
+    padding-block: 65px;
+  }
+  .ocean-journey .memory {
+    padding: 30px 20px;
+    margin-bottom: 70px;
+    border-radius: 18px;
+  }
+  .ocean-journey .journal {
+    padding-block: 0 30px;
+  }
+  .ocean-journey .journal-inner {
+    padding-block: 25px;
+  }
+  .ocean-journey .workshop {
+    padding-block: 50px 75px;
+  }
+  .ocean-journey .projects {
+    gap: 16px;
+  }
+  .ocean-journey .projects > a {
+    padding: 24px;
+    border-radius: 18px;
+  }
+  .ocean-journey .project-number {
+    right: 24px;
+    top: 28px;
+  }
+  .ocean-journey .projects h3 {
+    padding-right: 30px;
+  }
+  .ocean-journey .shot {
+    border-radius: 11px;
+  }
+  .flow-reveal.is-waiting {
+    transform: translateY(14px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flow-reveal,
+  .flow-reveal.is-waiting {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

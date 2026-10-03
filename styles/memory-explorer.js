@@ -1,0 +1,86 @@
+/* A fictional explanatory scene. No real records, model calls or permissions. */
+(() => {
+ const en=document.documentElement.lang==='en';
+ const t=(de,eng)=>en?eng:de;
+ const escape=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const icons={mail:'<rect x="3" y="5" width="24" height="19" rx="3"/><path d="m4 7 11 9L26 7"/>',file:'<path d="M8 3h11l6 6v18H8zM19 3v7h6M12 16h9M12 21h7"/>',spark:'<path d="m15 3 3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/>',check:'<circle cx="15" cy="15" r="12"/><path d="m9 15 4 4 8-9"/>',person:'<circle cx="15" cy="9" r="4"/><path d="M6 27v-4a9 9 0 0 1 18 0v4"/>',calendar:'<rect x="4" y="6" width="22" height="21" rx="3"/><path d="M9 3v6M21 3v6M4 12h22M10 18h3M17 18h3M10 23h3"/>',coin:'<ellipse cx="15" cy="9" rx="11" ry="5"/><path d="M4 9v6c0 7 22 7 22 0V9M4 15v6c0 7 22 7 22 0"/>',search:'<circle cx="13" cy="13" r="9"/><path d="m20 20 7 7"/>',shield:'<path d="m15 3 11 4v9c0 6-11 12-11 12S4 22 4 16V7zM10 15l4 4 7-8"/>',key:'<circle cx="10" cy="11" r="6"/><path d="m14 16 12 11M20 21l4-4M23 24l4-4"/>',lock:'<rect x="6" y="13" width="18" height="14" rx="3"/><path d="M10 13V8a5 5 0 0 1 10 0v5M15 18v4"/>',cloud:'<path d="M7 23a6 6 0 1 1 0-12 8 8 0 0 1 16-2 7 7 0 0 1 0 14zM10 10l11 13M21 10 10 13"/>',reply:'<path d="M5 5h22v17H14l-7 5v-5H5zM10 11h12M10 16h8"/>',layers:'<path d="m15 3 13 7-13 7L2 10zM2 16l13 7 13-7M2 22l13 7 13-7"/>'};
+ const nodeData={
+ mail:{icon:'mail',label:t('Originalmail','Original email'),title:t('Der Ursprung bleibt.','The source stays.'),text:t('Die Originalmail bleibt als Quelle erhalten. Ein daraus gewonnener Fakt verweist zurück auf seinen Beleg.','The original email remains a source. A fact extracted from it links back to its evidence.'),meta:[[t('Absender','Sender'),'Stadtstrom · demo.example'],[t('Beleg','Evidence'),t('Vertragsbestätigung · fiktiv','Contract confirmation · fictional')]]},
+ file:{icon:'file',label:t('Dokument','Document'),title:t('Mehr als eine Mail.','More than an email.'),text:t('Auch Dokumente liefern Wissen. Jeder Vorschlag bleibt mit seiner Quelle verbunden.','Documents also contribute knowledge. Each candidate stays linked to its source.')},
+ candidate:{icon:'spark',label:t('Vorschlag','Candidate'),title:t('Zur Prüfung.','Ready for review.'),text:t('Das Modell liest ein mögliches Vertragsende aus der Quelle. Der Vorschlag wartet auf Bestätigung.','The model extracts a possible end date from the source. The candidate awaits confirmation.'),quote:t('„Vertragsende: 31. Dezember 2026“','“Contract ends: 31 December 2026”'),meta:[[t('Status','Status'),t('Zur Prüfung','Awaiting review')]]},
+ review:{icon:'person',label:t('Prüfung','Review'),title:t('Prüfen, bevor es gilt.','Review before relying on it.'),text:t('Du bestätigst oder korrigierst. Je nach Verfahren kann eine ausdrücklich freigegebene unabhängige Prüfung hinzukommen.','You confirm or correct. Depending on the workflow, an explicitly authorised independent review can also be used.')},
+ fact:{icon:'check',label:t('Bestätigtes Wissen','Confirmed knowledge'),title:t('Aussage mit Herkunft.','A statement with provenance.'),text:t('Der bestätigte Fakt behält seinen Beleg und zeitliche Angaben. Wird er korrigiert, bleibt die vorherige Fassung in der Historie.','The confirmed fact retains its evidence and temporal information. Corrections preserve the previous version in the history.'),meta:[[t('Fakt im Beispiel','Example fact'),t('Vertragsende: 31.12.2026','Contract ends: 31 Dec 2026')],[t('Quelle','Source'),t('Vertragsbestätigung','Contract confirmation')]]},
+ contract:{icon:'layers',label:t('Stromvertrag','Electricity contract'),title:t('Ein gemeinsamer Bezug.','A shared subject.'),text:t('Der Vertrag verbindet Fakten, Ereignisse und Belege. Jeder Knoten führt zu den zugehörigen Informationen.','The contract connects facts, events and evidence. Each node leads to the related information.')},
+ date:{icon:'calendar',label:t('31. Dezember','31 December'),title:t('Die passende Antwort.','The relevant answer.'),text:t('Zur Frage nach dem Vertragsende wird der passende bestätigte Fakt mit seiner Herkunft ausgewählt.','A question about the contract end date selects the relevant confirmed fact and its provenance.'),quote:t('„Der Vertrag endet am 31.12.2026.“','“The contract ends on 31 Dec 2026.”')},
+ amount:{icon:'coin',label:t('65 € / Monat','€65 / month'),title:t('Eine andere Frage.','A different question.'),text:t('Für die Frage nach den Kosten wird im Beispiel der Betrag relevant. Die Enddatum-Angabe tritt in den Hintergrund.','For a question about cost, the example amount becomes relevant. The end date recedes into the background.'),quote:t('„Monatlicher Abschlag: 65 €.“','“Monthly payment: €65.”')},
+ question:{icon:'search',label:t('Deine Frage','Your question'),title:t('Passendes Wissen finden.','Find relevant knowledge.'),text:t('Folio sucht im passenden Wissensbereich. Aus den Treffern und erlaubten Beziehungen entsteht ein begrenzter Kontext für die Antwort.','Folio searches the relevant knowledge domain. Matches and permitted connections form a bounded context for the answer.')},
+ answer:{icon:'reply',label:t('Antwort + Beleg','Answer + evidence'),title:t('Nachvollziehbar antworten.','An answer you can trace.'),text:t('Mit dem Beleg kannst du die Antwort an ihrer Quelle prüfen.','Use the evidence to check the answer against its source.')},
+ domain:{icon:'layers',label:t('Datenbereich','Data scope'),title:t('Nur der passende Bereich.','Only the relevant domain.'),text:t('Der Context Compiler prüft den angefragten Wissensbereich und die erlaubte Vertraulichkeitsstufe des Empfängers.','The Context Compiler checks the requested knowledge domain and the recipient’s permitted sensitivity level.')},
+ tool:{icon:'key',label:t('Kontext','Context'),title:t('Wissen für diesen Ablauf.','Knowledge for this workflow.'),text:t('Folio stellt passende bestätigte Fakten und Belege innerhalb des erlaubten Wissensbereichs zusammen.','Folio assembles relevant confirmed facts and evidence within the permitted knowledge domain.')},
+ approval:{icon:'person',label:t('Online: Freigabe','Online: approval'),title:t('Die Entscheidung bleibt.','The decision stays with you.'),text:t('Eine Übergabe an eine Online-Session braucht die vorgesehene ausdrückliche Freigabe. Die ausgewählten Inhalte sind vorab prüfbar.','A handoff to an online session requires explicit approval through its workflow. Selected contents can be reviewed first.')},
+ denied:{icon:'lock',label:t('Gesperrt','Blocked'),title:t('Hier ist die Grenze.','This is the boundary.'),text:t('Dieser Datenbereich ist für den Empfänger gesperrt.','This data domain is restricted for the recipient.')}
+ };
+ const modes=[
+ {caption:t('Aus Quellen wird geprüftes Wissen.','Sources become reviewed knowledge.'),nodes:[['mail',17,24],['file',17,70],['candidate',48,48],['review',80,24,'gold'],['fact',80,70]],edges:[['mail','candidate'],['file','candidate'],['candidate','review'],['review','fact'],['fact','mail','trace']],select:'candidate',note:t('Durchgezogen: Ablauf · Gestrichelt: zurück zum Beleg','Solid: workflow · Dashed: back to evidence')},
+ {caption:t('Für jede Frage kommt der passende Ausschnitt ins Blickfeld.','Each question brings the relevant knowledge into focus.'),nodes:[['question',16,48],['date',50,28],['amount',50,70],['answer',84,48]],edges:[['question','date'],['question','amount'],['date','answer'],['amount','answer']],select:'date'},
+ {caption:t('Zusammenhänge bleiben mit ihren Quellen verbunden.','Connections stay linked to their sources.'),nodes:[['contract',50,46],['mail',20,23],['fact',80,22],['amount',80,72],['date',20,74]],edges:[['contract','mail'],['contract','fact'],['contract','amount'],['contract','date'],['fact','mail','trace']],select:'contract'},
+ {caption:t('Klare Grenzen für Daten und Aktionen.','Clear boundaries for data and actions.'),nodes:[['domain',18,26],['tool',50,26],['answer',82,26],['denied',18,74,'blocked'],['approval',65,74,'gold']],edges:[['domain','tool'],['tool','answer'],['tool','approval'],['domain','denied','blocked']],select:'domain'}
+ ];
+ document.querySelectorAll('[data-memory-explorer]').forEach(root=>{
+  const scene=root.querySelector('[data-memory-scene]'),detail=root.querySelector('[data-memory-detail]'),panel=root.querySelector('.me-panel'),tabs=[...root.querySelectorAll('[data-memory-tab]')],overlay=root.querySelector('[data-memory-overlay]');
+  let mode=0,selected='candidate',angle=0,query='date',lastTrigger;
+  function point(n){if(mode!==2||n[0]==='contract')return[n[1],n[2]];const x=n[1]-50,y=n[2]-47,c=Math.cos(angle),s=Math.sin(angle);return[Math.max(18,Math.min(82,50+x*c-y*s*.75)),Math.max(25,Math.min(74,47+x*s*.7+y*c))];}
+  function showDetail(id){selected=id;const n=nodeData[id];scene.querySelectorAll('[data-node]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.node===id)));detail.innerHTML=`<div class="me-kicker">${escape(n.label)}</div><h3>${escape(n.title)}</h3><p>${escape(n.text)}</p>${n.quote?`<div class="me-mini-source">${escape(n.quote)}</div>`:''}${n.meta?`<dl>${n.meta.map(([k,v])=>`<div><dt>${escape(k)}</dt><dd>${escape(v)}</dd></div>`).join('')}</dl>`:''}`;detail.scrollTop=0;}
+  // Use actual icon bounds, so arrowheads remain outside icons at every breakpoint.
+  function drawConnections(){
+   const svg=scene.querySelector('.me-wires');if(!svg)return;
+   const width=scene.clientWidth,height=scene.clientHeight;
+   const bounds=Object.fromEntries([...scene.querySelectorAll('[data-node]')].map(button=>{
+    const icon=button.querySelector('.me-symbol');
+    return[button.dataset.node,{x:button.offsetLeft-button.offsetWidth/2+icon.offsetLeft+icon.offsetWidth/2,y:button.offsetTop-button.offsetHeight/2+icon.offsetTop+icon.offsetHeight/2,r:icon.offsetWidth/2+7,bottom:button.offsetTop+button.offsetHeight/2+7}];
+   }));
+   svg.setAttribute('viewBox',`0 0 ${width} ${height}`);
+   const markerId=`${root.id}-direction`;
+   const marker=(id,kind)=>`<marker id="${id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="me-arrow ${kind}" d="M1 1 9 5 1 9Z"/></marker>`;
+   svg.innerHTML=`<defs>${marker(markerId,'')}${marker(markerId+'-blocked','blocked')}</defs>`+modes[mode].edges.map(([a,b,style=''])=>{
+    const p=bounds[a],q=bounds[b],dim=mode===1&&[a,b].some(id=>['date','amount'].includes(id)&&id!==query);
+    let d;
+    if(style==='trace'){
+     // Provenance returns around the outside instead of crossing the candidate.
+     const outer=width-6,top=8,r=12;
+     d=`M ${p.x+p.r} ${p.y+14} H ${outer-r} Q ${outer} ${p.y+14} ${outer} ${p.y+14-r} V ${top+r} Q ${outer} ${top} ${outer-r} ${top} H ${q.x+r} Q ${q.x} ${top} ${q.x} ${top+r} V ${q.y-q.r}`;
+    }else if(Math.abs(p.x-q.x)<Math.abs(p.y-q.y)*.5){
+     // Leave room for the source label and enter the target from above.
+     const down=q.y>p.y,sy=down?p.bottom:p.y-p.r,ey=down?q.y-q.r:q.bottom,middle=(sy+ey)/2;
+     d=`M ${p.x} ${sy} C ${p.x} ${middle} ${q.x} ${middle} ${q.x} ${ey}`;
+    }else{
+     const direction=q.x>p.x?1:-1,sx=p.x+direction*p.r,ex=q.x-direction*q.r,middle=(sx+ex)/2;
+     d=`M ${sx} ${p.y} C ${middle} ${p.y} ${middle} ${q.y} ${ex} ${q.y}`;
+    }
+    return `<path class="me-wire ${style} ${dim?'dim':''}" marker-end="url(#${markerId}${style==='blocked'?'-blocked':''})" d="${d}"/>`;
+   }).join('');
+  }
+  function renderScene(){const m=modes[mode],points=Object.fromEntries(m.nodes.map(n=>[n[0],point(n)]));
+   scene.innerHTML=`${mode===3?`<div class="me-fence"><span>${t('RAHMEN FÜR DEN AGENTEN','BOUNDARIES FOR THE AGENT')}</span></div>`:''}<svg class="me-wires" aria-hidden="true"></svg>`+m.nodes.map(n=>{const p=points[n[0]],data=nodeData[n[0]],dim=mode===1&&['date','amount'].includes(n[0])&&n[0]!==query;return `<button type="button" class="me-node ${n[3]||''} ${dim?'dim':''}" data-node="${n[0]}" style="--x:${p[0]}%;--y:${p[1]}%" aria-pressed="${selected===n[0]}"><span class="me-symbol"><svg viewBox="0 0 30 30" aria-hidden="true">${icons[data.icon]}</svg></span><span class="me-label">${escape(data.label)}</span></button>`;}).join('');
+   if(mode===1)scene.insertAdjacentHTML('beforeend',`<div class="me-queries"><button type="button" data-query="date" aria-pressed="${query==='date'}">${t('Wann endet er?','When does it end?')}</button><button type="button" data-query="amount" aria-pressed="${query==='amount'}">${t('Was kostet er?','What does it cost?')}</button></div>`);
+   if(mode===2)scene.insertAdjacentHTML('beforeend',`<div class="me-turn"><button type="button" data-turn="-1" aria-label="${t('Netz nach links drehen','Turn network left')}">←</button><span>${t('Gleiche Verbindungen. Neuer Blickwinkel.','Same connections. A new perspective.')}</span><button type="button" data-turn="1" aria-label="${t('Netz nach rechts drehen','Turn network right')}">→</button></div>`);
+   if(m.note)scene.insertAdjacentHTML('beforeend',`<div class="me-scene-note">${escape(m.note)}</div>`);
+   drawConnections();
+  }
+  function choose(i){mode=i;selected=i===1?query:modes[i].select;tabs.forEach((tab,j)=>{tab.setAttribute('aria-selected',String(j===i));tab.tabIndex=j===i?0:-1;});panel.setAttribute('aria-labelledby',tabs[i].id);root.querySelector('[data-memory-caption]').textContent=modes[i].caption;root.querySelector('.me-workspace').dataset.mode=i;renderScene();showDetail(selected);}
+  tabs.forEach((tab,i)=>{tab.addEventListener('click',()=>choose(i));tab.addEventListener('keydown',e=>{let next;if(e.key==='ArrowRight')next=(i+1)%4;if(e.key==='ArrowLeft')next=(i+3)%4;if(e.key==='Home')next=0;if(e.key==='End')next=3;if(next!==undefined){e.preventDefault();choose(next);tabs[next].focus();}});});
+  scene.addEventListener('click',e=>{const node=e.target.closest('[data-node]'),q=e.target.closest('[data-query]'),turn=e.target.closest('[data-turn]');if(node)showDetail(node.dataset.node);if(q){query=q.dataset.query;renderScene();showDetail(query);scene.querySelector(`[data-query="${query}"]`).focus();}if(turn){const direction=turn.dataset.turn;angle+=Number(direction)*Math.PI/8;renderScene();scene.querySelector(`[data-turn="${direction}"]`).focus();}});
+  const tech=[
+   [t('Wissensaufbau','Knowledge structure'),'Memory',t('Quellen → Vorschläge → bestätigte Fakten. Verträge, Personen und Ereignisse verbinden sie; Änderungen bleiben in der Historie.','Sources → candidates → confirmed facts. Contracts, people and events connect them; changes remain in the history.')],
+   [t('Passenden Kontext holen','Retrieving context'),'Retrieval / RAG',t('Volltextsuche (FTS) und Beziehungen liefern passende Fakten. Der Context Compiler stellt daraus den erlaubten Kontext für die Antwort zusammen.','Full-text search (FTS) and relationships retrieve relevant facts. The Context Compiler assembles permitted context for the answer.')],
+   [t('Beziehungen sichtbar machen','Making connections visible'),'Graph',t('Der 2D/3D-Graph macht gespeicherte Beziehungen sichtbar. Knoten öffnen die zugehörigen Fakten und Quellen.','The 2D/3D graph visualises stored relationships. Nodes open the related facts and sources.')],
+   [t('Den Ablauf begrenzen','Constraining the workflow'),'Harness',t('Wissensbereich und Vertraulichkeitsstufe begrenzen den bereitgestellten Kontext. Für eine Online-Übergabe gibst du die ausgewählten Inhalte ausdrücklich frei.','Knowledge domain and sensitivity level limit the supplied context. You explicitly approve selected contents for an online handoff.')],
+   [t('Mit Beispielen prüfen','Testing with examples'),t('Prüfstand','Test harness'),t('Tests mit isolierten Beispieldaten prüfen Herkunft, Filter und Zugriffsgrenzen.','Tests with isolated fixtures check provenance, filtering and access boundaries.')]
+  ];
+  function close(){overlay.hidden=true;panel.inert=false;root.querySelector('.me-tabs').inert=false;lastTrigger?.focus();}
+  function open(kind,trigger){lastTrigger=trigger;overlay.hidden=false;panel.inert=true;root.querySelector('.me-tabs').inert=true;overlay.innerHTML=`<header><h3>${kind==='tech'?t('Technik dahinter','Behind the scenes'):t('Folio-Graph','Folio graph')}</h3><button type="button" class="me-close">${t('Zurück','Back')} ×</button></header>`+(kind==='tech'?`<div class="me-tech-grid">${tech.map(([title,kicker,text])=>`<article><span>${escape(kicker)}</span><h4>${escape(title)}</h4><p>${escape(text)}</p></article>`).join('')}</div>`:`<img src="/assets/cases/v0.6.0-preview.3/memory-graph.png" alt="${t('Folio-Graph mit ausschließlich erfundenen Beispieldaten','Folio graph containing only fictional sample data')}"/><p class="me-image-caption">v0.6.0-preview.3 · ${t('Fakten, Quellen und ihre Verbindungen.','Facts, sources and their connections.')}</p>`);overlay.querySelector('.me-close').addEventListener('click',close);overlay.querySelector('.me-close').focus();}
+  root.querySelector('[data-memory-tech]').addEventListener('click',e=>open('tech',e.currentTarget));root.querySelector('[data-memory-evidence]').addEventListener('click',e=>open('evidence',e.currentTarget));root.addEventListener('keydown',e=>{if(e.key==='Escape'&&!overlay.hidden){e.preventDefault();close();}});choose(0);
+  new ResizeObserver(drawConnections).observe(scene);
+  document.fonts.ready.then(drawConnections);
+ });
+})();

@@ -1,0 +1,81 @@
+/* Short board explanations, with evidence in the normal document flow. */
+.layer-more { display: block; margin-top: 8px; font-size: 12px; font-style: normal; color: var(--blue); }
+.layer-controls .layer-button:hover, .layer-controls .layer-button:focus-visible { border-color: var(--blue); background: var(--paper); }
+.surf-story .steps .layer-more { font-size: 11px; margin-top: 4px; }
+.architecture-section { position: relative; padding-block: 68px; scroll-margin-top: 105px; }
+.architecture-anchor { position: absolute; top: 0; scroll-margin-top: 105px; }
+.workflow-animation, .architecture-card { border: 1px solid var(--line); background: var(--paper); border-radius: 18px; padding: 24px; }
+.flow-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 22px; }
+.flow-toolbar > span { font-size: 11px; color: var(--soft); }
+.flow-toolbar button { border: 1px solid var(--line); border-radius: 6px; padding: 7px 11px; color: var(--blue); background: var(--pale); font-size: 11px; }
+.architecture-flow { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 24px; list-style: none; margin: 0; padding: 0; }
+.architecture-flow li { position: relative; border: 1px solid var(--line); border-radius: 10px; padding: 14px; background: var(--pale); }
+.architecture-flow li:not(:last-child)::after { content: '→'; position: absolute; left: calc(100% + 6px); top: 43%; color: var(--blue); }
+.flow-number { display: block; font: 10px Mono,monospace; color: var(--blue); margin-bottom: 12px; }
+.architecture-flow strong { display: block; font-size: 14px; font-weight: 500; }
+.architecture-flow small { display: block; font-size: 11px; line-height: 1.6; margin-top: 6px; color: var(--soft); }
+.flow-branches { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+.flow-branches span { font-size: 11px; border-left: 2px solid var(--blue); padding-left: 9px; color: var(--soft); }
+.workflow-evidence { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; }
+.architecture-card { min-width: 0; transition: border-color .3s; }
+.architecture-card.is-focused { border-color: var(--blue); }
+.architecture-card h3 { font-size: 24px; letter-spacing: -.03em; line-height: 1.25; }
+.architecture-card > p:not(.eyebrow) { font-size: 13px; line-height: 1.75; color: var(--soft); margin-top: 16px; }
+.architecture-card .eyebrow { margin-bottom: 12px; }
+.architecture-card .screenshot { margin-top: 20px; }
+.architecture-card .shot { box-shadow: none; }
+.architecture-card .rule-shot { max-height: 235px; overflow: hidden; align-items: start; }
+.architecture-card .rule-shot img { object-position: top; }
+.architecture-card .image-expanded .rule-shot { max-height: none; }
+.architecture-card .image-expanded { width: 100%; }
+.model-sequence, .decision-path { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
+.model-sequence span, .decision-path span { background: var(--pale); border: 1px solid var(--line); border-radius: 5px; padding: 6px 9px; font-size: 11px; }
+.model-sequence i, .decision-path i { font-style: normal; font-size: 12px; color: var(--blue); }
+.architecture-back { display: inline-block; margin-top: 22px; font-size: 12px; color: var(--blue); }
+.memory-architecture { grid-column: 1/-1; border-top: 1px solid var(--line); padding-top: 30px; }
+.memory-layers { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 26px; }
+.memory-layers > div { border-left: 2px solid var(--line); padding-left: 15px; }
+.memory-layers span { font: 10px Mono,monospace; color: var(--blue); display: block; margin-bottom: 7px; }
+.memory-layers strong { font-size: 14px; font-weight: 500; }
+.memory-layers p, .architecture-note { font-size: 12px; line-height: 1.8; color: var(--soft); margin-top: 10px; }
+.architecture-note { margin-top: 25px; }
+@keyframes architecture-pass { 0%,100% { box-shadow: none; border-color: var(--line); } 30%,65% { box-shadow: 0 0 0 3px #5b99e522; border-color: var(--blue); } }
+@media (prefers-reduced-motion: no-preference) {
+  .workflow-running .architecture-flow li { animation: architecture-pass 1.5s both; animation-delay: calc(var(--step)*1.5s); }
+  .workflow-paused .architecture-flow li, .flow-still .architecture-flow li { animation-play-state: paused; }
+}
+@media (prefers-reduced-motion: reduce) { [data-flow-play] { display: none; } }
+@media (max-width: 900px) {
+  .architecture-flow { gap: 15px; }
+  .architecture-flow li { padding: 10px; }
+  .architecture-flow li:not(:last-child)::after { left: calc(100% + 2px); font-size: 11px; }
+  .workflow-evidence { grid-template-columns: 1fr; }
+  .surf-story .steps { display: block; }
+  .surf-story .steps li { display: flex; align-items: center; gap: 14px; padding: 8px 0; }
+  .surf-story .steps small { display: block; font-size: 11px; }
+  .surf-story .steps strong { font-size: 13px; }
+}
+@media (max-width: 620px) {
+  .architecture-flow { grid-template-columns: 1fr; gap: 20px; }
+  .architecture-flow li { display: grid; grid-template-columns: 30px 1fr; padding: 12px 16px; }
+  .architecture-flow small { grid-column: 2; margin-top: 2px; }
+  .flow-number { grid-row: span 2; margin: 3px 0 0; }
+  .architecture-flow li:not(:last-child)::after { content: '↓'; left: 28px; top: calc(100% + 1px); }
+  .memory-layers { grid-template-columns: 1fr; gap: 18px; }
+  .workflow-animation, .architecture-card { padding: 18px; }
+  .flow-toolbar { align-items: flex-start; }
+  .flow-toolbar button { flex-shrink: 0; }
+}
+@media (min-width: 901px) and (max-height: 800px) {
+  .surf-story .board-copy { top: 7%; }
+  .surf-story .board-copy h2 { font-size: 48px; }
+}
+.workflow-evidence .architecture-card:has(.image-expanded) { grid-column: 1/-1; }
+@media (max-width: 900px) {
+  .surf-story .steps { background: #eff7ffeb; border-radius: 9px; padding: 4px 12px; }
+  .surf-story .steps li:first-child { border-top: 0; }
+  .surf-story .board-copy .quiet { padding: 6px 9px; border-radius: 5px; background: #eff7ffeb; }
+}
+@media (min-width: 761px) {
+  .architecture-card .image-expanded .shot img { width: 100%; max-width: 100%; }
+}
