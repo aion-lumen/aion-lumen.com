@@ -25,11 +25,12 @@
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" />
     <link rel="stylesheet" href="/styles/site.css?v=d57f461b8304" />
-    <link rel="stylesheet" href="/styles/surf.css" />
+    <link rel="stylesheet" href="/styles/surf.css?v=7152dcb8f445" />
     <link rel="stylesheet" href="/styles/journey.css" />
     <link rel="stylesheet" href="/styles/architecture.css?v=12ef1ac0c1b1" />
-    <link rel="stylesheet" href="/styles/memory-explorer.css?v=3" />
-  </head>
+    <link rel="stylesheet" href="/styles/memory-explorer.css?v=8617952db06e" />
+  <link rel="stylesheet" href="/styles/daily-workflow.css?v=8ea31caee388"/>
+</head>
   <body class="home-flow">
     <script>
       try {
@@ -82,16 +83,16 @@
         <div class="surf-stage stage">
           <img
             class="fallback"
-            src="/assets/wave/welle.png"
+            data-src="/assets/wave/surf-fallback.jpg"
             alt="Illustration einer blauen Welle mit Surfbrett"
           />
+          <noscript><img class="fallback" src="/assets/wave/surf-fallback.jpg" alt="" /></noscript>
           <canvas id="surf-ocean" aria-hidden="true"></canvas>
           <div class="scene-shade"></div>
           <div class="scene-loading" role="status" hidden>
             Die Welle baut sich auf<span> · · ·</span>
           </div>
           <div class="phase intro" data-phase="intro">
-            <p class="eyebrow">DEIN ALLTAG. DEIN WERKZEUG.</p>
             <h1>Wie surfe ich<br />die <span>AI-Welle?</span></h1>
             <p class="lead">
               Ich baue Software, die KI im Alltag nützlich macht. Mit Folio
@@ -101,9 +102,6 @@
             <a class="primary" href="#folio" data-jump="0.48">
               Folio kennenlernen <span aria-hidden="true">↓</span>
             </a>
-            <p class="mouse-hint">
-              <span aria-hidden="true">↔</span> Maus links oder rechts: drehen. Mitte: halten.
-            </p>
           </div>
           <div
             class="phase board-copy"
@@ -112,11 +110,7 @@
             inert
           >
             <p class="eyebrow">FOLIO / UNTER DER OBERFLÄCHE</p>
-            <h2>Drei Schichten.<br /><em>Ein Werkzeug.</em></h2>
-            <p>
-              Wissen, lokale Modelle und begrenzte Werkzeuge arbeiten zusammen.
-              Du behältst den Überblick.
-            </p>
+            <h2>Die drei Schichten von Folio</h2>
             <ol class="steps">
               <li>
                 <span>01</span>
@@ -129,14 +123,14 @@
                 <span>02</span>
                 <div>
                   <strong>Lokale Modelle</strong
-                  ><small>Einordnen und Vorschläge begründen</small><a class="layer-more" href="#mail-modelle">Modellstimmen ansehen →</a>
+                  ><small>Einordnen und Vorschläge begründen</small><a class="layer-more" href="#folio" data-workflow-step="3">Modellstimmen ansehen →</a>
                 </div>
               </li>
               <li>
                 <span>03</span>
                 <div>
                   <strong>Regeln &amp; Werkzeuge</strong
-                  ><small>Begrenzte, nachvollziehbare Schritte</small><a class="layer-more" href="#mail-regeln">Regeln & Ablauf →</a>
+                  ><small>Begrenzte, nachvollziehbare Schritte</small><a class="layer-more" href="#folio" data-workflow-step="5">Regeln & Ablauf →</a>
                 </div>
               </li>
             </ol>
@@ -170,21 +164,6 @@
                 >Scrollen, um näherzukommen</span
               >
             </div>
-            <nav class="chapter-nav" aria-label="Stationen der Kamerafahrt">
-              <button
-                data-jump="0"
-                aria-label="Weite Ansicht"
-                aria-current="step"
-              >
-                01 <span>Welle</span></button
-              ><i aria-hidden="true"></i
-              ><button data-jump="0.48" aria-label="Nahaufnahme des Bretts">
-                02 <span>Brett</span></button
-              ><i aria-hidden="true"></i
-              ><button data-jump="0.91" aria-label="Zurück zur Welle">
-                03 <span>Kurs</span>
-              </button>
-            </nav>
             <button class="motion-button" id="surf-motion" aria-pressed="false">
               Ⅱ <span>Animation pausieren</span>
             </button>
@@ -227,72 +206,12 @@
               einen verständlichen Überblick zu machen.
             </p>
           </div>
-          <div class="mail-flow" aria-label="Beispielmails erkunden">
-            <a
-              class="flow-item case-card"
-              href="/assets/cases/v0.6.0-preview.2/invoice.png"
-              data-case="invoice"
-            >
-              <span class="case-copy"
-                ><small>Jahresabrechnung · Strom</small
-                ><strong>Rechnung erkannt</strong
-                ><span class="status">Automatisch eingeordnet</span></span
-              >
-              <span class="case-thumb" aria-hidden="true"
-                ><img
-                  src="/assets/cases/v0.6.0-preview.2/invoice.png"
-                  alt=""
-                  width="1149"
-                  height="1700"
-                  loading="lazy"
-              /></span></a
-            >
-            <a
-              class="flow-item case-card"
-              href="/assets/cases/v0.6.0-preview.2/appointment.png"
-              data-case="appointment"
-            >
-              <span class="case-copy"
-                ><small>Terminbestätigung · Wartung</small
-                ><strong>Termin vorgeschlagen</strong
-                ><span class="status">Zur Freigabe</span></span
-              >
-              <span class="case-thumb" aria-hidden="true"
-                ><img
-                  src="/assets/cases/v0.6.0-preview.2/appointment.png"
-                  alt=""
-                  width="1149"
-                  height="1700"
-                  loading="lazy"
-              /></span></a
-            >
-            <a
-              class="flow-item case-card decision"
-              href="/assets/cases/v0.6.0-preview.2/contract.png"
-              data-case="contract"
-            >
-              <span class="case-copy"
-                ><small>Vertragsverlängerung · Mobilfunk</small
-                ><strong>Verlängerung prüfen</strong
-                ><span class="status">Deine Entscheidung</span></span
-              >
-              <span class="case-thumb" aria-hidden="true"
-                ><img
-                  src="/assets/cases/v0.6.0-preview.2/contract.png"
-                  alt=""
-                  width="1149"
-                  height="1700"
-                  loading="lazy"
-              /></span></a
-            >
-          </div>
-          <p class="example-note">Echte Oberfläche · erfundene Daten und vorbereitete Bewertungen.</p>
-          <p class="example-note">Die „Stimmen“ sind Bewertungen lokaler Modelle. <a href="#arbeitsweise">So arbeiten sie im Inneren des Bretts →</a></p>
+          <div class="daily-workflow" data-daily-workflow><p>Mail → lokale Modelle → Einordnung → Folgeschritte → Monatsabgleich</p></div>
           <figure class="screenshot mail-shot">
             <button
               class="shot"
               data-zoom="/assets/wave/mail.jpg"
-              data-caption="Folio · echte Oberfläche mit Beispieldaten"
+              data-caption="Folio · Mailübersicht"
               aria-label="Bild vergrößern: Folio-Mailübersicht mit Rechnungen, Terminen und Verträgen"
             >
               <img
@@ -302,7 +221,7 @@
               /><span class="enlarge" aria-hidden="true">↗</span>
             </button>
             <figcaption>
-              Folio · echte Oberfläche mit Beispieldaten
+              Folio · Mailübersicht
             </figcaption>
           </figure>
           <div class="mail-bottom">
@@ -315,255 +234,7 @@
             >
           </div>
         </section>
-        <section class="engineering" id="arbeitsweise">
-          <div class="wrap">
-            <div class="section-head">
-              <div>
-                <p class="eyebrow">02 / SO FUNKTIONIERT’S</p>
-                <h2>Was unter der Oberfläche<br />zusammenarbeitet.</h2>
-              </div>
-              <p>
-                Der Rechner liefert die Leistung. Folio verbindet dein Wissen,
-                lokale KI und Werkzeuge mit klaren Grenzen.
-              </p>
-            </div>
-            <div class="board-layout">
-              <div class="board-stage">
-                <svg
-                  class="board-svg"
-                  viewBox="0 0 840 440"
-                  role="img"
-                  aria-labelledby="boardTitle boardDesc"
-                >
-                  <title id="boardTitle">Das Folio-Brett, von innen</title>
-                  <desc id="boardDesc">
-                    Drei übereinanderliegende Ebenen verbinden eigenes Wissen,
-                    lokale Modelle und begrenzte Werkzeuge. Die Links daneben führen zu Architektur und Beispielen.
-                  </desc>
-                  <defs>
-                    <linearGradient id="deck" x1="0" y1="0" x2="1" y2="1">
-                      <stop stop-color="#ffffff" />
-                      <stop offset="1" stop-color="#d8eef4" />
-                    </linearGradient>
-                    <linearGradient id="core" x1="0" y1="0" x2="0" y2="1">
-                      <stop stop-color="#86b0ef" />
-                      <stop offset="1" stop-color="#426eb0" />
-                    </linearGradient>
-                    <linearGradient id="hull" x1="0" y1="0" x2="0" y2="1">
-                      <stop stop-color="#214575" />
-                      <stop offset="1" stop-color="#132d52" />
-                    </linearGradient>
-                    <linearGradient id="waveLine">
-                      <stop stop-color="#99d7e4" stop-opacity="0" />
-                      <stop
-                        offset=".5"
-                        stop-color="#66b5cb"
-                        stop-opacity=".6"
-                      />
-                      <stop offset="1" stop-color="#99d7e4" stop-opacity="0" />
-                    </linearGradient>
-                    <filter id="boardShadow">
-                      <feGaussianBlur stdDeviation="12" />
-                    </filter>
-                  </defs>
-                  <ellipse
-                    cx="419"
-                    cy="367"
-                    rx="290"
-                    ry="24"
-                    fill="#4f8ca5"
-                    opacity=".12"
-                    filter="url(#boardShadow)"
-                  />
-                  <g fill="none" stroke="url(#waveLine)" stroke-width="1.5">
-                    <path d="M8 358C180 310 258 413 439 363S657 327 832 369" />
-                    <path d="M3 387C162 339 278 433 462 382S661 355 830 396" />
-                    <path d="M53 331C179 295 266 362 402 325S650 291 791 330" />
-                  </g>
-                  <g class="board-layer" data-layer="2">
-                    <path
-                      d="M102 281Q124 239 274 225L697 173Q756 188 777 208Q741 258 640 289L245 345Q146 331 102 281Z"
-                      fill="url(#hull)"
-                      stroke="#1b6489"
-                      stroke-width="2"
-                    />
-                    <path
-                      d="M103 280Q143 307 238 319L650 264Q735 239 777 207"
-                      fill="none"
-                      stroke="#70adc0"
-                      stroke-width="1.5"
-                    />
-                    <path d="M265 316L292 370L326 309" fill="#1a4f70" />
-                    <path d="M602 270L625 312L644 264" fill="#1a4f70" />
-                    <g stroke="#9fcdd9" fill="none" stroke-width="1.4">
-                      <path
-                        d="M372 276l16-8 16 4v17c0 13-16 23-16 23s-16-2-16-15z"
-                      />
-                      <path d="m379 286 8 5 11-17" />
-                    </g>
-                    <text
-                      x="457"
-                      y="281"
-                      fill="#c0e7ef"
-                      transform="rotate(-8 457 281)"
-                      class="svg-label"
-                    >
-                      REGELN &amp; WERKZEUGE
-                    </text>
-                  </g>
-                  <g class="board-layer" data-layer="1">
-                    <path
-                      d="M102 221Q124 179 274 165L697 113Q756 128 777 148Q741 198 640 229L245 285Q146 271 102 221Z"
-                      fill="url(#core)"
-                      stroke="#3e9aba"
-                      stroke-width="2"
-                    />
-                    <path
-                      d="M105 220Q143 247 239 260L650 203Q735 179 777 147"
-                      fill="none"
-                      stroke="#c3f1f5"
-                      stroke-width="1.5"
-                    />
-                    <g
-                      fill="none"
-                      stroke="#dcfaff"
-                      stroke-width="1.5"
-                      opacity=".85"
-                    >
-                      <path d="M278 210L371 195 423 209 517 192 582 169" />
-                      <path d="M325 238L371 195 422 168 467 193 548 222" />
-                      <circle cx="278" cy="210" r="6" />
-                      <circle cx="371" cy="195" r="9" />
-                      <circle cx="423" cy="209" r="7" />
-                      <circle cx="517" cy="192" r="9" />
-                      <circle cx="582" cy="169" r="6" />
-                      <circle cx="325" cy="238" r="6" />
-                      <circle cx="422" cy="168" r="6" />
-                      <circle cx="548" cy="222" r="7" />
-                    </g>
-                    <text
-                      x="590"
-                      y="205"
-                      fill="#eafcff"
-                      transform="rotate(-8 590 205)"
-                      class="svg-label"
-                    >
-                      LOKALE KI
-                    </text>
-                  </g>
-                  <g class="board-layer is-active" data-layer="0">
-                    <path
-                      d="M102 158Q124 116 274 102L697 50Q756 65 777 85Q741 135 640 166L245 222Q146 208 102 158Z"
-                      fill="url(#deck)"
-                      stroke="#b2d4e0"
-                      stroke-width="2"
-                    />
-                    <path
-                      d="M105 158Q142 184 239 197L650 140Q735 115 777 84"
-                      fill="none"
-                      stroke="#aed1df"
-                    />
-                    <path
-                      d="M226 191L682 126"
-                      fill="none"
-                      stroke="#80a6d7"
-                      stroke-width="4"
-                    />
-                    <g fill="none" stroke="#6b95ad" stroke-width="1.4">
-                      <path
-                        d="m280 132 32-5 14 9v29l-46 7zM312 127v13l14-4M290 149l24-4M290 158l24-4"
-                      />
-                      <path d="m350 120 36-5v31l-36 5zM350 120l18 11 18-16" />
-                    </g>
-                    <text
-                      x="463"
-                      y="132"
-                      fill="#406e89"
-                      transform="rotate(-8 463 132)"
-                      class="svg-label"
-                    >
-                      DEIN WISSEN
-                    </text>
-                  </g>
-                  <g
-                    stroke="#6c9bb1"
-                    fill="none"
-                    stroke-dasharray="3 5"
-                    opacity=".55"
-                  >
-                    <path d="M166 195v109M655 150v107" />
-                  </g>
-                </svg>
-                <p class="example-note">
-                  Das Prinzip · vereinfacht dargestellt
-                </p>
-              </div>
-              <div class="layer-controls">
-                <a class="layer-button" data-board-layer="0" href="#memory">
-                  <span>01</span
-                  ><span
-                    ><strong>Dein Wissen</strong
-                    ><small
-                      >Mails, Dokumente und bestätigte Fakten liefern den
-                      Zusammenhang.</small
-                    ><em class="layer-more">Memory & Architektur →</em></span
-                  ></a
-                ><a class="layer-button" data-board-layer="1" href="#mail-modelle">
-                  <span>02</span
-                  ><span
-                    ><strong>Lokale Modelle</strong
-                    ><small
-                      >KI ordnet ein und macht Vorschläge. Ihre Einschätzung
-                      bleibt nachvollziehbar.</small
-                    ><em class="layer-more">Modellstimmen ansehen →</em></span
-                  ></a
-                ><a class="layer-button" data-board-layer="2" href="#mail-regeln">
-                  <span>03</span
-                  ><span
-                    ><strong>Begrenzte Werkzeuge</strong
-                    ><small
-                      >Klare Regeln begrenzen Aktionen. Unklare Fälle bleiben
-                      bei dir.</small
-                    ><em class="layer-more">Regeln & Ablauf →</em></span
-                  >
-                </a>
-              </div>
-            </div>
-            <p class="local-note">
-              Mailverarbeitung und Modellbewertung bleiben lokal; optional
-              eingerichtete Verbindungen wie Google Kalender kommunizieren mit
-              dem jeweiligen Anbieter.
-            </p>
-          </div>
-        </section>
-        <section class="architecture-section wrap" id="mail-modelle">
-          <span class="architecture-anchor" id="mail-regeln" aria-hidden="true"></span>
-          <div class="section-head">
-            <div><p class="eyebrow">IM INNEREN / MAIL</p><h2>Eine Mail. Ein sichtbarer Weg.</h2></div>
-            <p>Feste Regeln und lokale Modelle liefern getrennte Einschätzungen. Folio prüft, was daraus folgen darf.</p>
-          </div>
-          <div class="workflow-animation" data-workflow>
-            <div class="flow-toolbar"><span>Der Ablauf im Überblick</span><button type="button" data-flow-play>Ablauf abspielen</button></div>
-            <ol class="architecture-flow "><li style="--step:0"><span class="flow-number">01</span><strong>Eingang</strong><small>Mail lokal ablegen</small></li><li style="--step:1"><span class="flow-number">02</span><strong>Feste Regeln</strong><small>Signale erkennen</small></li><li style="--step:2"><span class="flow-number">03</span><strong>Lokale Modelle</strong><small>Getrennt bewerten</small></li><li style="--step:3"><span class="flow-number">04</span><strong>Abgleich</strong><small>Stimmen & Grenzen prüfen</small></li><li style="--step:4"><span class="flow-number">05</span><strong>Nächster Schritt</strong><small>Erledigen oder dir vorlegen</small></li></ol>
-            <div class="flow-branches"><span>Eindeutig + freigegeben → begrenzte Automatik</span><span>Unklar oder Entscheidung nötig → zu dir</span></div>
-          </div>
-          <div class="workflow-evidence">
-            <article class="architecture-card" data-evidence-kind="models">
-              <p class="eyebrow">LOKALE MODELLE</p><h3>Jede Stimme hat einen Namen.</h3>
-              <p>GLM-4.7 Flash, Qwen 3.6 und Qwen 3.8 bewerten Mailstapel nacheinander auf meinem MacBook mit 48 GB RAM. Eine zusätzliche Prüfung kann bei Bedarf folgen.</p>
-              <div class="model-sequence" aria-label="Modelle laufen nacheinander"><span>GLM-4.7 Flash</span><i aria-hidden="true">→</i><span>Qwen 3.6</span><i aria-hidden="true">→</i><span>Qwen 3.8</span></div>
-              <figure class="screenshot"><button class="shot" data-zoom="/assets/cases/v0.6.0-preview.2/model-voices.png" aria-label="Modellstimmen im Detail ansehen"><img src="/assets/cases/v0.6.0-preview.2/model-voices.png" alt="Folio-Detailpanel: drei benannte Modelle und die feste Regel H zur Stromabrechnung." loading="lazy"/><span class="enlarge" aria-hidden="true">↗</span></button><figcaption>Echte Oberfläche · erfundene Mail, vorbereitete Bewertungen.</figcaption></figure>
-              <a class="layer-more" href="/multi-agent/#roles">Wie wir die Modelle auswählen →</a>
-            </article>
-            <article class="architecture-card" data-evidence-kind="rules">
-              <p class="eyebrow">REGELN & WERKZEUGE</p><h3>Du entscheidest.</h3>
-              <p>Folio legt dir das Vertragsangebot mit Preis und Laufzeit zur Entscheidung vor.</p>
-              <div class="decision-path"><span>Angebot erkannt</span><i aria-hidden="true">→</i><span>Entscheidung offen</span></div>
-              <figure class="screenshot"><button class="shot rule-shot" data-zoom="/assets/cases/v0.6.0-preview.2/contract.png" aria-label="Vertragsfall im Detail ansehen"><img src="/assets/cases/v0.6.0-preview.2/contract.png" alt="Folio-Detailpanel: Mobilfunkangebot mit neuen Konditionen und offener Entscheidung." loading="lazy"/><span class="enlarge" aria-hidden="true">↗</span></button><figcaption>Echte Oberfläche · fiktives Vertragsangebot. Zum Vergrößern klicken.</figcaption></figure>
-            </article>
-          </div>
-          <a class="architecture-back" href="#arbeitsweise">↑ Zurück zu den drei Schichten</a>
-        </section>
+        <p class="local-note wrap" id="arbeitsweise">Mailverarbeitung und Modellbewertung laufen lokal. Optionale Verbindungen wie Google Kalender kommunizieren mit dem jeweiligen Anbieter.</p>
         <section class="ledger section wrap" id="ledger">
           <div class="section-head">
             <div>
@@ -581,7 +252,7 @@
             <button
               class="shot"
               data-zoom="/assets/wave/ledger.jpg"
-              data-caption="Ledger · Beispieldaten · vollständiges Dashboard · Projektion als Schätzung"
+              data-caption="Ledger · Einnahmen, Ausgaben und geschätzte Entwicklung"
               aria-label="Bild vergrößern: Vollständiges Ledger-Dashboard mit Cashflow und Ausgabenkategorien"
             >
               <img
@@ -591,8 +262,7 @@
               /><span class="enlarge" aria-hidden="true">↗</span>
             </button>
             <figcaption>
-              Ledger · Beispieldaten · vollständiges Dashboard · Projektion als
-              Schätzung
+              Ledger · Einnahmen, Ausgaben und geschätzte Entwicklung
             </figcaption>
           </figure>
         </section>
@@ -608,10 +278,10 @@
       </div>
     </div>
     <div class="me-overlay" data-memory-overlay hidden></div>
-    <footer class="me-tools"><small>Veranschaulichung · erfundene Daten</small><div><button type="button" data-memory-evidence>Echte Oberfläche ↗</button><button type="button" data-memory-tech>Technik dahinter +</button></div></footer>
+    <footer class="me-tools"><div><button type="button" data-memory-evidence>Graph ansehen ↗</button><button type="button" data-memory-tech>Technik dahinter +</button></div></footer>
   </div>
   <noscript><p>Der lokale Memory-Graph verbindet bestätigte Fakten mit ihren Quellen. Mit JavaScript lässt sich die Erklärung interaktiv erkunden.</p><img src="/assets/cases/v0.6.0-preview.3/memory-graph.png" alt="Memory-Graph mit Beispieldaten" loading="lazy" style="width:100%"/></noscript>
-  <p class="me-release">Graph verfügbar in <a href="https://github.com/aion-lumen/folio/releases/tag/v0.6.0-preview.3">v0.6.0-preview.3</a> · lokal · Owner-Zugang</p>
+  <p class="me-release">Memory &amp; Graph in <a href="https://github.com/aion-lumen/folio/releases/tag/v0.6.0-preview.5">v0.6.0-preview.5</a> · lokal · Owner-Zugang</p>
 </section>
         <section class="journal" id="blog">
           <div class="wrap journal-inner">
@@ -664,7 +334,7 @@
               ><span class="project-number">02</span>
               <h3>NobleCause</h3>
               <p>
-                Ein KI-Rat, der unterschiedliche Perspektiven zusammenbringt.
+                Ein KI-Rat, der Spendenorganisationen vergleicht.
               </p>
               <span class="project-link">Zum Projekt ↗</span></a
             ><a href="/multi-agent/"
@@ -720,11 +390,13 @@
       </div>
       <div class="lightbox-scroll"><img id="lightbox-image" alt="" /></div>
     </dialog>
-    <script type="module" src="/styles/surf.js?v=ad865d60146c"></script>
-    <script src="/styles/cases.js?v=kiss-20260928"></script>
+    <script type="module" src="/styles/surf.js?v=032ba156c43a"></script>
+    <script src="/styles/cases.js?v=cf5b97e378b3"></script>
     <script src="/styles/journey.js"></script>
     <script src="/styles/architecture.js?v=8ddf84f3c2e3"></script>
     <script src="/styles/site.js?v=620a9968138d"></script>
-    <script src="/styles/memory-explorer.js?v=4"></script>
-  </body>
+    <script src="/styles/memory-explorer.js?v=f5d6a969ff8f"></script>
+  <script src="/styles/daily-workflow.js?v=03cc5c2a8220"></script>
+<script>setTimeout(()=>{const r=document.querySelector(".surf-story"),i=r?.querySelector("img[data-src]");if(r&&!r.classList.contains("ready")&&i){i.src=i.dataset.src;r.classList.add("no-webgl");}},12000);</script>
+</body>
 </html>

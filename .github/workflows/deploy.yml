@@ -30,21 +30,11 @@ jobs:
       - name: Add VPS host key
         run: ssh-keyscan -H 185.143.100.222 >> ~/.ssh/known_hosts
 
-      - name: "Mirror Folio import spec (source of truth: aion-lumen/folio)"
-        run: |
-          mkdir -p folio
-          curl -fsSL https://raw.githubusercontent.com/aion-lumen/folio/main/FOLIO-IMPORT.md \
-            -o folio/import-spec.md
+      - name: Build referenced public files
+        run: python3 scripts/build-public.py
 
-      - name: Deploy (rsync whitelisted site paths, NO --delete in v1)
+      - name: Deploy reviewed public files
         run: |
-          # Deny-by-default whitelist: only real site paths ship. Draft/concept files
-          # (index-a.html, index-b-print.html, *konzept*.html, .cursor, *.md) stay private.
-          # fonts/ lives under styles/fonts/, img/ under the section dirs — both covered.
-          rsync -avz \
-            index.html en.html favicon.svg assets styles story multi-agent folio the-long-table impressum blog \
-            aionlumen@185.143.100.222:/srv/aion-lumen/
-          # --delete is intentionally NOT enabled (v1, safer: never removes stray files).
-          # To tighten later, review a dry-run first, then enable:
-          #   rsync -avzn --delete ...   # dry-run — inspect what would be deleted
-          #   rsync -avz  --delete ...   # real
+          # No source directories or internal notes are copied wholesale.
+          # Retirement of old server files uses the separately reviewed list.
+          rsync -avz site-dist/ aionlumen@185.143.100.222:/srv/aion-lumen/

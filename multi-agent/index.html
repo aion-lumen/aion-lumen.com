@@ -154,7 +154,7 @@
           <button
             class="shot"
             data-zoom="/multi-agent/img/model-catalog-2026-09.png"
-            data-caption="Folio-Modellprüfstand · dokumentierte Kandidaten"
+            data-caption="Folio-Modellprüfstand · Modellübersicht"
             aria-label="Folio-Modellprüfstand mit zwölf dokumentierten Modellkandidaten"
           >
             <img
@@ -164,7 +164,7 @@
             /><span class="enlarge" aria-hidden="true">↗</span>
           </button>
           <figcaption>
-            Folio-Modellprüfstand · dokumentierte Kandidaten
+            Folio-Modellprüfstand · Modellübersicht
           </figcaption>
         </figure>
         <details class="disclosure">
@@ -238,47 +238,15 @@
             <h2>Klein testen.<br />Genau hinsehen.</h2>
           </div>
           <p>
-            Die jüngste Aufgabenprüfung nutzt erfundene Beispiele. Sie zeigt
-            Unterschiede in Tempo und Einordnung – und hat auch einen Fehler im
-            Test selbst aufgedeckt.
+            Welches Modell erkennt eine Aufgabe zuverlässig — und wie schnell? Ein Vergleich mit vierzehn kurzen Nachrichten.
           </p>
         </div>
-        <div class="test-report" id="test-report">
-          <p class="eyebrow">24.09.2026 · 14 AUFGABENFÄLLE · SYNTHETISCH</p>
-          <h3>Was ist wirklich eine Aufgabe?</h3>
-          <p class="fine">
-            Drei Modelle, derselbe Auftrag. Hier die ursprüngliche Wertung der
-            Promptvariante v1.
-          </p>
-          <div class="legend">
-            <span>Richtige Einordnungen / 14</span
-            ><span>Antwortzeit · Median</span>
-          </div>
-          <div class="bench-row">
-            <div>Gemma 4 26B A4B</div>
-            <div class="bench-track" aria-hidden="true">
-              <div class="bench-fill" style="width: 92.86%"></div>
-            </div>
-            <strong>13/14</strong><span>1.3 s</span>
-          </div>
-          <div class="bench-row">
-            <div>Qwen 3.6 35B A3B</div>
-            <div class="bench-track" aria-hidden="true">
-              <div class="bench-fill mid" style="width: 85.71%"></div>
-            </div>
-            <strong>12/14</strong><span>22.5 s</span>
-          </div>
-          <div class="bench-row">
-            <div>Qwen 3 Thinking</div>
-            <div class="bench-track" aria-hidden="true">
-              <div class="bench-fill light" style="width: 78.57%"></div>
-            </div>
-            <strong>11/14</strong><span>8.2 s</span>
-          </div>
-          <p class="bench-note">
-            Nach Korrektur eines Sollwerts: 14, 13 und 12 Treffer. <a href="/multi-agent/tests/">Auswertung und Testumfang →</a>
-          </p>
-        </div>
+<div class="test-report" id="test-report">
+      <p class="eyebrow">24.09.2026 · 14 ERFUNDENE BEISPIELE</p>
+      <h3>Was ist wirklich eine Aufgabe?</h3>
+      <p class="fine">Drei Modelle ordnen dieselben Nachrichten ein: Aufgabe, unklar oder keine Aufgabe. Standardanweisung (v1).</p>
+      <div class="legend"><span>Richtige Einordnungen / 14</span><span>Antwortzeit · Median</span></div><div class="bench-row"><div>Gemma 4 26B A4B</div><div class="bench-track" aria-hidden="true"><div class="bench-fill" style="width: 100.00%"></div></div><strong>14/14</strong><span>1.3 s</span></div><div class="bench-row"><div>Qwen 3.6 35B A3B</div><div class="bench-track" aria-hidden="true"><div class="bench-fill mid" style="width: 92.86%"></div></div><strong>13/14</strong><span>22.5 s</span></div><div class="bench-row"><div>Qwen 3 30B A3B Thinking</div><div class="bench-track" aria-hidden="true"><div class="bench-fill light" style="width: 85.71%"></div></div><strong>12/14</strong><span>8.2 s</span></div>
+</div>
         <div class="takeaways">
           <div>
             <span class="number">01</span>
@@ -298,14 +266,14 @@
           </div>
           <div>
             <span class="number">03</span>
-            <h3>Ergebnisse gegenprüfen.</h3>
+            <h3>Passend zur Aufgabe wählen.</h3>
             <p>
-              Fehler können im Modell, im Prompt oder im Sollwert liegen.
-              Deshalb bleiben Belege und technische Fehler Teil der Auswertung.
+              Mails sortieren und Finanzfragen verstehen verlangen unterschiedliche Fähigkeiten. Wir prüfen Modelle an ihren späteren Aufgaben.
             </p>
           </div>
         </div>
         <div class="actions" style="margin-top: 32px">
+<a class="text-link" href="/multi-agent/tests/#entwicklung">Wie die Werkstatt gewachsen ist →</a>
           <a class="text-link" href="/multi-agent/tests/"
             >Den kurzen Testbericht lesen →</a
           ><a class="text-link" href="/folio/">Zum Werkzeug Folio →</a

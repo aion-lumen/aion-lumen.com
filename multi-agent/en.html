@@ -154,7 +154,7 @@
           <button
             class="shot"
             data-zoom="/multi-agent/img/model-catalog-2026-09.png"
-            data-caption="Folio model workbench · documented candidates"
+            data-caption="Folio model workbench · model overview"
             aria-label="Folio model workbench with twelve documented candidates"
           >
             <img
@@ -164,7 +164,7 @@
             /><span class="enlarge" aria-hidden="true">↗</span>
           </button>
           <figcaption>
-            Folio model workbench · documented candidates
+            Folio model workbench · model overview
           </figcaption>
         </figure>
         <details class="disclosure">
@@ -238,47 +238,15 @@
             <h2>Small tests.<br />Close inspection.</h2>
           </div>
           <p>
-            The latest task test uses fictional examples. It reveals differences
-            in speed and classification, and exposed an error in the test
-            itself.
+            Which model spots a task reliably — and how quickly? A comparison using fourteen short messages.
           </p>
         </div>
-        <div class="test-report" id="test-report">
-          <p class="eyebrow">24.09.2026 · 14 TASK CASES · SYNTHETIC</p>
-          <h3>What actually counts as a task?</h3>
-          <p class="fine">
-            Three models, the same request. Original scores for prompt variant
-            v1 shown here.
-          </p>
-          <div class="legend">
-            <span>Correct classifications / 14</span
-            ><span>Response time · median</span>
-          </div>
-          <div class="bench-row">
-            <div>Gemma 4 26B A4B</div>
-            <div class="bench-track" aria-hidden="true">
-              <div class="bench-fill" style="width: 92.86%"></div>
-            </div>
-            <strong>13/14</strong><span>1.3 s</span>
-          </div>
-          <div class="bench-row">
-            <div>Qwen 3.6 35B A3B</div>
-            <div class="bench-track" aria-hidden="true">
-              <div class="bench-fill mid" style="width: 85.71%"></div>
-            </div>
-            <strong>12/14</strong><span>22.5 s</span>
-          </div>
-          <div class="bench-row">
-            <div>Qwen 3 Thinking</div>
-            <div class="bench-track" aria-hidden="true">
-              <div class="bench-fill light" style="width: 78.57%"></div>
-            </div>
-            <strong>11/14</strong><span>8.2 s</span>
-          </div>
-          <p class="bench-note">
-            After correcting a reference label: 14, 13 and 12 correct answers. <a href="/multi-agent/tests/en.html">Evaluation and test scope →</a>
-          </p>
-        </div>
+<div class="test-report" id="test-report">
+      <p class="eyebrow">24.09.2026 · 14 FICTIONAL EXAMPLES</p>
+      <h3>What actually counts as a task?</h3>
+      <p class="fine">Three models classify the same messages: task, unclear or no task. Standard instruction (v1).</p>
+      <div class="legend"><span>Correct classifications / 14</span><span>Response time · median</span></div><div class="bench-row"><div>Gemma 4 26B A4B</div><div class="bench-track" aria-hidden="true"><div class="bench-fill" style="width: 100.00%"></div></div><strong>14/14</strong><span>1.3 s</span></div><div class="bench-row"><div>Qwen 3.6 35B A3B</div><div class="bench-track" aria-hidden="true"><div class="bench-fill mid" style="width: 92.86%"></div></div><strong>13/14</strong><span>22.5 s</span></div><div class="bench-row"><div>Qwen 3 30B A3B Thinking</div><div class="bench-track" aria-hidden="true"><div class="bench-fill light" style="width: 85.71%"></div></div><strong>12/14</strong><span>8.2 s</span></div>
+</div>
         <div class="takeaways">
           <div>
             <span class="number">01</span>
@@ -298,14 +266,14 @@
           </div>
           <div>
             <span class="number">03</span>
-            <h3>Check the results.</h3>
+            <h3>Choose for the job.</h3>
             <p>
-              Errors can be in the model, prompt or reference answer. Evidence
-              and technical failures therefore remain part of the evaluation.
+              Mail sorting and financial questions need different skills. We test models on the tasks they will handle.
             </p>
           </div>
         </div>
         <div class="actions" style="margin-top: 32px">
+<a class="text-link" href="/multi-agent/tests/en.html#entwicklung">How the lab grew →</a>
           <a class="text-link" href="/multi-agent/tests/en.html"
             >Read the short test report →</a
           ><a class="text-link" href="/folio/en.html">See Folio →</a

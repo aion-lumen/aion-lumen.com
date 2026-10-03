@@ -6,7 +6,7 @@
     <title>Test report · September 2026 · Aion Lumen</title>
     <meta
       name="description"
-      content="A bounded, traceable report on synthetic local model tests."
+      content="Local model test results and the story behind the lab."
     />
     <link
       rel="canonical"
@@ -25,7 +25,7 @@
     <meta property="og:title" content="Test report · September 2026" />
     <meta
       property="og:description"
-      content="A bounded, traceable report on synthetic local model tests."
+      content="Local model test results and the story behind the lab."
     />
     <meta property="og:type" content="website" />
     <meta
@@ -39,6 +39,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" />
     <link rel="stylesheet" href="/styles/site.css?v=d57f461b8304" />
+    <link rel="stylesheet" href="/styles/development.css" />
   </head>
   <body class="">
     <script>
@@ -85,160 +86,23 @@
       </nav>
     </header>
     <main id="main">
-      <header class="page-head wrap">
-        <p class="eyebrow">LAB / TEST REPORT</p>
-        <h1>What the tests show.</h1>
-        <p class="lead">
-          A review of recorded runs from August and September 2026. Published
-          figures use synthetic data and technical model metadata, not private
-          mail contents.
-        </p>
-      </header>
-      <div class="wrap content-section">
-        <div class="test-report" id="test-report">
-          <p class="eyebrow">24.09.2026 · 14 TASK CASES · SYNTHETIC</p>
-          <h3>What actually counts as a task?</h3>
-          <p class="fine">
-            Three models, the same request. Original scores for prompt variant
-            v1 shown here.
-          </p>
-          <div class="legend">
-            <span>Correct classifications / 14</span
-            ><span>Response time · median</span>
-          </div>
-          <div class="bench-row">
-            <div>Gemma 4 26B A4B</div>
-            <div class="bench-track" aria-hidden="true">
-              <div class="bench-fill" style="width: 92.86%"></div>
-            </div>
-            <strong>13/14</strong><span>1.3 s</span>
-          </div>
-          <div class="bench-row">
-            <div>Qwen 3.6 35B A3B</div>
-            <div class="bench-track" aria-hidden="true">
-              <div class="bench-fill mid" style="width: 85.71%"></div>
-            </div>
-            <strong>12/14</strong><span>22.5 s</span>
-          </div>
-          <div class="bench-row">
-            <div>Qwen 3 Thinking</div>
-            <div class="bench-track" aria-hidden="true">
-              <div class="bench-fill light" style="width: 78.57%"></div>
-            </div>
-            <strong>11/14</strong><span>8.2 s</span>
-          </div>
-          <p class="bench-note">
-            One reference label was wrong on inspection. With the corrected
-            label, the same answers score 14, 13 and 12. This is a re-scoring,
-            not a new model run.
-          </p>
-        </div>
-        <h2 style="margin-top: 52px">1. Understanding tasks</h2>
-        <p class="section-lead">
-          14 cases × three models × two prompts: 84 local calls, all technically
-          usable. The test only measured classification as a task, unclear case
-          or non-task.
-        </p>
-        <div class="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th>Model</th>
-                <th>Prompt</th>
-                <th>Original</th>
-                <th>Corrected reference</th>
-                <th>Median</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Gemma 4 26B A4B</td>
-                <td>v1</td>
-                <td>13/14</td>
-                <td>14/14</td>
-                <td>1.3 s</td>
-              </tr>
-              <tr>
-                <td>Gemma 4 26B A4B</td>
-                <td>v1-strict</td>
-                <td>13/14</td>
-                <td>14/14</td>
-                <td>1.3 s</td>
-              </tr>
-              <tr>
-                <td>Qwen 3.6 35B A3B</td>
-                <td>v1</td>
-                <td>12/14</td>
-                <td>13/14</td>
-                <td>22.5 s</td>
-              </tr>
-              <tr>
-                <td>Qwen 3.6 35B A3B</td>
-                <td>v1-strict</td>
-                <td>11/14</td>
-                <td>12/14</td>
-                <td>23.2 s</td>
-              </tr>
-              <tr>
-                <td>Qwen 3 30B A3B Thinking</td>
-                <td>v1</td>
-                <td>11/14</td>
-                <td>12/14</td>
-                <td>8.2 s</td>
-              </tr>
-              <tr>
-                <td>Qwen 3 30B A3B Thinking</td>
-                <td>v1-strict</td>
-                <td>12/14</td>
-                <td>13/14</td>
-                <td>9.2 s</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="scope-box">
-          The correction concerns meeting notes that do not constitute a new
-          task under the test definition. Runs used the local work machine, not
-          a cross-hardware benchmark. This small sample does not establish a
-          general Folio success rate.
-        </p>
-        <h2 style="margin-top: 52px">2. Ledger as a complete path</h2>
-        <p class="section-lead">
-          On 22 September, Qwen 3.8 passed 28 of 30 Ledger question-planning
-          cases after adjustments. A separate integration test passed 18 of 18
-          cases and included nine actual model calls; another 28 calculation
-          checks ran without a model.
-        </p>
-        <p class="fine">
-          These results measure different layers and are not combined into a
-          single accuracy figure. Retested cases after changes are not
-          independent evidence for unseen phrasing.
-        </p>
-        <h2 style="margin-top: 52px">3. Why there is no overall winner</h2>
-        <p class="section-lead">
-          Earlier mail tests used 40 synthetic messages. Some candidates
-          produced empty or unparseable answers; these protocol failures do not
-          reliably measure their subject-matter ability. Mail roles were selected in separate comparisons of response quality, speed and human-checked results. Both Qwen versions share a model family. The catalog shows documented candidates; test coverage varies by model.
-        </p>
-        <p class="scope-box">
-          <strong>Conclusion:</strong> The current lineup remains a working
-          configuration. Gemma 4 26B is a promising candidate for short triage
-          tasks; changing a role requires retesting the same workload, including
-          edge cases and tool calls.
-        </p>
-        <div class="actions">
-          <a
-            class="text-link"
-            href="/multi-agent/img/task-results-2026-09.png"
-            download
-            >Download chart ↓</a
-          ><a class="text-link" href="/multi-agent/results-2026-09.json"
-            >Results as JSON ↓</a
-          ><a class="text-link" href="/multi-agent/en.html"
-            >← Back to the lab</a
-          >
-        </div>
-      </div>
+      <header class="page-head wrap"><p class="eyebrow">WORKSHOP / TEST REPORT</p><h1>What the tests show.</h1><p class="lead">Local models on a MacBook with 48 GB RAM. We test how well they handle everyday tasks using fictional examples.</p><nav class="subnav" aria-label="On this page"><a href="#ergebnisse">Results</a><a href="#entwicklung">Development</a></nav></header>
+      <section class="wrap content-section" id="ergebnisse" aria-label="Results">
+      <div class="test-report" id="test-report">
+      <p class="eyebrow">24.09.2026 · 14 FICTIONAL EXAMPLES</p>
+      <h3>What actually counts as a task?</h3>
+      <p class="fine">Three models classify the same messages: task, unclear or no task. Standard instruction (v1).</p>
+      <div class="legend"><span>Correct classifications / 14</span><span>Response time · median</span></div><div class="bench-row"><div>Gemma 4 26B A4B</div><div class="bench-track" aria-hidden="true"><div class="bench-fill" style="width: 100.00%"></div></div><strong>14/14</strong><span>1.3 s</span></div><div class="bench-row"><div>Qwen 3.6 35B A3B</div><div class="bench-track" aria-hidden="true"><div class="bench-fill mid" style="width: 92.86%"></div></div><strong>13/14</strong><span>22.5 s</span></div><div class="bench-row"><div>Qwen 3 30B A3B Thinking</div><div class="bench-track" aria-hidden="true"><div class="bench-fill light" style="width: 85.71%"></div></div><strong>12/14</strong><span>8.2 s</span></div>
+</div>
+      <h2 class="report-heading">Does a clearer instruction help?</h2><p class="section-lead">We also tried a more specific instruction on the same fourteen messages. Gemma stayed ahead in both versions.</p><div class="table-scroll"><table><thead><tr><th>Model</th><th>Instruction</th><th>Correct</th><th>Time · median</th></tr></thead><tbody><tr><td>Gemma 4 26B A4B</td><td>Standard (v1)</td><td>14/14</td><td>1.3 s</td></tr><tr><td>Gemma 4 26B A4B</td><td>More specific (v1-strict)</td><td>14/14</td><td>1.3 s</td></tr><tr><td>Qwen 3.6 35B A3B</td><td>Standard (v1)</td><td>13/14</td><td>22.5 s</td></tr><tr><td>Qwen 3.6 35B A3B</td><td>More specific (v1-strict)</td><td>12/14</td><td>23.2 s</td></tr><tr><td>Qwen 3 30B A3B Thinking</td><td>Standard (v1)</td><td>12/14</td><td>8.2 s</td></tr><tr><td>Qwen 3 30B A3B Thinking</td><td>More specific (v1-strict)</td><td>13/14</td><td>9.2 s</td></tr></tbody></table></div>
+      <h2 class="report-heading">From a question to a calculation.</h2><p class="section-lead">In Ledger, Qwen 3.8 interprets the question. Code retrieves transactions and calculates the answer.</p>
+      <div class="result-cards"><article><strong>28/30</strong><h3>Questions understood</h3><p>The model chose the intended query.</p></article><article><strong>18/18</strong><h3>Workflows passed</h3><p>The path from question to answer; nine cases used the model.</p></article><article><strong>28/28</strong><h3>Calculations passed</h3><p>Queries and totals checked directly in code.</p></article></div>
+      <div class="actions"><a class="text-link" href="/multi-agent/img/task-results-current-en.svg" download>Download chart ↓</a><a class="text-link" href="/multi-agent/results-2026-09.json">Measurements as JSON ↓</a></div>
+      </section>
+      <section class="wrap content-section development" id="entwicklung" aria-labelledby="history-title"><p class="eyebrow">DEVELOPMENT</p><h2 id="history-title">How the lab grew.</h2>
+      <ol class="development-timeline"><li><p class="eyebrow">August–September 2026</p><h3>It started with mail.</h3><p>We first compared local models on email. Some returned empty or unreadable answers. Response quality, speed and manual checks guided the selection.</p></li><li><p class="eyebrow">22 September</p><h3>Then came financial questions.</h3><p>Ledger taught us to test question understanding and calculations separately. After improvements, the workflow reached the results shown above.</p></li><li><p class="eyebrow">24 September</p><h3>Short messages, closer inspection.</h3><p>Three models tried two instructions. We discovered that our expected answer for a meeting note was wrong and rescored the saved responses; the charts now show those results.</p></li><li><p class="eyebrow">Today</p><h3>A role for each model.</h3><p>Response quality, speed and manual checks guide the choice of mail models. The catalogue brings together twelve candidates from separate experiments; the two Qwen versions belong to the same family.</p></li></ol>
+      <p class="section-lead">A useful next step: try Gemma 4 26B on more mail edge cases and tool calls.</p><a class="text-link" href="/multi-agent/en.html">← Back to the lab</a>
+      </section>
     </main>
     <footer class="wrap footer">
       <a class="brand" href="/en.html" aria-label="Aion Lumen · Home"

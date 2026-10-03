@@ -135,7 +135,8 @@ stage.addEventListener(
     if (e.pointerType !== "mouse" || reduced || paused) return;
     const r = stage.getBoundingClientRect();
     mouse.set(
-      clamp(((e.clientX - r.left) / r.width - 0.5) * 2, -1, 1),
+      // Invert horizontal mouse control for the following-camera view.
+      -clamp(((e.clientX - r.left) / r.width - 0.5) * 2, -1, 1),
       clamp(((e.clientY - r.top) / r.height - 0.5) * 2, -1, 1),
     );
   },
@@ -152,6 +153,7 @@ try {
   });
 } catch (error) {
   root.classList.add("no-webgl");
+  const fallback=root.querySelector("img[data-src]");if(fallback&&!fallback.getAttribute("src"))fallback.src=fallback.dataset.src;
   syncMotion();
   window.__surfScene = { available: false, error: String(error) };
 }
@@ -653,10 +655,6 @@ function updateCopy(values) {
     el.setAttribute("aria-hidden", String(hidden));
   }
   const phase = active === "board" ? 1 : active === "return" ? 2 : 0;
-  document.querySelectorAll(".chapter-nav button").forEach((b, i) => {
-    if (i === phase) b.setAttribute("aria-current", "step");
-    else b.removeAttribute("aria-current");
-  });
   document.querySelector("#surf-scroll-instruction").textContent =
     phase === 0
       ? text("Scrollen, um näherzukommen", "Scroll to move closer")
@@ -932,6 +930,7 @@ if (renderer) {
   canvas.addEventListener("webglcontextlost", (e) => {
     e.preventDefault();
     root.classList.add("no-webgl");
+  const fallback=root.querySelector("img[data-src]");if(fallback&&!fallback.getAttribute("src"))fallback.src=fallback.dataset.src;
     root.classList.remove("animated");
     updateCopy(phaseState(0));
     syncMotion();

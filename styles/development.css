@@ -1,0 +1,14 @@
+.report-heading { margin-top: 56px; }
+.result-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 28px 0; }
+.result-cards article { border: 1px solid var(--line); border-radius: 16px; padding: 28px; background: var(--pale); }
+.result-cards strong { color: var(--blue); font-size: 36px; }
+.result-cards h3 { margin: 12px 0; font-size: 18px; }
+.result-cards p { color: var(--soft); font-size: 15px; }
+.development { border-top: 1px solid var(--line); scroll-margin-top: 100px; }
+.development-timeline { list-style: none; margin: 36px 0; padding: 0 0 0 32px; max-width: 800px; border-left: 2px solid var(--line); }
+.development-timeline li { position: relative; padding: 0 0 36px; }
+.development-timeline li:last-child { padding-bottom: 0; }
+.development-timeline li::before { content: ""; position: absolute; left: -39px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 5px var(--bg); }
+.development-timeline h3 { margin: 9px 0; font-size: 22px; }
+.development-timeline li > p:last-child { color: var(--soft); line-height: 1.7; margin: 0; }
+@media (max-width: 650px) { .result-cards { grid-template-columns: 1fr; } .result-cards article { padding: 22px; } .development-timeline { padding-left: 24px; } .development-timeline li::before { left: -31px; } }

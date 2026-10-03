@@ -29,8 +29,9 @@
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" />
     <link rel="stylesheet" href="/styles/site.css?v=d57f461b8304" />
-    <link rel="stylesheet" href="/styles/memory-explorer.css?v=3" />
-  </head>
+    <link rel="stylesheet" href="/styles/memory-explorer.css?v=8617952db06e" />
+  <link rel="stylesheet" href="/styles/daily-workflow.css?v=8ea31caee388"/>
+</head>
   <body class="">
     <script>
       try {
@@ -90,8 +91,8 @@
             >Set up Folio ↗</a
           ><a
             class="text-link"
-            href="https://github.com/aion-lumen/folio/releases/tag/v0.6.0-preview.3"
-            >v0.6.0-preview.3 ↗</a
+            href="https://github.com/aion-lumen/folio/releases/tag/v0.6.0-preview.5"
+            >v0.6.0-preview.5 ↗</a
           >
         </div>
         <nav class="subnav" aria-label="On this page">
@@ -110,7 +111,8 @@
             can inspect the reasons and individual model assessments.
           </p>
         </div>
-        <div class="mail-flow" aria-label="Explore example messages">
+        <div class="daily-workflow" data-daily-workflow><p>Mail → local models → classification → follow-up → monthly reconciliation</p></div>
+          <div class="mail-flow" aria-label="Explore example messages">
           <a
             class="flow-item case-card"
             href="/assets/cases/v0.6.0-preview.2/invoice.png"
@@ -169,12 +171,12 @@
             /></span></a
           >
         </div>
-        <p class="example-note case-spacing">Actual Folio interface with fictional sample data.</p>
+        <p class="example-note case-spacing">All views use sample data.</p>
         <figure class="screenshot">
           <button
             class="shot"
             data-zoom="/assets/wave/mail.jpg"
-            data-caption="Current mail interface · fictional examples only"
+            data-caption="Folio · mail overview"
             aria-label="Folio mail overview with invoices and appointments"
           >
             <img
@@ -184,7 +186,7 @@
             /><span class="enlarge" aria-hidden="true">↗</span>
           </button>
           <figcaption>
-            Current mail interface · fictional examples only · click images to
+            Folio · mail overview · click images to
             enlarge
           </figcaption>
         </figure>
@@ -320,7 +322,7 @@
                 <button
                   class="shot"
                   data-zoom="/assets/wave/ledger.jpg"
-                  data-caption="Sample data · imported statements · projections are estimates"
+                  data-caption="Imported statements · estimated outlook"
                   aria-label="Complete Ledger dashboard"
                 >
                   <img
@@ -330,8 +332,7 @@
                   /><span class="enlarge" aria-hidden="true">↗</span>
                 </button>
                 <figcaption>
-                  Sample data · imported statements ·
-                  projections are estimates
+                  Imported statements · estimated outlook
                 </figcaption>
               </figure>
             </div>
@@ -340,7 +341,7 @@
                 <button
                   class="shot"
                   data-zoom="/assets/folio-v0.6.0-preview.1/ledger-evidence-detail.png"
-                  data-caption="Ledger · real UI with fictional transactions and statement"
+                  data-caption="Ledger · transaction and statement"
                   aria-label="Enlarge transaction and statement"
                 >
                   <img
@@ -352,8 +353,7 @@
                   /><span class="enlarge" aria-hidden="true">↗</span>
                 </button>
                 <figcaption>
-                  Category → provider → transaction → statement. Real UI;
-                  fictional example.
+                  Category → provider → transaction → statement.
                 </figcaption>
               </figure>
             </div>
@@ -377,10 +377,10 @@
       </div>
     </div>
     <div class="me-overlay" data-memory-overlay hidden></div>
-    <footer class="me-tools"><small>Illustration · fictional data</small><div><button type="button" data-memory-evidence>Actual interface ↗</button><button type="button" data-memory-tech>Behind the scenes +</button></div></footer>
+    <footer class="me-tools"><div><button type="button" data-memory-evidence>View graph ↗</button><button type="button" data-memory-tech>Behind the scenes +</button></div></footer>
   </div>
   <noscript><p>The local Memory graph connects confirmed facts and source evidence. JavaScript enables the interactive explanation.</p><img src="/assets/cases/v0.6.0-preview.3/memory-graph.png" alt="Memory graph with sample data" loading="lazy" style="width:100%"/></noscript>
-  <p class="me-release">Graph available in <a href="https://github.com/aion-lumen/folio/releases/tag/v0.6.0-preview.3">v0.6.0-preview.3</a> · local · owner access</p>
+  <p class="me-release">Memory &amp; graph in <a href="https://github.com/aion-lumen/folio/releases/tag/v0.6.0-preview.5">v0.6.0-preview.5</a> · local · owner access</p>
 </section>
       <section class="wrap content-section" id="campaign">
         <div class="section-head">
@@ -398,7 +398,7 @@
             <button
               class="shot"
               data-zoom="/assets/folio-02-timeline.png"
-              data-caption="Goals over time · established demo"
+              data-caption="Goals over time · fictional demo campaign Alex"
               aria-label="Goals over time"
             >
               <img
@@ -407,13 +407,13 @@
                 loading="lazy"
               /><span class="enlarge" aria-hidden="true">↗</span>
             </button>
-            <figcaption>Goals over time · established demo</figcaption>
+            <figcaption>Goals over time · fictional demo campaign Alex</figcaption>
           </figure>
           <figure class="screenshot">
             <button
               class="shot"
               data-zoom="/assets/folio-03-kanban.png"
-              data-caption="Open steps at a glance · established demo"
+              data-caption="Open steps at a glance · fictional demo campaign Alex"
               aria-label="Open steps at a glance"
             >
               <img
@@ -422,7 +422,7 @@
                 loading="lazy"
               /><span class="enlarge" aria-hidden="true">↗</span>
             </button>
-            <figcaption>Open steps at a glance · established demo</figcaption>
+            <figcaption>Open steps at a glance · fictional demo campaign Alex</figcaption>
           </figure>
         </div>
       </section>
@@ -468,7 +468,8 @@
       <div class="lightbox-scroll"><img id="lightbox-image" alt="" /></div>
     </dialog>
     <script src="/styles/site.js?v=620a9968138d"></script>
-    <script src="/styles/cases.js?v=kiss-20260928"></script>
-    <script src="/styles/memory-explorer.js?v=4"></script>
-  </body>
+    <script src="/styles/cases.js?v=cf5b97e378b3"></script>
+    <script src="/styles/memory-explorer.js?v=3ebde4d8c73b"></script>
+  <script src="/styles/daily-workflow.js?v=03cc5c2a8220"></script>
+</body>
 </html>

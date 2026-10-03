@@ -29,8 +29,9 @@
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" />
     <link rel="stylesheet" href="/styles/site.css?v=d57f461b8304" />
-    <link rel="stylesheet" href="/styles/memory-explorer.css?v=3" />
-  </head>
+    <link rel="stylesheet" href="/styles/memory-explorer.css?v=8617952db06e" />
+  <link rel="stylesheet" href="/styles/daily-workflow.css?v=8ea31caee388"/>
+</head>
   <body class="">
     <script>
       try {
@@ -90,8 +91,8 @@
             >Folio einrichten ↗</a
           ><a
             class="text-link"
-            href="https://github.com/aion-lumen/folio/releases/tag/v0.6.0-preview.3"
-            >v0.6.0-preview.3 ↗</a
+            href="https://github.com/aion-lumen/folio/releases/tag/v0.6.0-preview.5"
+            >v0.6.0-preview.5 ↗</a
           >
         </div>
         <nav class="subnav" aria-label="Auf dieser Seite">
@@ -111,7 +112,8 @@
             nachlesen.
           </p>
         </div>
-        <div class="mail-flow" aria-label="Beispielmails erkunden">
+        <div class="daily-workflow" data-daily-workflow><p>Mail → lokale Modelle → Einordnung → Folgeschritte → Monatsabgleich</p></div>
+          <div class="mail-flow" aria-label="Beispielmails erkunden">
           <a
             class="flow-item case-card"
             href="/assets/cases/v0.6.0-preview.2/invoice.png"
@@ -170,12 +172,12 @@
             /></span></a
           >
         </div>
-        <p class="example-note case-spacing">Echte Folio-Oberfläche mit erfundenen Beispieldaten.</p>
+        <p class="example-note case-spacing">Alle Ansichten mit Beispieldaten.</p>
         <figure class="screenshot">
           <button
             class="shot"
             data-zoom="/assets/wave/mail.jpg"
-            data-caption="Aktuelle Mailoberfläche · ausschließlich erfundene Beispiele"
+            data-caption="Folio · Mailübersicht"
             aria-label="Folio-Mailübersicht mit Rechnungen und Terminen"
           >
             <img
@@ -185,8 +187,7 @@
             /><span class="enlarge" aria-hidden="true">↗</span>
           </button>
           <figcaption>
-            Aktuelle Mailoberfläche · ausschließlich erfundene Beispiele ·
-            Bilder vergrößerbar
+            Folio · Mailübersicht
           </figcaption>
         </figure>
         <aside class="local-runtime" aria-label="Lokale Modellbewertung">
@@ -322,7 +323,7 @@
                 <button
                   class="shot"
                   data-zoom="/assets/wave/ledger.jpg"
-                  data-caption="Beispieldaten · Importierte Auszüge statt Live-Banking · Projektionen sind Schätzungen"
+                  data-caption="Importierte Kontoauszüge · geschätzte Entwicklung"
                   aria-label="Vollständiges Ledger-Dashboard"
                 >
                   <img
@@ -332,8 +333,7 @@
                   /><span class="enlarge" aria-hidden="true">↗</span>
                 </button>
                 <figcaption>
-                  Beispieldaten · Importierte Auszüge statt Live-Banking ·
-                  Projektionen sind Schätzungen
+                  Importierte Kontoauszüge · geschätzte Entwicklung
                 </figcaption>
               </figure>
             </div>
@@ -342,7 +342,7 @@
                 <button
                   class="shot"
                   data-zoom="/assets/folio-v0.6.0-preview.1/ledger-evidence-detail.png"
-                  data-caption="Ledger · echte Oberfläche mit erfundenen Buchungen und Kontoauszug"
+                  data-caption="Ledger · Buchung und Kontoauszug"
                   aria-label="Buchung und Kontoauszug vergrößern"
                 >
                   <img
@@ -354,8 +354,7 @@
                   /><span class="enlarge" aria-hidden="true">↗</span>
                 </button>
                 <figcaption>
-                  Kategorie → Anbieter → Buchung → Kontoauszug. Echte
-                  Oberfläche, erfundenes Beispiel.
+                  Kategorie → Anbieter → Buchung → Kontoauszug.
                 </figcaption>
               </figure>
             </div>
@@ -379,10 +378,10 @@
       </div>
     </div>
     <div class="me-overlay" data-memory-overlay hidden></div>
-    <footer class="me-tools"><small>Veranschaulichung · erfundene Daten</small><div><button type="button" data-memory-evidence>Echte Oberfläche ↗</button><button type="button" data-memory-tech>Technik dahinter +</button></div></footer>
+    <footer class="me-tools"><div><button type="button" data-memory-evidence>Graph ansehen ↗</button><button type="button" data-memory-tech>Technik dahinter +</button></div></footer>
   </div>
   <noscript><p>Der lokale Memory-Graph verbindet bestätigte Fakten mit ihren Quellen. Mit JavaScript lässt sich die Erklärung interaktiv erkunden.</p><img src="/assets/cases/v0.6.0-preview.3/memory-graph.png" alt="Memory-Graph mit Beispieldaten" loading="lazy" style="width:100%"/></noscript>
-  <p class="me-release">Graph verfügbar in <a href="https://github.com/aion-lumen/folio/releases/tag/v0.6.0-preview.3">v0.6.0-preview.3</a> · lokal · Owner-Zugang</p>
+  <p class="me-release">Memory &amp; Graph in <a href="https://github.com/aion-lumen/folio/releases/tag/v0.6.0-preview.5">v0.6.0-preview.5</a> · lokal · Owner-Zugang</p>
 </section>
       <section class="wrap content-section" id="campaign">
         <div class="section-head">
@@ -401,7 +400,7 @@
             <button
               class="shot"
               data-zoom="/assets/folio-02-timeline.png"
-              data-caption="Ziele über die Zeit · bestehende Demo"
+              data-caption="Ziele über die Zeit · fiktive Demo-Kampagne Alex"
               aria-label="Ziele über die Zeit"
             >
               <img
@@ -410,13 +409,13 @@
                 loading="lazy"
               /><span class="enlarge" aria-hidden="true">↗</span>
             </button>
-            <figcaption>Ziele über die Zeit · bestehende Demo</figcaption>
+            <figcaption>Ziele über die Zeit · fiktive Demo-Kampagne Alex</figcaption>
           </figure>
           <figure class="screenshot">
             <button
               class="shot"
               data-zoom="/assets/folio-03-kanban.png"
-              data-caption="Offene Schritte im Überblick · bestehende Demo"
+              data-caption="Offene Schritte im Überblick · fiktive Demo-Kampagne Alex"
               aria-label="Offene Schritte im Überblick"
             >
               <img
@@ -426,7 +425,7 @@
               /><span class="enlarge" aria-hidden="true">↗</span>
             </button>
             <figcaption>
-              Offene Schritte im Überblick · bestehende Demo
+              Offene Schritte im Überblick · fiktive Demo-Kampagne Alex
             </figcaption>
           </figure>
         </div>
@@ -477,7 +476,8 @@
       <div class="lightbox-scroll"><img id="lightbox-image" alt="" /></div>
     </dialog>
     <script src="/styles/site.js?v=620a9968138d"></script>
-    <script src="/styles/cases.js?v=kiss-20260928"></script>
-    <script src="/styles/memory-explorer.js?v=4"></script>
-  </body>
+    <script src="/styles/cases.js?v=cf5b97e378b3"></script>
+    <script src="/styles/memory-explorer.js?v=3ebde4d8c73b"></script>
+  <script src="/styles/daily-workflow.js?v=03cc5c2a8220"></script>
+</body>
 </html>
