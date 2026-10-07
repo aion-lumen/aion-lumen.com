@@ -1,0 +1,215 @@
+{
+  "title": "Folio local model comparison",
+  "measurement_date": "2026-10-07",
+  "primary_round": 1,
+  "hardware": "Apple M5 Pro, 48 GiB memory",
+  "scope": "Synthetic classification and prepared-mail-import proposal workflows; not a complete product or private inbox evaluation.",
+  "sample": {
+    "classification_cases": 300,
+    "classification_dossiers": 75,
+    "classification_classes": {
+      "task": 100,
+      "unclear": 100,
+      "not-a-task": 100
+    },
+    "workflow_cases": 40,
+    "workflow_dossiers": 40,
+    "workflow_task_dossiers": 20,
+    "rounds": 3,
+    "classification_attempts": 5400,
+    "workflow_attempts": 600,
+    "total_attempts": 6000
+  },
+  "classification": [
+    {
+      "profile": "Gemma 4 31B / QAT Q4_0",
+      "reference_matches": 202,
+      "cases": 300,
+      "tasks_found": 65,
+      "reference_tasks": 100,
+      "false_tasks": 35,
+      "non_task_or_unclear_cases": 200,
+      "technical_errors": 0
+    },
+    {
+      "profile": "Qwen3.8 27B / MLX",
+      "reference_matches": 164,
+      "cases": 300,
+      "tasks_found": 8,
+      "reference_tasks": 100,
+      "false_tasks": 1,
+      "non_task_or_unclear_cases": 200,
+      "technical_errors": 0
+    },
+    {
+      "profile": "Qwen3 30B A3B / Thinking / MLX",
+      "reference_matches": 163,
+      "cases": 300,
+      "tasks_found": 78,
+      "reference_tasks": 100,
+      "false_tasks": 64,
+      "non_task_or_unclear_cases": 200,
+      "technical_errors": 22
+    },
+    {
+      "profile": "Kolibri 1 / Q3_K_S / CPU + Accelerate",
+      "reference_matches": 162,
+      "cases": 300,
+      "tasks_found": 74,
+      "reference_tasks": 100,
+      "false_tasks": 95,
+      "non_task_or_unclear_cases": 200,
+      "technical_errors": 0
+    },
+    {
+      "profile": "Qwen3.6 35B A3B / MLX",
+      "reference_matches": 158,
+      "cases": 300,
+      "tasks_found": 30,
+      "reference_tasks": 100,
+      "false_tasks": 42,
+      "non_task_or_unclear_cases": 200,
+      "technical_errors": 0
+    },
+    {
+      "profile": "Kev 4B / bf16 / MLX",
+      "reference_matches": 130,
+      "cases": 300,
+      "tasks_found": 100,
+      "reference_tasks": 100,
+      "false_tasks": 170,
+      "non_task_or_unclear_cases": 200,
+      "technical_errors": 0
+    }
+  ],
+  "workflow_round_1": [
+    {
+      "profile": "gemma",
+      "exploratory": false,
+      "cases": 40,
+      "tasks": 20,
+      "negatives": 20,
+      "raw_classification_correct": 27,
+      "task_detected": 18,
+      "false_task": 6,
+      "parse_or_transport_errors": 0,
+      "W1": 26,
+      "W3": 9,
+      "W4": 5,
+      "fully_correct_strict": 9,
+      "complete_material_task_proposals": 0
+    },
+    {
+      "profile": "qwen30",
+      "exploratory": false,
+      "cases": 40,
+      "tasks": 20,
+      "negatives": 20,
+      "raw_classification_correct": 17,
+      "task_detected": 11,
+      "false_task": 5,
+      "parse_or_transport_errors": 6,
+      "W1": 21,
+      "W3": 8,
+      "W4": 0,
+      "fully_correct_strict": 6,
+      "complete_material_task_proposals": 0
+    },
+    {
+      "profile": "kolibri",
+      "exploratory": false,
+      "cases": 40,
+      "tasks": 20,
+      "negatives": 20,
+      "raw_classification_correct": 18,
+      "task_detected": 13,
+      "false_task": 7,
+      "parse_or_transport_errors": 1,
+      "W1": 28,
+      "W3": 11,
+      "W4": 0,
+      "fully_correct_strict": 5,
+      "complete_material_task_proposals": 0
+    },
+    {
+      "profile": "kev-gemma",
+      "exploratory": false,
+      "cases": 40,
+      "tasks": 20,
+      "negatives": 20,
+      "raw_classification_correct": 27,
+      "task_detected": 18,
+      "false_task": 6,
+      "parse_or_transport_errors": 0,
+      "W1": 26,
+      "W3": 9,
+      "W4": 5,
+      "fully_correct_strict": 9,
+      "complete_material_task_proposals": 0
+    },
+    {
+      "profile": "gemma-context-v2",
+      "exploratory": true,
+      "cases": 40,
+      "tasks": 20,
+      "negatives": 20,
+      "raw_classification_correct": 30,
+      "task_detected": 20,
+      "false_task": 9,
+      "parse_or_transport_errors": 0,
+      "W1": 39,
+      "W3": 20,
+      "W4": 19,
+      "fully_correct_strict": 9,
+      "complete_material_task_proposals": 0
+    }
+  ],
+  "definitions": {
+    "reference_matches": "Agreement with the AI-authored three-class reference, not independent human-verified accuracy.",
+    "false_tasks": "Predicted task for a reference unclear or not-a-task case; not an executed real-world action.",
+    "W1": "Raw field contract; denominator 40 workflow cases.",
+    "W2": "Every essential predefined fact must be present in the proposal itself. General source references do not satisfy the strict criterion.",
+    "W3": "Appropriate chapter/topic; denominator 20 reference-task dossiers.",
+    "W4": "Appropriate future completion; denominator 20 reference-task dossiers.",
+    "fully_correct_strict": "All W1-W6 criteria; first-round successes are negative dossiers, not complete task proposals."
+  },
+  "strict_content_assessment": {
+    "distinct_assessed_task_answers": 73,
+    "answers_passing_W2_in_full": 0,
+    "independent_task_dossiers": 20,
+    "interpretation": "Failure of this strict completeness criterion does not establish that all concise, source-linked proposals are useless or unsafe."
+  },
+  "context_experiment": {
+    "exploratory": true,
+    "developed_on_separate_development_cases": true,
+    "multiple_rules_changed_together": true,
+    "classification_difference_percentage_points": 7.5,
+    "paired_dossier_95_interval_percentage_points": [
+      -5,
+      20
+    ]
+  },
+  "limitations": [
+    "Synthetic cases with related cases within dossiers; repeats are not independent additional cases.",
+    "The same AI author supplied the reference and semantic assessment. No independent human accuracy assessment.",
+    "Model metadata was hidden during content assessment, but style and prior development knowledge could reveal identity.",
+    "Kolibri is a community Q3_K_S quantization on an experimental CPU/Accelerate port, not official FP8.",
+    "Different quantizations, contexts, thinking profiles, runtimes and background load preclude an isolated architecture speed ranking.",
+    "Qwen30 first-round classification errors were output-budget length stops, not timeouts.",
+    "The first Kolibri workflow round included one 90-second timeout. Failed requests were not repaired or retried.",
+    "The Kev prefilter policy was disabled before the main run. Kev+Gemma called only Gemma; no prefilter advantage was measured.",
+    "Jev was not tested.",
+    "These selected aggregates do not contain the cases, full prompts or runtime package needed to independently repeat inference."
+  ],
+  "measurement_source_sha256": {
+    "classification-results.json": "03430ac0a6aaa64d405979dde7aa11848586d971334572b1ce522eb02be15b6c",
+    "workflow-results.json": "9dfb6dbff91cd306b2216aefc126a93970b690b4e6a2c025b59227a06bd140d0",
+    "evaluation-summary-20261007.json": "b859aa6d83cd288a0d2b7a07633465d180b0743b8e1d30ef2c98d222a4d316da"
+  },
+  "model_sources": [
+    "https://huggingface.co/Aleph-Alpha/Kolibri-1",
+    "https://huggingface.co/Eliasfpv28/Kolibri-1-Q3_K_S-GGUF",
+    "https://github.com/jaredpalmer/kev",
+    "https://huggingface.co/jaredpalmer/kev-4b"
+  ]
+}

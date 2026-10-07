@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>We must learn to surf the AI · Aion Lumen</title>
+    <meta
+      name="description"
+      content="Keeping knowledge and workflows across model changes: my experience with local AI and cloud models."
+    />
+    <link rel="canonical" href="https://aion-lumen.ch/blog/ai-surfen/en.html" />
+    <link
+      rel="alternate"
+      hreflang="de"
+      href="https://aion-lumen.ch/blog/ai-surfen/"
+    />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://aion-lumen.ch/blog/ai-surfen/en.html"
+    />
+    <meta property="og:title" content="We must learn to surf the AI" />
+    <meta
+      property="og:description"
+      content="Keeping knowledge and workflows across model changes: my experience with local AI and cloud models."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2026-10-07" />
+    <meta name="author" content="Afschin Mirhamed" />
+    <meta
+      property="og:url"
+      content="https://aion-lumen.ch/blog/ai-surfen/en.html"
+    />
+    <meta
+      property="og:image"
+      content="https://aion-lumen.ch/assets/wave/site-preview.jpg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="stylesheet" href="/styles/site.css?v=fddd1afe9257" />
+  </head>
+  <body class="">
+    <script>
+      try {
+        if (localStorage.getItem("al.theme") === "dark")
+          document.body.classList.add("dark");
+      } catch (e) {}
+    </script>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="header">
+      <div class="nav-shell">
+        <a class="brand" href="/en.html" aria-label="Aion Lumen · Home"
+          ><img src="/favicon.svg" alt="" width="40" height="40" /><span
+            >AION LUMEN</span
+          ></a
+        >
+        <nav aria-label="Main navigation">
+          <a href="/folio/en.html">Folio</a
+          ><a href="/multi-agent/en.html">Lab</a
+          ><a href="/blog/en.html">Blog</a>
+        </nav>
+        <div class="nav-tools">
+          <a
+            class="language"
+            href="/blog/ai-surfen/"
+            lang="de"
+            aria-label="Zu Deutsch wechseln"
+            >DE</a
+          ><button id="theme" aria-label="Dark theme" aria-pressed="false">
+            ◐</button
+          ><button
+            id="menu"
+            aria-label="Open menu"
+            aria-controls="mobile-nav"
+            aria-expanded="false"
+          >
+            ☰
+          </button>
+        </div>
+      </div>
+      <nav id="mobile-nav" aria-label="Mobile navigation" hidden>
+        <a href="/folio/en.html">Folio</a><a href="/multi-agent/en.html">Lab</a
+        ><a href="/blog/en.html">Blog</a>
+      </nav>
+    </header>
+    <main id="main">
+      <header class="page-head wrap">
+        <p class="eyebrow">BLOG / 02</p>
+        <h1>We must learn to surf the AI</h1>
+        <p class="lead">Keeping knowledge and workflows across model changes: my experience with local AI and cloud models.</p>
+      </header>
+      <div class="article-layout wrap">
+        <aside class="article-meta"><time datetime="2026-10-07">07.10.2026</time><br />Afschin Mirhamed<br />3 minute read</aside>
+        <article class="article-body">
+          <figure class="article-photo"><img src="/assets/wave/welle.png" alt="A surfer riding a blue wave" /></figure>
+<p>Until August, my work with Claude followed a hierarchy: one overarching session using the leading Claude model kept track of all my projects. Each project had an Opus-family architect and Claude Code for implementation. At the time, I barely trusted ChatGPT to help me phrase a paragraph.</p>
+          <p>Then, in two projects, I replaced both the architect and Claude Code with a single Astra session in Codex for each project. That worked well for a month. I then switched fully and moved the overarching session to Astra too. Its seemingly endless working context tempted me to let that one session handle every project down to the implementation details. That lasted two days.</p>
+          <p>Now, with <a href="https://www.anthropic.com/claude-opus-5-5">Opus 5.5</a>, I am seeing people move back towards Anthropic. My main lesson from these months: project knowledge, decisions and workflows need a lasting foundation of their own, so that different models and sessions can continue the work.</p>
+          <p>For me, that foundation is becoming increasingly local. I want to hold my own data, choose model versions and adopt updates once they have proved useful in my workflows. Local models can already handle bounded routine tasks. Frequent use can also make the economics attractive, with hardware and maintenance included in the calculation.</p>
+          <p>At the same time, the strongest cloud models still do more in my work: strategic reasoning, difficult architectural decisions and long, complex tasks. I expect that advantage to remain for a while. I want to use those capabilities deliberately and preserve the results in my own system.</p>
+          <p>The local landscape moves quickly too. A new model needs to fit my tasks, data and hardware. That is why I am developing a test environment for Folio. It helps me decide which changes actually improve the work. The latest synthetic comparison included Kolibri and Kev, an open Jev-like decision model, alongside existing Gemma and Qwen profiles.</p>
+          <p>Connecting these two worlds is the central design question. One approach in Folio is the <strong>domain compass</strong>: local knowledge and open questions are assembled for the relevant strategy session. Its answer returns as a reviewable proposal and, after confirmation, can become part of the system&#x27;s own memory. The aim is to carry context and decisions across models and sessions. I am still working on that connection.</p>
+          <p>The <a href="https://aion-lumen.ch/en.html">redesigned Aion Lumen website</a> shows the current workshop: Folio starts with mail, invoices and appointments, with source references, memory (<a href="https://aion-lumen.ch/folio/en.html#memory">RAG using full-text and graphs</a>) and an overview of recurring costs (<a href="https://aion-lumen.ch/folio/en.html#ledger">AI-assisted transaction analysis and reconciliation</a>) alongside them. The <a href="../lokale-modelle-2026-10/en.html">model comparison</a> shows some of the testing behind this work.</p>
+          <p>Next, I want to test larger local models on the Mac Studio I have ordered. The repeated delivery delays and now higher price make me suspect that many others share my view of local AI&#x27;s potential. Once it arrives, the next round of testing begins.</p>
+          <p>My goal is a working environment that can absorb new capabilities while preserving the work already done. That is what learning to surf the AI wave has come to mean for me.</p>
+          <div class="signature">— Afschin</div>
+          <div class="actions" style="margin-top: 35px"><a class="text-link" href="/blog/lokale-modelle-2026-10/en.html">Read the model comparison →</a><a class="text-link" href="/blog/en.html">All posts →</a></div>
+        </article>
+      </div>
+    </main>
+    <footer class="wrap footer">
+      <a class="brand" href="/en.html" aria-label="Aion Lumen · Home"
+        ><img src="/favicon.svg" alt="" width="40" height="40" /><span
+          >AION LUMEN</span
+        ></a
+      >
+      <div class="footer-links">
+        <a href="/story/en.html">Origins</a
+        ><a href="/the-long-table/en.html">The Long Table</a
+        ><a href="/impressum/en.html">Legal notice</a
+        ><a href="https://github.com/aion-lumen">GitHub ↗</a>
+      </div>
+      <p>Open software. Built from everyday experience.</p>
+    </footer>
+    <dialog id="lightbox" aria-label="Image viewer">
+      <div class="lightbox-toolbar">
+        <p id="lightbox-caption"></p>
+        <div>
+          <button id="toggle-zoom" aria-pressed="false">Original size</button
+          ><button class="close" data-close="lightbox" aria-label="Close image">
+            ✕
+          </button>
+        </div>
+      </div>
+      <div class="lightbox-scroll"><img id="lightbox-image" alt="" /></div>
+    </dialog>
+    <script src="/styles/site.js?v=620a9968138d"></script>
+  </body>
+</html>

@@ -1563,6 +1563,9 @@ td small {
     monospace;
   color: var(--soft);
 }
+.article-body {
+  min-width: 0;
+}
 .article-body h2 {
   font-size: 30px;
   margin: 40px 0 18px;

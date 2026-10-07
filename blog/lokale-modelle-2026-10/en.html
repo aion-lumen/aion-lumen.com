@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Kolibri Kev and Gemma in a local Folio test · Aion Lumen</title>
+    <meta
+      name="description"
+      content="Six local model profiles in a Folio test: finding tasks, avoiding false tasks and improving context."
+    />
+    <link rel="canonical" href="https://aion-lumen.ch/blog/lokale-modelle-2026-10/en.html" />
+    <link
+      rel="alternate"
+      hreflang="de"
+      href="https://aion-lumen.ch/blog/lokale-modelle-2026-10/"
+    />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://aion-lumen.ch/blog/lokale-modelle-2026-10/en.html"
+    />
+    <meta property="og:title" content="Kolibri Kev and Gemma in a local Folio test" />
+    <meta
+      property="og:description"
+      content="Six local model profiles in a Folio test: finding tasks, avoiding false tasks and improving context."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2026-10-07" />
+    <meta name="author" content="Afschin Mirhamed" />
+    <meta
+      property="og:url"
+      content="https://aion-lumen.ch/blog/lokale-modelle-2026-10/en.html"
+    />
+    <meta
+      property="og:image"
+      content="https://aion-lumen.ch/blog/lokale-modelle-2026-10/classification-en.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="stylesheet" href="/styles/site.css?v=fddd1afe9257" />
+  </head>
+  <body class="">
+    <script>
+      try {
+        if (localStorage.getItem("al.theme") === "dark")
+          document.body.classList.add("dark");
+      } catch (e) {}
+    </script>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="header">
+      <div class="nav-shell">
+        <a class="brand" href="/en.html" aria-label="Aion Lumen · Home"
+          ><img src="/favicon.svg" alt="" width="40" height="40" /><span
+            >AION LUMEN</span
+          ></a
+        >
+        <nav aria-label="Main navigation">
+          <a href="/folio/en.html">Folio</a
+          ><a href="/multi-agent/en.html">Lab</a
+          ><a href="/blog/en.html">Blog</a>
+        </nav>
+        <div class="nav-tools">
+          <a
+            class="language"
+            href="/blog/lokale-modelle-2026-10/"
+            lang="de"
+            aria-label="Zu Deutsch wechseln"
+            >DE</a
+          ><button id="theme" aria-label="Dark theme" aria-pressed="false">
+            ◐</button
+          ><button
+            id="menu"
+            aria-label="Open menu"
+            aria-controls="mobile-nav"
+            aria-expanded="false"
+          >
+            ☰
+          </button>
+        </div>
+      </div>
+      <nav id="mobile-nav" aria-label="Mobile navigation" hidden>
+        <a href="/folio/en.html">Folio</a><a href="/multi-agent/en.html">Lab</a
+        ><a href="/blog/en.html">Blog</a>
+      </nav>
+    </header>
+    <main id="main">
+      <header class="page-head wrap">
+        <p class="eyebrow">LAB / OCTOBER 2026</p>
+        <h1>Kolibri Kev and Gemma in a local Folio test</h1>
+        <p class="lead">Six local model profiles in a Folio test: finding tasks, avoiding false tasks and improving context.</p>
+      </header>
+      <div class="article-layout wrap">
+        <aside class="article-meta"><time datetime="2026-10-07">07.10.2026</time><br />Afschin Mirhamed<br />7 minute read</aside>
+        <article class="article-body">
+          <p>Which local models can tell when a message should become a task? For Folio, I had six model profiles evaluated on synthetic cases. Gemma matched the reference most often. Kev found every reference task, but also turned many other cases into tasks. An additional context experiment improved the structure of task proposals while producing more false tasks.</p>
+          <p>This compares specific local configurations, not general model quality. The reference and content assessment came from the same AI author; there was no independent human accuracy assessment.</p>
+          <h2>The practical question</h2>
+          <p>An invoice, a changed appointment or a contract update can require action. An informational message should not automatically become another item on a task list. Sometimes there is not enough context to decide.</p>
+          <p><a href="https://aion-lumen.ch/folio/en.html">Folio</a> is being built to help make sense of these inputs and connect them with existing project knowledge. A valid response format is only part of that job. I also want to know which tasks a model misses, which it invents and whether a proposed task preserves the relevant source information.</p>
+          <p>The immediate reason for this comparison was the arrival of <a href="https://huggingface.co/Aleph-Alpha/Kolibri-1">Aleph Alpha&#x27;s Kolibri</a> and <a href="https://github.com/jaredpalmer/kev">Jared Palmer&#x27;s Kev</a>. Kev is an open Jev-like decision model that returns probabilities over supplied options. <strong>Jev itself was not tested.</strong> Existing Gemma and Qwen profiles provided comparisons.</p>
+          <h2>What 6000 attempts actually means</h2>
+          <p>The classification test contained 300 synthetic cases from 75 dossiers: 100 tasks, 100 unclear cases and 100 non-tasks. Six profiles answered the same cases in three planned rounds, giving 5,400 requests.</p>
+          <p>A separate workflow test examined proposals from prepared mail imports. It contained 40 cases from 40 dossiers, including 20 reference-task dossiers. Five configurations, including the additional context variant, ran for three rounds: another 600 requests. This did not test the preceding mail preparation or the whole Folio application.</p>
+          <p><strong>6,000 requests are not 6,000 independent cases.</strong> Cases from the same dossier are related, and repeated requests do not create new independent evidence. The tables below use the first round, chosen in advance as the primary round. Parameters were not changed in response to main-test results.</p>
+          <h2>Finding tasks and avoiding false tasks</h2>
+          <figure class="screenshot"><button class="shot" data-zoom="classification-en.png" data-caption="First-round reference matches, task detection and false tasks for six local profiles" aria-label="First-round reference matches, task detection and false tasks for six local profiles"><img src="classification-en.png" alt="First-round reference matches, task detection and false tasks for six local profiles" loading="lazy" /><span class="enlarge" aria-hidden="true">↗</span></button></figure>
+          <div class="table-scroll" tabindex="0"><table><thead><tr><th scope="col">Local profile</th><th scope="col">Reference matches out of 300</th><th scope="col">Tasks found out of 100</th><th scope="col">False tasks out of 200</th></tr></thead><tbody><tr><td>Gemma 4 31B QAT Q4_0</td><td>202</td><td>65</td><td>35</td></tr><tr><td>Qwen3.8 27B MLX</td><td>164</td><td>8</td><td>1</td></tr><tr><td>Qwen3 30B A3B Thinking</td><td>163</td><td>78</td><td>64</td></tr><tr><td>Kolibri 1 Q3_K_S</td><td>162</td><td>74</td><td>95</td></tr><tr><td>Qwen3.6 35B A3B MLX</td><td>158</td><td>30</td><td>42</td></tr><tr><td>Kev 4B bf16/MLX</td><td>130</td><td>100</td><td>170</td></tr></tbody></table></div>
+          <p>Reference matches measure agreement with the AI-authored three-class reference. The last denominator combines 100 unclear cases and 100 non-tasks. A false task means one of those cases was classified as a task; no real action was executed as a result.</p>
+          <p>Gemma matched 202 of 300 references, or 67.3%. It was the strongest starting point in this mixture, but still missed 35 of the 100 tasks. Qwen3.8 produced almost no false tasks while identifying only eight actual tasks. Caution alone is not enough.</p>
+          <p>Kev illustrates the opposite trade-off. Finding all 100 tasks sounds excellent until the 170 false tasks are included. This profile would be unsuitable as an unchecked source of tasks in this test mixture. Its filter policy had already been disabled before the main run and remained disabled. The Kev-plus-Gemma workflow therefore called only Gemma. It provides no measured benefit from a Kev prefilter.</p>
+          <p>Kolibri nearly matched Qwen30 on overall reference agreement, but generated more false tasks. The paired dossier comparison does not establish a classification-quality advantage for Kolibri. This is not a verdict on other Kolibri configurations or applications.</p>
+          <h2>Better context improved parts of the proposals</h2>
+          <p>The workflow test also included a new prompt and context package for Gemma. It was developed using separate development cases and is an exploratory addition, not a replacement for the original baseline.</p>
+          <figure class="screenshot"><button class="shot" data-zoom="context-en.png" data-caption="Gemma baseline and context variant across five workflow measures" aria-label="Gemma baseline and context variant across five workflow measures"><img src="context-en.png" alt="Gemma baseline and context variant across five workflow measures" loading="lazy" /><span class="enlarge" aria-hidden="true">↗</span></button></figure>
+          <div class="table-scroll" tabindex="0"><table><thead><tr><th scope="col">First-round measure</th><th scope="col">Baseline</th><th scope="col">Context variant</th></tr></thead><tbody><tr><td>Correct class</td><td>27/40</td><td>30/40</td></tr><tr><td>Output rules satisfied</td><td>26/40</td><td>39/40</td></tr><tr><td>Appropriate chapter or topic for tasks</td><td>9/20</td><td>20/20</td></tr><tr><td>Appropriate future completion for tasks</td><td>5/20</td><td>19/20</td></tr><tr><td>False tasks</td><td>6/20</td><td>9/20</td></tr></tbody></table></div>
+          <p>The proposals more often respected the expected fields and their rules, and fit their project context. This assessed the original output, including its text-length limits. False tasks also increased. The three-case classification improvement is uncertain: its paired 95% dossier interval ranges from minus five to plus twenty percentage points.</p>
+          <p>Several rules changed together, so the experiment does not isolate a single cause. For Folio, this is a candidate for further development, not a reason to create tasks without review.</p>
+          <h2>A strict test of completeness</h2>
+          <p>One content criterion, W2, required every essential, predefined fact to appear in the proposal itself. A general reference back to the source material did not satisfy that requirement.</p>
+          <p><strong>None of the 73 distinct assessed task answers passed this criterion in full.</strong> Those answers came from the 20 reference-task dossiers across configurations and rounds; they are not 73 independent cases. Identical answer content received the same assessment.</p>
+          <p>That result remains part of the report. It does not mean every concise proposal linked to its source is useless for Folio. The rubric demands more. A later assessment accepting a sufficient source reference would be an additional analysis and would need to remain visibly separate. Reporting individual measures is therefore more useful than compressing everything into a single success rate.</p>
+          <h2>Limits of this local comparison</h2>
+          <p>The profiles ran locally on an Apple M5 Pro with 48 GiB of memory. Kolibri used a community Q3_K_S quantization through an experimental CPU/Accelerate port, not Aleph Alpha&#x27;s official FP8 configuration. Other profiles used different quantizations, context limits and, in some cases, native thinking. These runs do not establish a general speed winner.</p>
+          <p>Qwen30 produced 22 technical classification errors in round one: output stopped at the fixed token budget. These were not timeouts. The first Kolibri workflow round contained one 90-second timeout. Failed answers were neither repaired nor retried.</p>
+          <p>The reference and semantic assessment came from the same AI author. Model names, variants, rounds and timings were hidden during content assessment, but style and known development findings could still reveal identity. The assessment was neither independent nor fully blind. No private production inbox was measured.</p>
+          <h2>What changes for Folio</h2>
+          <p>Gemma remains the strongest classification starting point among these measured profiles. Kev will not be enabled as a filter. The context variant deserves further work on multiple requests, source grounding and false tasks. Valid structure and correct meaning remain separate requirements. This test does not automatically switch any product model.</p>
+          <p>The refreshed <a href="https://aion-lumen.ch/en.html">Aion Lumen website</a> shows this work through mail, sources and recurring costs. The wave provides the visual story; the evaluation shows some of the engineering underneath. The <a href="https://aion-lumen.ch/blog/surfbrett/en.html">surfboard article</a> explains how the project developed.</p>
+          <p>The <a href="modellvergleich-2026-10-07.json">aggregate results and definitions</a> support checking the reported counts. They contain no private mail and are not a complete inference reproduction package. I would be interested in the neutral edge cases other developers use when testing their own task systems.</p>
+          <p>Measurement date: 7 October 2026. AI-authored reference and content assessment; article prepared with AI assistance.</p>
+          <div class="signature">— Afschin</div>
+          <div class="actions" style="margin-top: 35px"><a class="text-link" href="/blog/ai-surfen/en.html">Read the story about model changes →</a><a class="text-link" href="/blog/en.html">All posts →</a></div>
+        </article>
+      </div>
+    </main>
+    <footer class="wrap footer">
+      <a class="brand" href="/en.html" aria-label="Aion Lumen · Home"
+        ><img src="/favicon.svg" alt="" width="40" height="40" /><span
+          >AION LUMEN</span
+        ></a
+      >
+      <div class="footer-links">
+        <a href="/story/en.html">Origins</a
+        ><a href="/the-long-table/en.html">The Long Table</a
+        ><a href="/impressum/en.html">Legal notice</a
+        ><a href="https://github.com/aion-lumen">GitHub ↗</a>
+      </div>
+      <p>Open software. Built from everyday experience.</p>
+    </footer>
+    <dialog id="lightbox" aria-label="Image viewer">
+      <div class="lightbox-toolbar">
+        <p id="lightbox-caption"></p>
+        <div>
+          <button id="toggle-zoom" aria-pressed="false">Original size</button
+          ><button class="close" data-close="lightbox" aria-label="Close image">
+            ✕
+          </button>
+        </div>
+      </div>
+      <div class="lightbox-scroll"><img id="lightbox-image" alt="" /></div>
+    </dialog>
+    <script src="/styles/site.js?v=620a9968138d"></script>
+  </body>
+</html>
