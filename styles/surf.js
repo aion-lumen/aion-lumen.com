@@ -3,7 +3,6 @@ import { createBreaker } from "./surf-wave.js?v=a5789735f8e7";
 import { GLTFLoader } from "../assets/surf/GLTFLoader.js";
 import { advanceHeading, followingTurn, riderYaw } from "./surf-steering.mjs?v=3470dff17019";
 import { createSurferBalance } from "./surf-balance.mjs?v=3aebecc258a5";
-import { createWindHair } from "./surf-hair.mjs?v=3053a1597657";
 
 const root = document.querySelector(".surf-story");
 const en = document.documentElement.lang === "en";
@@ -523,7 +522,6 @@ rig.add(rider);
 const riderMaterials = [];
 const characterRevision = "4a6171748ed8";
 let characterBalance,
-  characterHair,
   characterReady = false;
 if (renderer)
   new GLTFLoader().load(
@@ -541,7 +539,6 @@ if (renderer)
       model.scale.setScalar(scale);
       model.position.y = -bounds.min.y * scale;
       model.rotation.y = 1.55;
-      characterHair = createWindHair(model);
       model.traverse((object) => {
         if (!object.isMesh) return;
         object.frustumCulled = false;
@@ -788,7 +785,6 @@ function draw(now) {
     moving: !paused && !reduced,
     visible: rider.visible,
   });
-  characterHair?.update(time, !paused && !reduced && rider.visible);
   riderMaterials.forEach((m) => {
     m.opacity = personOpacity;
     m.depthWrite = personOpacity > 0.99;

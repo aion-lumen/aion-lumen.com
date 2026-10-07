@@ -207,7 +207,7 @@
   {
     "file": "en.html",
     "bytes": 17268,
-    "sha256": "b4399d9331b1fd160fde77edc3a2870dc15ddf73c1f590f663c179202fe5293e"
+    "sha256": "39ddca6c9888d04c81345a13a2363ea19e6d27bb01034ff30f897c403228916c"
   },
   {
     "file": "favicon.svg",
@@ -252,7 +252,7 @@
   {
     "file": "index.html",
     "bytes": 17628,
-    "sha256": "fcb478bf890fc0962be68fbea0f49b1874114193012ed5c36432d01d54eb604a"
+    "sha256": "e631e12ca769500b3eb39a6a508b19f3de9cecfc0cefa8b626c0546a9c277091"
   },
   {
     "file": "multi-agent/en.html",
@@ -490,11 +490,6 @@
     "sha256": "3aebecc258a54b41fc8c07677536690b8e5c4bf8a3b6a3d6715cfd862f5e8b15"
   },
   {
-    "file": "styles/surf-hair.mjs",
-    "bytes": 6441,
-    "sha256": "3053a1597657b33ec8e5ac1d6b662c42d632e64b569f2085234c257c711b534f"
-  },
-  {
     "file": "styles/surf-steering.mjs",
     "bytes": 1173,
     "sha256": "3470dff1701945daf624c90b1ff37b2a8b6df37a2eda3d30171592873dba7db6"
@@ -511,8 +506,8 @@
   },
   {
     "file": "styles/surf.js",
-    "bytes": 33700,
-    "sha256": "987143ad1b9945d1e6a210ea7b410c16ccf7d7d2fd0b334de492c35cd10287f6"
+    "bytes": 33504,
+    "sha256": "5352444aa6ad2fae0c1483c13e2d29892130d39494e2a4a9388adf4b2065dde1"
   },
   {
     "file": "the-long-table/en.html",
