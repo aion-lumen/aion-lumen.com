@@ -5,7 +5,7 @@ from urllib.parse import urlsplit,unquote
 import hashlib,json,re,shutil
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'site-dist'
-ROUTES=['','folio','multi-agent','multi-agent/tests','blog','blog/surfbrett','story','the-long-table','impressum','folio/import-spec']
+ROUTES=['','folio','multi-agent','multi-agent/tests','blog','blog/surfbrett','blog/ai-surfen','blog/lokale-modelle-2026-10','story','the-long-table','impressum','folio/import-spec']
 queue=[ROOT/route/name for route in ROUTES for name in ['index.html','en.html']]
 queue += [ROOT/'favicon.svg',ROOT/'folio/import-spec.md']
 # Licences and provenance belong to the assets they cover, not internal READMEs.

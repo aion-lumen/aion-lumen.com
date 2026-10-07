@@ -140,14 +140,59 @@
     "sha256": "1b751b3cbd2dd7653a29dc45800fd5cdac2f4d80e71b9d97c21e5498b1d3e665"
   },
   {
+    "file": "blog/ai-surfen/en.html",
+    "bytes": 8463,
+    "sha256": "94022f06e2fcd46bed46e330a7f6e8aec9e263fb601174d24dafe5ef88a13fa3"
+  },
+  {
+    "file": "blog/ai-surfen/index.html",
+    "bytes": 8780,
+    "sha256": "b835648c01075fff39abfeb8a665778c497b6a339d97636a80e27cc3e5c280a1"
+  },
+  {
     "file": "blog/en.html",
-    "bytes": 5163,
-    "sha256": "d844f167f6b91ba2e174ee1c648d6531f44effa37c877cbb11709c386d8dac76"
+    "bytes": 6063,
+    "sha256": "65e9bff5e49463ac4f6f52042d6637ba1ac4a5c63b0410896a4f9e45eb6b2917"
   },
   {
     "file": "blog/index.html",
-    "bytes": 5094,
-    "sha256": "597f3cc9c16275aef347a6bfe4c2d08dc72242994355721063a29df7afcdd6dd"
+    "bytes": 5999,
+    "sha256": "d93aac5a63234604ae2791eb201dc71a39cfa90d8e7733153edbac015d5e14e5"
+  },
+  {
+    "file": "blog/lokale-modelle-2026-10/classification-de.png",
+    "bytes": 168690,
+    "sha256": "a7c287f9fb024f4d8450cc80ac964f1b02910b37f846d9ffab2ca020e417ba83"
+  },
+  {
+    "file": "blog/lokale-modelle-2026-10/classification-en.png",
+    "bytes": 163802,
+    "sha256": "75d826495bd79dcce7d7dea23f56ae6a1b1464ba45e524f5f252c1bc449b3ae0"
+  },
+  {
+    "file": "blog/lokale-modelle-2026-10/context-de.png",
+    "bytes": 162569,
+    "sha256": "384f422dd717efcb5ef5ae8c343b1e2bd6260aab22505da298efcef432d9314d"
+  },
+  {
+    "file": "blog/lokale-modelle-2026-10/context-en.png",
+    "bytes": 153093,
+    "sha256": "fc5f5d191b0e698381083109b3412bc882a9cda098f1c3294107961145bf3631"
+  },
+  {
+    "file": "blog/lokale-modelle-2026-10/en.html",
+    "bytes": 15107,
+    "sha256": "b090a5f7c9bf68791ab3582f4a4e27f0bd9f5ad11e15a02204b89e60355eb250"
+  },
+  {
+    "file": "blog/lokale-modelle-2026-10/index.html",
+    "bytes": 16223,
+    "sha256": "36c9725284737741e3e597dcc8877565b6a65e2b5aaffa2c792f2a5bca5ad031"
+  },
+  {
+    "file": "blog/lokale-modelle-2026-10/modellvergleich-2026-10-07.json",
+    "bytes": 7253,
+    "sha256": "d3cbe320a2e27ab5476dfe0cd1b4fa3b5e3c07945d79e6955afaf729f8e8889e"
   },
   {
     "file": "blog/surfbrett/en.html",
@@ -256,13 +301,13 @@
   },
   {
     "file": "multi-agent/tests/en.html",
-    "bytes": 8610,
-    "sha256": "eac5350478f349e11d34dc92079dfafad7378e1252d3c8f00649d97594bc6989"
+    "bytes": 8771,
+    "sha256": "176f90df54fb944c63af1f00c2227b8b69a937fd9fcfd1175f84c4054bd45f92"
   },
   {
     "file": "multi-agent/tests/index.html",
-    "bytes": 8832,
-    "sha256": "f24bcb59c969fe7fa99e7375bd45ee682fe8fede4190cf831cc9b70e8a0abf24"
+    "bytes": 8992,
+    "sha256": "54b374934792d0f5bfed20f9893ef762898a868e5ddc021b41a2eb0c82489c17"
   },
   {
     "file": "story/en.html",
@@ -426,8 +471,8 @@
   },
   {
     "file": "styles/site.css",
-    "bytes": 40954,
-    "sha256": "d57f461b8304dd476f452db8787717c4a88f5a7a3108c71cb765a48666a41c9c"
+    "bytes": 40988,
+    "sha256": "fddd1afe92577fac8697fee6ae73e9fee572d0b18567c32a4882b10198e4ec07"
   },
   {
     "file": "styles/site.js",
