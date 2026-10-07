@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Kolibri Kev und Gemma im lokalen Folio Test · Aion Lumen</title>
+    <title>Kolibri, Kev und Gemma im lokalen Folio-Test · Aion Lumen</title>
     <meta
       name="description"
       content="Sechs lokale Modellprofile im Folio-Test: Aufgaben erkennen, falsche Aufgaben vermeiden und Kontext verbessern."
@@ -19,7 +19,7 @@
       hreflang="en"
       href="https://aion-lumen.ch/blog/lokale-modelle-2026-10/en.html"
     />
-    <meta property="og:title" content="Kolibri Kev und Gemma im lokalen Folio Test" />
+    <meta property="og:title" content="Kolibri, Kev und Gemma im lokalen Folio-Test" />
     <meta
       property="og:description"
       content="Sechs lokale Modellprofile im Folio-Test: Aufgaben erkennen, falsche Aufgaben vermeiden und Kontext verbessern."
@@ -81,30 +81,31 @@
     </header>
     <main id="main">
       <header class="page-head wrap">
-        <p class="eyebrow">WERKSTATT / OKTOBER 2026</p>
-        <h1>Kolibri Kev und Gemma im lokalen Folio Test</h1>
+        <p class="eyebrow">MODELLTEST / OKTOBER 2026</p>
+        <h1>Kolibri, Kev und Gemma im lokalen Folio-Test</h1>
         <p class="lead">Sechs lokale Modellprofile im Folio-Test: Aufgaben erkennen, falsche Aufgaben vermeiden und Kontext verbessern.</p>
       </header>
       <div class="article-layout wrap">
         <aside class="article-meta"><time datetime="2026-10-07">07.10.2026</time><br />Afschin Mirhamed<br />7 Minuten Lesezeit</aside>
         <article class="article-body">
           <p>Welche lokalen Modelle erkennen, wann aus einer Nachricht eine Aufgabe werden sollte? Für Folio habe ich sechs Modellprofile an synthetischen Fällen vergleichen lassen. Gemma traf die Referenz am häufigsten. Kev erkannte jede echte Aufgabe, erklärte aber auch viele andere Fälle zur Aufgabe. Ein zusätzlicher Kontextversuch verbesserte den Aufbau der Entwürfe deutlich – bei zugleich mehr falschen Aufgaben.</p>
-          <p>Das ist ein Test bestimmter lokaler Konfigurationen, keine allgemeine Modellrangliste. Referenz und Inhaltsbewertung stammen vom selben AI-Autor; eine unabhängige menschliche Genauigkeitsprüfung steht aus.</p>
+          <p>Das ist ein Test bestimmter lokaler Konfigurationen, keine allgemeine Modellrangliste. Referenz und Inhaltsbewertung stammen vom selben KI-Autor; eine unabhängige menschliche Genauigkeitsprüfung steht aus.</p>
           <h2>Die Frage hinter dem Vergleich</h2>
           <p>Eine Rechnung, eine Terminänderung oder eine Nachricht über einen Vertrag kann Arbeit auslösen. Eine reine Information sollte dagegen nicht automatisch auf der Aufgabenliste landen. Und manchmal fehlt schlicht genug Kontext für eine Entscheidung.</p>
           <p><a href="https://aion-lumen.ch/folio/">Folio</a> soll helfen, solche Eingänge einzuordnen und mit dem vorhandenen Projektwissen weiterzuarbeiten. Dafür interessiert mich nicht nur, ob ein Modell ein gültiges Antwortformat liefert. Ich möchte wissen, welche Aufgaben es übersieht, welche es fälschlich erzeugt und ob ein Entwurf genug Bezug zum Ausgangsmaterial behält.</p>
           <p>Der aktuelle Anlass waren <a href="https://huggingface.co/Aleph-Alpha/Kolibri-1">Kolibri von Aleph Alpha</a> und <a href="https://github.com/jaredpalmer/kev">Kev von Jared Palmer</a>. Kev ist ein offenes Jev-ähnliches Entscheidungsmodell: Es gibt Wahrscheinlichkeiten für vorgegebene Optionen zurück. <strong>Jev selbst war nicht Teil dieses Tests.</strong> Neben beiden Kandidaten liefen vorhandene Gemma- und Qwen-Profile.</p>
-          <h2>Was die 6000 Versuche bedeuten</h2>
+          <h2>Was die 6.000 Versuche bedeuten</h2>
           <p>Der Haupttest umfasste 300 Klassifikationsfälle aus 75 Dossiers. Je 100 Fälle waren als Aufgabe, unklar oder keine Aufgabe beschriftet. Sechs Profile beantworteten dieselben Fälle in drei vorgegebenen Runden: 5.400 Anfragen.</p>
           <p>Ein zweiter Teil prüfte Vorschläge aus vorbereiteten Mail-Importen: 40 Fälle aus 40 Dossiers, davon 20 mit einer Referenzaufgabe. Fünf Konfigurationen einschliesslich der zusätzlichen Kontextvariante wurden in drei Runden angefragt: weitere 600 Anfragen. Die vorgelagerte Mailaufbereitung und die gesamte Folio-Anwendung wurden damit nicht getestet.</p>
           <p><strong>6.000 Anfragen sind nicht 6.000 unabhängige Fälle.</strong> Varianten desselben Dossiers hängen zusammen; Wiederholungen vergrössern die Zahl unabhängiger Beispiele nicht. Die folgenden Tabellen zeigen die vorab festgelegte erste Runde. Während des Haupttests wurden keine Parameter anhand seiner Ergebnisse angepasst.</p>
           <h2>Aufgaben finden und falsche Aufgaben vermeiden</h2>
           <figure class="screenshot"><button class="shot" data-zoom="classification-de.png" data-caption="Erste Runde der sechs lokalen Profile mit Referenztreffern, erkannten Aufgaben und falschen Aufgaben" aria-label="Erste Runde der sechs lokalen Profile mit Referenztreffern, erkannten Aufgaben und falschen Aufgaben"><img src="classification-de.png" alt="Erste Runde der sechs lokalen Profile mit Referenztreffern, erkannten Aufgaben und falschen Aufgaben" loading="lazy" /><span class="enlarge" aria-hidden="true">↗</span></button></figure>
-          <div class="table-scroll" tabindex="0"><table><thead><tr><th scope="col">Lokales Profil</th><th scope="col">Referenztreffer von 300</th><th scope="col">Aufgaben erkannt von 100</th><th scope="col">Falsche Aufgaben von 200</th></tr></thead><tbody><tr><td>Gemma 4 31B QAT Q4_0</td><td>202</td><td>65</td><td>35</td></tr><tr><td>Qwen3.8 27B MLX</td><td>164</td><td>8</td><td>1</td></tr><tr><td>Qwen3 30B A3B Thinking</td><td>163</td><td>78</td><td>64</td></tr><tr><td>Kolibri 1 Q3_K_S</td><td>162</td><td>74</td><td>95</td></tr><tr><td>Qwen3.6 35B A3B MLX</td><td>158</td><td>30</td><td>42</td></tr><tr><td>Kev 4B bf16/MLX</td><td>130</td><td>100</td><td>170</td></tr></tbody></table></div>
-          <p>Referenztreffer meint die Übereinstimmung mit der AI-erstellten Dreiklassen-Referenz. Die 200 Fälle im letzten Nenner bestehen aus 100 unklaren und 100 Nicht-Aufgaben. „Falsche Aufgabe“ bedeutet hier, dass das Modell einen dieser Fälle als Aufgabe einstufte; es wurde dadurch keine reale Aktion ausgeführt.</p>
+          <div class="table-scroll" tabindex="0"><table><thead><tr><th scope="col">Lokales Profil</th><th scope="col">Referenztreffer von 300</th><th scope="col">Aufgaben erkannt von 100</th><th scope="col">Falsche Aufgaben von 200</th></tr></thead><tbody><tr><td>Gemma 4 31B / QAT Q4_0</td><td>202</td><td>65</td><td>35</td></tr><tr><td>Qwen3.8 27B / MLX</td><td>164</td><td>8</td><td>1</td></tr><tr><td>Qwen3 30B A3B / Thinking / MLX</td><td>163</td><td>78</td><td>64</td></tr><tr><td>Kolibri 1 / Q3_K_S / CPU + Accelerate</td><td>162</td><td>74</td><td>95</td></tr><tr><td>Qwen3.6 35B A3B / MLX</td><td>158</td><td>30</td><td>42</td></tr><tr><td>Kev 4B / bf16 / MLX</td><td>130</td><td>100</td><td>170</td></tr></tbody></table></div>
+          <p>Referenztreffer meint die Übereinstimmung mit der KI-erstellten Dreiklassen-Referenz. Die 200 Fälle im letzten Nenner bestehen aus 100 unklaren und 100 Nicht-Aufgaben. „Falsche Aufgabe“ bedeutet hier, dass das Modell einen dieser Fälle als Aufgabe einstufte; es wurde dadurch keine reale Aktion ausgeführt.</p>
           <p>Gemma erreichte 202 von 300 Referenztreffern, also 67,3 Prozent. Es war damit in dieser Mischung die stärkste Ausgangsbasis, übersah aber 35 der 100 Aufgaben. Qwen3.8 produzierte fast keine falschen Aufgaben, erkannte gleichzeitig nur acht echte. Zurückhaltung allein genügt also ebenso wenig wie hohe Erkennung.</p>
+          <p>Im auf der Website beschriebenen Betrieb ist Qwen3.8 Primärstimme im mehrstimmigen Mailprozess und Modell für den lokalen Begleiter. Die 8/100 beziehen sich auf die hier separat geprüfte Aufgabenerkennung mit eigener Testanweisung; die Qualität des gesamten Mailprozesses braucht eine eigene Bewertung.</p>
           <p>Kev zeigt die andere Seite: 100 erkannte Aufgaben sehen isoliert ausgezeichnet aus. Dazu kommen jedoch 170 falsche Aufgaben. Als ungeprüfter Eingang für eine Aufgabenliste wäre dieses Profil in dieser Testmischung ungeeignet. Die Filter-Policy war bereits vor dem Hauptlauf deaktiviert und blieb es. Der mitgeführte Kev-plus-Gemma-Workflow rief deshalb tatsächlich nur Gemma auf. Er belegt keinen Vorteil eines vorgeschalteten Kev-Filters.</p>
-          <p>Kolibri lag bei den Referenztreffern praktisch gleichauf mit Qwen30, erzeugte aber häufiger falsche Aufgaben. Der gepaarte Vergleich nach Dossiers belegt hier keinen Qualitätsvorsprung von Kolibri. Auch daraus folgt kein Urteil über andere Kolibri-Konfigurationen oder Einsatzgebiete.</p>
+          <p>Kolibri lag bei den Referenztreffern praktisch gleichauf mit Qwen3 30B A3B Thinking, erzeugte aber häufiger falsche Aufgaben. Der gepaarte Vergleich nach Dossiers belegt hier keinen Qualitätsvorsprung von Kolibri. Auch daraus folgt kein Urteil über andere Kolibri-Konfigurationen oder Einsatzgebiete.</p>
           <h2>Besserer Kontext verbessert Teile des Entwurfs</h2>
           <p>Im Workflow-Test wurde zusätzlich ein neues Prompt- und Kontextpaket für Gemma untersucht. Entwickelt wurde es an separaten Entwicklungsfällen; es ist ein explorativer Zusatzvergleich, keine nachträglich ersetzte Ausgangsmessung.</p>
           <figure class="screenshot"><button class="shot" data-zoom="context-de.png" data-caption="Gemma mit ursprünglichem und zusätzlichem Kontextpaket im Workflow-Test" aria-label="Gemma mit ursprünglichem und zusätzlichem Kontextpaket im Workflow-Test"><img src="context-de.png" alt="Gemma mit ursprünglichem und zusätzlichem Kontextpaket im Workflow-Test" loading="lazy" /><span class="enlarge" aria-hidden="true">↗</span></button></figure>
@@ -117,13 +118,13 @@
           <p>Das Ergebnis bleibt stehen. Es bedeutet aber nicht, dass jeder kurze, mit seiner Quelle verbundene Entwurf für Folio unbrauchbar ist. Die Rubrik stellt einen stärkeren Anspruch. Eine spätere Bewertung, die einen ausreichenden Quellenverweis akzeptiert, wäre eine zusätzliche Auswertung und müsste als solche kenntlich bleiben. Die Einzelkriterien sind deshalb aussagekräftiger als eine einzige zusammengezogene Erfolgszahl.</p>
           <h2>Grenzen des lokalen Vergleichs</h2>
           <p>Die Profile liefen lokal auf einem Apple M5 Pro mit 48 GiB Arbeitsspeicher. Kolibri wurde als Community-Quantisierung Q3_K_S über einen experimentellen CPU-/Accelerate-Port getestet. Das ist nicht Aleph Alphas offizielle FP8-Konfiguration. Andere Profile verwenden andere Quantisierungen, Kontextgrenzen und teilweise natives Denken. Aus diesen Läufen leite ich keinen allgemeinen Geschwindigkeitssieger ab.</p>
-          <p>Qwen30 hatte in der ersten Klassifikationsrunde 22 technische Fehler: Die Ausgabe endete am festen Tokenbudget. Es waren keine Timeouts. In der ersten Kolibri-Workflow-Runde gab es einen 90-Sekunden-Timeout. Fehlerhafte Antworten wurden weder repariert noch erneut angefragt.</p>
-          <p>Die Referenz und die semantische Prüfung stammen vom selben AI-Autor. Bei der Inhaltsprüfung waren Modellnamen, Varianten, Runden und Laufzeiten ausgeblendet; Schreibstil und bekannte Entwicklungsbefunde können trotzdem Hinweise geben. Das ist weder unabhängig noch vollständig blind. Reale private Inbox-Inhalte wurden nicht gemessen.</p>
+          <p>Qwen3 30B A3B Thinking hatte in der ersten Klassifikationsrunde 22 technische Fehler: Die Ausgabe endete am festen Tokenbudget. Es waren keine Timeouts. In der ersten Kolibri-Workflow-Runde gab es einen 90-Sekunden-Timeout. Fehlerhafte Antworten wurden weder repariert noch erneut angefragt.</p>
+          <p>Die Referenz und die semantische Prüfung stammen vom selben KI-Autor. Bei der Inhaltsprüfung waren Modellnamen, Varianten, Runden und Laufzeiten ausgeblendet; Schreibstil und bekannte Entwicklungsbefunde können trotzdem Hinweise geben. Das ist weder unabhängig noch vollständig blind. Reale private Inbox-Inhalte wurden nicht gemessen.</p>
           <h2>Was ich daraus für Folio mitnehme</h2>
           <p>Gemma bleibt unter den gemessenen Klassifikationsprofilen die stärkste Grundlage. Kev wird als Filter nicht aktiviert. Die Kontextvariante verdient weitere Arbeit an Mehrfachaufträgen, Materialbindung und falschen Aufgaben. Ein korrektes Format und ein inhaltlich richtiger Vorschlag bleiben getrennte Anforderungen. Dieser Test schaltet kein Produktmodell automatisch um.</p>
           <p>Der neue <a href="https://aion-lumen.ch/">Aion-Lumen-Auftritt</a> zeigt diese Arbeit an konkreten Beispielen: Mail einordnen, Quellen wiederfinden und laufende Kosten nachvollziehen. Die Welle ist das Bild dafür; der Modellvergleich zeigt einen Teil der Ingenieursarbeit darunter. Die <a href="https://aion-lumen.ch/blog/surfbrett/">Geschichte vom Surfbrett</a> erzählt, wie das entstanden ist.</p>
           <p>Wer den Vergleich prüfen möchte, findet die <a href="modellvergleich-2026-10-07.json">aggregierten Messzahlen samt Definitionen</a>. Sie enthalten keine privaten Mails und sind kein vollständiges Paket zur Wiederholung der Inferenz. Mich interessiert besonders, welche neutralen Grenzfälle andere Entwickler für ihre eigenen Aufgabenlisten testen würden.</p>
-          <p>Messstand 7. Oktober 2026. Referenz und Inhaltsprüfung AI-erstellt; Text mit KI-Unterstützung ausgearbeitet.</p>
+          <p>Messstand 7. Oktober 2026. Referenz und Inhaltsprüfung KI-erstellt; Text mit KI-Unterstützung ausgearbeitet.</p>
           <div class="signature">— Afschin</div>
           <div class="actions" style="margin-top: 35px"><a class="text-link" href="/blog/ai-surfen/">Zur Geschichte über Modellwechsel →</a><a class="text-link" href="/blog/">Alle Beiträge →</a></div>
         </article>

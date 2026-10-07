@@ -141,13 +141,13 @@
   },
   {
     "file": "blog/ai-surfen/en.html",
-    "bytes": 8463,
-    "sha256": "94022f06e2fcd46bed46e330a7f6e8aec9e263fb601174d24dafe5ef88a13fa3"
+    "bytes": 8618,
+    "sha256": "99d13e91a92455320f6eb14739ae36c60c6b24c54ac16129f6e24031781f37a6"
   },
   {
     "file": "blog/ai-surfen/index.html",
-    "bytes": 8780,
-    "sha256": "b835648c01075fff39abfeb8a665778c497b6a339d97636a80e27cc3e5c280a1"
+    "bytes": 8932,
+    "sha256": "ac11ad65610dc307194228bca3fb3fd45e188efc67c2792048b609951fea34a4"
   },
   {
     "file": "blog/en.html",
@@ -181,18 +181,18 @@
   },
   {
     "file": "blog/lokale-modelle-2026-10/en.html",
-    "bytes": 15107,
-    "sha256": "b090a5f7c9bf68791ab3582f4a4e27f0bd9f5ad11e15a02204b89e60355eb250"
+    "bytes": 15491,
+    "sha256": "387eba0b2d3d2c3e0eab39b29a1fbc53d29287f9b0fa66d0cb45bf95881f2196"
   },
   {
     "file": "blog/lokale-modelle-2026-10/index.html",
-    "bytes": 16223,
-    "sha256": "36c9725284737741e3e597dcc8877565b6a65e2b5aaffa2c792f2a5bca5ad031"
+    "bytes": 16623,
+    "sha256": "f4e8e64157a407ec2c824b9cb0e73da842f7d06f29160ad8b577b6e0531315db"
   },
   {
     "file": "blog/lokale-modelle-2026-10/modellvergleich-2026-10-07.json",
-    "bytes": 7253,
-    "sha256": "d3cbe320a2e27ab5476dfe0cd1b4fa3b5e3c07945d79e6955afaf729f8e8889e"
+    "bytes": 7269,
+    "sha256": "45ba186fab58e85e6326e946c59ef89761c383a0523b20f36e9b354aa20fb126"
   },
   {
     "file": "blog/surfbrett/en.html",
@@ -207,7 +207,7 @@
   {
     "file": "en.html",
     "bytes": 17268,
-    "sha256": "2805dc2ea2d1ee03559fe3f48153d887e25e2a4a934c40666fcbbbcc7d076779"
+    "sha256": "08b2727b903aacb501d7c79f3030bda7b081e7225939f715c9a87ef666a0e20c"
   },
   {
     "file": "favicon.svg",
@@ -252,7 +252,7 @@
   {
     "file": "index.html",
     "bytes": 17628,
-    "sha256": "f77edf5c6bc54a58c2022564d017dcabf0c23a32bdcb3eb3920050663554881d"
+    "sha256": "0786094012b5e9a87df837bcde23980d0e05bf8aa3716ea093074751c162fc08"
   },
   {
     "file": "multi-agent/en.html",
@@ -501,8 +501,8 @@
   },
   {
     "file": "styles/surf.js",
-    "bytes": 32348,
-    "sha256": "032ba156c43a0759b5aedb7ac2cfafc64646df265f34aa124186067336af7616"
+    "bytes": 33588,
+    "sha256": "c1888c36a8d84d3712c72de6cf945d3692e31d5d617f21c9755a943e1690a7c2"
   },
   {
     "file": "the-long-table/en.html",
