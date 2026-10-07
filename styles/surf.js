@@ -354,6 +354,40 @@ const deckMaterial = material("#f8fcff", {
   roughness: 0.31,
 });
 const deck = boardPart(deckMaterial, 0.98, 0.4);
+// A small maker's mark stays on the upper deck as the board opens.
+await document.fonts.load("500 128px DM");
+const brandCanvas = document.createElement("canvas");
+brandCanvas.width = 330;
+brandCanvas.height = 170;
+const brandContext = brandCanvas.getContext("2d");
+brandContext.font = "500 128px DM";
+brandContext.fillStyle = "#285681";
+brandContext.textAlign = "center";
+brandContext.textBaseline = "middle";
+brandContext.fillText("folio", 165, 86);
+const brandTexture = new THREE.CanvasTexture(brandCanvas);
+brandTexture.colorSpace = THREE.SRGBColorSpace;
+brandTexture.anisotropy = 4;
+const brand = new THREE.Mesh(
+  new THREE.PlaneGeometry(0.56, (0.56 * 170) / 330),
+  new THREE.MeshStandardMaterial({
+    map: brandTexture,
+    transparent: true,
+    opacity: 0.76,
+    roughness: 0.72,
+    metalness: 0,
+    depthWrite: false,
+    alphaTest: 0.02,
+    polygonOffset: true,
+    polygonOffsetFactor: -1,
+    polygonOffsetUnits: -1,
+  }),
+);
+brand.name = "folio-wordmark";
+brand.renderOrder = 10;
+brand.rotation.x = -Math.PI / 2;
+brand.position.set(-0.07, 0.212, -1.63);
+deck.add(brand);
 const stripeMaterial = material("#4783ca", { transparent: true, opacity: 1 });
 const stripe = new THREE.Mesh(
   new THREE.BoxGeometry(0.065, 0.006, 3.68),
@@ -763,6 +797,9 @@ function draw(now) {
   inner.position.y = core.position.y;
   sources.position.y = deck.position.y;
   const reveal = smooth(0.2, 0.8, z);
+  // Fully transparent inner parts must not occlude the deck or its wordmark.
+  sources.visible = reveal > 0.005;
+  inner.visible = reveal > 0.005;
   [
     paperMaterial,
     sourceLinesMaterial,

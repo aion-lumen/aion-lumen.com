@@ -195,7 +195,7 @@
     "Model metadata was hidden during content assessment, but style and prior development knowledge could reveal identity.",
     "Kolibri is a community Q3_K_S quantization on an experimental CPU/Accelerate port, not official FP8.",
     "Different quantizations, contexts, thinking profiles, runtimes and background load preclude an isolated architecture speed ranking.",
-    "Qwen30 first-round classification errors were output-budget length stops, not timeouts.",
+    "Qwen3 30B A3B Thinking first-round classification errors were output-budget length stops, not timeouts.",
     "The first Kolibri workflow round included one 90-second timeout. Failed requests were not repaired or retried.",
     "The Kev prefilter policy was disabled before the main run. Kev+Gemma called only Gemma; no prefilter advantage was measured.",
     "Jev was not tested.",
