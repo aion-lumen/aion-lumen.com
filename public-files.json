@@ -207,7 +207,7 @@
   {
     "file": "en.html",
     "bytes": 17268,
-    "sha256": "08b2727b903aacb501d7c79f3030bda7b081e7225939f715c9a87ef666a0e20c"
+    "sha256": "39ddca6c9888d04c81345a13a2363ea19e6d27bb01034ff30f897c403228916c"
   },
   {
     "file": "favicon.svg",
@@ -252,7 +252,7 @@
   {
     "file": "index.html",
     "bytes": 17628,
-    "sha256": "0786094012b5e9a87df837bcde23980d0e05bf8aa3716ea093074751c162fc08"
+    "sha256": "e631e12ca769500b3eb39a6a508b19f3de9cecfc0cefa8b626c0546a9c277091"
   },
   {
     "file": "multi-agent/en.html",
@@ -485,6 +485,11 @@
     "sha256": "9d90f26ff52989cff25e40c1a17a16f7b5e3e771ac562046c185c390880bfc16"
   },
   {
+    "file": "styles/surf-balance.mjs",
+    "bytes": 6194,
+    "sha256": "3aebecc258a54b41fc8c07677536690b8e5c4bf8a3b6a3d6715cfd862f5e8b15"
+  },
+  {
     "file": "styles/surf-steering.mjs",
     "bytes": 1173,
     "sha256": "3470dff1701945daf624c90b1ff37b2a8b6df37a2eda3d30171592873dba7db6"
@@ -501,8 +506,8 @@
   },
   {
     "file": "styles/surf.js",
-    "bytes": 33588,
-    "sha256": "c1888c36a8d84d3712c72de6cf945d3692e31d5d617f21c9755a943e1690a7c2"
+    "bytes": 33504,
+    "sha256": "5352444aa6ad2fae0c1483c13e2d29892130d39494e2a4a9388adf4b2065dde1"
   },
   {
     "file": "the-long-table/en.html",
