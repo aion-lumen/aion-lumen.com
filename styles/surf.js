@@ -2,6 +2,7 @@ import * as THREE from "../assets/surf/three.module.min.js";
 import { createBreaker } from "./surf-wave.js?v=a5789735f8e7";
 import { GLTFLoader } from "../assets/surf/GLTFLoader.js";
 import { advanceHeading, followingTurn, riderYaw } from "./surf-steering.mjs?v=3470dff17019";
+import { createSurferBalance } from "./surf-balance.mjs?v=3aebecc258a5";
 
 const root = document.querySelector(".surf-story");
 const en = document.documentElement.lang === "en";
@@ -514,14 +515,13 @@ const guides = new THREE.LineSegments(
   }),
 );
 board.add(guides);
-// Anatomical two-segment limbs, baked balance and fixed foot contact.
+// The authored stance supplies anatomy; reactive balance keeps feet on the deck.
 const rider = new THREE.Group();
 rider.position.y = 0.61;
 rig.add(rider);
 const riderMaterials = [];
 const characterRevision = "4a6171748ed8";
-let characterMixer,
-  characterHead,
+let characterBalance,
   characterReady = false;
 if (renderer)
   new GLTFLoader().load(
@@ -529,7 +529,7 @@ if (renderer)
       .href,
     (gltf) => {
       const model = gltf.scene;
-      characterMixer = new THREE.AnimationMixer(model);
+      const characterMixer = new THREE.AnimationMixer(model);
       if (gltf.animations[0])
         characterMixer.clipAction(gltf.animations[0]).play();
       characterMixer.setTime(0);
@@ -540,7 +540,6 @@ if (renderer)
       model.position.y = -bounds.min.y * scale;
       model.rotation.y = 1.55;
       model.traverse((object) => {
-        if (object.isBone && object.name === "head") characterHead = object;
         if (!object.isMesh) return;
         object.frustumCulled = false;
         const materials = Array.isArray(object.material)
@@ -553,6 +552,7 @@ if (renderer)
         }
       });
       rider.add(model);
+      characterBalance = createSurferBalance(model);
       characterReady = true;
       root.dataset.characterRevision = characterRevision;
       requestFrame();
@@ -775,17 +775,16 @@ function draw(now) {
     }
   }
   rig.position.y = mix(waterline + 0.08, 1.05, z);
-  // The animation contains the balance movement; rotating the whole body would lift feet.
-  if (characterMixer) characterMixer.setTime(time);
-  if (characterHead) {
-    const gaze = new THREE.Quaternion().setFromAxisAngle(
-      new THREE.Vector3(0, 1, 0),
-      aim.x * 0.025,
-    );
-    characterHead.quaternion.multiply(gaze);
-  }
   const personOpacity = 1 - smooth(0.15, 0.76, z);
+  rider.position.y = 0.61 + z * 1.2;
   rider.visible = personOpacity > 0.005;
+  characterBalance?.update({
+    dt,
+    turn: aim.x * (1 - z),
+    heading: heading * (1 - z),
+    moving: !paused && !reduced,
+    visible: rider.visible,
+  });
   riderMaterials.forEach((m) => {
     m.opacity = personOpacity;
     m.depthWrite = personOpacity > 0.99;
@@ -920,7 +919,7 @@ function draw(now) {
       ? "rigged-glb"
       : root.dataset.character || "loading",
     characterRevision: characterReady ? characterRevision : null,
-    characterAnimation: characterMixer?.time ?? 0,
+    characterAnimation: characterReady ? time : 0,
     drawCalls: renderer.info.render.calls,
     triangles: renderer.info.render.triangles,
     camera: camera.position.toArray(),
