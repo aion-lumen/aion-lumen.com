@@ -35,6 +35,41 @@
     "sha256": "6271f28da2794e8755f5dea7928ec936057cfbf39d8966f116bdfc93f3cac1ae"
   },
   {
+    "file": "assets/folio-memory-20261015/01-mail-source.png",
+    "bytes": 97946,
+    "sha256": "c0a2c2bc74f1f421cba99b41b6c6df0feef35cef70a443eea4c2c772d4705154"
+  },
+  {
+    "file": "assets/folio-memory-20261015/02-career-evidence.png",
+    "bytes": 170396,
+    "sha256": "fb427b52a8022c25888025892d7f7418a7eccdb784496c628af4164ae411d48f"
+  },
+  {
+    "file": "assets/folio-memory-20261015/03-finance-pending.png",
+    "bytes": 105036,
+    "sha256": "71352f27b016e323e64a5992a94462243298a7bf9ca12e537443f441a294b1b9"
+  },
+  {
+    "file": "assets/folio-memory-20261015/04-search-final.png",
+    "bytes": 182180,
+    "sha256": "7e6cefd668678431fc2044541f6ee83f494d2e914566cb4ca43322c592a9b1be"
+  },
+  {
+    "file": "assets/folio-memory-20261015/05-confirmed.png",
+    "bytes": 94357,
+    "sha256": "360d9bc235286db92921e3b6318d0f5fdf6b7fa828d8afe894a9babfa3148615"
+  },
+  {
+    "file": "assets/folio-memory-20261015/demo-evidence.json",
+    "bytes": 5546,
+    "sha256": "7774eb5beff4f18ecef6af0dd8674a8c574e42d0a428f8c0e61659009d26263a"
+  },
+  {
+    "file": "assets/folio-memory-20261015/workflow-social.png",
+    "bytes": 100304,
+    "sha256": "5fbae6ac1abd21f7f16527e1ee935924896daefb585e34a3f6dee63c528aaa0a"
+  },
+  {
     "file": "assets/folio-ui/Inter-LICENSE.txt",
     "bytes": 4380,
     "sha256": "262481e844521b326f5ecd053e59b98c8b2da78c8ee1bdbb6e8174305e54935a"
@@ -151,13 +186,23 @@
   },
   {
     "file": "blog/en.html",
-    "bytes": 6063,
-    "sha256": "65e9bff5e49463ac4f6f52042d6637ba1ac4a5c63b0410896a4f9e45eb6b2917"
+    "bytes": 6506,
+    "sha256": "7b8a50310c5d40ec10256815a9f375ac718a3dcc12fe01da15e28084b67a33c8"
+  },
+  {
+    "file": "blog/folio-wissen-pruefen/en.html",
+    "bytes": 11327,
+    "sha256": "18711aaf6deff6cafa94c7453f42221b7e6685fe006bd4667bd60703ef02bd43"
+  },
+  {
+    "file": "blog/folio-wissen-pruefen/index.html",
+    "bytes": 11999,
+    "sha256": "b49156831ab2986921d872f7cfcd4a8e646418af052f90ee9a3c09799a8c96bb"
   },
   {
     "file": "blog/index.html",
-    "bytes": 5999,
-    "sha256": "d93aac5a63234604ae2791eb201dc71a39cfa90d8e7733153edbac015d5e14e5"
+    "bytes": 6441,
+    "sha256": "25f2d37847771bc189680da44c34e78b0ea69402d6382ad79b63e23ca6676f5e"
   },
   {
     "file": "blog/lokale-modelle-2026-10/classification-de.png",
@@ -460,6 +505,11 @@
     "sha256": "d375efba3776e6174451b10e4d6f426f37f256fb915390d4383081941ca17218"
   },
   {
+    "file": "styles/memory-demo.js",
+    "bytes": 1326,
+    "sha256": "16ea14721f080b6f55e5bc8924d9b2f9a4f26bb8838b4b088a5c44446367cd1c"
+  },
+  {
     "file": "styles/memory-explorer.css",
     "bytes": 7888,
     "sha256": "8617952db06ea3f4f330b1c374090846eebcf43a1f8c8a634187de5363e1d474"
@@ -468,6 +518,11 @@
     "file": "styles/memory-explorer.js",
     "bytes": 17394,
     "sha256": "f5d6a969ff8fb77158dffcdb19ffa30b62ce34a2315a2b165da72624a4690eeb"
+  },
+  {
+    "file": "styles/memory-release.css",
+    "bytes": 6196,
+    "sha256": "d7ce55da0939274a5ca263ed26a8adce894132add1f36af2a651c09cd19c0a13"
   },
   {
     "file": "styles/site.css",

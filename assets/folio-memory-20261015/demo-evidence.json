@@ -1,0 +1,132 @@
+{
+  "synthetic": true,
+  "date": "2026-10-15",
+  "build": "memory-quality-20261014-rc7",
+  "preparation": "Mail import and initial topic routing prepared as test fixtures. Unmodified product extraction, independent review, indexing and retrieval. Screenshots are actual UI states. No autonomous support workflow demonstrated.",
+  "sources": [
+    {
+      "id": 1,
+      "sender": "belege@lyra.example.invalid",
+      "subject": "Lyra: Zahlungsbeleg und Lernabo-Zugang",
+      "mail_date": "2026-10-15T09:00:00Z",
+      "domain": "finance",
+      "secondary": [
+        "job"
+      ],
+      "body": "Synthetisches Beispiel · alle Angaben erfunden.\n\nZum Vorgang Lyra Learning Pass liegen am 15.10.2026 folgende Angaben vor:\nAm 02.04.2026 wurden 1189,50 EUR an LYRA EDUCATION abgebucht, Referenz TX-724. Der Zahlungsbeleg nennt kein Produkt und keine Lizenzlaufzeit.\nDas Rezertifizierungs-Assessment für die Data-Platform-Zertifizierung ist am 15.10.2026 wegen eines als abgelaufen angezeigten Lernabos gesperrt.\nDas Data-Platform-Zertifikat ist laut Zertifikatsportal bis 22.10.2026 gültig. Das Assessment wurde noch nicht begonnen."
+    },
+    {
+      "id": 2,
+      "sender": "learning-support@lyra.example.invalid",
+      "subject": "Lyra Learning Pass: Lizenz vorhanden, Zuordnung offen",
+      "mail_date": "2026-10-15T10:00:00Z",
+      "domain": "finance",
+      "secondary": [
+        "job",
+        "kontakt"
+      ],
+      "body": "Synthetisches Beispiel · alle Angaben erfunden.\n\nStand 15.10.2026, 10:00 Uhr:\nIm Vertragskonto besteht ein bezahlter Lyra Learning Pass für einen Nutzer, gültig vom 01.04.2026 bis 31.03.2027. Diese Lizenz ist derzeit keinem Nutzer zugewiesen.\nDie Zuordnung der Banktransaktion TX-724 zu einem Produkt ist weiterhin ungeklärt.\nBeim erneuten Zugriffstest am 15.10.2026 bleibt das Rezertifizierungs-Assessment durch die Abo-Sperre blockiert.\nBitte prüfen Sie die Zuordnung der vorhandenen Lizenz zum vorgesehenen Nutzerkonto. Ein erfolgreicher Assessment-Start ist bisher nicht belegt."
+    }
+  ],
+  "extraction": {
+    "source_1": "two proposals: finance, career",
+    "source_2": "bounded correction failed; no proposal"
+  },
+  "reviews": [
+    {
+      "domain": "finance",
+      "verdict": "reject",
+      "reasons": [
+        "evidence_mismatch"
+      ],
+      "facts": [
+        {
+          "value": "1189,50 EUR am 2026-04-02, Referenz TX-724",
+          "quote": "Am 02.04.2026 wurden 1189,50 EUR an LYRA EDUCATION abgebucht, Referenz TX-724.",
+          "status": "candidate"
+        }
+      ],
+      "stage": "semantic_review",
+      "checked_object_ids": [
+        "2c556663-3c09-4d24-81a2-662b4634ef58",
+        "f83d5377-c525-4fa5-b07a-02a6f8ce20af"
+      ],
+      "unsupported_object_ids": [
+        "f83d5377-c525-4fa5-b07a-02a6f8ce20af"
+      ],
+      "episodes": [
+        {
+          "episode_id": "f83d5377-c525-4fa5-b07a-02a6f8ce20af",
+          "episode_type": "mail_event",
+          "summary": "LYRA EDUCATION: 1189,50 EUR am 2026-04-02, Referenz TX-724",
+          "source_excerpt": "Am 02.04.2026 wurden 1189,50 EUR an LYRA EDUCATION abgebucht, Referenz TX-724.",
+          "status": "candidate"
+        }
+      ]
+    },
+    {
+      "domain": "career",
+      "verdict": "accept",
+      "reasons": [
+        "fully_supported"
+      ],
+      "facts": [
+        {
+          "value": "Das Rezertifizierungs-Assessment ist am 2026-10-15 wegen eines als abgelaufen angezeigten Lernabos gesperrt; das Zertifikat ist bis 2026-10-22 gültig und das Assessment wurde noch nicht begonnen.",
+          "quote": "Das Rezertifizierungs-Assessment für die Data-Platform-Zertifizierung ist am 15.10.2026 wegen eines als abgelaufen angezeigten Lernabos gesperrt. Das Data-Platform-Zertifikat ist laut Zertifikatsportal bis 22.10.2026 gültig. Das Assessment wurde noch nicht begonnen.",
+          "status": "confirmed"
+        }
+      ],
+      "stage": "semantic_review",
+      "checked_object_ids": [
+        "e5d5f878-08bc-45f5-8181-85df76f06d65"
+      ],
+      "unsupported_object_ids": [],
+      "episodes": []
+    }
+  ],
+  "retrieval": [
+    {
+      "question": "Weshalb komme ich nicht in den Wissenstest hinein?",
+      "domain": "career",
+      "lexical_hits": 0,
+      "hybrid_hits": 1,
+      "retrieval": {
+        "mode": "hybrid",
+        "semantic_status": "ready",
+        "semantic_fact_ids": [
+          "e5d5f878-08bc-45f5-8181-85df76f06d65"
+        ]
+      }
+    },
+    {
+      "question": "Ist mit der Abbuchung mein Lernabo bezahlt?",
+      "domain": "finance",
+      "lexical_hits": 0,
+      "hybrid_hits": 0,
+      "retrieval": {
+        "mode": "lexical",
+        "semantic_status": "excluded",
+        "semantic_fact_ids": []
+      }
+    },
+    {
+      "question": "Welche Laufzeit hat mein Lyra Learning Pass?",
+      "domain": "finance",
+      "lexical_hits": 0,
+      "hybrid_hits": 0,
+      "retrieval": {
+        "mode": "lexical",
+        "semantic_status": "excluded",
+        "semantic_fact_ids": []
+      }
+    }
+  ],
+  "limits": [
+    "One confirmed fact in this demonstration corpus; no general retrieval benchmark.",
+    "Finance is excluded from vector retrieval.",
+    "The reviewer rejected the finance episode; this does not establish that the payment claim is false.",
+    "Second source produced no usable extraction; all first results preserved.",
+    "No unrelated control question tested in the same domain; selectivity is unmeasured. Lexical comparison uses owner-preview memory retrieval without the companion vocabulary bridge."
+  ]
+}
