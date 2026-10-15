@@ -7,7 +7,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 ROUTES = ['', 'folio', 'multi-agent', 'multi-agent/tests', 'blog',
-          'blog/surfbrett', 'blog/ai-surfen', 'blog/lokale-modelle-2026-10',
+          'blog/surfbrett', 'blog/ai-surfen', 'blog/lokale-modelle-2026-10','blog/folio-wissen-pruefen',
           'story', 'the-long-table', 'impressum', 'folio/import-spec']
 PAGES = [ROOT / route / name for route in ROUTES for name in ['index.html', 'en.html']]
 

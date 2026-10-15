@@ -18,6 +18,7 @@ experiments; the blog tells the story behind the tools.
 | `/blog/surfbrett/`    | First article: building a tool for everyday life     |
 | `/blog/ai-surfen/`    | Keeping knowledge and workflows across model changes |
 | `/blog/lokale-modelle-2026-10/` | October local model comparison and aggregates |
+| `/blog/folio-wissen-pruefen/` | Recertification case, memory extensions and bounded synthetic test |
 | `/story/`             | Original illustrated history, retained as an archive |
 | `/the-long-table/`    | Original session entries, unchanged                  |
 | `/folio/import-spec/` | Rendered canonical import format                     |

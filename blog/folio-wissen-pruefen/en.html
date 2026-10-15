@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Locked out on the expiry date. · Folio · Aion Lumen</title>
+<meta name="description" content="How Folio’s local records and AI assistants helped resolve a blocked assessment on the expiry date — and what the new release adds.">
+<link rel="icon" href="../../favicon.svg">
+<link rel="stylesheet" href="../../styles/memory-release.css">
+<link rel="canonical" href="https://aion-lumen.ch/blog/folio-wissen-pruefen/en.html">
+<link rel="alternate" hreflang="de" href="https://aion-lumen.ch/blog/folio-wissen-pruefen/">
+<link rel="alternate" hreflang="en" href="https://aion-lumen.ch/blog/folio-wissen-pruefen/en.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Locked out on the expiry date.">
+<meta property="og:description" content="Folio held the records. AI assistants found the evidence and handled the support request.">
+<meta property="og:url" content="https://aion-lumen.ch/blog/folio-wissen-pruefen/en.html">
+<meta property="og:locale" content="en_GB">
+<meta property="og:image" content="https://aion-lumen.ch/assets/folio-memory-20261015/workflow-social.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="1200">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@aion_lumen">
+<meta property="article:published_time" content="2026-10-15">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+<a class="brand" href="https://aion-lumen.ch/">
+<img src="../../favicon.svg" alt="">AION LUMEN</a>
+<nav class="links"><a href="/blog/en.html">Blog</a>
+<a href="https://aion-lumen.ch/folio/">Folio</a>
+<a href="./">DE</a>
+</nav>
+</header>
+<main>
+<header class="hero">
+<div class="eyebrow">Folio · Build note · 15.10.2026</div>
+<h1>Locked out on the expiry date.</h1>
+<p class="lead">My SAP certificate was due to expire that day. Access to recertification was blocked, even though my learning subscription was paid.</p>
+</header>
+<article class="article">
+<p>Folio had already collected my emails and records locally. One AI assistant searched that collection directly for the relevant documents. Another then handled the entire support request independently.</p>
+<p>The valid licence had not been assigned to my account.</p>
+</article>
+<figure class="workflow" id="ablauf" aria-labelledby="workflow-title">
+<div class="eyebrow" id="workflow-title">How it actually happened</div>
+<ol>
+<li>
+<span class="flow-number" aria-hidden="true">01</span>
+<span class="flow-role">Folio</span>
+<h2>Records ready</h2>
+<p>Emails and documents collected locally.</p>
+</li>
+<li>
+<span class="flow-number" aria-hidden="true">02</span>
+<span class="flow-role">AI assistant</span>
+<h2>Evidence found</h2>
+<p>Searched Folio’s collection directly.</p>
+</li>
+<li>
+<span class="flow-number" aria-hidden="true">03</span>
+<span class="flow-role">AI assistant</span>
+<h2>Support handled</h2>
+<p>Managed the entire request independently.</p>
+</li>
+</ol>
+<figcaption>
+<span aria-hidden="true">✓</span> I completed my recertification in time.</figcaption>
+</figure>
+<p class="release-note">The new release builds on this foundation: vector search retrieves knowledge phrased differently. The memory extensions organise claims by topic and submit them for independent review.</p>
+<details class="technical-tests" id="tests">
+<summary>Testing the new features</summary>
+<p class="test-intro">A separate test with fictional records demonstrates the new search and memory features using local models.</p>
+<section class="demo" id="demo" aria-label="Product demo">
+<div class="demo-header">
+<div>
+<div class="eyebrow">Fictional case · actual product captures</div>
+<h2>Lyra Learning Pass</h2>
+</div>
+<span class="counter" aria-live="polite">1 / 5</span>
+</div>
+<section class="step" >
+<h3>Keep the source in view.</h3>
+<p>One email contains a debit and a blocked assessment. The payment record identifies neither the product nor the licence period.</p>
+<a class="shot-link" href="../../assets/folio-memory-20261015/01-mail-source.png" target="_blank" rel="noopener" aria-label="Enlarge screenshot">
+<img src="../../assets/folio-memory-20261015/01-mail-source.png" alt="Synthetic email showing payment evidence and assessment status" width="1100" height="500">
+</a>
+<small>Actual Folio screenshot · fictional data · open to enlarge</small>
+</section>
+<section class="step" hidden>
+<h3>A proposal with evidence.</h3>
+<p>Qwen separates financial and certification information. This is the access claim before independent review.</p>
+<a class="shot-link" href="../../assets/folio-memory-20261015/02-career-evidence.png" target="_blank" rel="noopener" aria-label="Enlarge screenshot">
+<img src="../../assets/folio-memory-20261015/02-career-evidence.png" alt="An unconfirmed Folio claim and its supporting quotation" width="1100" height="500">
+</a>
+<small>Actual Folio screenshot · fictional data · open to enlarge</small>
+</section>
+<section class="step" hidden>
+<h3>Open questions stay open.</h3>
+<p>Gemma accepts the access claim. The finance bundle is held because of its event entry. This rejection does not establish that the payment is false.</p>
+<a class="shot-link" href="../../assets/folio-memory-20261015/03-finance-pending.png" target="_blank" rel="noopener" aria-label="Enlarge screenshot">
+<img src="../../assets/folio-memory-20261015/03-finance-pending.png" alt="Finance proposal held for further review" width="1100" height="500">
+</a>
+<small>Actual Folio screenshot · fictional data · open to enlarge</small>
+</section>
+<section class="step" hidden>
+<h3>Different words, relevant evidence.</h3>
+<p>The German question uses Wissenstest; the source says Assessment. In this small memory-search case, lexical search finds nothing, while vector retrieval adds the reviewed access claim.</p>
+<a class="shot-link" href="../../assets/folio-memory-20261015/04-search-final.png" target="_blank" rel="noopener" aria-label="Enlarge screenshot">
+<img src="../../assets/folio-memory-20261015/04-search-final.png" alt="Actual Folio search retrieving the reviewed assessment claim" width="1100" height="500">
+</a>
+<small>Actual Folio screenshot · fictional data · open to enlarge</small>
+</section>
+<section class="step" hidden>
+<h3>Reuse reviewed knowledge.</h3>
+<p>The confirmed claim retains its source reference. It helps prepare the next question: which licence is assigned to which account?</p>
+<a class="shot-link" href="../../assets/folio-memory-20261015/05-confirmed.png" target="_blank" rel="noopener" aria-label="Enlarge screenshot">
+<img src="../../assets/folio-memory-20261015/05-confirmed.png" alt="Confirmed certification context in Folio" width="1100" height="500">
+</a>
+<small>Actual Folio screenshot · fictional data · open to enlarge</small>
+</section>
+<nav class="demo-controls">
+<button class="prev">Back</button>
+<div class="dots">
+<button aria-label="1. Keep the source in view.">
+</button>
+<button aria-label="2. A proposal with evidence.">
+</button>
+<button aria-label="3. Open questions stay open.">
+</button>
+<button aria-label="4. Different words, relevant evidence.">
+</button>
+<button aria-label="5. Reuse reviewed knowledge.">
+</button>
+</div>
+<button class="next">Next →</button>
+</nav>
+</section>
+<details class="transcript">
+<summary>Read all five steps</summary>
+<ol>
+<li>
+<strong>Keep the source in view.</strong> One email contains a debit and a blocked assessment. The payment record identifies neither the product nor the licence period.</li>
+<li>
+<strong>A proposal with evidence.</strong> Qwen separates financial and certification information. This is the access claim before independent review.</li>
+<li>
+<strong>Open questions stay open.</strong> Gemma accepts the access claim. The finance bundle is held because of its event entry. This rejection does not establish that the payment is false.</li>
+<li>
+<strong>Different words, relevant evidence.</strong> The German question uses Wissenstest; the source says Assessment. In this small memory-search case, lexical search finds nothing, while vector retrieval adds the reviewed access claim.</li>
+<li>
+<strong>Reuse reviewed knowledge.</strong> The confirmed claim retains its source reference. It helps prepare the next question: which licence is assigned to which account?</li>
+</ol>
+</details>
+<section class="method" id="methode">
+<details>
+<summary>Methods, results and open limitations</summary>
+<h2>What was actually tested</h2>
+<p>These screenshots come from an isolated Folio instance running <code>memory-quality-20261014-rc7</code>. Both emails are fictional. Import and initial topic routing were prepared. Extraction, independent review, indexing and retrieval used unmodified product code. The images show saved states, not a continuous recording of a click-through workflow. The product screenshots remain in German.</p>
+<table>
+<tr>
+<th>15 Oct · Demo</th>
+<td>Two emails. The first produces finance and certification proposals. Qwen3.8 27B extracts; Gemma 4 31B reviews. One claim is accepted. The finance bundle is held because the reviewer flags its event entry; this may include an overly conservative judgement. For the second email, the correction attempt discarded supported details; Folio therefore accepted nothing.</td>
+</tr>
+<tr>
+<th>15 Oct · Retrieval</th>
+<td>For this paraphrase in memory search, lexical search returns 0 results and hybrid search returns 1. The corpus contains only one confirmed claim. No unrelated control question was tested in the same domain, so this does not establish selectivity or general retrieval performance. The companion also uses a vocabulary bridge between Wissenstest and Assessment. Finance is excluded from vector retrieval.</td>
+</tr>
+<tr>
+<th>14 Oct · Software</th>
+<td>520 automated tests passed. Type checking found no errors and 16 existing warnings. These checks test software behaviour, not model accuracy.</td>
+</tr>
+<tr>
+<th>14 Oct · Local reviewer</th>
+<td>20 valid synthetic cases matched expectations: 12 rejections and 8 acceptances. Three malformed fixtures were corrected and rerun; their original outputs are preserved and excluded.</td>
+</tr>
+</table>
+<p>A separate 14 October pilot using the same fictional problem did not establish autonomous support handling. Qwen produced no final draft within the output limit. Gemma produced a draft that assumed an unresolved payment-to-product association. This local-model test does not demonstrate autonomous support handling. The personal story above involved separate cloud AI sessions.</p>
+<p>The new build is active locally. Automatic processing of the historical file backlog remains paused while work on longer documents undergoes further testing.</p>
+<p>
+<a href="../../assets/folio-memory-20261015/demo-evidence.json">Synthetic sources and recorded outcomes (JSON)</a> · <a href="https://aion-lumen.ch/blog/lokale-modelle-2026-10/">Earlier model comparison, 7 October</a>
+</p>
+</details>
+</section>
+</details>
+</main>
+<footer>Afschin Mirhamed · Aion Lumen · <a href="https://aion-lumen.ch/folio/">About Folio</a>
+ · <a href="/impressum/en.html">Legal notice</a></footer>
+</div>
+<script src="../../styles/memory-demo.js">
+</script>
+</body>
+</html>
