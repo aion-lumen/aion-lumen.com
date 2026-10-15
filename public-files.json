@@ -191,13 +191,13 @@
   },
   {
     "file": "blog/folio-wissen-pruefen/en.html",
-    "bytes": 11327,
-    "sha256": "18711aaf6deff6cafa94c7453f42221b7e6685fe006bd4667bd60703ef02bd43"
+    "bytes": 11409,
+    "sha256": "a5c3e04e80e37550a4f788ae92f81c00c43b367208687b8a3d4ae10ce6c1e0cf"
   },
   {
     "file": "blog/folio-wissen-pruefen/index.html",
-    "bytes": 11999,
-    "sha256": "b49156831ab2986921d872f7cfcd4a8e646418af052f90ee9a3c09799a8c96bb"
+    "bytes": 12080,
+    "sha256": "1e86291d085f90560dbab63a3f411e20c881fd7a16cfdc523b8120aaba07d862"
   },
   {
     "file": "blog/index.html",
@@ -261,8 +261,8 @@
   },
   {
     "file": "folio/en.html",
-    "bytes": 20037,
-    "sha256": "a1b19ccc610b3352b69f2110b09704ed95cbdeb4e2c99874a665ab3a3022f907"
+    "bytes": 20058,
+    "sha256": "b2070bc1e144d236256fc16df7b06dc2f4dfd28f0237a4db6397587db5f8140f"
   },
   {
     "file": "folio/import-spec/en.html",
@@ -281,8 +281,8 @@
   },
   {
     "file": "folio/index.html",
-    "bytes": 20440,
-    "sha256": "86e6e9c8d9147116fbb9a96777a6e3b4053f9664d07fd1d6213e136c05c7f3b5"
+    "bytes": 20461,
+    "sha256": "85e98a37579a92d01783f0a011c1dc4ad1ac4347a40961775c69d04705e637c2"
   },
   {
     "file": "impressum/en.html",
@@ -516,8 +516,8 @@
   },
   {
     "file": "styles/memory-explorer.js",
-    "bytes": 17394,
-    "sha256": "f5d6a969ff8fb77158dffcdb19ffa30b62ce34a2315a2b165da72624a4690eeb"
+    "bytes": 17528,
+    "sha256": "43d2f22bfac6788ca7224883e40688a23ba4d8389e6ce2c71a7d6d68ec42ab98"
   },
   {
     "file": "styles/memory-release.css",
