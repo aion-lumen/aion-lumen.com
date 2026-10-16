@@ -43,7 +43,8 @@
         {
           "value": "1189,50 EUR am 2026-04-02, Referenz TX-724",
           "quote": "Am 02.04.2026 wurden 1189,50 EUR an LYRA EDUCATION abgebucht, Referenz TX-724.",
-          "status": "candidate"
+          "status": "candidate",
+          "fact_id": "2c556663-3c09-4d24-81a2-662b4634ef58"
         }
       ],
       "stage": "semantic_review",
@@ -62,7 +63,9 @@
           "source_excerpt": "Am 02.04.2026 wurden 1189,50 EUR an LYRA EDUCATION abgebucht, Referenz TX-724.",
           "status": "candidate"
         }
-      ]
+      ],
+      "review_model": "google/gemma-4-31b-qat",
+      "review_kind": "delegated_local_model"
     },
     {
       "domain": "career",
@@ -74,7 +77,8 @@
         {
           "value": "Das Rezertifizierungs-Assessment ist am 2026-10-15 wegen eines als abgelaufen angezeigten Lernabos gesperrt; das Zertifikat ist bis 2026-10-22 gültig und das Assessment wurde noch nicht begonnen.",
           "quote": "Das Rezertifizierungs-Assessment für die Data-Platform-Zertifizierung ist am 15.10.2026 wegen eines als abgelaufen angezeigten Lernabos gesperrt. Das Data-Platform-Zertifikat ist laut Zertifikatsportal bis 22.10.2026 gültig. Das Assessment wurde noch nicht begonnen.",
-          "status": "confirmed"
+          "status": "confirmed",
+          "fact_id": "e5d5f878-08bc-45f5-8181-85df76f06d65"
         }
       ],
       "stage": "semantic_review",
@@ -82,7 +86,9 @@
         "e5d5f878-08bc-45f5-8181-85df76f06d65"
       ],
       "unsupported_object_ids": [],
-      "episodes": []
+      "episodes": [],
+      "review_model": "google/gemma-4-31b-qat",
+      "review_kind": "delegated_local_model"
     }
   ],
   "retrieval": [

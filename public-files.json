@@ -61,8 +61,8 @@
   },
   {
     "file": "assets/folio-memory-20261015/demo-evidence.json",
-    "bytes": 5546,
-    "sha256": "7774eb5beff4f18ecef6af0dd8674a8c574e42d0a428f8c0e61659009d26263a"
+    "bytes": 5856,
+    "sha256": "ae43511a2885daf1b6d7c42d842cdc43c7ff7dbc44157147e5803f49d9085cc4"
   },
   {
     "file": "assets/folio-memory-20261015/workflow-social.png",
@@ -191,13 +191,13 @@
   },
   {
     "file": "blog/folio-wissen-pruefen/en.html",
-    "bytes": 11409,
-    "sha256": "a5c3e04e80e37550a4f788ae92f81c00c43b367208687b8a3d4ae10ce6c1e0cf"
+    "bytes": 11555,
+    "sha256": "b37cee2c27d4bb515adc0613ace8137f6b893d18a7f7405458adfca5f17aa50f"
   },
   {
     "file": "blog/folio-wissen-pruefen/index.html",
-    "bytes": 12080,
-    "sha256": "1e86291d085f90560dbab63a3f411e20c881fd7a16cfdc523b8120aaba07d862"
+    "bytes": 12174,
+    "sha256": "8af330896ceade7656d9fabef6f5f7224b8548bb3dc9e5e9001d63ea7dc585f0"
   },
   {
     "file": "blog/index.html",
