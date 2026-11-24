@@ -95,24 +95,14 @@
     "sha256": "40a5e898131480c23e68072ae152ad289ea6f259f8a7a6b39337715c8a776069"
   },
   {
-    "file": "assets/inkling-20261122/mail-de-mobile.png",
-    "bytes": 117761,
-    "sha256": "252fe7a9ce119e41f180d22bdbb233ae0dbe1ed0f928b764cad336a76dd69d5c"
+    "file": "assets/inkling-20261122/folio-bench-de.jpg",
+    "bytes": 77646,
+    "sha256": "08b548b4cd7bb9a286b376114d715c1c03f27e4182b549d52ff9ec6e20a7f803"
   },
   {
-    "file": "assets/inkling-20261122/mail-de.png",
-    "bytes": 114122,
-    "sha256": "821f1c89d84eaeb3c33eacf231376171a8784eab2b42c0abb7dedee02416d844"
-  },
-  {
-    "file": "assets/inkling-20261122/mail-en-mobile.png",
-    "bytes": 112010,
-    "sha256": "2247083f892ae37f320d2146bfcccc8365b3e3b7a455ae3cb2ab57bc6d2bee48"
-  },
-  {
-    "file": "assets/inkling-20261122/mail-en.png",
-    "bytes": 110692,
-    "sha256": "38719c212d8e090c303485e65cfb30a55db75ab47ada86c9f76c01c4453b610a"
+    "file": "assets/inkling-20261122/folio-bench-en.jpg",
+    "bytes": 71538,
+    "sha256": "47c34030207eb162e50ebec4204b77e503403e0c9bb752b6892b2a316ce2c1d7"
   },
   {
     "file": "assets/surf/BufferGeometryUtils.js",
@@ -206,8 +196,8 @@
   },
   {
     "file": "blog/en.html",
-    "bytes": 7011,
-    "sha256": "2849417ffc96f257d56775a10ed0241adfff75a30ca4ddb6f3978a9fddb10ad9"
+    "bytes": 7039,
+    "sha256": "ad31192e2cf679ab107a35c407bb07b619b875e70ad37677fd93918a2988d3cf"
   },
   {
     "file": "blog/folio-wissen-pruefen/en.html",
@@ -221,18 +211,18 @@
   },
   {
     "file": "blog/index.html",
-    "bytes": 6956,
-    "sha256": "9913050e7a711ac6cdb99b39f000e74b95c76a60015ef3bc44a83c976cb76083"
+    "bytes": 6979,
+    "sha256": "1bba6e92f1050796901d6a7438d236f8abebd78c261746ffdb55d5416689e93b"
   },
   {
     "file": "blog/inkling-2-mini-lokaler-test/en.html",
-    "bytes": 12229,
-    "sha256": "0bc81a6080dd6bcc40903536d34f8b9c1d96bf61112cba63d7ce2d07557edfdf"
+    "bytes": 13246,
+    "sha256": "2bd320f08a7ca16c3f81a241c9289e92179a2cab9c6d57e7a62819500b27e1c0"
   },
   {
     "file": "blog/inkling-2-mini-lokaler-test/index.html",
-    "bytes": 13319,
-    "sha256": "0516d7c5a3b80576e0118d98e410c97d53e084ca821b86895918c76dc28c9093"
+    "bytes": 13800,
+    "sha256": "9e49d0ee040510ba713943499e9e0a76a9d22268da97d22809d5fbd96697329d"
   },
   {
     "file": "blog/lokale-modelle-2026-10/classification-de.png",
@@ -331,8 +321,8 @@
   },
   {
     "file": "multi-agent/en.html",
-    "bytes": 12194,
-    "sha256": "2429ecc9fe22bf4175a9e99c0e9d2d906f8426000c257b24f320bd8a55fd5350"
+    "bytes": 12216,
+    "sha256": "4e915bb8b0ca99284198ef6affe8f9f3172996e874d2b92949169af8d7353794"
   },
   {
     "file": "multi-agent/img/beleg-02-pipeline.jpg",
@@ -366,8 +356,8 @@
   },
   {
     "file": "multi-agent/index.html",
-    "bytes": 12503,
-    "sha256": "ad987064790f2ffdce469afda57112038413565b8479c23fe4f0a7d71d7b8c51"
+    "bytes": 12535,
+    "sha256": "3e01c74443dc8b081f9cf022eceaf29326fb44eb1306e58b667871ee3cbe3cda"
   },
   {
     "file": "multi-agent/results-2026-09.json",
@@ -521,8 +511,8 @@
   },
   {
     "file": "styles/inkling-post.css",
-    "bytes": 2829,
-    "sha256": "c506a781d97b30d159fc06b8e51a602679754a5f59cb953f78d73a74673d3c78"
+    "bytes": 5135,
+    "sha256": "d6ae0dfdb1a8c255e36afb03a2723edd3a1f0764a6e92f4fbd6a8292202410f2"
   },
   {
     "file": "styles/journey.css",

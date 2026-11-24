@@ -1,37 +1,64 @@
 /* Blog 04: the three-step reading layout from the Memory article, with site themes. */
-.inkling-post { padding-bottom: 60px; }
-.inkling-hero { padding: 64px 0 16px; }
-.inkling-hero h1 { text-wrap: balance; max-width: 980px; font-size: clamp(36px, 5.2vw, 68px); line-height: 1.12; letter-spacing: -.04em; margin: 20px 0 26px; }
-.inkling-hero .lead { max-width: 850px; font-size: 22px; line-height: 1.6; }
+.inkling-post { max-width: 980px; padding-bottom: 60px; }
+.inkling-hero { padding: 48px 0 0; }
+.inkling-hero h1 { text-wrap: balance; font-size: clamp(32px, 4.5vw, 44px); line-height: 1.12; letter-spacing: -.025em; margin: 16px 0 24px; }
+.inkling-hero .lead { font-size: 19px; line-height: 1.6; }
 .inkling-post .byline { font-size: 13px; color: var(--soft); margin: 18px 0 30px; }
-.inkling-story > p, .inkling-story > ul { max-width: 820px; font-size: 18px; line-height: 1.75; margin: 0 0 24px; }
-.inkling-story > h2 { max-width: 820px; font-size: 29px; line-height: 1.3; margin: 38px 0 20px; }
+.inkling-story > p, .inkling-story > ul { font-size: 17px; line-height: 1.7; margin: 0 0 20px; }
+.inkling-story > h2 { font-size: 25px; line-height: 1.3; margin: 38px 0 16px; }
 .inkling-story a, .inkling-hero a { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
 .inkling-story ul { padding-left: 24px; }
 .inkling-story li + li { margin-top: 10px; }
-.mail-chart { margin: 32px 0; }
-.mail-chart img { display: block; width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--line); }
-.mail-chart figcaption { font-size: 14px; line-height: 1.6; color: var(--soft); max-width: 850px; margin-top: 14px; }
-.source-checks { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 28px; list-style: none; margin: 30px 0 40px; padding: 28px; background: var(--pale); border: 1px solid var(--line); border-radius: 18px; }
-.source-checks li + li { margin-top: 0; border-left: 1px solid var(--line); padding-left: 28px; }
-.source-checks .flow-number { display: block; font: 13px Mono, monospace; color: var(--blue); margin-bottom: 16px; }
-.source-checks h3 { font-size: 23px; line-height: 1.3; margin-bottom: 14px; }
-.source-checks p { font-size: 17px; line-height: 1.6; margin-bottom: 12px; }
-.source-checks small { font-size: 14px; line-height: 1.6; color: var(--soft); }
+.source-checks { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; list-style: none; margin: 24px 0 36px; padding: 0; }
+.source-checks li { padding: 18px; background: var(--pale); border: 1px solid var(--line); border-radius: 12px; }
+.source-checks li + li { margin-top: 0; }
+.source-checks .flow-number { display: block; font: 12px Mono, monospace; color: var(--blue); margin-bottom: 10px; }
+.source-checks h3 { font-size: 18px; line-height: 1.3; margin-bottom: 12px; }
+.source-checks p { font-size: 15px; line-height: 1.5; margin-bottom: 10px; }
+.source-checks small { font-size: 13px; line-height: 1.5; color: var(--soft); }
+.thanks { margin-top: 32px; padding: 24px; border: 1px solid var(--line); border-radius: 14px; background: linear-gradient(135deg, #f0f9f8, var(--pale)); }
+.dark .thanks { background: linear-gradient(135deg, #163a3b, var(--pale)); }
+.thanks h2 { font-size: 22px; margin-bottom: 14px; }
+.thanks p { font-size: 17px; line-height: 1.7; margin-bottom: 16px; }
+.thanks p:last-child { margin-bottom: 0; }
+.folio-bench { --inkling: #0f766e; --inkling-low: #c28538; --qwen: #4c67a6; --glm: #7c5ca6; margin: 28px 0 24px; padding: 26px; background: var(--pale); border: 1px solid var(--line); border-radius: 14px; }
+.dark .folio-bench { --inkling: #59c7b7; }
+.folio-bench .bench-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+.folio-bench .bench-header h3 { font-size: 19px; line-height: 1.4; }
+.folio-bench .bench-badge { font-size: 11px; font-weight: 500; letter-spacing: .06em; white-space: nowrap; color: var(--inkling); background: var(--paper); padding: 4px 10px; border-radius: 20px; }
+.folio-bench .bench-sub { font-size: 14px; color: var(--soft); line-height: 1.6; margin-bottom: 24px; }
+.folio-bench .bench-section { margin-bottom: 26px; }
+.folio-bench .bench-section-head { display: flex; flex-wrap: wrap; gap: 6px 20px; align-items: baseline; justify-content: space-between; border-bottom: 1px solid var(--line); padding-bottom: 10px; margin-bottom: 18px; }
+.folio-bench .bench-section-head h3 { font-size: 15px; line-height: 1.5; }
+.folio-bench .bench-section-head span { font-size: 13px; color: var(--soft); }
+.folio-bench .bench-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; }
+.folio-bench .metric-label { font: 500 14px/1.5 DM, sans-serif; color: var(--soft); margin: 0 0 14px; }
+.folio-bench .bar-row { margin-bottom: 14px; }
+.folio-bench .bar-row:last-child { margin-bottom: 0; }
+.folio-bench .bar-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 2px 10px; font-size: 13px; line-height: 1.5; margin-bottom: 5px; }
+.folio-bench .model-name { font-weight: 500; }
+.folio-bench .model-name.highlight { color: var(--inkling); }
+.folio-bench .bar-val { font-variant-numeric: tabular-nums; font-weight: 500; white-space: nowrap; margin-left: auto; }
+.folio-bench .bar-val small { font-size: 12px; font-weight: 400; color: var(--soft); margin-left: 4px; }
+.folio-bench .track { height: 11px; background: var(--line); border-radius: 99px; overflow: hidden; }
+.folio-bench .fill { height: 100%; border-radius: 99px; }
+.folio-bench .fill.inkling { background: var(--inkling); }
+.folio-bench .fill.inkling-low { background: var(--inkling-low); }
+.folio-bench .fill.qwen { background: var(--qwen); }
+.folio-bench .fill.glm { background: var(--glm); }
+.folio-bench .bench-foot { font-size: 13px; color: var(--soft); line-height: 1.6; margin-top: 14px; }
 .inkling-story .disclosure { margin-top: 40px; max-width: 930px; }
 .inkling-story .disclosure summary { color: var(--blue); font-size: 17px; }
 .inkling-story .disclosure li { font-size: 16px; line-height: 1.7; }
 .inkling-story .disclosure ul { margin-top: 24px; }
-.inkling-story .table-scroll { margin-bottom: 24px; }
-.inkling-story caption { text-align: left; margin-bottom: 12px; }
-.inkling-story th, .inkling-story td { font-size: 15px; }
-.inkling-story .table-scroll table { min-width: 0; }
 @media (max-width: 650px) {
   .inkling-hero { padding-top: 36px; }
-  .inkling-hero .lead { font-size: 20px; }
+  .inkling-hero .lead { font-size: 19px; }
   .inkling-story > p, .inkling-story > ul { font-size: 17px; }
-  .inkling-story > h2 { font-size: 25px; }
-  .source-checks { grid-template-columns: 1fr; padding: 22px; gap: 22px; }
-  .source-checks li + li { border-left: 0; border-top: 1px solid var(--line); padding-left: 0; padding-top: 22px; }
-  .inkling-story th, .inkling-story td { font-size: 13px; padding-right: 10px; }
+  .inkling-story > h2 { font-size: 23px; }
+  .source-checks { grid-template-columns: 1fr; }
+  .folio-bench { padding: 20px 16px; }
+  .folio-bench .bench-grid { grid-template-columns: 1fr; gap: 24px; }
+  .folio-bench .bench-header h3 { font-size: 18px; }
+  .thanks { padding: 20px; }
 }
