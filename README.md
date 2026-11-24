@@ -19,6 +19,7 @@ experiments; the blog tells the story behind the tools.
 | `/blog/ai-surfen/`    | Keeping knowledge and workflows across model changes |
 | `/blog/lokale-modelle-2026-10/` | October local model comparison and aggregates |
 | `/blog/folio-wissen-pruefen/` | Recertification case, memory extensions and bounded synthetic test |
+| `/blog/inkling-2-mini-lokaler-test/` | Inkling, Qwen and GLM: curated real mail aggregates and source-checking limits |
 | `/story/`             | Original illustrated history, retained as an archive |
 | `/the-long-table/`    | Original session entries, unchanged                  |
 | `/folio/import-spec/` | Rendered canonical import format                     |
@@ -61,8 +62,10 @@ image viewer, dark mode, the import reference and the Long Table reading pane.
 - Memory's core is in `v0.6.0-preview.1`; the spatial graph shown on the site is
   a development preview and is labelled separately.
 - The twelve-model catalog spans multiple experiments, not one shared benchmark.
-- Public test figures use synthetic data only. The report distinguishes recorded
-  model inference, re-scoring a corrected reference label, and deterministic tests.
+- Public test figures may use synthetic data or anonymised aggregates from real
+  private cases. Each report labels the data type, sampling, denominators and
+  evaluation limits. Original private content is never published. Recorded model
+  inference, re-scoring and deterministic tests remain distinct.
 - Machine-readable aggregates: `multi-agent/results-2026-09.json`.
 - Asset descriptions: [assets/wave/README.md](assets/wave/README.md).
 

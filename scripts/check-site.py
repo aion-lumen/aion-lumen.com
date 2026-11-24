@@ -7,7 +7,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 ROUTES = ['', 'folio', 'multi-agent', 'multi-agent/tests', 'blog',
-          'blog/surfbrett', 'blog/ai-surfen', 'blog/lokale-modelle-2026-10','blog/folio-wissen-pruefen',
+          'blog/surfbrett', 'blog/ai-surfen', 'blog/lokale-modelle-2026-10','blog/folio-wissen-pruefen','blog/inkling-2-mini-lokaler-test',
           'story', 'the-long-table', 'impressum', 'folio/import-spec']
 PAGES = [ROOT / route / name for route in ROUTES for name in ['index.html', 'en.html']]
 
@@ -25,6 +25,9 @@ class Page(HTMLParser):
         if tag == 'img' and 'alt' not in a: self.no_alt.append(a.get('src'))
         key = 'href' if tag in ('a', 'link') else 'src' if tag in ('img', 'script') else None
         if key and a.get(key): self.refs.append(a[key])
+        if tag in ('img', 'source') and a.get('srcset'):
+            self.refs.extend(candidate.strip().split()[0]
+                             for candidate in a['srcset'].split(',') if candidate.strip())
 
 def resolve(current, ref):
     path = unquote(urlsplit(ref).path)

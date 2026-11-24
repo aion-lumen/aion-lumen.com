@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="de" data-lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Inkling 2 Mini gegen Qwen und GLM. · Aion Lumen</title>
+    <meta
+      name="description"
+      content="Ein kompaktes US-Open-Weights-Modell unter Apache 2.0 im lokalen Praxistest: mehr Antwortraum, eine neue Kontrollstimme und die Grenzen von Quellenangaben."
+    />
+    <link rel="canonical" href="https://aion-lumen.ch/blog/inkling-2-mini-lokaler-test/" />
+    <link rel="alternate" hreflang="de" href="https://aion-lumen.ch/blog/inkling-2-mini-lokaler-test/" />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://aion-lumen.ch/blog/inkling-2-mini-lokaler-test/en.html"
+    />
+    <meta property="og:title" content="Inkling 2 Mini gegen Qwen und GLM." />
+    <meta
+      property="og:description"
+      content="Ein kompaktes US-Open-Weights-Modell unter Apache 2.0 im lokalen Praxistest: mehr Antwortraum, eine neue Kontrollstimme und die Grenzen von Quellenangaben."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://aion-lumen.ch/blog/inkling-2-mini-lokaler-test/" />
+    <meta
+      property="og:image"
+      content="https://aion-lumen.ch/assets/inkling-20261122/mail-de.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="stylesheet" href="/styles/site.css?v=fddd1afe9257" />
+  <meta name="author" content="Afschin Mirhamed">
+<meta property="article:published_time" content="2026-11-23">
+<link rel="stylesheet" href="/styles/inkling-post.css">
+</head>
+  <body class="">
+    <script>
+      try {
+        if (localStorage.getItem("al.theme") === "dark")
+          document.body.classList.add("dark");
+      } catch (e) {}
+    </script>
+    <a class="skip" href="#main">Zum Inhalt</a>
+    <header class="header">
+      <div class="nav-shell">
+        <a class="brand" href="/" aria-label="Aion Lumen · Startseite"
+          ><img src="/favicon.svg" alt="" width="40" height="40" /><span
+            >AION LUMEN</span
+          ></a
+        >
+        <nav aria-label="Hauptnavigation">
+          <a href="/folio/">Folio</a><a href="/multi-agent/">Werkstatt</a
+          ><a href="/blog/" aria-current="page">Blog</a>
+        </nav>
+        <div class="nav-tools">
+          <a
+            class="language"
+            href="/blog/inkling-2-mini-lokaler-test/en.html"
+            lang="en"
+            aria-label="Switch to English"
+            >EN</a
+          ><button id="theme" aria-label="Dunkle Ansicht" aria-pressed="false">
+            ◐</button
+          ><button
+            id="menu"
+            aria-label="Menü öffnen"
+            aria-controls="mobile-nav"
+            aria-expanded="false"
+          >
+            ☰
+          </button>
+        </div>
+      </div>
+      <nav id="mobile-nav" aria-label="Mobile Navigation" hidden>
+        <a href="/folio/">Folio</a><a href="/multi-agent/">Werkstatt</a
+        ><a href="/blog/" aria-current="page">Blog</a>
+      </nav>
+    </header>
+    <main id="main" class="inkling-post wrap">
+<header class="inkling-hero"><p class="eyebrow">MODELLTEST · WERKSTATT · <time datetime="2026-11-23">23.11.2026</time></p>
+<h1>Inkling 2 Mini<br>gegen Qwen und GLM.</h1><p class="lead">Bei meinen lokalen Modelltests standen zuletzt chinesische Modelle wie Qwen und GLM im Mittelpunkt. Umso spannender ist <strong>Inkling 2 Mini (26B-A5B)</strong> von Thinking Machines – ein kompaktes, frei verfügbares US-Modell unter <strong>Apache 2.0</strong>, das aus meiner Sicht bisher viel zu wenig Aufmerksamkeit bekommt.</p><p class="byline">Afschin Mirhamed</p></header>
+<article class="inkling-story"><p>Ich habe es direkt auf meinem <strong>Mac Studio (96 GB)</strong> gegen meine bisherigen lokalen Vergleichsmodelle <strong>Qwen3.8 27B</strong> und <strong>GLM-4.7 Flash</strong> antreten lassen – bei der alltäglichen Maileinordnung in Folio. Ein weiterer Vergleich mit Qwen widmete sich der Quellenprüfung.</p>
+<h2>1 · Erst mit genug Antwortraum zeigt Inkling, was in ihm steckt</h2>
+<p>Die Aufgabe: <strong>60 kuratierte reale Mailfälle</strong> (59 davon mit eindeutiger Handlungsreferenz). Die verglichenen Modelle liefen lokal; veröffentlicht werden ausschliesslich aggregierte Ergebnisse. Referenzen und Auswertung entstanden mit Codex.</p>
+<p>Im ersten Durchlauf wirkte Inkling überraschend schwach. Bei meinem bisherigen Limit von <strong>220 Ausgabetokens</strong> lieferte Qwen 60 von 60 Antworten vollständig (42/59 passende Handlungsarten). Inkling brach 19-mal mittendrin ab – nur <strong>41/60 vollständige Antworten</strong> und <strong>37/59 passende Handlungsarten</strong>. Der Grund: Bei Inkling teilt sich die interne Denkphase das Ausgabelimit mit der eigentlichen Antwort.</p>
+<p>Also Inkling an denselben Fällen noch einmal mit <strong>1.024 Tokens</strong> und sonst unveränderten Einstellungen. Das veränderte das Bild:</p>
+<ul><li><strong>Vollständige Antworten:</strong> von <strong>41/60</strong> auf <strong>60/60</strong></li><li><strong>Passende Handlungsarten:</strong> von <strong>37/59</strong> auf <strong>48/59</strong> – vor <strong>Qwen (42/59)</strong> und einem reparierten <strong>GLM-4.7-Flash-Kandidaten (41/59)</strong></li></ul>
+<figure class="mail-chart">
+<a href="/assets/inkling-20261122/mail-de.png" target="_blank" rel="noopener" aria-label="Grafik in voller Grösse öffnen">
+<picture><source media="(max-width: 650px)" srcset="/assets/inkling-20261122/mail-de-mobile.png" width="720" height="1504">
+<img src="/assets/inkling-20261122/mail-de.png" width="2048" height="944" alt="Vollständige Antworten von 60: Qwen 220 Tokens 60, Inkling 220 Tokens 41, Inkling 1.024 Tokens 60, GLM kurzer Fix 60. Passende Handlungsarten von 59: entsprechend 42, 37, 48 und 41."></picture></a>
+<figcaption>60 kuratierte Mailfälle; 59 bewertbare Handlungsarten. Abgebrochene Antworten bleiben Fehlschläge. Verglichen werden lokale Konfigurationen, keine allgemeine Modellleistung. <a href="#method">Methodik ↓</a></figcaption>
+</figure>
+<p>Im Detail zeigte sich eine sinnvolle Arbeitsteilung: Bei älteren Archivmails lag Inkling deutlich vor Qwen; bei neueren Fällen traf Qwen häufiger die Referenz. Nach einer zusätzlichen Betriebsprobe ersetzt <strong>Inkling 2 Mini seit dem 22. November GLM als erste Kontrollstimme</strong> in meiner <a href="/multi-agent/">Werkstatt</a>. <strong>Qwen bleibt mein Hauptmodell.</strong></p>
+<h2>2 · Wo selbst starke lokale Modelle noch Bremsen brauchen</h2>
+<p>Ein zweiter Vergleich mit <strong>24 Quellenfragen</strong> brachte eine ebenso wichtige Lektion: Hier eine gültige Quelle, dort eine zu weitgehende Schlussfolgerung.</p>
+<p>Das Muster kannte ich schon aus synthetischen Dokumententests – etwa wenn aus einem fehlenden Zahlungsnachweis plötzlich eine <em>unbezahlte Rechnung</em> wurde oder aus einer Teilnahmebestätigung eine <em>fehlende Zertifizierung</em>. Auch in den neuen Quellenfragen zitierte Inkling echte Belege, dehnte aber einmal eine Aussage über ihre tatsächliche Bezugsmenge hinaus.</p>
+<p>Für meinen Alltag mit lokalen Modellen trenne ich deshalb drei Schritte:</p>
+<ol class="source-checks"><li><span class="flow-number">01</span><h3>Quelle prüfen</h3><p>Hat das Modell die angegebene Quelle tatsächlich erhalten?</p><small>Weitgehend mechanisch prüfbar.</small></li>
+<li><span class="flow-number">02</span><h3>Bezugsmenge klären</h3><p>Trägt die Quelle genau diese Aussage – inklusive Datum und Geltungsbereich?</p><small>Braucht inhaltliche Gegenprüfung.</small></li>
+<li><span class="flow-number">03</span><h3>Status offenhalten</h3><p>Ist etwas belegt, widerlegt oder schlicht weiterhin offen?</p><small>Quellenprüfung unterstützt die Entscheidung; konkrete Aktionen folgen ihren eigenen Freigaberegeln.</small></li></ol>
+<h2>Ein ehrliches Dankeschön</h2>
+<p>Dass heute ein so starkes, wirklich offen lizenziertes US-Modell einfach lokal auf meinem Schreibtisch läuft – in diesen Tests auf Augenhöhe mit Qwen und GLM und ohne laufenden Modell-API-Zähler –, ist keine Selbstverständlichkeit.</p>
+<p>Ein herzliches Danke an <strong>Mira Murati</strong> und das gesamte <strong>Thinking-Machines-Team</strong> für die Veröffentlichung von <a href="https://huggingface.co/thinkingmachines/Inkling-2-Mini">Inkling 2 Mini unter Apache 2.0</a>. Mehr davon!</p><details class="disclosure" id="method"><summary>Methodik, Teilgruppen und Grenzen im Detail</summary><div class="table-scroll" tabindex="0"><table><caption>Mailtest: Zahlen aus der Grafik</caption><thead><tr><th scope="col">Lokale Konfiguration</th><th scope="col">Vollständig / 60</th><th scope="col">Handlungsart passend / 59</th></tr></thead><tbody><tr><th scope="row">Qwen · 220</th><td>60</td><td>42</td></tr><tr><th scope="row">Inkling · 220</th><td>41</td><td>37</td></tr><tr><th scope="row">Inkling · 1.024</th><td>60</td><td>48</td></tr><tr><th scope="row">GLM · kurzer Fix</th><td>60</td><td>41</td></tr></tbody></table></div><ul><li><strong>Hardware &amp; Laufzeit:</strong> Mac Studio (96 GB gemeinsamer Speicher). Verglichen wurden <code>Qwen3.8 27B</code> (MLX 4-bit in LM Studio) und <code>Inkling 2 Mini 26B-A5B</code> (NVFP4 in einer lokalen Ollama-Laufzeit), Temperatur 0,1, Seed 17, 16.384 Kontexttokens. GLM-4.7 Flash nutzte MLX-6bit-Gewichte mit reparierter Kurzantwortvorlage und neutralem Wiederholungsparameter. Laufzeit und Quantisierung unterscheiden sich zwischen Modellen; verglichen werden lokale Konfigurationen.</li><li><strong>Stichprobe Mailtest (60 Fälle):</strong> Kuratierte Auswahl aus realen Mailfällen (27 neuere, 33 ältere): 20 Fälle mit früheren Konflikten zum Handlungsbedarf, 10 zu Archivierungsvarianten, 10 zu Domänenvarianten und 20 mit übereinstimmenden historischen Qwen-Voten. Keine repräsentative Zufallsstichprobe des gesamten Maileingangs. Bei einem älteren Fall fehlte der entscheidende Anhang (Nenner für Handlungsarten daher 59; 32 ältere, 27 neuere).</li><li><strong>Wiederverwendung &amp; Teilgruppen:</strong> <code>Qwen · 220</code> und <code>Inkling · 220</code> stammen unverändert aus dem ersten Vergleichslauf; nur Inkling wurde mit 1.024 Tokens erneut gemessen. Aufteilung bei 1.024 Tokens: ältere Fälle Inkling <strong>25/32</strong> vs. Qwen <strong>17/32</strong>; neuere Fälle Qwen <strong>25/27</strong> vs. Inkling <strong>23/27</strong>. Die 19 Inkling-Abbrüche bei 220 Tokens bleiben als technische Fehlschläge gezählt.</li><li><strong>Quellenfragen (24 Fälle):</strong> 24 Fragen über 18 Quellenfamilien auf festen, vorbereiteten Quellenpaketen (keine selbstständige Suche durch das Gesamtarchiv). Verdeckte Auswertung ohne sichtbare Modellnamen nach vorgegebenen Kriterien: Inkling <strong>22/24</strong> direkt brauchbar, Qwen <strong>16/24</strong> (im konkreten Test vorn, keine allgemeine Modellrangliste). Die Beispiele zu Rechnung/Zahlungsnachweis und Teilnahmebestätigung stammen aus separaten synthetischen Testunterlagen.</li><li><strong>Bewertung &amp; Datenschutz:</strong> Die verglichenen Modelle liefen lokal; Referenzen und Bewertung entstanden mit Codex (keine unabhängige menschliche Blindstudie). Veröffentlicht werden ausschliesslich aggregierte Kennzahlen; persönliche Mailinhalte und Rohdaten bleiben privat.</li><li><strong>Betriebsgrenzen:</strong> Im obigen Vergleich stufte Inkling eine phishingartige Nachricht falsch ein. Vor dem Produktivwechsel am 22.11.2026 folgten eine angepasste Integration auf bekannten Fällen und eine separate Betriebsprobe (Format-, Phishing-, Abbruch-, Wiederanlauf- und Sicherungsprüfungen). Diese spätere Betriebsprobe ist keine unabhängige Wiederholung des 48/59-Vergleichs. Auch im neuen Setup bleiben lokale Modelle fehlbar; Quellenprüfung unterstützt Entscheidungen, konkrete Aktionen folgen ihren eigenen Freigaberegeln.</li></ul></details><p class="byline">Teststand: 22. November 2026 · Text mit KI-Unterstützung ausgearbeitet.</p><p><a href="/blog/">Alle Beiträge →</a></p></article></main>
+    <footer class="wrap footer">
+      <a class="brand" href="/" aria-label="Aion Lumen · Startseite"
+        ><img src="/favicon.svg" alt="" width="40" height="40" /><span
+          >AION LUMEN</span
+        ></a
+      >
+      <div class="footer-links">
+        <a href="/story/">Die Anfänge</a
+        ><a href="/the-long-table/">The Long Table</a
+        ><a href="/impressum/">Impressum</a
+        ><a href="https://github.com/aion-lumen">GitHub ↗</a>
+      </div>
+      <p>Offene Software. Aus eigener Erfahrung gebaut.</p>
+    </footer>
+    <dialog id="lightbox" aria-label="Vergrößerte Aufnahme">
+      <div class="lightbox-toolbar">
+        <p id="lightbox-caption"></p>
+        <div>
+          <button id="toggle-zoom" aria-pressed="false">Originalgröße</button
+          ><button
+            class="close"
+            data-close="lightbox"
+            aria-label="Bild schließen"
+          >
+            ✕
+          </button>
+        </div>
+      </div>
+      <div class="lightbox-scroll"><img id="lightbox-image" alt="" /></div>
+    </dialog>
+    <script src="/styles/site.js?v=620a9968138d"></script>
+  </body>
+</html>
