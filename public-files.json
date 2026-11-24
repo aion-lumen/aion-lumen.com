@@ -95,6 +95,26 @@
     "sha256": "40a5e898131480c23e68072ae152ad289ea6f259f8a7a6b39337715c8a776069"
   },
   {
+    "file": "assets/inkling-20261122/mail-de-mobile.png",
+    "bytes": 117761,
+    "sha256": "252fe7a9ce119e41f180d22bdbb233ae0dbe1ed0f928b764cad336a76dd69d5c"
+  },
+  {
+    "file": "assets/inkling-20261122/mail-de.png",
+    "bytes": 114122,
+    "sha256": "821f1c89d84eaeb3c33eacf231376171a8784eab2b42c0abb7dedee02416d844"
+  },
+  {
+    "file": "assets/inkling-20261122/mail-en-mobile.png",
+    "bytes": 112010,
+    "sha256": "2247083f892ae37f320d2146bfcccc8365b3e3b7a455ae3cb2ab57bc6d2bee48"
+  },
+  {
+    "file": "assets/inkling-20261122/mail-en.png",
+    "bytes": 110692,
+    "sha256": "38719c212d8e090c303485e65cfb30a55db75ab47ada86c9f76c01c4453b610a"
+  },
+  {
     "file": "assets/surf/BufferGeometryUtils.js",
     "bytes": 37637,
     "sha256": "5f76ff28be936bb281c241a292bb075bbd574d3bf0ca23f4f00896f74181ddd1"
@@ -186,8 +206,8 @@
   },
   {
     "file": "blog/en.html",
-    "bytes": 6506,
-    "sha256": "7b8a50310c5d40ec10256815a9f375ac718a3dcc12fe01da15e28084b67a33c8"
+    "bytes": 7011,
+    "sha256": "2849417ffc96f257d56775a10ed0241adfff75a30ca4ddb6f3978a9fddb10ad9"
   },
   {
     "file": "blog/folio-wissen-pruefen/en.html",
@@ -201,8 +221,18 @@
   },
   {
     "file": "blog/index.html",
-    "bytes": 6441,
-    "sha256": "25f2d37847771bc189680da44c34e78b0ea69402d6382ad79b63e23ca6676f5e"
+    "bytes": 6956,
+    "sha256": "9913050e7a711ac6cdb99b39f000e74b95c76a60015ef3bc44a83c976cb76083"
+  },
+  {
+    "file": "blog/inkling-2-mini-lokaler-test/en.html",
+    "bytes": 12229,
+    "sha256": "0bc81a6080dd6bcc40903536d34f8b9c1d96bf61112cba63d7ce2d07557edfdf"
+  },
+  {
+    "file": "blog/inkling-2-mini-lokaler-test/index.html",
+    "bytes": 13319,
+    "sha256": "0516d7c5a3b80576e0118d98e410c97d53e084ca821b86895918c76dc28c9093"
   },
   {
     "file": "blog/lokale-modelle-2026-10/classification-de.png",
@@ -301,8 +331,8 @@
   },
   {
     "file": "multi-agent/en.html",
-    "bytes": 12023,
-    "sha256": "152b1807ab608a50bc8312c22244764bb91a322afa2727933d32c43c2ce4f387"
+    "bytes": 12194,
+    "sha256": "2429ecc9fe22bf4175a9e99c0e9d2d906f8426000c257b24f320bd8a55fd5350"
   },
   {
     "file": "multi-agent/img/beleg-02-pipeline.jpg",
@@ -336,8 +366,8 @@
   },
   {
     "file": "multi-agent/index.html",
-    "bytes": 12332,
-    "sha256": "af337d4e4fb82db16cfc0a074db659fe64b9e8780add4e519610d69799d211d8"
+    "bytes": 12503,
+    "sha256": "ad987064790f2ffdce469afda57112038413565b8479c23fe4f0a7d71d7b8c51"
   },
   {
     "file": "multi-agent/results-2026-09.json",
@@ -488,6 +518,11 @@
     "file": "styles/fonts/spectral-latin-400-normal.woff2",
     "bytes": 21696,
     "sha256": "cf8daee3b83c1e662196c6e34e444bc41344d54bfeb4fb5351e197de6ce94539"
+  },
+  {
+    "file": "styles/inkling-post.css",
+    "bytes": 2829,
+    "sha256": "c506a781d97b30d159fc06b8e51a602679754a5f59cb953f78d73a74673d3c78"
   },
   {
     "file": "styles/journey.css",

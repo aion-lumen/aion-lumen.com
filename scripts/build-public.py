@@ -5,7 +5,7 @@ from urllib.parse import urlsplit,unquote
 import hashlib,json,re,shutil
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'site-dist'
-ROUTES=['','folio','multi-agent','multi-agent/tests','blog','blog/surfbrett','blog/ai-surfen','blog/lokale-modelle-2026-10','blog/folio-wissen-pruefen','story','the-long-table','impressum','folio/import-spec']
+ROUTES=['','folio','multi-agent','multi-agent/tests','blog','blog/surfbrett','blog/ai-surfen','blog/lokale-modelle-2026-10','blog/folio-wissen-pruefen','blog/inkling-2-mini-lokaler-test','story','the-long-table','impressum','folio/import-spec']
 queue=[ROOT/route/name for route in ROUTES for name in ['index.html','en.html']]
 queue += [ROOT/'favicon.svg',ROOT/'folio/import-spec.md']
 # Licences and provenance belong to the assets they cover, not internal READMEs.
@@ -20,6 +20,8 @@ while queue:
  text=p.read_text()
  refs=re.findall(r'''(?:src|href|data-src|data-zoom)\s*=\s*["']([^"']+)["']|url\(\s*["']?([^\s)'";]+)|["'`]((?:\.{1,2}/|/)(?:assets|styles|folio|multi-agent)[^"'`\s<>]*)["'`]|(?:from\s*|import\s*)["'](\.[^"']+)["']''',text)
  refs += [(ref,) for ref in re.findall(r'content=["\']((?:https://aion-lumen.ch)?/assets/[^"\']+)["\']',text)]
+ for srcset in re.findall(r'srcset=["\']([^"\']+)["\']',text):
+  refs += [(candidate.strip().split()[0],) for candidate in srcset.split(',') if candidate.strip()]
  for group in refs:
   ref=next(x for x in group if x).replace('https://aion-lumen.ch/','/').split('?')[0].split('#')[0]
   if not ref or ref.startswith(('data:','http:','https:','mailto:','//')) or '$' in ref:continue

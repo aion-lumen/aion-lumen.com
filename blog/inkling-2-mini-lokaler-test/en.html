@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Inkling 2 Mini vs. Qwen and GLM. · Aion Lumen</title>
+    <meta
+      name="description"
+      content="Testing a compact Apache-2.0 US open-weights model locally: more output room, a new check voice and the limits of citations."
+    />
+    <link rel="canonical" href="https://aion-lumen.ch/blog/inkling-2-mini-lokaler-test/en.html" />
+    <link rel="alternate" hreflang="de" href="https://aion-lumen.ch/blog/inkling-2-mini-lokaler-test/" />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://aion-lumen.ch/blog/inkling-2-mini-lokaler-test/en.html"
+    />
+    <meta property="og:title" content="Inkling 2 Mini vs. Qwen and GLM." />
+    <meta
+      property="og:description"
+      content="Testing a compact Apache-2.0 US open-weights model locally: more output room, a new check voice and the limits of citations."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://aion-lumen.ch/blog/inkling-2-mini-lokaler-test/en.html" />
+    <meta
+      property="og:image"
+      content="https://aion-lumen.ch/assets/inkling-20261122/mail-en.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="stylesheet" href="/styles/site.css?v=fddd1afe9257" />
+  <meta name="author" content="Afschin Mirhamed">
+<meta property="article:published_time" content="2026-11-23">
+<link rel="stylesheet" href="/styles/inkling-post.css">
+</head>
+  <body class="">
+    <script>
+      try {
+        if (localStorage.getItem("al.theme") === "dark")
+          document.body.classList.add("dark");
+      } catch (e) {}
+    </script>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="header">
+      <div class="nav-shell">
+        <a class="brand" href="/en.html" aria-label="Aion Lumen · Home"
+          ><img src="/favicon.svg" alt="" width="40" height="40" /><span
+            >AION LUMEN</span
+          ></a
+        >
+        <nav aria-label="Main navigation">
+          <a href="/folio/en.html">Folio</a
+          ><a href="/multi-agent/en.html">Lab</a
+          ><a href="/blog/en.html" aria-current="page">Blog</a>
+        </nav>
+        <div class="nav-tools">
+          <a
+            class="language"
+            href="/blog/inkling-2-mini-lokaler-test/"
+            lang="de"
+            aria-label="Zu Deutsch wechseln"
+            >DE</a
+          ><button id="theme" aria-label="Dark theme" aria-pressed="false">
+            ◐</button
+          ><button
+            id="menu"
+            aria-label="Open menu"
+            aria-controls="mobile-nav"
+            aria-expanded="false"
+          >
+            ☰
+          </button>
+        </div>
+      </div>
+      <nav id="mobile-nav" aria-label="Mobile navigation" hidden>
+        <a href="/folio/en.html">Folio</a><a href="/multi-agent/en.html">Lab</a
+        ><a href="/blog/en.html" aria-current="page">Blog</a>
+      </nav>
+    </header>
+    <main id="main" class="inkling-post wrap">
+<header class="inkling-hero"><p class="eyebrow">MODEL TEST · WORKSHOP · <time datetime="2026-11-23">23.11.2026</time></p>
+<h1>Inkling 2 Mini<br>vs. Qwen and GLM.</h1><p class="lead">In my recent local model tests, Chinese releases such as Qwen and GLM took centre stage. That is what makes <strong>Inkling 2 Mini (26B-A5B)</strong> from Thinking Machines so interesting: a compact, genuinely open <strong>Apache-2.0</strong> US model that, in my view, hasn't received nearly enough credit yet.</p><p class="byline">Afschin Mirhamed</p></header>
+<article class="inkling-story"><p>I tested it locally on my <strong>Mac Studio (96 GB)</strong> against <strong>Qwen3.8 27B</strong> and <strong>GLM-4.7 Flash</strong> for everyday mail triage in Folio, followed by a source-checking comparison with Qwen.</p>
+<h2>1 · Enough output room makes the difference</h2>
+<p>The setup: <strong>60 curated real mail cases</strong> (59 with an unambiguous action reference). The compared models ran locally; only aggregate results are published. References and evaluation were prepared with Codex.</p>
+<p>At first, Inkling looked unexpectedly weak. Under my existing <strong>220-token</strong> output cap, Qwen completed 60 of 60 responses cleanly (42/59 matching actions). Inkling truncated 19 times mid-response—only <strong>41/60 complete</strong> and <strong>37/59 matching</strong>—because its internal thinking phase shares the output budget.</p>
+<p>Re-running Inkling on the same cases at <strong>1,024 tokens</strong>, with its other settings unchanged, changed the picture:</p>
+<ul><li><strong>Complete responses:</strong> from <strong>41/60</strong> to <strong>60/60</strong></li><li><strong>Matching actions:</strong> from <strong>37/59</strong> to <strong>48/59</strong>—ahead of <strong>Qwen (42/59)</strong> and a repaired <strong>GLM-4.7-Flash candidate (41/59)</strong></li></ul>
+<figure class="mail-chart">
+<a href="/assets/inkling-20261122/mail-en.png" target="_blank" rel="noopener" aria-label="Open full-size chart">
+<picture><source media="(max-width: 650px)" srcset="/assets/inkling-20261122/mail-en-mobile.png" width="720" height="1504">
+<img src="/assets/inkling-20261122/mail-en.png" width="2048" height="944" alt="Complete responses out of 60: Qwen 220 tokens 60, Inkling 220 tokens 41, Inkling 1,024 tokens 60, GLM short fix 60. Matching actions out of 59: 42, 37, 48 and 41 respectively."></picture></a>
+<figcaption>60 curated mail cases; 59 scorable for action. Truncated responses remain failures. This compares local configurations, not general model capability. <a href="#method">Methodology ↓</a></figcaption>
+</figure>
+<p>The split turned out to be complementary: Inkling clearly outperformed Qwen on older archive mails, while Qwen matched the reference more often on recent cases. Following a separate operational check, <strong>Inkling 2 Mini has replaced GLM as the first check voice since 22 November</strong> in my <a href="/multi-agent/en.html">Workshop</a>. <strong>Qwen remains my primary model.</strong></p>
+<h2>2 · Where even strong local models still need brakes</h2>
+<p>A second comparison across <strong>24 source-grounded questions</strong> delivered an equally important lesson: a valid source does not guarantee a valid conclusion.</p>
+<p>I had already seen this pattern in synthetic document tests—a missing payment receipt turned into an <em>unpaid invoice</em>, or an attendance confirmation turned into a <em>missing certification</em>. In the new source questions too, Inkling cited genuine evidence yet once extended a claim beyond its actual scope.</p>
+<p>In daily use, I therefore keep three checks distinct:</p>
+<ol class="source-checks"><li><span class="flow-number">01</span><h3>Verify the source</h3><p>Did the model actually receive the cited source?</p><small>Largely checkable mechanically.</small></li>
+<li><span class="flow-number">02</span><h3>Check the scope</h3><p>Does the source support this exact claim, including date and denominator?</p><small>Requires content review.</small></li>
+<li><span class="flow-number">03</span><h3>Keep status honest</h3><p>Is a claim proven, refuted, or still open?</p><small>Source checks support decisions; concrete actions follow their own approval rules.</small></li></ol>
+<h2>A heartfelt thank you</h2>
+<p>Seeing a capable, Apache-2.0 US open-weights model run right on my desk—holding its own in these tests against Qwen and GLM with no paid model API meter ticking—still feels remarkable.</p>
+<p>A heartfelt thank you to <strong>Mira Murati</strong> and the entire <strong>Thinking Machines team</strong> for releasing <a href="https://huggingface.co/thinkingmachines/Inkling-2-Mini">Inkling 2 Mini under Apache 2.0</a>. More of this, please!</p><details class="disclosure" id="method"><summary>Methodology, subsets and limits</summary><div class="table-scroll" tabindex="0"><table><caption>Mail test: chart values</caption><thead><tr><th scope="col">Local configuration</th><th scope="col">Complete / 60</th><th scope="col">Matching action / 59</th></tr></thead><tbody><tr><th scope="row">Qwen · 220</th><td>60</td><td>42</td></tr><tr><th scope="row">Inkling · 220</th><td>41</td><td>37</td></tr><tr><th scope="row">Inkling · 1,024</th><td>60</td><td>48</td></tr><tr><th scope="row">GLM · short fix</th><td>60</td><td>41</td></tr></tbody></table></div><ul><li><strong>Hardware &amp; setup:</strong> Mac Studio (96 GB unified memory). Compared <code>Qwen3.8 27B</code> (MLX 4-bit in LM Studio) and <code>Inkling 2 Mini 26B-A5B</code> (NVFP4 in a local Ollama runtime), temperature 0.1, seed 17, 16,384 context tokens. GLM-4.7 Flash used MLX 6-bit weights with a repaired short-answer template and neutral repetition penalty. Runtime and quantisation differ between models; this is a comparison of local configurations.</li><li><strong>Mail sample (60 cases):</strong> Curated real mail cases (27 recent, 33 older): 20 prior action-conflict cases, 10 archiving variants, 10 domain variants, and 20 historical Qwen agreement cases. Not a representative random inbox sample. One older case lacked a decisive attachment (action denominator: 59; 32 older, 27 recent).</li><li><strong>Reuse &amp; subsets:</strong> <code>Qwen · 220</code> and <code>Inkling · 220</code> come unchanged from the prior run; only Inkling was re-run at 1,024 tokens. Breakdown at 1,024 tokens: older cases Inkling <strong>25/32</strong> vs. Qwen <strong>17/32</strong>; recent cases Qwen <strong>25/27</strong> vs. Inkling <strong>23/27</strong>. All 19 truncations at 220 tokens remain counted as technical failures.</li><li><strong>Source questions (24 cases):</strong> 24 questions across 18 source families using fixed prepared packets (not autonomous full-archive search). Blind grading without visible model names: Inkling <strong>22/24</strong> directly usable vs. Qwen <strong>16/24</strong> (specific to this test, not a general ranking). Invoice/receipt and attendance/certification examples come from separate synthetic test files.</li><li><strong>Evaluation &amp; privacy:</strong> Compared models ran locally; references and grading were prepared with Codex (not an independent human blind study). Only aggregate figures are published; personal mail content and raw data stay private.</li><li><strong>Operational limits:</strong> Inkling misclassified a phishing-like message in the comparison above. Before switching on 22 November 2026, the integration was adjusted on known cases and a separate operational check covered formatting, phishing handling, abort/recovery, and backups. That later operational check is not an independent replication of the 48/59 comparison. Local models remain fallible; source checks support decisions while concrete actions follow their own approval rules.</li></ul></details><p class="byline">Test results: 22 November 2026 · Written with AI assistance.</p><p><a href="/blog/en.html">All posts →</a></p></article></main>
+    <footer class="wrap footer">
+      <a class="brand" href="/en.html" aria-label="Aion Lumen · Home"
+        ><img src="/favicon.svg" alt="" width="40" height="40" /><span
+          >AION LUMEN</span
+        ></a
+      >
+      <div class="footer-links">
+        <a href="/story/en.html">Origins</a
+        ><a href="/the-long-table/en.html">The Long Table</a
+        ><a href="/impressum/en.html">Legal notice</a
+        ><a href="https://github.com/aion-lumen">GitHub ↗</a>
+      </div>
+      <p>Open software. Built from everyday experience.</p>
+    </footer>
+    <dialog id="lightbox" aria-label="Image viewer">
+      <div class="lightbox-toolbar">
+        <p id="lightbox-caption"></p>
+        <div>
+          <button id="toggle-zoom" aria-pressed="false">Original size</button
+          ><button class="close" data-close="lightbox" aria-label="Close image">
+            ✕
+          </button>
+        </div>
+      </div>
+      <div class="lightbox-scroll"><img id="lightbox-image" alt="" /></div>
+    </dialog>
+    <script src="/styles/site.js?v=620a9968138d"></script>
+  </body>
+</html>
